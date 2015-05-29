@@ -1,5 +1,5 @@
 # ECS-tasy
-[Ashley](github.com/libgdx/ashley/) on ~~Speed~~ C++.
+[Ashley](http://github.com/libgdx/ashley/) on ~~Speed~~ C++.
 
 ## About
 A tiny entity framework written in C++. It started as a port of the ECS [Ashley](http://github.com/libgdx/ashley/)
