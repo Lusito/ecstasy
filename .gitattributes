@@ -1,0 +1,30 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text eol=crlf
+
+# These files are binary and should be left untouched
+# (binary is a macro for -text -diff)
+*.class binary
+*.dll binary
+*.exe binary
+*.lib binary
+*.a binary
+*.ear binary
+*.gif binary
+*.ico binary
+*.jar binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.so binary
+*.war binary
+*.ogg binary
+*.wav binary
+*.psd binary
+*.bin binary
+*.ttf binary
+*.doc binary
+*.docx binary
+*.dox binary
+*.pdf binary
+*.zip binary
+*.expected binary
