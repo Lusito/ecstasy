@@ -16,7 +16,7 @@
 #include "../TestBase.h"
 #include <ecstasy/systems/IteratingSystem.h>
 
-namespace IntervalSystemTest {
+namespace IntervalSystemTests {
 	const float deltaTime = 0.1f;
 
 	class IntervalSystemSpy : public IntervalSystem<IntervalSystemSpy> {

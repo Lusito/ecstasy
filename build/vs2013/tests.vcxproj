@@ -105,7 +105,7 @@
     <ClCompile Include="..\..\tests\core\PooledEngineTests.cpp" />
     <ClCompile Include="..\..\tests\signals\SignalTests.cpp" />
     <ClCompile Include="..\..\tests\systems\IntervalIteratingSystemTests.cpp" />
-    <ClCompile Include="..\..\tests\systems\IntervalSystemTest.cpp" />
+    <ClCompile Include="..\..\tests\systems\IntervalSystemTests.cpp" />
     <ClCompile Include="..\..\tests\systems\IteratingSystemTests.cpp" />
     <ClCompile Include="..\..\tests\systems\SortedIteratingSystemTests.cpp" />
     <ClCompile Include="..\..\tests\utils\BitsTests.cpp" />

@@ -18,7 +18,7 @@
 			</logicalFolder>
 			<logicalFolder name="systems" displayName="systems" projectFiles="true">
 				<itemPath>../../../tests/systems/IntervalIteratingSystemTests.cpp</itemPath>
-				<itemPath>../../../tests/systems/IntervalSystemTest.cpp</itemPath>
+				<itemPath>../../../tests/systems/IntervalSystemTests.cpp</itemPath>
 				<itemPath>../../../tests/systems/IteratingSystemTests.cpp</itemPath>
 				<itemPath>../../../tests/systems/SortedIteratingSystemTests.cpp</itemPath>
 			</logicalFolder>
@@ -86,7 +86,7 @@
 			<item path="../../../tests/core/PooledEngineTests.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../tests/signals/SignalTests.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../tests/systems/IntervalIteratingSystemTests.cpp" ex="false" tool="1" flavor2="0"></item>
-			<item path="../../../tests/systems/IntervalSystemTest.cpp" ex="false" tool="1" flavor2="0"></item>
+			<item path="../../../tests/systems/IntervalSystemTests.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../tests/systems/IteratingSystemTests.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../tests/systems/SortedIteratingSystemTests.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../tests/utils/BitsTests.cpp" ex="false" tool="1" flavor2="0"></item>
@@ -144,7 +144,7 @@
 			<item path="../../../tests/core/PooledEngineTests.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../tests/signals/SignalTests.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../tests/systems/IntervalIteratingSystemTests.cpp" ex="false" tool="1" flavor2="0"></item>
-			<item path="../../../tests/systems/IntervalSystemTest.cpp" ex="false" tool="1" flavor2="0"></item>
+			<item path="../../../tests/systems/IntervalSystemTests.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../tests/systems/IteratingSystemTests.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../tests/systems/SortedIteratingSystemTests.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../tests/utils/BitsTests.cpp" ex="false" tool="1" flavor2="0"></item>

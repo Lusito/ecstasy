@@ -43,7 +43,7 @@
     <ClCompile Include="..\..\tests\systems\IntervalIteratingSystemTests.cpp">
       <Filter>systems</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\tests\systems\IntervalSystemTest.cpp">
+    <ClCompile Include="..\..\tests\systems\IntervalSystemTests.cpp">
       <Filter>systems</Filter>
     </ClCompile>
     <ClCompile Include="..\..\tests\systems\IteratingSystemTests.cpp">
