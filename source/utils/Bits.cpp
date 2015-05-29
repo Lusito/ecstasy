@@ -186,7 +186,7 @@ namespace ECS {
 		return -1;
 	}
 
-	void Bits::_and (const Bits &other) {
+	Bits& Bits::operator &=(const Bits &other) {
 		int32_t commonWords = std::min(dataLength, other.dataLength);
 		for (int32_t i = 0; commonWords > i; i++) {
 			data[i] &= other.data[i];
@@ -197,15 +197,16 @@ namespace ECS {
 				data[i] = 0ull;
 			}
 		}
+		return *this;
 	}
 
-	void Bits::_andNot (const Bits &other) {
+	void Bits::andNot (const Bits &other) {
 		for (int32_t i = 0, j = dataLength, k = other.dataLength; i < j && i < k; i++) {
 			data[i] &= ~other.data[i];
 		}
 	}
 
-	void Bits::_or (const Bits &other) {
+	Bits& Bits::operator |=(const Bits &other) {
 		int32_t commonWords = std::min(dataLength, other.dataLength);
 		for (int32_t i = 0; commonWords > i; i++) {
 			data[i] |= other.data[i];
@@ -217,9 +218,10 @@ namespace ECS {
 				data[i] = other.data[i];
 			}
 		}
+		return *this;
 	}
 
-	void Bits::_xor (const Bits &other) {
+	Bits& Bits::operator ^=(const Bits &other) {
 		int32_t commonWords = std::min(dataLength, other.dataLength);
 
 		for (int32_t i = 0; commonWords > i; i++) {
@@ -236,6 +238,7 @@ namespace ECS {
 				data[i] = other.data[i];
 			}
 		}
+		return *this;
 	}
 
 	bool Bits::intersects (const Bits &other) const {

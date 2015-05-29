@@ -49,12 +49,12 @@ namespace BitsTests {
 		b2.set(200);
 		
 		// b1:s array should grow to accommodate b2
-		b1._xor(b2);
+		b1 ^= b2;
 		
 		REQUIRE(b1.get(200));
 		
 		b1.set(1024);
-		b2._xor(b1);
+		b2 ^= b1;
 		
 		REQUIRE(b2.get(1024));
 	}
@@ -66,12 +66,12 @@ namespace BitsTests {
 		b2.set(200);
 		
 		// b1:s array should grow to accommodate b2
-		b1._or(b2);
+		b1 |= b2;
 		
 		REQUIRE(b1.get(200));
 		
 		b1.set(1024);
-		b2._or(b1);
+		b2 |= b1;
 		
 		REQUIRE(b2.get(1024));
 	}
@@ -83,12 +83,12 @@ namespace BitsTests {
 		
 		b2.set(200);
 		// b1 should cancel b2:s bit
-		b2._and(b1);
+		b2 &= b1;
 		
 		REQUIRE(!b2.get(200));
 		
 		b1.set(400);
-		b1._and(b2);
+		b1 &= b2;
 		
 		REQUIRE(!b1.get(400));
 	}

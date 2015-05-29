@@ -102,23 +102,22 @@ namespace ECS {
 		 * exists then -1 is returned. */
 		int32_t nextClearBit(int32_t fromIndex) const;
 
-		// fixme: create operators for these instead ?
 		/** Performs a logical <b>AND</b> of this target bit set with the argument bit set. This bit set is modified so that each bit in
 		 * it has the value true if and only if it both initially had the value true and the corresponding bit in the bit set argument
 		 * also had the value true.
 		 * @param other a bit set */
-		void _and (const Bits &other);
+		Bits& operator &=(const Bits &other);
 
 		/** Clears all of the bits in this bit set whose corresponding bit is set in the specified bit set.
 		 * 
 		 * @param other a bit set */
-		void _andNot (const Bits &other);
+		void andNot (const Bits &other);
 
 		/** Performs a logical <b>OR</b> of this bit set with the bit set argument. This bit set is modified so that a bit in it has the
 		 * value true if and only if it either already had the value true or the corresponding bit in the bit set argument has the
 		 * value true.
 		 * @param other a bit set */
-		void _or (const Bits &other);
+		Bits& operator |=(const Bits &other);
 
 		/** Performs a logical <b>XOR</b> of this bit set with the bit set argument. This bit set is modified so that a bit in it has
 		 * the value true if and only if one of the following statements holds:
@@ -127,7 +126,7 @@ namespace ECS {
 		 * <li>The bit initially has the value false, and the corresponding bit in the argument has the value true.</li>
 		 * </ul>
 		 * @param other */
-		void _xor (const Bits &other);
+		Bits& operator ^=(const Bits &other);
 
 		/** Returns true if the specified BitSet has any bits set to true that are also set to true in this BitSet.
 		 * 
