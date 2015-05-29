@@ -1,6 +1,8 @@
 # ECS-tasy
 [Ashley](http://github.com/libgdx/ashley/) on ~~Speed~~ C++.
 
+Note: There is no release version yet, so check out the [develop branch](https://github.com/Lusito/ECS-tasy/tree/develop) for now.
+
 ## About
 A tiny entity framework written in C++. It started as a port of the ECS [Ashley](http://github.com/libgdx/ashley/)
 from LibGDX but is not from the same Authors. ECS-tasy tries to be a high-performance
