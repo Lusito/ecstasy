@@ -35,14 +35,14 @@ namespace ECS {
 	bool Bits::get (int32_t index) const {
 		int32_t word = index >> 6;
 		if (word >= dataLength) return false;
-		return (data[word] & (1i64 << (index & 0x3F))) != 0i64;
+		return (data[word] & (1ull << (index & 0x3F))) != 0ull;
 	}
 
 	bool Bits::getAndClear (int32_t index) {
 		int32_t word = index >> 6;
 		if (word >= dataLength) return false;
 		uint64_t oldData = data[word];
-		data[word] &= ~(1i64 << (index & 0x3F));
+		data[word] &= ~(1ull << (index & 0x3F));
 		return data[word] != oldData;
 	}
 
@@ -50,20 +50,20 @@ namespace ECS {
 		int32_t word = index >> 6;
 		checkCapacity(word);
 		uint64_t oldData = data[word];
-		data[word] |= 1i64 << (index & 0x3F);
+		data[word] |= 1ull << (index & 0x3F);
 		return data[word] == oldData;
 	}
 
 	void Bits::set (int32_t index) {
 		int32_t word = index >> 6;
 		checkCapacity(word);
-		data[word] |= 1i64 << (index & 0x3F);
+		data[word] |= 1ull << (index & 0x3F);
 	}
 
 	void Bits::flip (int32_t index) {
 		int32_t word = index >> 6;
 		checkCapacity(word);
-		data[word] ^= 1i64 << (index & 0x3F);
+		data[word] ^= 1ull << (index & 0x3F);
 	}
 
 	std::string Bits::getStringId() const {
@@ -93,7 +93,7 @@ namespace ECS {
 	void Bits::clear (int32_t index) {
 		int32_t word = index >> 6;
 		if (word >= dataLength) return;
-		data[word] &= ~(1i64 << (index & 0x3F));
+		data[word] &= ~(1ull << (index & 0x3F));
 	}
 
 	void Bits::clear () {
@@ -118,7 +118,7 @@ namespace ECS {
 			uint64_t dataAtWord = data[word];
 			if (dataAtWord != 0) {
 				for (int32_t bit = 63; bit >= 0; --bit) {
-					if ((dataAtWord & (1i64 << (bit & 0x3F))) != 0i64) {
+					if ((dataAtWord & (1ull << (bit & 0x3F))) != 0ull) {
 						return (word << 6) + bit;
 					}
 				}
@@ -130,7 +130,7 @@ namespace ECS {
 	bool Bits::isEmpty () const {
 		int32_t length = dataLength;
 		for (int32_t i = 0; i < length; i++) {
-			if (data[i] != 0i64) {
+			if (data[i] != 0ull) {
 				return false;
 			}
 		}
@@ -143,7 +143,7 @@ namespace ECS {
 		uint64_t dataAtWord = data[word];
 		if (dataAtWord != 0) {
 			for (int32_t i = fromIndex & 0x3f; i < 64; i++) {
-				if ((dataAtWord & (1i64 << (i & 0x3F))) != 0i64) {
+				if ((dataAtWord & (1ull << (i & 0x3F))) != 0ull) {
 					return (word << 6) + i;
 				}
 			}
@@ -153,7 +153,7 @@ namespace ECS {
 				dataAtWord = data[word];
 				if (dataAtWord != 0) {
 					for (int32_t i = 0; i < 64; i++) {
-						if ((dataAtWord & (1i64 << (i & 0x3F))) != 0i64) {
+						if ((dataAtWord & (1ull << (i & 0x3F))) != 0ull) {
 							return (word << 6) + i;
 						}
 					}
@@ -168,7 +168,7 @@ namespace ECS {
 		if (word >= dataLength) return -1;
 		uint64_t dataAtWord = data[word];
 		for (int32_t i = fromIndex & 0x3f; i < 64; i++) {
-			if ((dataAtWord & (1i64 << (i & 0x3F))) == 0i64) {
+			if ((dataAtWord & (1ull << (i & 0x3F))) == 0ull) {
 				return (word << 6) + i;
 			}
 		}
@@ -178,7 +178,7 @@ namespace ECS {
 			}
 			dataAtWord = data[word];
 			for (int32_t i = 0; i < 64; i++) {
-				if ((dataAtWord & (1i64 << (i & 0x3F))) == 0i64) {
+				if ((dataAtWord & (1ull << (i & 0x3F))) == 0ull) {
 					return (word << 6) + i;
 				}
 			}
@@ -194,7 +194,7 @@ namespace ECS {
 
 		if (dataLength > commonWords) {
 			for (int32_t i = commonWords, s = dataLength; s > i; i++) {
-				data[i] = 0i64;
+				data[i] = 0ull;
 			}
 		}
 	}
@@ -228,7 +228,7 @@ namespace ECS {
 
 		if (dataLength > commonWords) {
 			for (int32_t i = other.dataLength, s = dataLength; s > i; i++) {
-				data[i] = 0i64;
+				data[i] = 0ull;
 			}
 		} else if (commonWords < other.dataLength) {
 			checkCapacity(other.dataLength);
