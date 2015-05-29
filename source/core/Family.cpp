@@ -18,7 +18,7 @@
 #include <memory>
 #include <sstream>
 
-namespace Ashley {
+namespace ECS {
 	FamilyBuilder Family::builder;
 	static std::map<std::string, std::shared_ptr<Family>> families;
 	

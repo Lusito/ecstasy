@@ -19,7 +19,7 @@
 #include <algorithm>
 #include <sstream>
 
-namespace Ashley {
+namespace ECS {
 	Bits::Bits () {
 		dataLength = 1;
 		data = new uint64_t[dataLength];

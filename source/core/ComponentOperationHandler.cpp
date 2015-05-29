@@ -18,7 +18,7 @@
 #include <ecstasy/core/Engine.h>
 #include <ecstasy/core/Component.h>
 
-namespace Ashley {
+namespace ECS {
 	void ComponentOperation::makeAdd(Entity *entity, ComponentBase *component) {
 		this->type = Type::Add;
 		this->entity = entity;

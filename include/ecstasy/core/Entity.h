@@ -19,7 +19,7 @@
 #include "../signals/Signal.h"
 #include "ComponentOperationHandler.h"
 
-namespace Ashley {
+namespace ECS {
 	/**
 	 * Simple containers of {@link Component}s that give them "data". The component's data is then processed by {@link EntitySystem}s.
 	 * @author Stefan Bachmann

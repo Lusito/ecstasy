@@ -18,7 +18,7 @@
 #include "../utils/Bits.h"
 
 
-namespace Ashley {
+namespace ECS {
 	/**
 	 * Gets a unique id for a typed integral
 	 */

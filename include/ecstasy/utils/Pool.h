@@ -20,7 +20,7 @@
 #include <stdexcept>
 #include <vector>
 
-namespace Ashley {
+namespace ECS {
 	/** Objects implementing this interface will have {@link #reset()} called when passed to {@link #free(Object)}. */
 	class Poolable {
 	public:

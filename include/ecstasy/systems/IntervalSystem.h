@@ -16,7 +16,7 @@
 ******************************************************************************/
 #include "../core/EntitySystem.h"
 
-namespace Ashley {
+namespace ECS {
 	class Entity;
 
 	/**

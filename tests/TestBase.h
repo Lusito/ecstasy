@@ -8,7 +8,7 @@
 #include <ecstasy/core/Component.h>
 #include <ecstasy/core/EntityListener.h>
 
-using namespace Ashley;
+using namespace ECS;
 
 template<typename T>
 class Allocator {

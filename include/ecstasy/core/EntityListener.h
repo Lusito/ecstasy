@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-namespace Ashley {
+namespace ECS {
 	/**
 	 * Gets notified of {@link Entity} related events.
 	 * @author David Saltares

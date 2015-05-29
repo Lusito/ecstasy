@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <vector>
 
-namespace Ashley {
+namespace ECS {
 	template<typename T>
 	class SnapshotVector {
 	private:

@@ -16,7 +16,7 @@
 #include <ecstasy/core/Entity.h>
 #include <ecstasy/core/Component.h>
 
-namespace Ashley {
+namespace ECS {
 	Entity &Entity::add (ComponentBase *component) {
 		if (componentOperationHandler != nullptr) {
 			componentOperationHandler->add(this, component);

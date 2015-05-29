@@ -16,7 +16,7 @@
  ******************************************************************************/
 #include "Types.h"
 
-namespace Ashley {
+namespace ECS {
 	struct ComponentBase {
 		const ComponentType type;
 		virtual ~ComponentBase() {}

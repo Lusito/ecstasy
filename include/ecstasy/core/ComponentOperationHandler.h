@@ -17,7 +17,7 @@
 #include "../utils/Pool.h"
 #include "Types.h"
 
-namespace Ashley {
+namespace ECS {
 	class Entity;
 	class Engine;
 	struct ComponentBase;

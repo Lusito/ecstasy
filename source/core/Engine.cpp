@@ -17,7 +17,7 @@
 #include <ecstasy/core/EntitySystem.h>
 #include <ecstasy/core/EntityListener.h>
 
-namespace Ashley {
+namespace ECS {
 	bool compareSystems(EntitySystemBase *a, EntitySystemBase *b) {
 		return a->priority < b->priority;
 	}

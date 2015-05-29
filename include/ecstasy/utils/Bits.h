@@ -19,7 +19,7 @@
 #include <initializer_list>
 #include <string>
 
-namespace Ashley {
+namespace ECS {
 	/** A bitset, without size limitation, allows comparison via bitwise operators to other bitfields.
 	 * 
 	 * @author mzechner

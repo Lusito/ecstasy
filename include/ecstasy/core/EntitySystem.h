@@ -16,7 +16,7 @@
  ******************************************************************************/
 #include "Types.h"
 
-namespace Ashley {
+namespace ECS {
 	class Engine;
 	
 	class EntitySystemBase {

@@ -16,7 +16,7 @@
  ******************************************************************************/
 #include "../utils/SnapshotVector.h"
 
-namespace Ashley {
+namespace ECS {
 	template<typename T> class Signal;
 	
 	/**

@@ -18,7 +18,7 @@
 #include "Engine.h"
 #include "Component.h"
 
-namespace Ashley {
+namespace ECS {
 	/**
 	 * Supports {@link Entity} and {@link Component} pooling. This improves performance in environments where creating/deleting
 	 * entities is frequent as it greatly reduces memory allocation.

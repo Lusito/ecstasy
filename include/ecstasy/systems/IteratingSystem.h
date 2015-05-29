@@ -19,7 +19,7 @@
 #include "../core/Family.h"
 #include "../core/Engine.h"
 
-namespace Ashley {
+namespace ECS {
 	class Entity;
 
 	/**

@@ -19,7 +19,7 @@
 #include "Types.h"
 #include "../utils/Bits.h"
 
-namespace Ashley {
+namespace ECS {
 	class Entity;
 	
 	typedef uint32_t FamilyType;

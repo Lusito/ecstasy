@@ -27,7 +27,7 @@
 #include <vector>
 #include <map>
 
-namespace Ashley {
+namespace ECS {
 	class EntityListener;
 	
 	/**

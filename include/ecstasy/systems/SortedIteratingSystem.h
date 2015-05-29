@@ -19,7 +19,7 @@
 #include "../core/Engine.h"
 #include "../core/EntityListener.h"
 
-namespace Ashley {
+namespace ECS {
 	class Entity;
 
 	// Comparator example:

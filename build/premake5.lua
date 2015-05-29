@@ -62,7 +62,7 @@ filter { "Release" }
 
 -- The Game Solution
 solution "ECS-tasy"
-	-- Ashley Project
+	-- ECS-tasy Project
 	project "ecstasy"
 		kind "StaticLib"
 		language "C++"

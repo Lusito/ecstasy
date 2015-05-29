@@ -1,6 +1,6 @@
 #include <ecstasy/core/PooledEngine.h>
 
-namespace Ashley {
+namespace ECS {
 	ComponentBase *PooledEngine::PooledEntity::removeInternal(ComponentType type) {
 		ComponentBase *component = Entity::removeInternal(type);
 
