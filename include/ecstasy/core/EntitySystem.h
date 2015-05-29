@@ -54,7 +54,7 @@ namespace ECS {
 		virtual void update(float deltaTime) {}
 
 		/** @return Whether or not the system should be processed. */
-		virtual bool checkProcessing() {
+		virtual bool checkProcessing() const {
 			return processing;
 		}
 

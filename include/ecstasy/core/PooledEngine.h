@@ -43,7 +43,7 @@ namespace ECS {
 		template<typename T>
 		class ComponentPool : public ComponentPoolBase, public ReflectionPool<T> {
 		public:
-			void freeComponent(ComponentBase *object) {
+			void freeComponent(ComponentBase *object) override {
 				ReflectionPool<T>::free((T*)object);
 			}
 		};

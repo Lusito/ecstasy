@@ -28,7 +28,7 @@ namespace ECS {
 		delete m_exclude;
 	}
 
-	bool Family::matches (Entity *entity) {
+	bool Family::matches (Entity *entity) const {
 		const Bits &entityComponentBits = entity->getComponentBits();
 
 		if (!entityComponentBits.containsAll(*m_all))

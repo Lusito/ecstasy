@@ -130,7 +130,7 @@ namespace ECS {
 		~Family();
 		
 		/** @return Whether the entity matches the family requirements or not */
-		bool matches (Entity *entity);
+		bool matches (Entity *entity) const;
 
 		/**
 		 * @return A Builder singleton instance to get a family

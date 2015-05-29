@@ -24,7 +24,7 @@ namespace ECS {
 	public:
 		virtual ~SnapshotVector() {}
 
-		std::vector<T> &getValues() {
+		const std::vector<T> &getValues() const {
 			return values;
 		}
 		void block() {

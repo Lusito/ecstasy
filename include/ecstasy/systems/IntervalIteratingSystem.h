@@ -56,14 +56,14 @@ namespace ECS {
 		/**
 		 * @return set of entities processed by the system
 		 */
-		const std::vector<Entity *> *getEntities() {
+		const std::vector<Entity *> *getEntities() const {
 			return entities;
 		}
 
 		/**
 		 * @return the Family used when the system was created
 		 */
-		Family &getFamily() {
+		Family &getFamily() const {
 			return family;
 		}
 

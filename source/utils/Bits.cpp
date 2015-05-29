@@ -66,7 +66,7 @@ namespace ECS {
 		data[word] ^= 1L << (index & 0x3F);
 	}
 
-	std::string Bits::getStringId() {
+	std::string Bits::getStringId() const {
 		std::ostringstream ss;
 
 		int32_t length = usedWords();
@@ -163,7 +163,7 @@ namespace ECS {
 		return -1;
 	}
 
-	int32_t Bits::nextClearBit (int32_t fromIndex) {
+	int32_t Bits::nextClearBit(int32_t fromIndex) const{
 		int32_t word = fromIndex >> 6;
 		if (word >= dataLength) return -1;
 		uint64_t dataAtWord = data[word];

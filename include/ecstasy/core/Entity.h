@@ -111,16 +111,16 @@ namespace ECS {
 			return componentsByType[componentType];
 		}
 
+	public:
 		/**
-		 * Internal use.
 		 * @return This Entity's component bits, describing all the {@link Component}s it contains.
 		 */
-		Bits &getComponentBits () {
+		const Bits &getComponentBits() const {
 			return componentBits;
 		}
 
 		/** @return This Entity's {@link Family} bits, describing all the {@link EntitySystem}s it currently is being processed by. */
-		Bits &getFamilyBits () {
+		const Bits &getFamilyBits() const {
 			return familyBits;
 		}
 		
@@ -129,12 +129,12 @@ namespace ECS {
 		virtual ComponentBase *removeInternal(ComponentType type);
 
 	public:
-		bool operator ==(const Entity &other) {
+		bool operator ==(const Entity &other) const {
 			if (this == &other) return true;
 			return uuid == other.uuid;
 		}
 
-		bool operator !=(const Entity &other) {
+		bool operator !=(const Entity &other) const {
 			if (this == &other) return false;
 			return uuid != other.uuid;
 		}

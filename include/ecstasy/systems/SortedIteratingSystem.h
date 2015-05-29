@@ -23,9 +23,13 @@ namespace ECS {
 	class Entity;
 
 	// Comparator example:
-//	bool compareSystemss(Entity *a, Entity *b) {
-//		return a->priority < b->priority;
-//	}
+//	struct Less {
+//		bool operator () (Entity *a, Entity *b) {
+//			auto ac = a->get<OrderComponent>();
+//			auto bc = b->get<OrderComponent>();
+//			return ac->zLayer < bc->zLayer;
+//		}
+//	};
 
 	/**
 	 * A simple EntitySystem that processes each entity of a given family in the order specified by a comparator and calls
@@ -109,7 +113,7 @@ namespace ECS {
 		/**
 		* @return set of entities processed by the system
 		*/
-		const std::vector<Entity *> *getEntities() {
+		const std::vector<Entity *> *getEntities() const {
 			sort();
 			return &sortedEntities;
 		}
@@ -117,7 +121,7 @@ namespace ECS {
 		/**
 		* @return the Family used when the system was created
 		*/
-		Family &getFamily() {
+		Family &getFamily() const {
 			return family;
 		}
 

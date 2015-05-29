@@ -95,7 +95,7 @@ namespace ECS {
 		}
 
 		/** The number of objects available to be obtained. */
-		int getFree () {
+		int getFree () const {
 			return freeObjects.size();
 		}
 	};

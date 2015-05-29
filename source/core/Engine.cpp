@@ -66,7 +66,7 @@ namespace ECS {
 		}
 	}
 
-	Entity *Engine::getEntity(uint64_t id) {
+	Entity *Engine::getEntity(uint64_t id) const {
 		auto it = entitiesById.find(id);
 		if(it == entitiesById.end())
 			return nullptr;
@@ -135,7 +135,7 @@ namespace ECS {
 
 			if (!belongsToFamily && matches) {
 				familyEntities.push_back(entity);
-				entity->getFamilyBits().set(familyIndex);
+				entity->familyBits.set(familyIndex);
 
 				notifyFamilyListenersAdd(*family, entity);
 			}
@@ -143,7 +143,7 @@ namespace ECS {
 				auto it = std::find(familyEntities.begin(), familyEntities.end(), entity);
 				if(it != familyEntities.end())
 					familyEntities.erase(it);
-				entity->getFamilyBits().clear(familyIndex);
+				entity->familyBits.clear(familyIndex);
 
 				notifyFamilyListenersRemove(*family, entity);
 			}
@@ -169,7 +169,7 @@ namespace ECS {
 					if(itEnt2 != familyEntities.end())
 						familyEntities.erase(itEnt2);
 
-					entity->getFamilyBits().clear(family->index);
+					entity->familyBits.clear(family->index);
 					notifyFamilyListenersRemove(*family, entity);
 				}
 			}
@@ -240,7 +240,7 @@ namespace ECS {
 		for(Entity *e : entities){
 			if(family.matches(e)) {
 				familyEntities.push_back(e);
-				e->getFamilyBits().set(family.index);
+				e->familyBits.set(family.index);
 			}
 		}
 		return &familyEntities;

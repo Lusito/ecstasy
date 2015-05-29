@@ -66,7 +66,7 @@ namespace ECS {
 		void flip (int32_t index);
 
 		/** @return all longs as string, commasparated*/
-		std::string getStringId();
+		std::string getStringId() const;
 
 	private:
 		void checkCapacity (int32_t len);
@@ -100,8 +100,9 @@ namespace ECS {
 
 		/** Returns the index of the first bit that is set to false that occurs on or after the specified starting index. If no such bit
 		 * exists then -1 is returned. */
-		int32_t nextClearBit (int32_t fromIndex);
+		int32_t nextClearBit(int32_t fromIndex) const;
 
+		// fixme: create operators for these instead ?
 		/** Performs a logical <b>AND</b> of this target bit set with the argument bit set. This bit set is modified so that each bit in
 		 * it has the value true if and only if it both initially had the value true and the corresponding bit in the bit set argument
 		 * also had the value true.

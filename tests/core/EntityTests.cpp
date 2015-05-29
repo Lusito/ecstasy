@@ -49,7 +49,7 @@ namespace EntityTests {
 		Entity entity;
 
 		REQUIRE(entity.getComponents().empty());
-		//	REQUIRE(entity.getComponentBits().isEmpty()); // fixme
+		REQUIRE(entity.getComponentBits().isEmpty());
 		REQUIRE(!entity.get<ComponentA>());
 		REQUIRE(!entity.get<ComponentB>());
 		REQUIRE(!entity.has<ComponentA>());
@@ -65,13 +65,12 @@ namespace EntityTests {
 
 		REQUIRE(1 == entity.getComponents().size());
 
-		//fixme:
-		//	Bits &componentBits = entity.getComponentBits();
-		//	int componentAIndex = ComponentType.getIndexFor(ComponentA.class);
-		//
-		//	for (int i = 0; i < componentBits.length(); ++i) {
-		//		REQUIRE((i == componentAIndex) == componentBits.get(i));
-		//	}
+		const Bits &componentBits = entity.getComponentBits();
+		ComponentType componentAIndex = getComponentType<ComponentA>();
+		
+		for (ComponentType i = 0; i < componentBits.length(); ++i) {
+			REQUIRE((i == componentAIndex) == componentBits.get(i));
+		}
 
 		REQUIRE(entity.get<ComponentA>());
 		REQUIRE(!entity.get<ComponentB>());
@@ -82,10 +81,9 @@ namespace EntityTests {
 
 		REQUIRE(0 == entity.getComponents().size());
 
-		//fixme:
-		//	for (int i = 0; i < componentBits.length(); ++i) {
-		//		REQUIRE(!componentBits.get(i));
-		//	}
+		for (int i = 0; i < componentBits.length(); ++i) {
+			REQUIRE(!componentBits.get(i));
+		}
 
 		REQUIRE(!entity.get<ComponentA>());
 		REQUIRE(!entity.get<ComponentB>());
@@ -103,14 +101,13 @@ namespace EntityTests {
 
 		REQUIRE(2 == entity.getComponents().size());
 
-		//fixme:
-		//	Bits &componentBits = entity.getComponentBits();
-		//	ComponentType componentAIndex = getComponentType<ComponentA>();
-		//	ComponentType componentBIndex = getComponentType<ComponentB>();
-		//
-		//	for (ComponentType i = 0; i < componentBits.length(); ++i) {
-		//		REQUIRE((i == componentAIndex || i == componentBIndex) == componentBits.get(i));
-		//	}
+		const Bits &componentBits = entity.getComponentBits();
+		ComponentType componentAIndex = getComponentType<ComponentA>();
+		ComponentType componentBIndex = getComponentType<ComponentB>();
+		
+		for (ComponentType i = 0; i < componentBits.length(); ++i) {
+			REQUIRE((i == componentAIndex || i == componentBIndex) == componentBits.get(i));
+		}
 
 		REQUIRE(entity.get<ComponentA>());
 		REQUIRE(entity.get<ComponentB>());
@@ -121,10 +118,9 @@ namespace EntityTests {
 
 		REQUIRE(0 == entity.getComponents().size());
 
-		//fixme:
-		//	for (int i = 0; i < componentBits.length(); ++i) {
-		//		REQUIRE(!componentBits.get(i));
-		//	}
+		for (int i = 0; i < componentBits.length(); ++i) {
+			REQUIRE(!componentBits.get(i));
+		}
 
 		REQUIRE(!entity.get<ComponentA>());
 		REQUIRE(!entity.get<ComponentB>());

@@ -153,9 +153,9 @@ namespace ECS {
 		 */
 		void removeAllEntities();
 
-		Entity *getEntity(uint64_t id);
+		Entity *getEntity(uint64_t id) const;
 
-		const std::vector<Entity *> *getEntities() {
+		const std::vector<Entity *> *getEntities() const {
 			return &entities;
 		}
 
@@ -173,7 +173,7 @@ namespace ECS {
 		 * Quick {@link EntitySystem} retrieval.
 		 */
 		template<typename T>
-		T *getSystem() {
+		T *getSystem() const {
 			auto it = systemsByType.find(getSystemType<T>());
 			if(it == systemsByType.end())
 				return nullptr;
@@ -183,14 +183,14 @@ namespace ECS {
 		/**
 		 * @return immutable array of all entity systems managed by the {@link Engine}.
 		 */
-		const std::vector<EntitySystemBase *> &getSystems() {
+		const std::vector<EntitySystemBase *> &getSystems() const {
 			return systems;
 		}
 
 		/**
 		 * Returns immutable collection of entities for the specified {@link Family}. Will return the same instance every time.
 		 */
-		const std::vector<Entity *> *getEntitiesFor(Family &family){
+		const std::vector<Entity *> *getEntitiesFor(Family &family) {
 			return registerFamily(family);
 		}
 
