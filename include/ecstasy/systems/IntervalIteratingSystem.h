@@ -39,7 +39,7 @@ namespace Ashley {
 		 * @param interval time in seconds between calls to {@link IntervalIteratingSystem#updateInterval()}.
 		 * @param priority
 		 */
-		IntervalIteratingSystem(Family &family, float interval, int priority = 0) : IntervalSystem(interval, priority), family(family) {}
+		IntervalIteratingSystem(Family &family, float interval, int priority = 0) : IntervalSystem<T>(interval, priority), family(family) {}
 
 		void addedToEngine(Engine *engine) override {
 			entities = engine->getEntitiesFor(family);

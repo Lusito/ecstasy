@@ -49,7 +49,7 @@ namespace Ashley {
 		* @param comparator The comparator to sort the entities
 		* @param priority The priority to execute this system with (lower means higher priority)
 		*/
-		SortedIteratingSystem(Family &family, C comparator, int priority=0) : EntitySystem(priority) , family(family), comparator(comparator) {}
+		SortedIteratingSystem(Family &family, C comparator, int priority=0) : EntitySystem<T>(priority) , family(family), comparator(comparator) {}
 
 		/**
 		* Call this if the sorting criteria have changed. The actual sorting will be delayed until the entities are processed.

@@ -46,6 +46,7 @@
 				<cTool>
 					<standard>8</standard>
 					<incDir>
+						<pElem>../../../include</pElem>
 					</incDir>
 					<preprocessorList>
 						<Elem>WIN32</Elem>
@@ -56,6 +57,7 @@
 				<ccTool>
 					<standard>8</standard>
 					<incDir>
+						<pElem>../../../include</pElem>
 					</incDir>
 					<preprocessorList>
 						<Elem>WIN32</Elem>
@@ -65,6 +67,7 @@
 				</ccTool>
 				<linkerTool>
 					<linkerAddLib>
+						<pElem>../../../lib/netbeans</pElem>
 					</linkerAddLib>
 					<linkerLibItems>
 						<linkerLibLibItem>ecstasy-s-d</linkerLibLibItem>
@@ -100,6 +103,7 @@
 					<developmentMode>5</developmentMode>
 					<standard>8</standard>
 					<incDir>
+						<pElem>../../../include</pElem>
 					</incDir>
 					<preprocessorList>
 						<Elem>WIN32</Elem>
@@ -111,6 +115,7 @@
 					<developmentMode>5</developmentMode>
 					<standard>8</standard>
 					<incDir>
+						<pElem>../../../include</pElem>
 					</incDir>
 					<preprocessorList>
 						<Elem>WIN32</Elem>
@@ -120,6 +125,7 @@
 				</ccTool>
 				<linkerTool>
 					<linkerAddLib>
+						<pElem>../../../lib/netbeans</pElem>
 					</linkerAddLib>
 					<linkerLibItems>
 						<linkerLibLibItem>ecstasy-s</linkerLibLibItem>

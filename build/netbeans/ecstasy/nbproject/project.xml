@@ -11,8 +11,8 @@
 			<sourceEncoding>UTF-8</sourceEncoding>
 			<make-dep-projects/>
 			<sourceRootList>
-				<sourceRootElem>../../../source/core</sourceRootElem>
-				<sourceRootElem>../../../source/utils</sourceRootElem>
+				<sourceRootElem>../../../include</sourceRootElem>
+				<sourceRootElem>../../../source</sourceRootElem>
 			</sourceRootList>
 			<confList>
 				<confElem>
