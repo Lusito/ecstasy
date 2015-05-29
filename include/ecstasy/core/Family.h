@@ -96,7 +96,7 @@ namespace ECS {
 		}
 
 		/** @return A family for the configured component types */
-		Family &get ();
+		const Family &get ();
 	};
 	
 	/**
@@ -166,11 +166,11 @@ namespace ECS {
 			return builder.reset().exclude<Args...>();
 		}
 
-		bool operator == (Family &other) const {
+		bool operator == (const Family &other) const {
 			return this == &other;
 		}
 
-		bool operator != (Family &other) const {
+		bool operator != (const Family &other) const {
 			return this != &other;
 		}
 	};

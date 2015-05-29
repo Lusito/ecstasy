@@ -27,7 +27,7 @@ namespace IteratingSystemTests {
 	public:
 		int numUpdates = 0;
 
-		IteratingSystemMock(Family &family) : IteratingSystem(family){}
+		IteratingSystemMock(const Family &family) : IteratingSystem(family){}
 
 		void processEntity (Entity *entity, float deltaTime) override {
 			++numUpdates;
@@ -84,7 +84,7 @@ namespace IteratingSystemTests {
 	TEST_CASE("shouldIterateEntitiesWithCorrectFamily") {
 		Engine engine;
 
-		Family &family = Family::all<ComponentA, ComponentB>().get();
+		const Family &family = Family::all<ComponentA, ComponentB>().get();
 		IteratingSystemMock system(family);
 		Entity e;
 

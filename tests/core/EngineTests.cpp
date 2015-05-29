@@ -254,7 +254,7 @@ namespace EngineTests {
 	TEST_CASE("entitiesForFamily") {
 		Engine engine;
 
-		Family &family = Family::all<ComponentA, ComponentB>().get();
+		const Family &family = Family::all<ComponentA, ComponentB>().get();
 		const std::vector<Entity *> *familyEntities = engine.getEntitiesFor(family);
 
 		REQUIRE(familyEntities->empty());
@@ -320,7 +320,7 @@ namespace EngineTests {
 	TEST_CASE("entitiesForFamilyAfter") {
 		Engine engine;
 
-		Family &family = Family::all<ComponentA, ComponentB>().get();
+		const Family &family = Family::all<ComponentA, ComponentB>().get();
 		const std::vector<Entity *> *familyEntities = engine.getEntitiesFor(family);
 
 		REQUIRE(familyEntities->empty());
@@ -364,7 +364,7 @@ namespace EngineTests {
 	TEST_CASE("entitiesForFamilyWithRemoval") {
 		Engine engine;
 
-		Family &family = Family::all<ComponentA, ComponentB>().get();
+		const Family &family = Family::all<ComponentA, ComponentB>().get();
 		const std::vector<Entity *> *familyEntities = engine.getEntitiesFor(family);
 
 		Entity entity1;
@@ -477,8 +477,8 @@ namespace EngineTests {
 		EntityListenerMock listenerA;
 		EntityListenerMock listenerB;
 
-		Family &familyA = Family::all<ComponentA>().get();
-		Family &familyB = Family::all<ComponentB>().get();
+		const Family &familyA = Family::all<ComponentA>().get();
+		const Family &familyB = Family::all<ComponentB>().get();
 
 		engine.addEntityListener(familyA, &listenerA);
 		engine.addEntityListener(familyB, &listenerB);

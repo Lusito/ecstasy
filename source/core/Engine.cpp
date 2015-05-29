@@ -96,7 +96,7 @@ namespace ECS {
 		}
 	}
 
-	void Engine::addEntityListener(Family &family, EntityListener *listener) {
+	void Engine::addEntityListener(const Family &family, EntityListener *listener) {
 		registerFamily(family);
 		auto &listeners = familyListeners[&family];
 		listeners.add(listener);
@@ -124,7 +124,7 @@ namespace ECS {
 
 	void Engine::updateFamilyMembership(Entity *entity){
 		for (auto it = entitiesByFamily.begin(); it != entitiesByFamily.end(); it++) {
-			Family *family = it->first;
+			const Family *family = it->first;
 			std::vector<Entity *> &familyEntities = it->second;
 			
 			int familyIndex = family->index;
@@ -161,7 +161,7 @@ namespace ECS {
 
 		if(!entity->getFamilyBits().isEmpty()){
 			for (auto it = entitiesByFamily.begin(); it != entitiesByFamily.end(); it++) {
-				Family *family = it->first;
+				const Family *family = it->first;
 				std::vector<Entity *> &familyEntities = it->second;
 
 				if(family->matches(entity)){
@@ -205,7 +205,7 @@ namespace ECS {
 		notifying = false;
 	}
 
-	void Engine::notifyFamilyListenersAdd(Family &family, Entity *entity) {
+	void Engine::notifyFamilyListenersAdd(const Family &family, Entity *entity) {
 		auto it = familyListeners.find(&family);
 		if(it != familyListeners.end()) {
 			auto &listeners = it->second;
@@ -218,7 +218,7 @@ namespace ECS {
 		}
 	}
 
-	void Engine::notifyFamilyListenersRemove(Family &family, Entity *entity) {
+	void Engine::notifyFamilyListenersRemove(const Family &family, Entity *entity) {
 		auto it = familyListeners.find(&family);
 		if(it != familyListeners.end()) {
 			auto &listeners = it->second;
@@ -231,7 +231,7 @@ namespace ECS {
 		}
 	}
 
-	const std::vector<Entity *> *Engine::registerFamily(Family &family) {
+	const std::vector<Entity *> *Engine::registerFamily(const Family &family) {
 		auto it = entitiesByFamily.find(&family);
 		if (it != entitiesByFamily.end())
 			return &it->second;

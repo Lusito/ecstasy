@@ -41,7 +41,7 @@ namespace ECS {
 	template<typename T, typename C>
 	class SortedIteratingSystem : public EntitySystem<T>, public EntityListener {
 	private:
-		Family &family;
+		const Family &family;
 		std::vector<Entity *> sortedEntities;
 		bool shouldSort;
 		C comparator;
@@ -53,7 +53,7 @@ namespace ECS {
 		* @param comparator The comparator to sort the entities
 		* @param priority The priority to execute this system with (lower means higher priority)
 		*/
-		SortedIteratingSystem(Family &family, C comparator, int priority=0) : EntitySystem<T>(priority) , family(family), comparator(comparator) {}
+		SortedIteratingSystem(const Family &family, C comparator, int priority=0) : EntitySystem<T>(priority) , family(family), comparator(comparator) {}
 
 		/**
 		* Call this if the sorting criteria have changed. The actual sorting will be delayed until the entities are processed.
@@ -121,7 +121,7 @@ namespace ECS {
 		/**
 		* @return the Family used when the system was created
 		*/
-		Family &getFamily() const {
+		const Family &getFamily() const {
 			return family;
 		}
 

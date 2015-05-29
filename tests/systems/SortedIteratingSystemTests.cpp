@@ -54,7 +54,7 @@ namespace SortedIteratingSystemTests {
 	public:
 		std::deque<std::string> expectedNames;
 
-		SortedIteratingSystemMock(Family &family) : SortedIteratingSystem(family, Less()) {}
+		SortedIteratingSystemMock(const Family &family) : SortedIteratingSystem(family, Less()) {}
 
 		void update(float deltaTime) override {
 			SortedIteratingSystem::update(deltaTime);
@@ -113,7 +113,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 	TEST_CASE("shouldIterateSortedEntitiesWithCorrectFamily") {
 		Engine engine;
 
-		Family &family = Family::all<OrderComponent, ComponentB>().get();
+		const Family &family = Family::all<OrderComponent, ComponentB>().get();
 		SortedIteratingSystemMock system(family);
 		Entity e;
 
@@ -233,7 +233,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 	TEST_CASE("entityOrder") {
 		Engine engine;
 
-		Family &family = Family::all<OrderComponent>().get();
+		const Family &family = Family::all<OrderComponent>().get();
 		SortedIteratingSystemMock system(family);
 		engine.addSystem(&system);
 

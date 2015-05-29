@@ -72,7 +72,7 @@ namespace ECS {
 	}
 
 	/** @return A family for the configured component types */
-	Family &FamilyBuilder::get () {
+	const Family &FamilyBuilder::get () {
 		std::string hash = getFamilyHash(m_all, m_one, m_exclude);
 		auto it = families.find(hash);
 		if(it != families.end())

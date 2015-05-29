@@ -101,10 +101,10 @@ namespace ECS {
 		std::vector<EntitySystemBase *> systems;
 		std::map<SystemType, EntitySystemBase *> systemsByType;
 
-		std::map<Family *, std::vector<Entity *>> entitiesByFamily;
+		std::map<const Family *, std::vector<Entity *>> entitiesByFamily;
 
 		SnapshotVector<EntityListener *> entityListeners;
-		std::map<Family *,SnapshotVector<EntityListener *>> familyListeners;
+		std::map<const Family *,SnapshotVector<EntityListener *>> familyListeners;
 
 		ComponentListener componentAdded;
 		ComponentListener componentRemoved;
@@ -190,7 +190,7 @@ namespace ECS {
 		/**
 		 * Returns immutable collection of entities for the specified {@link Family}. Will return the same instance every time.
 		 */
-		const std::vector<Entity *> *getEntitiesFor(Family &family) {
+		const std::vector<Entity *> *getEntitiesFor(const Family &family) {
 			return registerFamily(family);
 		}
 
@@ -208,7 +208,7 @@ namespace ECS {
 		 *
 		 * The listener will be notified every time an entity is added/removed to/from the given family.
 		 */
-		void addEntityListener(Family &family, EntityListener *listener);
+		void addEntityListener(const Family &family, EntityListener *listener);
 
 		/**
 		 * Removes an {@link EntityListener}
@@ -230,11 +230,11 @@ namespace ECS {
 		virtual void addEntityInternal(Entity *entity);
 
 	private:
-		void notifyFamilyListenersAdd(Family &family, Entity *entity);
+		void notifyFamilyListenersAdd(const Family &family, Entity *entity);
 
-		void notifyFamilyListenersRemove(Family &family, Entity *entity);
+		void notifyFamilyListenersRemove(const Family &family, Entity *entity);
 
-		const std::vector<Entity *> *registerFamily(Family &family);
+		const std::vector<Entity *> *registerFamily(const Family &family);
 
 		void processPendingEntityOperations();
 

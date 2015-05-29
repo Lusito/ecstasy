@@ -30,7 +30,7 @@ namespace ECS {
 	template<typename T>
 	class IntervalIteratingSystem: public IntervalSystem<T> {
 	private:
-		Family &family;
+		const Family &family;
 		const std::vector<Entity *> *entities;
 
 	public:
@@ -39,7 +39,7 @@ namespace ECS {
 		 * @param interval time in seconds between calls to {@link IntervalIteratingSystem#updateInterval()}.
 		 * @param priority
 		 */
-		IntervalIteratingSystem(Family &family, float interval, int priority = 0) : IntervalSystem<T>(interval, priority), family(family) {}
+		IntervalIteratingSystem(const Family &family, float interval, int priority = 0) : IntervalSystem<T>(interval, priority), family(family) {}
 
 		void addedToEngine(Engine *engine) override {
 			entities = engine->getEntitiesFor(family);
@@ -63,7 +63,7 @@ namespace ECS {
 		/**
 		 * @return the Family used when the system was created
 		 */
-		Family &getFamily() const {
+		const Family &getFamily() const {
 			return family;
 		}
 

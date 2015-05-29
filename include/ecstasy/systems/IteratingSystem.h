@@ -30,7 +30,7 @@ namespace ECS {
 	template<typename T>
 	class IteratingSystem : public EntitySystem<T> {
 	private:
-		Family &family;
+		const Family &family;
 		const std::vector<Entity *> *entities;
 
 	public:
@@ -39,7 +39,7 @@ namespace ECS {
 		* @param family The family of entities iterated over in this System
 		* @param priority The priority to execute this system with (lower means higher priority)
 		*/
-		IteratingSystem(Family &family, int priority = 0) : EntitySystem<T>(priority), family(family) {}
+		IteratingSystem(const Family &family, int priority = 0) : EntitySystem<T>(priority), family(family) {}
 
 		void addedToEngine(Engine *engine) override {
 			entities = engine->getEntitiesFor(family);
@@ -62,7 +62,7 @@ namespace ECS {
 		/**
 		* @return the Family used when the system was created
 		*/
-		Family &getFamily() const {
+		const Family &getFamily() const {
 			return family;
 		}
 

@@ -87,11 +87,11 @@ namespace EntityListenerTests {
 	class EntityListenerAddOnRemoveIfFamilyMatches : public EntityListener {
 	public:
 		Engine &engine;
-		Family &family;
+		const Family &family;
 		Allocator<Entity> entities;
 
 	public:
-		EntityListenerAddOnRemoveIfFamilyMatches(Engine &engine, Family &family) : engine(engine), family(family) {}
+		EntityListenerAddOnRemoveIfFamilyMatches(Engine &engine, const Family &family) : engine(engine), family(family) {}
 
 		void entityRemoved(Entity *entity) override {
 			if (family.matches(entity)) engine.addEntity(entities.create());
@@ -120,11 +120,11 @@ namespace EntityListenerTests {
 	class EntityListenerAddOnAddIfFamilyMatches : public EntityListener {
 	public:
 		Engine &engine;
-		Family &family;
+		const Family &family;
 		Allocator<Entity> entities;
 
 	public:
-		EntityListenerAddOnAddIfFamilyMatches(Engine &engine, Family &family) : engine(engine), family(family) {}
+		EntityListenerAddOnAddIfFamilyMatches(Engine &engine, const Family &family) : engine(engine), family(family) {}
 
 		void entityRemoved(Entity *entity) override {
 		}
