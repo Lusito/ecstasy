@@ -89,7 +89,6 @@
     <ClInclude Include="..\..\include\ecstasy\core\ComponentOperationHandler.h" />
     <ClInclude Include="..\..\include\ecstasy\core\Engine.h" />
     <ClInclude Include="..\..\include\ecstasy\core\Entity.h" />
-    <ClInclude Include="..\..\include\ecstasy\core\EntityListener.h" />
     <ClInclude Include="..\..\include\ecstasy\core\EntitySystem.h" />
     <ClInclude Include="..\..\include\ecstasy\core\Family.h" />
     <ClInclude Include="..\..\include\ecstasy\core\PooledEngine.h" />
@@ -100,7 +99,6 @@
     <ClInclude Include="..\..\include\ecstasy\systems\SortedIteratingSystem.h" />
     <ClInclude Include="..\..\include\ecstasy\utils\Bits.h" />
     <ClInclude Include="..\..\include\ecstasy\utils\Pool.h" />
-    <ClInclude Include="..\..\include\ecstasy\utils\SnapshotVector.h" />
     <ClInclude Include="..\..\include\signal11\Signal.h" />
   </ItemGroup>
   <ItemGroup>

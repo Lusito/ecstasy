@@ -22,17 +22,17 @@ namespace EngineTests {
 	struct ComponentB : public Component<ComponentB> {};
 	struct ComponentC : public Component<ComponentC> {};
 
-	class EntityListenerMock: public EntityListener {
+	class EntityListenerMock {
 	public:
 		int addedCount = 0;
 		int removedCount = 0;
 
-		void entityAdded (Entity *entity) override {
+		void entityAdded (Entity *entity) {
 			++addedCount;
 			REQUIRE(entity);
 		}
 
-		void entityRemoved (Entity *entity) override {
+		void entityRemoved (Entity *entity) {
 			++removedCount;
 			REQUIRE(entity);
 		}
@@ -118,8 +118,10 @@ namespace EngineTests {
 		EntityListenerMock listenerA;
 		EntityListenerMock listenerB;
 
-		engine.addEntityListener(&listenerA);
-		engine.addEntityListener(&listenerB);
+		engine.entityAdded.connect(&listenerA, &EntityListenerMock::entityAdded);
+		engine.entityRemoved.connect(&listenerA, &EntityListenerMock::entityRemoved);
+		auto refBAdded = engine.entityAdded.connect(&listenerB, &EntityListenerMock::entityAdded);
+		auto refBRemoved = engine.entityRemoved.connect(&listenerB, &EntityListenerMock::entityRemoved);
 
 		Entity entity1;
 		engine.addEntity(&entity1);
@@ -127,7 +129,8 @@ namespace EngineTests {
 		REQUIRE(1 == listenerA.addedCount);
 		REQUIRE(1 == listenerB.addedCount);
 
-		engine.removeEntityListener(&listenerB);
+		refBAdded.disable();
+		refBRemoved.disable();
 
 		Entity entity2;
 		engine.addEntity(&entity2);
@@ -135,7 +138,8 @@ namespace EngineTests {
 		REQUIRE(2 == listenerA.addedCount);
 		REQUIRE(1 == listenerB.addedCount);
 
-		engine.addEntityListener(&listenerB);
+		refBAdded.enable();
+		refBRemoved.enable();
 
 		engine.removeAllEntities();
 
@@ -480,8 +484,11 @@ namespace EngineTests {
 		const Family &familyA = Family::all<ComponentA>().get();
 		const Family &familyB = Family::all<ComponentB>().get();
 
-		engine.addEntityListener(familyA, &listenerA);
-		engine.addEntityListener(familyB, &listenerB);
+		auto refAAdded = engine.getEntityAddedSignal(familyA).connect(&listenerA, &EntityListenerMock::entityAdded);
+		auto refARemoved = engine.getEntityRemovedSignal(familyA).connect(&listenerA, &EntityListenerMock::entityRemoved);
+
+		auto refBAdded = engine.getEntityAddedSignal(familyB).connect(&listenerB, &EntityListenerMock::entityAdded);
+		auto refBRemoved = engine.getEntityRemovedSignal(familyB).connect(&listenerB, &EntityListenerMock::entityRemoved);
 
 		Entity entity1;
 		engine.addEntity(&entity1);
@@ -518,7 +525,8 @@ namespace EngineTests {
 		REQUIRE(1 == listenerA.removedCount);
 		REQUIRE(1 == listenerB.removedCount);
 
-		engine.removeEntityListener(&listenerB);
+		refBAdded.disable();
+		refBRemoved.disable();
 
 		engine.addEntity(&entity2);
 
@@ -536,7 +544,8 @@ namespace EngineTests {
 		REQUIRE(2 == listenerA.removedCount);
 		REQUIRE(1 == listenerB.removedCount);
 
-		engine.addEntityListener(&listenerB);
+		refBAdded.enable();
+		refBRemoved.enable();
 		engine.clear();
 	}
 

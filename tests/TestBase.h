@@ -5,7 +5,6 @@
 #include <ecstasy/core/Engine.h>
 #include <ecstasy/core/PooledEngine.h>
 #include <ecstasy/core/Component.h>
-#include <ecstasy/core/EntityListener.h>
 
 using namespace ECS;
 

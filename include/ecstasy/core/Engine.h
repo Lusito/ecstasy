@@ -18,7 +18,6 @@
 #include "Types.h"
 #include "EntitySystem.h"
 #include "Entity.h"
-#include "../utils/SnapshotVector.h"
 #include "ComponentOperationHandler.h"
 #include "Family.h"
 #include "../utils/Pool.h"
@@ -28,7 +27,8 @@
 #include <signal11/Signal.h>
 
 namespace ECS {
-	class EntityListener;
+	typedef Signal11::Signal<void(Entity *, ComponentBase *)> ComponentSignal;
+	typedef Signal11::Signal<void(Entity *)> EntitySignal;
 	
 	/**
 	 * The heart of the Entity framework. It is responsible for keeping track of {@link Entity} and
@@ -92,8 +92,8 @@ namespace ECS {
 
 		std::unordered_map<const Family *, std::vector<Entity *>> entitiesByFamily;
 
-		SnapshotVector<EntityListener *> entityListeners;
-		std::unordered_map<const Family *,SnapshotVector<EntityListener *>> familyListeners;
+		std::unordered_map<const Family *, EntitySignal> entityAddedSignals;
+		std::unordered_map<const Family *, EntitySignal> entityRemovedSignals;
 
 		bool updating = false;
 
@@ -112,9 +112,13 @@ namespace ECS {
 
 	public:
 		/** Will dispatch an event when a component is added. */
-		Signal11::Signal<void(Entity *, ComponentBase *)> componentAdded;
+		ComponentSignal componentAdded;
 		/** Will dispatch an event when a component is removed. */
-		Signal11::Signal<void(Entity *, ComponentBase *)> componentRemoved;
+		ComponentSignal componentRemoved;
+		/** Will dispatch an event when an entity is added. */
+		EntitySignal entityAdded;
+		/** Will dispatch an event when an entity is removed. */
+		EntitySignal entityRemoved;
 		
 	public:
 		Engine();
@@ -189,25 +193,14 @@ namespace ECS {
 		}
 
 		/**
-		 * Adds an {@link EntityListener}.
-		 *
-		 * The listener will be notified every time an entity is added/removed to/from the engine.
-		 */
-		void addEntityListener(EntityListener *listener) {
-			entityListeners.add(listener);
-		}
+		* Get the EntitySignal which emits when an entity is added to a family
+		*/
+		EntitySignal &getEntityAddedSignal(const Family &family);
 
 		/**
-		 * Adds an {@link EntityListener} for a specific {@link Family}.
-		 *
-		 * The listener will be notified every time an entity is added/removed to/from the given family.
-		 */
-		void addEntityListener(const Family &family, EntityListener *listener);
-
-		/**
-		 * Removes an {@link EntityListener}
-		 */
-		void removeEntityListener(EntityListener *listener);
+		* Get the EntitySignal which emits when an entity is removed from a family
+		*/
+		EntitySignal &getEntityRemovedSignal(const Family &family);
 
 		/**
 		 * Updates all the systems in this Engine.

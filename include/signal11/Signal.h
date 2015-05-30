@@ -373,6 +373,10 @@ namespace Signal11 {
 			_enabled = flag;
 		}
 
+		void removeAll() {
+			_connections.clear();
+		}
+
 	private:
 		std::vector<ScopedConnectionRef> _connections;
 		bool _enabled;

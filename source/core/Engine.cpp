@@ -15,7 +15,6 @@
  ******************************************************************************/
 #include <ecstasy/core/Engine.h>
 #include <ecstasy/core/EntitySystem.h>
-#include <ecstasy/core/EntityListener.h>
 
 namespace ECS {
 	bool compareSystems(EntitySystemBase *a, EntitySystemBase *b) {
@@ -107,17 +106,14 @@ namespace ECS {
 		}
 	}
 
-	void Engine::addEntityListener(const Family &family, EntityListener *listener) {
+	EntitySignal &Engine::getEntityAddedSignal(const Family &family) {
 		registerFamily(family);
-		auto &listeners = familyListeners[&family];
-		listeners.add(listener);
+		return entityAddedSignals[&family];
 	}
 
-	void Engine::removeEntityListener(EntityListener *listener) {
-		entityListeners.remove(listener);
-
-		for(auto it = familyListeners.begin(); it != familyListeners.end(); it++)
-			it->second.remove(listener);
+	EntitySignal &Engine::getEntityRemovedSignal(const Family &family) {
+		registerFamily(family);
+		return entityRemovedSignals[&family];
 	}
 
 	void Engine::update(float deltaTime){
@@ -189,10 +185,7 @@ namespace ECS {
 		entity->componentOperationHandler = nullptr;
 
 		notifying = true;
-		entityListeners.block();
-		for(auto listener: entityListeners.getValues())
-			listener->entityRemoved(entity);
-		entityListeners.unblock();
+		entityRemoved.emit(entity);
 		notifying = false;
 	}
 
@@ -205,35 +198,26 @@ namespace ECS {
 		entity->componentOperationHandler = &componentOperationHandler;
 
 		notifying = true;
-		entityListeners.block();
-		for(auto listener: entityListeners.getValues())
-			listener->entityAdded(entity);
-		entityListeners.unblock();
+		entityAdded.emit(entity);
 		notifying = false;
 	}
 
 	void Engine::notifyFamilyListenersAdd(const Family &family, Entity *entity) {
-		auto it = familyListeners.find(&family);
-		if(it != familyListeners.end()) {
-			auto &listeners = it->second;
+		auto it = entityAddedSignals.find(&family);
+		if (it != entityAddedSignals.end()) {
+			auto &signal = it->second;
 			notifying = true;
-			listeners.block();
-			for (auto listener : listeners.getValues())
-				listener->entityAdded(entity);
-			listeners.unblock();
+			signal.emit(entity);
 			notifying = false;
 		}
 	}
 
 	void Engine::notifyFamilyListenersRemove(const Family &family, Entity *entity) {
-		auto it = familyListeners.find(&family);
-		if(it != familyListeners.end()) {
-			auto &listeners = it->second;
+		auto it = entityRemovedSignals.find(&family);
+		if (it != entityRemovedSignals.end()) {
+			auto &signal = it->second;
 			notifying = true;
-			listeners.block();
-			for (auto listener : listeners.getValues())
-				listener->entityRemoved(entity);
-			listeners.unblock();
+			signal.emit(entity);
 			notifying = false;
 		}
 	}

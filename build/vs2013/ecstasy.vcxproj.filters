@@ -42,9 +42,6 @@
     <ClInclude Include="..\..\include\ecstasy\core\Entity.h">
       <Filter>include\ecstasy\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\ecstasy\core\EntityListener.h">
-      <Filter>include\ecstasy\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\ecstasy\core\EntitySystem.h">
       <Filter>include\ecstasy\core</Filter>
     </ClInclude>
@@ -73,9 +70,6 @@
       <Filter>include\ecstasy\utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\ecstasy\utils\Pool.h">
-      <Filter>include\ecstasy\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\ecstasy\utils\SnapshotVector.h">
       <Filter>include\ecstasy\utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\signal11\Signal.h">

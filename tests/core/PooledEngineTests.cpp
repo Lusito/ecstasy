@@ -25,19 +25,6 @@ namespace PooledEngineTests {
 		}
 	};
 
-	class MyPositionListener : public EntityListener {
-	public:
-		int counter = 0;
-
-		void entityAdded(Entity *entity) override {
-		}
-
-		void entityRemoved(Entity *entity) override {
-			PositionComponent *position = entity->get<PositionComponent>();
-			REQUIRE(position);
-		}
-	};
-
 	class CombinedSystem : public EntitySystem<CombinedSystem> {
 	public:
 		Engine *engine;
@@ -103,8 +90,11 @@ namespace PooledEngineTests {
 		CombinedSystem combinedSystem(&engine);
 
 		engine.addSystem(&combinedSystem);
-		MyPositionListener listener;
-		engine.addEntityListener(Family::all<PositionComponent>().get(), &listener);
+		auto &signal = engine.getEntityRemovedSignal(Family::all<PositionComponent>().get());
+		signal.connect([](Entity *entity) {
+			PositionComponent *position = entity->get<PositionComponent>();
+			REQUIRE(position);
+		});
 
 		for (int i = 0; i < 10; i++) {
 			Entity *entity = engine.createEntity();

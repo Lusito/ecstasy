@@ -17,7 +17,6 @@
 #include <vector>
 #include "../core/Family.h"
 #include "../core/Engine.h"
-#include "../core/EntityListener.h"
 
 namespace ECS {
 	class Entity;
@@ -39,12 +38,13 @@ namespace ECS {
 	 * @author Santo Pfingsten
 	 */
 	template<typename T, typename C>
-	class SortedIteratingSystem : public EntitySystem<T>, public EntityListener {
+	class SortedIteratingSystem : public EntitySystem<T> {
 	private:
 		const Family &family;
 		std::vector<Entity *> sortedEntities;
 		bool shouldSort;
 		C comparator;
+		Signal11::ConnectionScope scope;
 
 	public:
 		/**
@@ -81,21 +81,22 @@ namespace ECS {
 				std::sort(sortedEntities.begin(), sortedEntities.end(), comparator);
 			}
 			shouldSort = false;
-			engine->addEntityListener(family, this);
+			scope += engine->getEntityAddedSignal(family).connect(this, &SortedIteratingSystem::entityAdded);
+			scope += engine->getEntityRemovedSignal(family).connect(this, &SortedIteratingSystem::entityRemoved);
 		}
 
 		void removedFromEngine(Engine *engine) override {
-			engine->removeEntityListener(this);
+			scope.removeAll();
 			sortedEntities.clear();
 			shouldSort = false;
 		}
 
-		void entityAdded(Entity *entity) override {
+		void entityAdded(Entity *entity) {
 			sortedEntities.push_back(entity);
 			shouldSort = true;
 		}
 
-		void entityRemoved(Entity *entity) override {
+		void entityRemoved(Entity *entity) {
 			auto it = std::find(sortedEntities.begin(), sortedEntities.end(), entity);
 			if (it != sortedEntities.end()) {
 				sortedEntities.erase(it);

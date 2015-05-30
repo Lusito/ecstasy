@@ -18,22 +18,6 @@
 namespace EntityListenerTests {
 	struct PositionComponent : public Component<PositionComponent> {};
 
-	class EntityListenerAddOnRemove : public EntityListener {
-	public:
-		Engine &engine;
-		Allocator<Entity> entities;
-
-	public:
-		EntityListenerAddOnRemove(Engine &engine) : engine(engine) {}
-
-		void entityRemoved(Entity *entity) override {
-			engine.addEntity(entities.create());
-		}
-
-		void entityAdded(Entity *entity) override {
-
-		}
-	};
 	TEST_CASE("Add EntityListener Family Remove") {
 		Engine engine;
 
@@ -42,30 +26,16 @@ namespace EntityListenerTests {
 		e.add(component.get());
 		engine.addEntity(&e);
 
-		auto &family = Family::all<PositionComponent>().get();
-		EntityListenerAddOnRemove listener(engine);
-		engine.addEntityListener(family, &listener);
+		Allocator<Entity> entities;
+		auto &signal = engine.getEntityRemovedSignal(Family::all<PositionComponent>().get());
+		signal.connect([&](Entity *entity) {
+			engine.addEntity(entities.create());
+		});
 
 		engine.removeEntity(&e);
 		engine.clear();
 	}
 
-
-	class EntityListenerAddOnAdd : public EntityListener {
-	public:
-		Engine &engine;
-		Allocator<Entity> entities;
-
-	public:
-		EntityListenerAddOnAdd(Engine &engine) : engine(engine) {}
-
-		void entityRemoved(Entity *entity) override {
-		}
-
-		void entityAdded(Entity *entity) override {
-			engine.addEntity(entities.create());
-		}
-	};
 	TEST_CASE("addEntityListenerFamilyAdd") {
 		Engine engine;
 
@@ -73,33 +43,18 @@ namespace EntityListenerTests {
 		PositionComponent component;
 		e.add(&component);
 
-		auto &family = Family::all<PositionComponent>().get();
-		EntityListenerAddOnAdd listener(engine);
-		engine.addEntityListener(family, &listener);
+		Allocator<Entity> entities;
+		auto &signal = engine.getEntityAddedSignal(Family::all<PositionComponent>().get());
+		auto ref = signal.connect([&](Entity *entity) {
+			engine.addEntity(entities.create());
+		});
 
 		engine.addEntity(&e);
-		engine.removeEntityListener(&listener);
+		ref.disconnect();
 		engine.removeAllEntities();
 		engine.clear();
 	}
 
-
-	class EntityListenerAddOnRemoveIfFamilyMatches : public EntityListener {
-	public:
-		Engine &engine;
-		const Family &family;
-		Allocator<Entity> entities;
-
-	public:
-		EntityListenerAddOnRemoveIfFamilyMatches(Engine &engine, const Family &family) : engine(engine), family(family) {}
-
-		void entityRemoved(Entity *entity) override {
-			if (family.matches(entity)) engine.addEntity(entities.create());
-		}
-
-		void entityAdded(Entity *entity) override {
-		}
-	};
 	TEST_CASE("addEntityListenerNoFamilyRemove") {
 		Engine engine;
 
@@ -107,32 +62,18 @@ namespace EntityListenerTests {
 		PositionComponent component;
 		e.add(&component);
 		engine.addEntity(&e);
-
 		auto &family = Family::all<PositionComponent>().get();
-		EntityListenerAddOnRemoveIfFamilyMatches listener(engine, family);
-		engine.addEntityListener(&listener);
+		Allocator<Entity> entities;
+		auto &signal = engine.getEntityRemovedSignal(family);
+		auto ref = signal.connect([&](Entity *entity) {
+			if (family.matches(entity))
+				engine.addEntity(entities.create());
+		});
 
 		engine.removeEntity(&e);
-		engine.removeEntityListener(&listener);
+		ref.disconnect();
 		engine.clear();
 	}
-
-	class EntityListenerAddOnAddIfFamilyMatches : public EntityListener {
-	public:
-		Engine &engine;
-		const Family &family;
-		Allocator<Entity> entities;
-
-	public:
-		EntityListenerAddOnAddIfFamilyMatches(Engine &engine, const Family &family) : engine(engine), family(family) {}
-
-		void entityRemoved(Entity *entity) override {
-		}
-
-		void entityAdded(Entity *entity) override {
-			if (family.matches(entity)) engine.addEntity(entities.create());
-		}
-	};
 
 	TEST_CASE("addEntityListenerNoFamilyAdd") {
 		Engine engine;
@@ -142,8 +83,12 @@ namespace EntityListenerTests {
 		e.add(&component);
 
 		auto &family = Family::all<PositionComponent>().get();
-		EntityListenerAddOnAddIfFamilyMatches listener(engine, family);
-		engine.addEntityListener(&listener);
+		Allocator<Entity> entities;
+		auto &signal = engine.getEntityAddedSignal(family);
+		signal.connect([&](Entity *entity) {
+			if (family.matches(entity))
+				engine.addEntity(entities.create());
+		});
 
 		engine.addEntity(&e);
 		engine.clear();
