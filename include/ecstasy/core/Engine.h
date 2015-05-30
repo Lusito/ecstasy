@@ -25,7 +25,7 @@
 #include "../utils/Pool.h"
 #include <stdint.h>
 #include <vector>
-#include <map>
+#include <unordered_map>
 
 namespace ECS {
 	class EntityListener;
@@ -93,18 +93,18 @@ namespace ECS {
 		};
 
 		std::vector<Entity *> entities;
-		std::map<uint64_t, Entity *> entitiesById;
+		std::unordered_map<uint64_t, Entity *> entitiesById;
 
 		std::vector<EntityOperation *> entityOperations;
 		EntityOperationPool entityOperationPool;
 
 		std::vector<EntitySystemBase *> systems;
-		std::map<SystemType, EntitySystemBase *> systemsByType;
+		std::unordered_map<SystemType, EntitySystemBase *> systemsByType;
 
-		std::map<const Family *, std::vector<Entity *>> entitiesByFamily;
+		std::unordered_map<const Family *, std::vector<Entity *>> entitiesByFamily;
 
 		SnapshotVector<EntityListener *> entityListeners;
-		std::map<const Family *,SnapshotVector<EntityListener *>> familyListeners;
+		std::unordered_map<const Family *,SnapshotVector<EntityListener *>> familyListeners;
 
 		ComponentListener componentAdded;
 		ComponentListener componentRemoved;
