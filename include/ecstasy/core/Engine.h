@@ -21,11 +21,11 @@
 #include "../utils/SnapshotVector.h"
 #include "ComponentOperationHandler.h"
 #include "Family.h"
-#include "../signals/Signal.h"
 #include "../utils/Pool.h"
 #include <stdint.h>
 #include <vector>
 #include <unordered_map>
+#include <signal11/Signal.h>
 
 namespace ECS {
 	class EntityListener;
@@ -49,19 +49,8 @@ namespace ECS {
 	class Engine {
 	private:
 		friend class ComponentOperationHandler;
+		friend class Entity;
 		
-		class ComponentListener: public Receiver<Entity *> {
-		private:
-			Engine &engine;
-
-		public:
-			explicit ComponentListener(Engine &engine) : engine(engine) {}
-
-			void receive(Signal<Entity *> &signal, Entity *object) override {
-				engine.updateFamilyMembership(object);
-			}
-		};
-
 		class ComponentOperationPool: public Pool<ComponentOperation> {
 		protected:
 			ComponentOperation *newObject() override {
@@ -106,9 +95,6 @@ namespace ECS {
 		SnapshotVector<EntityListener *> entityListeners;
 		std::unordered_map<const Family *,SnapshotVector<EntityListener *>> familyListeners;
 
-		ComponentListener componentAdded;
-		ComponentListener componentRemoved;
-
 		bool updating = false;
 
 		bool notifying = false;
@@ -123,9 +109,17 @@ namespace ECS {
 		uint64_t obtainEntityId() {
 			return nextEntityId++;
 		}
+
+	public:
+		/** Will dispatch an event when a component is added. */
+		Signal11::Signal<void(Entity *, ComponentBase *)> componentAdded;
+		/** Will dispatch an event when a component is removed. */
+		Signal11::Signal<void(Entity *, ComponentBase *)> componentRemoved;
 		
 	public:
-		Engine() : componentAdded(*this), componentRemoved(*this), componentOperationHandler(*this) {}
+		Engine();
+		void onComponentChange(Entity* entity, ComponentBase* component);
+
 		virtual ~Engine() {
 			// fixme: is this safe ?
 			clear();

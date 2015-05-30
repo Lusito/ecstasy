@@ -16,9 +16,8 @@ namespace ECS {
 		removeAll();
 		uuid = 0;
 		flags = 0;
-		componentAdded.removeAll();
-		componentRemoved.removeAll();
 		scheduledForRemoval = false;
+		engine = nullptr;
 	}
 
 	Entity *PooledEngine::createEntity() {

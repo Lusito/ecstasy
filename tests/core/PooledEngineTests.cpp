@@ -59,15 +59,6 @@ namespace PooledEngineTests {
 		}
 	};
 
-	class ComponentCounterReceiver : public Receiver < Entity * > {
-	public:
-		int totalCalls = 0;
-
-		void receive(Signal<Entity *> &signal, Entity *object) override {
-			totalCalls++;
-		}
-	};
-
 	class RemoveEntityTwiceSystem : public EntitySystem<RemoveEntityTwiceSystem> {
 	private:
 		const std::vector<Entity *> *entities;
@@ -135,25 +126,25 @@ namespace PooledEngineTests {
 	TEST_CASE("resetEntityCorrectly") {
 		PooledEngine engine;
 
-		ComponentCounterReceiver addedReceiver;
-		ComponentCounterReceiver removedReceiver;
-
 		// force the engine to create a Family so family bits get set
 		const std::vector<Entity *> *familyEntities = engine.getEntitiesFor(Family::all<PositionComponent>().get());
 
 		const int totalEntities = 10;
 		Entity *entities[totalEntities];
 
+
+		int totalAdds = 0;
+		int totalRemoves = 0;
+		engine.componentAdded.connect([&totalAdds](Entity *entity, ComponentBase *c) { totalAdds++; });
+		engine.componentRemoved.connect([&totalRemoves](Entity *entity, ComponentBase *c) { totalRemoves++; });
+
 		for (int i = 0; i < totalEntities; i++) {
 			entities[i] = engine.createEntity();
 
 			entities[i]->flags = 5;
 
-			entities[i]->componentAdded.add(&addedReceiver);
-			entities[i]->componentRemoved.add(&removedReceiver);
-
-			entities[i]->add(engine.createComponent<PositionComponent>());
 			engine.addEntity(entities[i]);
+			entities[i]->add(engine.createComponent<PositionComponent>());
 
 //			REQUIRE(entities[i]->componentOperationHandler); //fixme
 			REQUIRE(1 == entities[i]->getComponents().size());
@@ -161,13 +152,13 @@ namespace PooledEngineTests {
 			REQUIRE(contains(*familyEntities, entities[i]));
 		}
 
-		REQUIRE(totalEntities == addedReceiver.totalCalls);
-		REQUIRE(0 == removedReceiver.totalCalls);
+		REQUIRE(totalEntities == totalAdds);
+		REQUIRE(0 == totalRemoves);
 
 		engine.removeAllEntities();
 
-		REQUIRE(totalEntities == addedReceiver.totalCalls);
-		REQUIRE(totalEntities == removedReceiver.totalCalls);
+		REQUIRE(totalEntities == totalAdds);
+		REQUIRE(totalEntities == totalRemoves);
 
 		for (int i = 0; i < totalEntities; i++) {
 			REQUIRE(0 == entities[i]->flags);
@@ -176,13 +167,7 @@ namespace PooledEngineTests {
 			REQUIRE(entities[i]->getFamilyBits().isEmpty());
 			REQUIRE(!contains(*familyEntities, entities[i]));
 			REQUIRE(0L == entities[i]->getId());
-
-			entities[i]->componentAdded.dispatch(entities[i]);
-			entities[i]->componentRemoved.dispatch(entities[i]);
 		}
-
-		REQUIRE(totalEntities == addedReceiver.totalCalls);
-		REQUIRE(totalEntities == removedReceiver.totalCalls);
 	}
 
 

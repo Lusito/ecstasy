@@ -2,7 +2,6 @@
 #include "catch.hpp"
 #include <vector>
 #include <memory>
-#include <ecstasy/signals/Signal.h>
 #include <ecstasy/core/Engine.h>
 #include <ecstasy/core/PooledEngine.h>
 #include <ecstasy/core/Component.h>

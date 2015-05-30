@@ -10,14 +10,14 @@
     <Filter Include="include\ecstasy\core">
       <UniqueIdentifier>{0CD35268-F861-DC31-A180-F02C8DEEECD7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\ecstasy\signals">
-      <UniqueIdentifier>{B4ECB093-2024-F92A-292E-5D4E95E41F24}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\ecstasy\systems">
       <UniqueIdentifier>{3BF8DFB9-A72F-2851-B039-8C741CF04E4A}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\ecstasy\utils">
       <UniqueIdentifier>{9486F573-00F3-B06E-C9E6-48CC3512D3D6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\signal11">
+      <UniqueIdentifier>{F867226D-E460-41BF-0D93-2644F9EA20CB}</UniqueIdentifier>
     </Filter>
     <Filter Include="source">
       <UniqueIdentifier>{76FF3A1C-62A1-65F2-4B5C-7946379DEC42}</UniqueIdentifier>
@@ -57,9 +57,6 @@
     <ClInclude Include="..\..\include\ecstasy\core\Types.h">
       <Filter>include\ecstasy\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\ecstasy\signals\Signal.h">
-      <Filter>include\ecstasy\signals</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\ecstasy\systems\IntervalIteratingSystem.h">
       <Filter>include\ecstasy\systems</Filter>
     </ClInclude>
@@ -80,6 +77,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\ecstasy\utils\SnapshotVector.h">
       <Filter>include\ecstasy\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\signal11\Signal.h">
+      <Filter>include\signal11</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

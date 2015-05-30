@@ -16,7 +16,6 @@
  ******************************************************************************/
 
 #include <stdint.h>
-#include "../signals/Signal.h"
 #include "ComponentOperationHandler.h"
 
 namespace ECS {
@@ -31,10 +30,6 @@ namespace ECS {
 	public:
 		/** A flag that can be used to bit mask this entity. Up to the user to manage. */
 		int flags = 0;
-		/** Will dispatch an event when a component is added. */
-		Signal<Entity *> componentAdded;
-		/** Will dispatch an event when a component is removed. */
-		Signal<Entity *> componentRemoved;
 
 	protected:
 		uint64_t uuid = 0;
@@ -45,6 +40,7 @@ namespace ECS {
 		std::vector<ComponentBase *> components;
 		Bits componentBits;
 		Bits familyBits;
+		Engine *engine = nullptr;
 
 	public:
 		virtual ~Entity() {}

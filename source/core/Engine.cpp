@@ -21,8 +21,19 @@ namespace ECS {
 	bool compareSystems(EntitySystemBase *a, EntitySystemBase *b) {
 		return a->priority < b->priority;
 	}
+	Engine:: Engine()
+		: componentOperationHandler(*this) {
+		componentAdded.connect(this, &Engine::onComponentChange);
+		componentRemoved.connect(this, &Engine::onComponentChange);
+	}
+
+	void Engine::onComponentChange(Entity *entity, ComponentBase *component) {
+		updateFamilyMembership(entity);
+	}
+
 	void Engine::addEntity(Entity *entity){
 		entity->uuid = obtainEntityId();
+		entity->engine = this;
 		if (updating || notifying) {
 			EntityOperation *operation = entityOperationPool.obtain();
 			operation->entity = entity;
@@ -175,8 +186,6 @@ namespace ECS {
 			}
 		}
 
-		entity->componentAdded.remove(&componentAdded);
-		entity->componentRemoved.remove(&componentRemoved);
 		entity->componentOperationHandler = nullptr;
 
 		notifying = true;
@@ -193,8 +202,6 @@ namespace ECS {
 
 		updateFamilyMembership(entity);
 
-		entity->componentAdded.add(&componentAdded);
-		entity->componentRemoved.add(&componentRemoved);
 		entity->componentOperationHandler = &componentOperationHandler;
 
 		notifying = true;

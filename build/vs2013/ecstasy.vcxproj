@@ -94,7 +94,6 @@
     <ClInclude Include="..\..\include\ecstasy\core\Family.h" />
     <ClInclude Include="..\..\include\ecstasy\core\PooledEngine.h" />
     <ClInclude Include="..\..\include\ecstasy\core\Types.h" />
-    <ClInclude Include="..\..\include\ecstasy\signals\Signal.h" />
     <ClInclude Include="..\..\include\ecstasy\systems\IntervalIteratingSystem.h" />
     <ClInclude Include="..\..\include\ecstasy\systems\IntervalSystem.h" />
     <ClInclude Include="..\..\include\ecstasy\systems\IteratingSystem.h" />
@@ -102,6 +101,7 @@
     <ClInclude Include="..\..\include\ecstasy\utils\Bits.h" />
     <ClInclude Include="..\..\include\ecstasy\utils\Pool.h" />
     <ClInclude Include="..\..\include\ecstasy\utils\SnapshotVector.h" />
+    <ClInclude Include="..\..\include\signal11\Signal.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\core\ComponentOperationHandler.cpp" />

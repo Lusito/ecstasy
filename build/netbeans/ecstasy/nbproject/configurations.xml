@@ -16,9 +16,6 @@
 						<itemPath>../../../include/ecstasy/core/PooledEngine.h</itemPath>
 						<itemPath>../../../include/ecstasy/core/Types.h</itemPath>
 					</logicalFolder>
-					<logicalFolder name="signals" displayName="signals" projectFiles="true">
-						<itemPath>../../../include/ecstasy/signals/Signal.h</itemPath>
-					</logicalFolder>
 					<logicalFolder name="systems" displayName="systems" projectFiles="true">
 						<itemPath>../../../include/ecstasy/systems/IntervalIteratingSystem.h</itemPath>
 						<itemPath>../../../include/ecstasy/systems/IntervalSystem.h</itemPath>
@@ -30,6 +27,9 @@
 						<itemPath>../../../include/ecstasy/utils/Pool.h</itemPath>
 						<itemPath>../../../include/ecstasy/utils/SnapshotVector.h</itemPath>
 					</logicalFolder>
+				</logicalFolder>
+				<logicalFolder name="signal11" displayName="signal11" projectFiles="true">
+					<itemPath>../../../include/signal11/Signal.h</itemPath>
 				</logicalFolder>
 			</logicalFolder>
 			<logicalFolder name="source" displayName="source" projectFiles="true">
@@ -98,7 +98,6 @@
 			<item path="../../../include/ecstasy/core/Family.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/core/PooledEngine.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/core/Types.h" ex="false" tool="3" flavor2="0"></item>
-			<item path="../../../include/ecstasy/signals/Signal.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/systems/IntervalIteratingSystem.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/systems/IntervalSystem.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/systems/IteratingSystem.h" ex="false" tool="3" flavor2="0"></item>
@@ -106,6 +105,7 @@
 			<item path="../../../include/ecstasy/utils/Bits.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/utils/Pool.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/utils/SnapshotVector.h" ex="false" tool="3" flavor2="0"></item>
+			<item path="../../../include/signal11/Signal.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../source/core/ComponentOperationHandler.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../source/core/Engine.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../source/core/Entity.cpp" ex="false" tool="1" flavor2="0"></item>
@@ -158,7 +158,6 @@
 			<item path="../../../include/ecstasy/core/Family.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/core/PooledEngine.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/core/Types.h" ex="false" tool="3" flavor2="0"></item>
-			<item path="../../../include/ecstasy/signals/Signal.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/systems/IntervalIteratingSystem.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/systems/IntervalSystem.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/systems/IteratingSystem.h" ex="false" tool="3" flavor2="0"></item>
@@ -166,6 +165,7 @@
 			<item path="../../../include/ecstasy/utils/Bits.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/utils/Pool.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/utils/SnapshotVector.h" ex="false" tool="3" flavor2="0"></item>
+			<item path="../../../include/signal11/Signal.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../source/core/ComponentOperationHandler.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../source/core/Engine.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../source/core/Entity.cpp" ex="false" tool="1" flavor2="0"></item>

@@ -19,17 +19,6 @@ namespace EntityTests {
 	struct ComponentA : public Component<ComponentA> {};
 	struct ComponentB : public Component<ComponentB> {};
 
-	class EntityListenerMock : public Receiver < Entity * > {
-	public:
-		int counter = 0;
-
-		void receive(Signal<Entity *> &signal, Entity *object) override {
-			++counter;
-
-			REQUIRE(object);
-		}
-	};
-
 	TEST_CASE("uniqueIndex") {
 		int numEntities = 10000;
 		Allocator<Entity> entities;
@@ -146,35 +135,37 @@ namespace EntityTests {
 
 
 	TEST_CASE("componentListener") {
-		EntityListenerMock addedListener;
-		EntityListenerMock removedListener;
-
+		Engine engine;
 		Entity entity;
-		entity.componentAdded.add(&addedListener);
-		entity.componentRemoved.add(&removedListener);
+		engine.addEntity(&entity);
 
-		REQUIRE(0 == addedListener.counter);
-		REQUIRE(0 == removedListener.counter);
+		int totalAdds = 0;
+		int totalRemoves = 0;
+		engine.componentAdded.connect([&totalAdds](Entity *e, ComponentBase *c) { totalAdds++; });
+		engine.componentRemoved.connect([&totalRemoves](Entity *e, ComponentBase *c) { totalRemoves++; });
+
+		REQUIRE(0 == totalAdds);
+		REQUIRE(0 == totalRemoves);
 
 		ComponentA a;
 		entity.add(&a);
 
-		REQUIRE(1 == addedListener.counter);
-		REQUIRE(0 == removedListener.counter);
+		REQUIRE(1 == totalAdds);
+		REQUIRE(0 == totalRemoves);
 
 		entity.remove<ComponentA>();
 
-		REQUIRE(1 == addedListener.counter);
-		REQUIRE(1 == removedListener.counter);
+		REQUIRE(1 == totalAdds);
+		REQUIRE(1 == totalRemoves);
 
 		ComponentB b;
 		entity.add(&b);
 
-		REQUIRE(2 == addedListener.counter);
+		REQUIRE(2 == totalAdds);
 
 		entity.remove<ComponentB>();
 
-		REQUIRE(2 == removedListener.counter);
+		REQUIRE(2 == totalRemoves);
 	}
 
 

@@ -14,55 +14,46 @@
  * limitations under the License.
  ******************************************************************************/
 #include "../TestBase.h"
+#include <signal11/Signal.h>
 
 namespace SignalTests {
+	using namespace Signal11;
 	class Dummy {
 
 	};
 
-	class ListenerMock : public Receiver < Dummy * > {
-	public:
+	struct ListenerMock {
 		int count = 0;
 
-		void receive(Signal<Dummy *> &signal, Dummy *object) override {
+		void callback(Dummy *object) {
 			++count;
 
 			REQUIRE(object != nullptr);
 		}
 	};
 
-	class RemoveWhileDispatchListenerMock : public Receiver < Dummy * > {
-	public:
-		int count = 0;
-
-		void receive(Signal<Dummy *> &signal, Dummy *object) override {
-			++count;
-			signal.remove(this);
-		}
-	};
-
 	TEST_CASE("Add Listener and Dispatch") {
 		Dummy dummy;
-		Signal<Dummy *> signal;
+		Signal<void (Dummy *)> signal;
 		ListenerMock listener;
-		signal.add(&listener);
+		signal.connect(&listener, &ListenerMock::callback);
 
 		for (int i = 0; i < 10; ++i) {
 			REQUIRE(i == listener.count);
-			signal.dispatch(&dummy);
+			signal.emit(&dummy);
 			REQUIRE((i + 1) == listener.count);
 		}
 	}
 
 	TEST_CASE("Add Listeners and Dispatch") {
 		Dummy dummy;
-		Signal<Dummy *> signal;
+		Signal<void (Dummy *)> signal;
 		Allocator<ListenerMock> listeners;
 
 		int numListeners = 10;
 
 		for (int i = 0; i < numListeners; i++) {
-			signal.add(listeners.create());
+			signal.connect(listeners.create(), &ListenerMock::callback);
 		}
 
 		int numDispatchs = 10;
@@ -72,7 +63,7 @@ namespace SignalTests {
 				REQUIRE(i == listener->count);
 			}
 
-			signal.dispatch(&dummy);
+			signal.emit(&dummy);
 
 			for (auto listener : listeners.values) {
 				REQUIRE((i + 1) == listener->count);
@@ -82,12 +73,12 @@ namespace SignalTests {
 
 	TEST_CASE("Add Listener Dispatch and Remove") {
 		Dummy dummy;
-		Signal<Dummy *> signal;
+		Signal<void (Dummy *)> signal;
 		ListenerMock listenerA;
 		ListenerMock listenerB;
 
-		signal.add(&listenerA);
-		signal.add(&listenerB);
+		signal.connect(&listenerA, &ListenerMock::callback);
+		auto refB = signal.connect(&listenerB, &ListenerMock::callback);
 
 		int numDispatchs = 5;
 
@@ -95,19 +86,19 @@ namespace SignalTests {
 			REQUIRE(i == listenerA.count);
 			REQUIRE(i == listenerB.count);
 
-			signal.dispatch(&dummy);
+			signal.emit(&dummy);
 
 			REQUIRE((i + 1) == listenerA.count);
 			REQUIRE((i + 1) == listenerB.count);
 		}
 
-		signal.remove(&listenerB);
+		refB.disconnect();
 
 		for (int i = 0; i < numDispatchs; ++i) {
 			REQUIRE((i + numDispatchs) == listenerA.count);
 			REQUIRE(numDispatchs == listenerB.count);
 
-			signal.dispatch(&dummy);
+			signal.emit(&dummy);
 
 			REQUIRE((i + 1 + numDispatchs) == listenerA.count);
 			REQUIRE(numDispatchs == listenerB.count);
@@ -116,37 +107,41 @@ namespace SignalTests {
 
 	TEST_CASE("Remove while dispatch") {
 		Dummy dummy;
-		Signal<Dummy *> signal;
-		RemoveWhileDispatchListenerMock listenerA;
+		Signal<void(Dummy *)> signal;
 		ListenerMock listenerB;
 
-		signal.add(&listenerA);
-		signal.add(&listenerB);
+		int count = 0;
 
-		signal.dispatch(&dummy);
+		ConnectionRef ref = signal.connect([&](Dummy *object) {
+			++count;
+			ref.disconnect();
+		});
+		signal.connect(&listenerB, &ListenerMock::callback);
 
-		REQUIRE(1 == listenerA.count);
+		signal.emit(&dummy);
+
+		REQUIRE(1 == count);
 		REQUIRE(1 == listenerB.count);
 	}
 
-	TEST_CASE("Remove all") {
+	TEST_CASE("Connection Scope") {
 		Dummy dummy;
-		Signal<Dummy *> signal;
+		Signal<void (Dummy *)> signal;
 
 		ListenerMock listenerA;
 		ListenerMock listenerB;
+		{
+			ConnectionScope scope;
+			scope += signal.connect(&listenerA, &ListenerMock::callback);
+			scope += signal.connect(&listenerB, &ListenerMock::callback);
 
-		signal.add(&listenerA);
-		signal.add(&listenerB);
+			signal.emit(&dummy);
 
-		signal.dispatch(&dummy);
+			REQUIRE(1 == listenerA.count);
+			REQUIRE(1 == listenerB.count);
+		}
 
-		REQUIRE(1 == listenerA.count);
-		REQUIRE(1 == listenerB.count);
-
-		signal.removeAll();
-
-		signal.dispatch(&dummy);
+		signal.emit(&dummy);
 
 		REQUIRE(1 == listenerA.count);
 		REQUIRE(1 == listenerB.count);

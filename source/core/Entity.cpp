@@ -15,6 +15,7 @@
  ******************************************************************************/
 #include <ecstasy/core/Entity.h>
 #include <ecstasy/core/Component.h>
+#include <ecstasy/core/Engine.h>
 
 namespace ECS {
 	Entity &Entity::add (ComponentBase *component) {
@@ -50,7 +51,8 @@ namespace ECS {
 
 		componentBits.set(type);
 
-		componentAdded.dispatch(this);
+		if (engine)
+			engine->componentAdded.emit(this, component);
 	}
 
 	ComponentBase *Entity::removeInternal(ComponentType type) {
@@ -61,7 +63,8 @@ namespace ECS {
 			components.erase(std::remove(components.begin(), components.end(), component), components.end());
 			componentBits.clear(type);
 
-			componentRemoved.dispatch(this);
+			if (engine)
+				engine->componentRemoved.emit(this, component);
 		}
 		return component;
 	}
