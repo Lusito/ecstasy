@@ -19,6 +19,44 @@
 #include "Component.h"
 
 namespace ECS {
+	/** Component Pools */
+	class ComponentPoolBase {
+	public:
+		virtual ~ComponentPoolBase() {}
+		virtual void freeComponent(ComponentBase *object) = 0;
+	};
+
+	template<typename T>
+	class ComponentPool : public ComponentPoolBase, public ReflectionPool<T> {
+	public:
+		void freeComponent(ComponentBase *object) override {
+			ReflectionPool<T>::free((T*)object);
+		}
+	};
+	
+	class PooledEngine;	
+	class PooledEntity: public Entity, public Poolable {
+	public:
+		PooledEngine *engine = nullptr;
+
+	protected:
+		ComponentBase *removeInternal(ComponentType type) override;
+
+	public:
+		void reset() override;
+	};
+
+	/** Entity Pool */
+	class EntityPool : public Pool<PooledEntity> {
+	public:
+		EntityPool(int initialSize, int maxSize) : Pool<PooledEntity>(initialSize, maxSize) {}
+
+	protected:
+		PooledEntity *newObject() override {
+			return new PooledEntity();
+		}
+	};
+		
 	/**
 	 * Supports {@link Entity} and {@link Component} pooling. This improves performance in environments where creating/deleting
 	 * entities is frequent as it greatly reduces memory allocation.
@@ -31,57 +69,8 @@ namespace ECS {
 	 */
 	class PooledEngine : public Engine {
 	private:
-		/** Component Pools */
-		class ComponentPoolBase {
-		public:
-			virtual ~ComponentPoolBase() {}
-			virtual void freeComponent(ComponentBase *object) = 0;
-		};
-		
+		friend class PooledEntity;
 		std::vector<ComponentPoolBase *> componentPoolsByType;
-		
-		template<typename T>
-		class ComponentPool : public ComponentPoolBase, public ReflectionPool<T> {
-		public:
-			void freeComponent(ComponentBase *object) override {
-				ReflectionPool<T>::free((T*)object);
-			}
-		};
-		
-		template<typename T>
-		ComponentPool<T> *getOrCreateComponentPool() {
-			auto type = getComponentType<T>();
-			if (type >= componentPoolsByType.size())
-				componentPoolsByType.resize(type + 1);
-			ComponentPool<T> *pool = (ComponentPool<T> *)componentPoolsByType[type];
-			if (!pool) {
-				pool = new ComponentPool<T>();
-				componentPoolsByType[type] = pool;
-			}
-			return pool;
-		}
-		
-		class PooledEntity: public Entity, public Poolable {
-		public:
-			PooledEngine *engine = nullptr;
-
-		protected:
-			ComponentBase *removeInternal(ComponentType type) override;
-
-		public:
-			void reset() override;
-		};
-		
-		/** Entity Pool */
-		class EntityPool : public Pool<PooledEntity> {
-		public:
-			EntityPool(int initialSize, int maxSize) : Pool<PooledEntity>(initialSize, maxSize) {}
-
-		protected:
-			PooledEntity *newObject() override {
-				return new PooledEntity();
-			}
-		};
 		EntityPool entityPool;
 
 	public:
@@ -128,5 +117,19 @@ namespace ECS {
 
 	protected:
 		void removeEntityInternal(Entity *entity) override;
+		
+	private:
+		template<typename T>
+		ComponentPool<T> *getOrCreateComponentPool() {
+			auto type = getComponentType<T>();
+			if (type >= componentPoolsByType.size())
+				componentPoolsByType.resize(type + 1);
+			ComponentPool<T> *pool = (ComponentPool<T> *)componentPoolsByType[type];
+			if (!pool) {
+				pool = new ComponentPool<T>();
+				componentPoolsByType[type] = pool;
+			}
+			return pool;
+		}
 	};
 }

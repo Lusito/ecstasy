@@ -15,40 +15,30 @@
  * limitations under the License.
  ******************************************************************************/
 #include "../utils/Pool.h"
-#include "Types.h"
 
 namespace ECS {
 	class Entity;
-	class Engine;
-	struct ComponentBase;
-	
-	class ComponentOperation: public Poolable {
+
+	class EntityOperation: public Poolable {
 	public:
 		enum class Type {
 			Add,
-			Remove
+			Remove,
+			RemoveAll
 		};
 
-	public:
 		Type type;
 		Entity *entity;
-		ComponentBase *component;
-		ComponentType componentType;
 
-		void makeAdd(Entity *entity, ComponentBase *component);
-		void makeRemove(Entity *entity, ComponentType componentType);
-		void reset() override;
+		void reset() override {
+			entity = nullptr;
+		}
 	};
-	
-	class ComponentOperationHandler {
-	private:
-		Engine &engine;
 
-	public:
-		explicit ComponentOperationHandler(Engine &engine) : engine(engine) {}
-
-		void add(Entity *entity, ComponentBase *component);
-
-		void remove(Entity *entity, ComponentType componentType);
+	class EntityOperationPool: public Pool<EntityOperation> {
+	protected:
+		EntityOperation *newObject() override {
+			return new EntityOperation();
+		}
 	};
 }

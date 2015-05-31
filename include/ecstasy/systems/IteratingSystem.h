@@ -15,7 +15,6 @@
 * limitations under the License.
 ******************************************************************************/
 #include <vector>
-#include "IntervalSystem.h"
 #include "../core/Family.h"
 #include "../core/Engine.h"
 

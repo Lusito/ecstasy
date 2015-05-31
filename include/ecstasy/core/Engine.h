@@ -18,9 +18,9 @@
 #include "Types.h"
 #include "EntitySystem.h"
 #include "Entity.h"
-#include "ComponentOperationHandler.h"
+#include "ComponentOperations.h"
+#include "EntityOperations.h"
 #include "Family.h"
-#include "../utils/Pool.h"
 #include <stdint.h>
 #include <vector>
 #include <unordered_map>
@@ -29,7 +29,7 @@
 namespace ECS {
 	typedef Signal11::Signal<void(Entity *, ComponentBase *)> ComponentSignal;
 	typedef Signal11::Signal<void(Entity *)> EntitySignal;
-	
+		
 	/**
 	 * The heart of the Entity framework. It is responsible for keeping track of {@link Entity} and
 	 * managing {@link EntitySystem} objects. The Engine should be updated every tick via the {@link #update(float)} method.
@@ -50,36 +50,6 @@ namespace ECS {
 	private:
 		friend class ComponentOperationHandler;
 		friend class Entity;
-		
-		class ComponentOperationPool: public Pool<ComponentOperation> {
-		protected:
-			ComponentOperation *newObject() override {
-				return new ComponentOperation();
-			}
-		};
-
-		class EntityOperation: public Poolable {
-		public:
-			enum class Type {
-				Add,
-				Remove,
-				RemoveAll
-			};
-
-			Type type;
-			Entity *entity;
-
-			void reset() override {
-				entity = nullptr;
-			}
-		};
-
-		class EntityOperationPool: public Pool<EntityOperation> {
-		protected:
-			EntityOperation *newObject() override {
-				return new EntityOperation();
-			}
-		};
 
 		std::vector<Entity *> entities;
 		std::unordered_map<uint64_t, Entity *> entitiesById;
@@ -105,11 +75,6 @@ namespace ECS {
 		std::vector<ComponentOperation *> componentOperations;
 		ComponentOperationHandler componentOperationHandler;
 
-
-		uint64_t obtainEntityId() {
-			return nextEntityId++;
-		}
-
 	public:
 		/** Will dispatch an event when a component is added. */
 		ComponentSignal componentAdded;
@@ -134,6 +99,10 @@ namespace ECS {
 			processComponentOperations();
 			processPendingEntityOperations();
 			removeAllEntities();
+		}
+
+		uint64_t obtainEntityId() {
+			return nextEntityId++;
 		}
 
 		/**

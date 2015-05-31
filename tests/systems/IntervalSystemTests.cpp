@@ -14,7 +14,7 @@
 * limitations under the License.
 ******************************************************************************/
 #include "../TestBase.h"
-#include <ecstasy/systems/IteratingSystem.h>
+#include <ecstasy/systems/IntervalSystem.h>
 
 namespace IntervalSystemTests {
 	const float deltaTime = 0.1f;

@@ -7,9 +7,10 @@
 				<logicalFolder name="ecstasy" displayName="ecstasy" projectFiles="true">
 					<logicalFolder name="core" displayName="core" projectFiles="true">
 						<itemPath>../../../include/ecstasy/core/Component.h</itemPath>
-						<itemPath>../../../include/ecstasy/core/ComponentOperationHandler.h</itemPath>
+						<itemPath>../../../include/ecstasy/core/ComponentOperations.h</itemPath>
 						<itemPath>../../../include/ecstasy/core/Engine.h</itemPath>
 						<itemPath>../../../include/ecstasy/core/Entity.h</itemPath>
+						<itemPath>../../../include/ecstasy/core/EntityOperations.h</itemPath>
 						<itemPath>../../../include/ecstasy/core/EntitySystem.h</itemPath>
 						<itemPath>../../../include/ecstasy/core/Family.h</itemPath>
 						<itemPath>../../../include/ecstasy/core/PooledEngine.h</itemPath>
@@ -32,7 +33,7 @@
 			</logicalFolder>
 			<logicalFolder name="source" displayName="source" projectFiles="true">
 				<logicalFolder name="core" displayName="core" projectFiles="true">
-					<itemPath>../../../source/core/ComponentOperationHandler.cpp</itemPath>
+					<itemPath>../../../source/core/ComponentOperations.cpp</itemPath>
 					<itemPath>../../../source/core/Engine.cpp</itemPath>
 					<itemPath>../../../source/core/Entity.cpp</itemPath>
 					<itemPath>../../../source/core/Family.cpp</itemPath>
@@ -88,9 +89,10 @@
 				</archiverTool>
 			</compileType>
 			<item path="../../../include/ecstasy/core/Component.h" ex="false" tool="3" flavor2="0"></item>
-			<item path="../../../include/ecstasy/core/ComponentOperationHandler.h" ex="false" tool="3" flavor2="0"></item>
+			<item path="../../../include/ecstasy/core/ComponentOperations.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/core/Engine.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/core/Entity.h" ex="false" tool="3" flavor2="0"></item>
+			<item path="../../../include/ecstasy/core/EntityOperations.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/core/EntitySystem.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/core/Family.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/core/PooledEngine.h" ex="false" tool="3" flavor2="0"></item>
@@ -102,7 +104,7 @@
 			<item path="../../../include/ecstasy/utils/Bits.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/utils/Pool.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/signal11/Signal.h" ex="false" tool="3" flavor2="0"></item>
-			<item path="../../../source/core/ComponentOperationHandler.cpp" ex="false" tool="1" flavor2="0"></item>
+			<item path="../../../source/core/ComponentOperations.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../source/core/Engine.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../source/core/Entity.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../source/core/Family.cpp" ex="false" tool="1" flavor2="0"></item>
@@ -146,9 +148,10 @@
 				</archiverTool>
 			</compileType>
 			<item path="../../../include/ecstasy/core/Component.h" ex="false" tool="3" flavor2="0"></item>
-			<item path="../../../include/ecstasy/core/ComponentOperationHandler.h" ex="false" tool="3" flavor2="0"></item>
+			<item path="../../../include/ecstasy/core/ComponentOperations.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/core/Engine.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/core/Entity.h" ex="false" tool="3" flavor2="0"></item>
+			<item path="../../../include/ecstasy/core/EntityOperations.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/core/EntitySystem.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/core/Family.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/core/PooledEngine.h" ex="false" tool="3" flavor2="0"></item>
@@ -160,7 +163,7 @@
 			<item path="../../../include/ecstasy/utils/Bits.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/ecstasy/utils/Pool.h" ex="false" tool="3" flavor2="0"></item>
 			<item path="../../../include/signal11/Signal.h" ex="false" tool="3" flavor2="0"></item>
-			<item path="../../../source/core/ComponentOperationHandler.cpp" ex="false" tool="1" flavor2="0"></item>
+			<item path="../../../source/core/ComponentOperations.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../source/core/Engine.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../source/core/Entity.cpp" ex="false" tool="1" flavor2="0"></item>
 			<item path="../../../source/core/Family.cpp" ex="false" tool="1" flavor2="0"></item>

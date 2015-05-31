@@ -1,7 +1,7 @@
 #include <ecstasy/core/PooledEngine.h>
 
 namespace ECS {
-	ComponentBase *PooledEngine::PooledEntity::removeInternal(ComponentType type) {
+	ComponentBase *PooledEntity::removeInternal(ComponentType type) {
 		ComponentBase *component = Entity::removeInternal(type);
 
 		if (component != nullptr) {
@@ -12,7 +12,7 @@ namespace ECS {
 		return component;
 	}
 
-	void PooledEngine::PooledEntity::reset() {
+	void PooledEntity::reset() {
 		removeAll();
 		uuid = 0;
 		flags = 0;

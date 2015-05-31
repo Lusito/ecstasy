@@ -19,29 +19,7 @@
 #include <sstream>
 
 namespace ECS {
-	FamilyBuilder Family::builder;
 	static std::map<std::string, std::shared_ptr<Family>> families;
-	
-	Family::~Family() {
-		delete m_all;
-		delete m_one;
-		delete m_exclude;
-	}
-
-	bool Family::matches (Entity *entity) const {
-		const Bits &entityComponentBits = entity->getComponentBits();
-
-		if (!entityComponentBits.containsAll(*m_all))
-			return false;
-
-		if (!m_one->isEmpty() && !m_one->intersects(entityComponentBits))
-			return false;
-
-		if (!m_exclude->isEmpty() && m_exclude->intersects(entityComponentBits))
-			return false;
-
-		return true;
-	}
 
 	static void addBitsString(std::ostringstream &ss, const std::string &prefix, Bits *bits) {
 		ss << prefix << bits->getStringId() << ";";
@@ -71,7 +49,6 @@ namespace ECS {
 		return *this;
 	}
 
-	/** @return A family for the configured component types */
 	const Family &FamilyBuilder::get () {
 		std::string hash = getFamilyHash(m_all, m_one, m_exclude);
 		auto it = families.find(hash);
@@ -83,5 +60,28 @@ namespace ECS {
 		m_one = new Bits();
 		m_exclude = new Bits();
 		return *family;
+	}
+
+	FamilyBuilder Family::builder;
+
+	Family::~Family() {
+		delete m_all;
+		delete m_one;
+		delete m_exclude;
+	}
+
+	bool Family::matches(Entity *entity) const {
+		const Bits &entityComponentBits = entity->getComponentBits();
+
+		if (!entityComponentBits.containsAll(*m_all))
+			return false;
+
+		if (!m_one->isEmpty() && !m_one->intersects(entityComponentBits))
+			return false;
+
+		if (!m_exclude->isEmpty() && m_exclude->intersects(entityComponentBits))
+			return false;
+
+		return true;
 	}
 }

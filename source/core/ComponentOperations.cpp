@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-#include <ecstasy/core/ComponentOperationHandler.h>
+#include <ecstasy/core/ComponentOperations.h>
 #include <ecstasy/core/Entity.h>
 #include <ecstasy/core/Engine.h>
 #include <ecstasy/core/Component.h>

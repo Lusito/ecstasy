@@ -16,7 +16,7 @@
  ******************************************************************************/
 
 #include <stdint.h>
-#include "ComponentOperationHandler.h"
+#include "ComponentOperations.h"
 
 namespace ECS {
 	/**
