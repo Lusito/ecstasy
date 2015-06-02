@@ -80,7 +80,7 @@ namespace ECS {
 			if (freeObjects.size() < max) {
 				object->reset();
 				freeObjects.push_back(object);
-				peak = std::max(peak, freeObjects.size());
+				peak = std::max(peak, (uint32_t)freeObjects.size());
 			} else {
 				delete object;
 			}
