@@ -73,18 +73,17 @@ namespace IteratingSystemTests {
 
 		void processEntity(Entity *entity, float deltaTime) override {
 			int index = entity->get<IndexComponent>()->index;
-			if (index % 2 == 0) {
+			if (index % 2 == 0)
 				engine->removeEntity(entity);
-			} else {
+			else
 				entity->get<SpyComponent>()->updates++;
-			}
 		}
 	};
 
 	TEST_CASE("shouldIterateEntitiesWithCorrectFamily") {
 		Engine engine;
 
-		const Family &family = Family::all<ComponentA, ComponentB>().get();
+		auto &family = Family::all<ComponentA, ComponentB>().get();
 		IteratingSystemMock system(family);
 		Entity e;
 
@@ -125,7 +124,7 @@ namespace IteratingSystemTests {
 
 	TEST_CASE("entityRemovalWhileIterating") {
 		Engine engine;
-		const std::vector<Entity *> *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
+		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
 		IteratingRemovalSystem system;
 		engine.addSystem(&system);
@@ -136,10 +135,10 @@ namespace IteratingSystemTests {
 		Allocator<SpyComponent> allocS;
 		Allocator<IndexComponent> allocI;
 		for (int i = 0; i < numEntities; ++i) {
-			Entity *e = allocE.create();
+			auto *e = allocE.create();
 			e->add(allocS.create());
 
-			IndexComponent *in = allocI.create();
+			auto *in = allocI.create();
 			in->index = i + 1;
 
 			e->add(in);
@@ -159,7 +158,7 @@ namespace IteratingSystemTests {
 
 	TEST_CASE("componentRemovalWhileIterating") {
 		Engine engine;
-		const std::vector<Entity *> *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
+		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
 		IteratingComponentRemovalSystem system;
 		engine.addSystem(&system);
@@ -170,10 +169,10 @@ namespace IteratingSystemTests {
 		Allocator<SpyComponent> allocS;
 		Allocator<IndexComponent> allocI;
 		for (int i = 0; i < numEntities; ++i) {
-			Entity *e = allocE.create();
+			auto *e = allocE.create();
 			e->add(allocS.create());
 
-			IndexComponent *in = allocI.create();
+			auto *in = allocI.create();
 			in->index = i + 1;
 
 			e->add(in);

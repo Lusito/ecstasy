@@ -34,7 +34,7 @@ namespace ECS {
 		entity->uuid = obtainEntityId();
 		entity->engine = this;
 		if (updating || notifying) {
-			EntityOperation *operation = entityOperationPool.obtain();
+			auto *operation = entityOperationPool.obtain();
 			operation->entity = entity;
 			operation->type = EntityOperation::Type::Add;
 			entityOperations.push_back(operation);
@@ -46,11 +46,11 @@ namespace ECS {
 
 	void Engine::removeEntity(Entity *entity){
 		if (updating || notifying) {
-			if(entity->scheduledForRemoval) {
+			if(entity->scheduledForRemoval)
 				return;
-			}
+			
 			entity->scheduledForRemoval = true;
-			EntityOperation *operation = entityOperationPool.obtain();
+			auto *operation = entityOperationPool.obtain();
 			operation->entity = entity;
 			operation->type = EntityOperation::Type::Remove;
 			entityOperations.push_back(operation);
@@ -62,10 +62,10 @@ namespace ECS {
 
 	void Engine::removeAllEntities() {
 		if (updating || notifying) {
-			for(Entity *entity: entities) {
+			for(auto *entity: entities)
 				entity->scheduledForRemoval = true;
-			}
-			EntityOperation *operation = entityOperationPool.obtain();
+			
+			auto *operation = entityOperationPool.obtain();
 			operation->type = EntityOperation::Type::RemoveAll;
 			entityOperations.push_back(operation);
 		}
@@ -84,7 +84,7 @@ namespace ECS {
 	}
 
 	void Engine::addSystem(EntitySystemBase *system){
-		SystemType systemType = system->type;
+		auto systemType = system->type;
 
 		if (!systemsByType.count(systemType)) {
 			systems.push_back(system);
@@ -118,7 +118,7 @@ namespace ECS {
 
 	void Engine::update(float deltaTime){
 		updating = true;
-		for(EntitySystemBase *system: systems){
+		for(auto *system: systems){
 			if (system->checkProcessing())
 				system->update(deltaTime);
 
@@ -131,11 +131,10 @@ namespace ECS {
 
 	void Engine::updateFamilyMembership(Entity *entity){
 		for (auto it = entitiesByFamily.begin(); it != entitiesByFamily.end(); it++) {
-			const Family *family = it->first;
-			std::vector<Entity *> &familyEntities = it->second;
+			auto *family = it->first;
+			auto &familyEntities = it->second;
 			
-			int familyIndex = family->index;
-
+			auto familyIndex = family->index;
 
 			bool belongsToFamily = entity->getFamilyBits().get(familyIndex);
 			bool matches = family->matches(entity);
@@ -168,8 +167,8 @@ namespace ECS {
 
 		if(!entity->getFamilyBits().isEmpty()){
 			for (auto it = entitiesByFamily.begin(); it != entitiesByFamily.end(); it++) {
-				const Family *family = it->first;
-				std::vector<Entity *> &familyEntities = it->second;
+				auto *family = it->first;
+				auto &familyEntities = it->second;
 
 				if(family->matches(entity)){
 					auto itEnt2 = std::find(familyEntities.begin(), familyEntities.end(), entity);
@@ -227,8 +226,8 @@ namespace ECS {
 		if (it != entitiesByFamily.end())
 			return &it->second;
 
-		std::vector<Entity *> &familyEntities = entitiesByFamily[&family];
-		for(Entity *e : entities){
+		auto &familyEntities = entitiesByFamily[&family];
+		for(auto *e : entities){
 			if(family.matches(e)) {
 				familyEntities.push_back(e);
 				e->familyBits.set(family.index);
@@ -238,8 +237,7 @@ namespace ECS {
 	}
 
 	void Engine::processPendingEntityOperations() {
-		for(EntityOperation *operation: entityOperations) {
-			
+		for(auto *operation: entityOperations) {
 			switch(operation->type) {
 			case EntityOperation::Type::Add: addEntityInternal(operation->entity); break;
 			case EntityOperation::Type::Remove: removeEntityInternal(operation->entity); break;
@@ -259,7 +257,7 @@ namespace ECS {
 	}
 
 	void Engine::processComponentOperations() {
-		for(ComponentOperation *operation : componentOperations) {
+		for(auto *operation : componentOperations) {
 			switch(operation->type) {
 			case ComponentOperation::Type::Add: operation->entity->addInternal(operation->component); break;
 			case ComponentOperation::Type::Remove: operation->entity->removeInternal(operation->componentType); break;

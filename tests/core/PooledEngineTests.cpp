@@ -39,9 +39,8 @@ namespace PooledEngineTests {
 		}
 
 		void update(float deltaTime) override {
-			if (counter >= 6 && counter <= 8) {
+			if (counter >= 6 && counter <= 8)
 				engine->removeEntity(entities->at(2));
-			}
 			counter++;
 		}
 	};
@@ -60,15 +59,14 @@ namespace PooledEngineTests {
 		}
 
 		void update(float deltaTime) override {
-			Entity *entity;
 			for (int i = 0; i < 10; i++) {
-				entity = engine->createEntity();
+				auto *entity = engine->createEntity();
 				REQUIRE(0 == entity->flags);
 				entity->flags = 1;
 				entity->add(engine->createComponent<PositionComponent>());
 				engine->addEntity(entity);
 			}
-			for (Entity * entity : *entities) {
+			for (auto * entity : *entities) {
 				engine->removeEntity(entity);
 				engine->removeEntity(entity);
 			}
@@ -92,12 +90,11 @@ namespace PooledEngineTests {
 		engine.addSystem(&combinedSystem);
 		auto &signal = engine.getEntityRemovedSignal(Family::all<PositionComponent>().get());
 		signal.connect([](Entity *entity) {
-			PositionComponent *position = entity->get<PositionComponent>();
-			REQUIRE(position);
+			REQUIRE(entity->get<PositionComponent>());
 		});
 
 		for (int i = 0; i < 10; i++) {
-			Entity *entity = engine.createEntity();
+			auto *entity = engine.createEntity();
 			entity->add(engine.createComponent<PositionComponent>());
 			engine.addEntity(entity);
 		}
@@ -105,9 +102,8 @@ namespace PooledEngineTests {
 		REQUIRE(10 == combinedSystem.entities->size());
 
 		float deltaTime = 0.16f;
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 10; i++)
 			engine.update(deltaTime);
-		}
 
 		engine.removeAllEntities();
 	}
@@ -117,11 +113,10 @@ namespace PooledEngineTests {
 		PooledEngine engine;
 
 		// force the engine to create a Family so family bits get set
-		const std::vector<Entity *> *familyEntities = engine.getEntitiesFor(Family::all<PositionComponent>().get());
+		auto *familyEntities = engine.getEntitiesFor(Family::all<PositionComponent>().get());
 
 		const int totalEntities = 10;
 		Entity *entities[totalEntities];
-
 
 		int totalAdds = 0;
 		int totalRemoves = 0;
@@ -168,7 +163,7 @@ namespace PooledEngineTests {
 		std::vector<Entity *> entities;
 
 		for (int i = 0; i < numEntities; ++i) {
-			Entity *entity = engine.createEntity();
+			auto *entity = engine.createEntity();
 			engine.addEntity(entity);
 			entities.push_back(entity);
 
@@ -176,14 +171,14 @@ namespace PooledEngineTests {
 		}
 
 		int j = 0;
-		for (Entity *entity : entities) {
+		for (auto *entity : entities) {
 			engine.removeEntity(entity);
 			REQUIRE(0L == entity->getId());
 			j++;
 		}
 
 		for (int i = 0; i < numEntities; ++i) {
-			Entity *entity = engine.createEntity();
+			auto *entity = engine.createEntity();
 			engine.addEntity(entity);
 			entities.push_back(entity);
 
@@ -197,9 +192,8 @@ namespace PooledEngineTests {
 		RemoveEntityTwiceSystem system;
 		engine.addSystem(&system);
 
-		for (int j = 0; j < 2; j++) {
+		for (int j = 0; j < 2; j++)
 			engine.update(0);
-		}
 	}
 
 
@@ -209,8 +203,8 @@ namespace PooledEngineTests {
 		PooledEngine engine(maxEntities, maxEntities, maxComponents, maxComponents);
 
 		for (int i = 0; i < maxComponents; ++i) {
-			Entity *e = engine.createEntity();
-			PooledComponentSpy *c = engine.createComponent<PooledComponentSpy>();
+			auto *e = engine.createEntity();
+			auto *c = engine.createComponent<PooledComponentSpy>();
 
 			REQUIRE(!c->recycled);
 
@@ -222,8 +216,8 @@ namespace PooledEngineTests {
 		engine.removeAllEntities();
 
 		for (int i = 0; i < maxComponents; ++i) {
-			Entity *e = engine.createEntity();
-			PooledComponentSpy *c = engine.createComponent<PooledComponentSpy>();
+			auto *e = engine.createEntity();
+			auto *c = engine.createComponent<PooledComponentSpy>();
 
 			REQUIRE(c->recycled);
 

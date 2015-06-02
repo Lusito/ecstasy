@@ -44,12 +44,10 @@ namespace ECS {
 
 	public:
 		/** Creates a pool with an initial capacity of 16 and no maximum. */
-		Pool () : Pool(16, std::numeric_limits<uint32_t>::max()) {
-		}
+		Pool () : Pool(16, std::numeric_limits<uint32_t>::max()) {}
 
 		/** Creates a pool with the specified initial capacity and no maximum. */
-		explicit Pool(int initialCapacity) : Pool(initialCapacity, std::numeric_limits<uint32_t>::max()) {
-		}
+		explicit Pool(int initialCapacity) : Pool(initialCapacity, std::numeric_limits<uint32_t>::max()) {}
 
 		/** @param max The maximum number of free objects to store in this pool. */
 		explicit Pool (int initialCapacity, int max) : max(max) {

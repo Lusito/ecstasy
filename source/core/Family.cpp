@@ -50,11 +50,11 @@ namespace ECS {
 	}
 
 	const Family &FamilyBuilder::get () {
-		std::string hash = getFamilyHash(m_all, m_one, m_exclude);
+		auto hash = getFamilyHash(m_all, m_one, m_exclude);
 		auto it = families.find(hash);
 		if(it != families.end())
 			return *it->second.get();
-		Family *family = new Family(m_all, m_one, m_exclude);
+		auto *family = new Family(m_all, m_one, m_exclude);
 		families.emplace(hash, std::shared_ptr<Family>(family));
 		m_all = new Bits();
 		m_one = new Bits();
@@ -71,7 +71,7 @@ namespace ECS {
 	}
 
 	bool Family::matches(Entity *entity) const {
-		const Bits &entityComponentBits = entity->getComponentBits();
+		auto &entityComponentBits = entity->getComponentBits();
 
 		if (!entityComponentBits.containsAll(*m_all))
 			return false;

@@ -2,7 +2,7 @@
 
 namespace ECS {
 	ComponentBase *PooledEntity::removeInternal(ComponentType type) {
-		ComponentBase *component = Entity::removeInternal(type);
+		auto *component = Entity::removeInternal(type);
 
 		if (component != nullptr) {
 			auto pool = engine->componentPoolsByType[type];
@@ -21,7 +21,7 @@ namespace ECS {
 	}
 
 	Entity *PooledEngine::createEntity() {
-		PooledEntity *entity = entityPool.obtain();
+		auto *entity = entityPool.obtain();
 		entity->engine = this;
 		return entity;
 	}

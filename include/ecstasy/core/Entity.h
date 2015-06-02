@@ -63,7 +63,7 @@ namespace ECS {
 		 */
 		template<typename T>
 		void remove () {
-			ComponentType type = getComponentType<T>();
+			auto type = getComponentType<T>();
 			if (componentOperationHandler != nullptr)
 				componentOperationHandler->remove(this, type);
 			else

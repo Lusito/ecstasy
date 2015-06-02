@@ -52,18 +52,18 @@ namespace FamilyTests {
 	};
 
 	TEST_CASE("sameFamily") {
-		const Family &family1 = Family::all<ComponentA>().get();
-		const Family &family2 = Family::all<ComponentA>().get();
-		const Family &family3 = Family::all<ComponentA, ComponentB>().get();
-		const Family &family4 = Family::all<ComponentA, ComponentB>().get();
-		const Family &family5 = Family::all<ComponentA, ComponentB, ComponentC>().get();
-		const Family &family6 = Family::all<ComponentA, ComponentB, ComponentC>().get();
-		const Family &family7 = Family::all<ComponentA, ComponentB>().one<ComponentC, ComponentD>()
+		auto &family1 = Family::all<ComponentA>().get();
+		auto &family2 = Family::all<ComponentA>().get();
+		auto &family3 = Family::all<ComponentA, ComponentB>().get();
+		auto &family4 = Family::all<ComponentA, ComponentB>().get();
+		auto &family5 = Family::all<ComponentA, ComponentB, ComponentC>().get();
+		auto &family6 = Family::all<ComponentA, ComponentB, ComponentC>().get();
+		auto &family7 = Family::all<ComponentA, ComponentB>().one<ComponentC, ComponentD>()
 			.exclude<ComponentE, ComponentF>().get();
-		const Family &family8 = Family::all<ComponentA, ComponentB>().one<ComponentC, ComponentD>()
+		auto &family8 = Family::all<ComponentA, ComponentB>().one<ComponentC, ComponentD>()
 			.exclude<ComponentE, ComponentF>().get();
-		const Family &family9 = Family::all().get();
-		const Family &family10 = Family::all().get();
+		auto &family9 = Family::all().get();
+		auto &family10 = Family::all().get();
 
 		REQUIRE(family1 == family2);
 		REQUIRE(family2 == family1);
@@ -83,21 +83,21 @@ namespace FamilyTests {
 	}
 
 	TEST_CASE("differentFamily") {
-		const Family &family1 = Family::all<ComponentA>().get();
-		const Family &family2 = Family::all<ComponentB>().get();
-		const Family &family3 = Family::all<ComponentC>().get();
-		const Family &family4 = Family::all<ComponentA, ComponentB>().get();
-		const Family &family5 = Family::all<ComponentA, ComponentC>().get();
-		const Family &family6 = Family::all<ComponentB, ComponentA>().get();
-		const Family &family7 = Family::all<ComponentB, ComponentC>().get();
-		const Family &family8 = Family::all<ComponentC, ComponentA>().get();
-		const Family &family9 = Family::all<ComponentC, ComponentB>().get();
-		const Family &family10 = Family::all<ComponentA, ComponentB, ComponentC>().get();
-		const Family &family11 = Family::all<ComponentA, ComponentB>().one<ComponentC, ComponentD>()
+		auto &family1 = Family::all<ComponentA>().get();
+		auto &family2 = Family::all<ComponentB>().get();
+		auto &family3 = Family::all<ComponentC>().get();
+		auto &family4 = Family::all<ComponentA, ComponentB>().get();
+		auto &family5 = Family::all<ComponentA, ComponentC>().get();
+		auto &family6 = Family::all<ComponentB, ComponentA>().get();
+		auto &family7 = Family::all<ComponentB, ComponentC>().get();
+		auto &family8 = Family::all<ComponentC, ComponentA>().get();
+		auto &family9 = Family::all<ComponentC, ComponentB>().get();
+		auto &family10 = Family::all<ComponentA, ComponentB, ComponentC>().get();
+		auto &family11 = Family::all<ComponentA, ComponentB>().one<ComponentC, ComponentD>()
 			.exclude<ComponentE, ComponentF>().get();
-		const Family &family12 = Family::all<ComponentC, ComponentD>().one<ComponentE, ComponentF>()
+		auto &family12 = Family::all<ComponentC, ComponentD>().one<ComponentE, ComponentF>()
 			.exclude<ComponentA, ComponentB>().get();
-		const Family &family13 = Family::all().get();
+		auto &family13 = Family::all().get();
 
 		REQUIRE(family1 != family2);
 		REQUIRE(family1 != family3);
@@ -138,12 +138,12 @@ namespace FamilyTests {
 	}
 
 	TEST_CASE("familyEqualityFiltering") {
-		const Family &family1 = Family::all<ComponentA>().one<ComponentB>().exclude<ComponentC>().get();
-		const Family &family2 = Family::all<ComponentB>().one<ComponentC>().exclude<ComponentA>().get();
-		const Family &family3 = Family::all<ComponentC>().one<ComponentA>().exclude<ComponentB>().get();
-		const Family &family4 = Family::all<ComponentA>().one<ComponentB>().exclude<ComponentC>().get();
-		const Family &family5 = Family::all<ComponentB>().one<ComponentC>().exclude<ComponentA>().get();
-		const Family &family6 = Family::all<ComponentC>().one<ComponentA>().exclude<ComponentB>().get();
+		auto &family1 = Family::all<ComponentA>().one<ComponentB>().exclude<ComponentC>().get();
+		auto &family2 = Family::all<ComponentB>().one<ComponentC>().exclude<ComponentA>().get();
+		auto &family3 = Family::all<ComponentC>().one<ComponentA>().exclude<ComponentB>().get();
+		auto &family4 = Family::all<ComponentA>().one<ComponentB>().exclude<ComponentC>().get();
+		auto &family5 = Family::all<ComponentB>().one<ComponentC>().exclude<ComponentA>().get();
+		auto &family6 = Family::all<ComponentC>().one<ComponentA>().exclude<ComponentB>().get();
 
 		REQUIRE(family1 == family4);
 		REQUIRE(family2 == family5);
@@ -153,7 +153,7 @@ namespace FamilyTests {
 	}
 
 	TEST_CASE("entityMatch") {
-		const Family &family = Family::all<ComponentA, ComponentB>().get();
+		auto &family = Family::all<ComponentA, ComponentB>().get();
 
 		Entity entity;
 		ComponentA a;
@@ -169,7 +169,7 @@ namespace FamilyTests {
 	}
 
 	TEST_CASE("entityMismatch") {
-		const Family &family = Family::all<ComponentA, ComponentC>().get();
+		auto &family = Family::all<ComponentA, ComponentC>().get();
 
 		Entity entity;
 		ComponentA a;
@@ -185,7 +185,7 @@ namespace FamilyTests {
 	}
 
 	TEST_CASE("entityMatchThenMismatch") {
-		const Family &family = Family::all<ComponentA, ComponentB>().get();
+		auto &family = Family::all<ComponentA, ComponentB>().get();
 
 		Entity entity;
 		ComponentA a;
@@ -201,7 +201,7 @@ namespace FamilyTests {
 	}
 
 	TEST_CASE("entityMismatchThenMatch") {
-		const Family &family = Family::all<ComponentA, ComponentB>().get();
+		auto &family = Family::all<ComponentA, ComponentB>().get();
 
 		Entity entity;
 		ComponentA a;
@@ -218,16 +218,16 @@ namespace FamilyTests {
 	}
 
 	TEST_CASE("testEmptyFamily") {
-		const Family &family = Family::all().get();
+		auto &family = Family::all().get();
 		Entity entity;
 		REQUIRE(family.matches(&entity));
 	}
 
 	TEST_CASE("familyFiltering") {
-		const Family &family1 = Family::all<ComponentA, ComponentB>().one<ComponentC, ComponentD>()
+		auto &family1 = Family::all<ComponentA, ComponentB>().one<ComponentC, ComponentD>()
 			.exclude<ComponentE, ComponentF>().get();
 
-		const Family &family2 = Family::all<ComponentC, ComponentD>().one<ComponentA, ComponentB>()
+		auto &family2 = Family::all<ComponentC, ComponentD>().one<ComponentA, ComponentB>()
 			.exclude<ComponentE, ComponentF>().get();
 
 		Entity entity;
@@ -279,12 +279,12 @@ namespace FamilyTests {
 		engine.addSystem(&systemA);
 		engine.addSystem(&systemB);
 
-		Entity *e = engine.createEntity();
+		auto *e = engine.createEntity();
 		e->add(engine.createComponent<ComponentB>());
 		e->add(engine.createComponent<ComponentA>());
 		engine.addEntity(e);
 
-		const Family &f = Family::all<ComponentB>().exclude<ComponentA>().get();
+		auto &f = Family::all<ComponentB>().exclude<ComponentA>().get();
 
 		REQUIRE(!f.matches(e));
 
@@ -297,12 +297,12 @@ namespace FamilyTests {
 		engine.addSystem(new TestSystemA("A"));
 		engine.addSystem(new TestSystemB("B"));
 
-		Entity *e = engine.createEntity();
+		auto *e = engine.createEntity();
 		e->add(engine.createComponent<ComponentB>());
 		e->add(engine.createComponent<ComponentA>());
 		engine.addEntity(e);
 
-		const Family &f = Family::all<ComponentA>().exclude<ComponentB>().get();
+		auto &f = Family::all<ComponentA>().exclude<ComponentB>().get();
 
 		REQUIRE(!f.matches(e));
 		engine.clearPools();
@@ -311,19 +311,19 @@ namespace FamilyTests {
 	TEST_CASE("matchWithoutSystems") {
 		PooledEngine engine;
 
-		Entity *e = engine.createEntity();
+		auto *e = engine.createEntity();
 		e->add(engine.createComponent<ComponentB>());
 		e->add(engine.createComponent<ComponentA>());
 		engine.addEntity(e);
 
-		const Family &f = Family::all<ComponentB>().exclude<ComponentA>().get();
+		auto &f = Family::all<ComponentB>().exclude<ComponentA>().get();
 
 		REQUIRE(!f.matches(e));
 		engine.clearPools();
 	}
 
 	TEST_CASE("matchWithComplexBuilding") {
-		const Family &family = Family::all<ComponentB>().one<ComponentA>().exclude<ComponentC>().get();
+		auto &family = Family::all<ComponentB>().one<ComponentA>().exclude<ComponentC>().get();
 		Entity entity;
 		entity.add(new ComponentA());
 		REQUIRE(!family.matches(&entity));

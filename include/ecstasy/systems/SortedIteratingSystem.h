@@ -72,7 +72,7 @@ namespace ECS {
 		
 	public:
 		void addedToEngine(Engine *engine) override {
-			const std::vector<Entity *> *newEntities = engine->getEntitiesFor(family);
+			auto *newEntities = engine->getEntitiesFor(family);
 			sortedEntities.clear();
 			if (!newEntities->empty()) {
 				for (auto entity : *newEntities) {

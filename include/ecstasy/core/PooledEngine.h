@@ -124,7 +124,7 @@ namespace ECS {
 			auto type = getComponentType<T>();
 			if (type >= componentPoolsByType.size())
 				componentPoolsByType.resize(type + 1);
-			ComponentPool<T> *pool = (ComponentPool<T> *)componentPoolsByType[type];
+			auto *pool = (ComponentPool<T> *)componentPoolsByType[type];
 			if (!pool) {
 				pool = new ComponentPool<T>();
 				componentPoolsByType[type] = pool;

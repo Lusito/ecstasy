@@ -19,25 +19,22 @@
 
 namespace ECS {
 	Entity &Entity::add (ComponentBase *component) {
-		if (componentOperationHandler != nullptr) {
+		if (componentOperationHandler != nullptr)
 			componentOperationHandler->add(this, component);
-		} else {
+		else
 			addInternal(component);
-		}
 		return *this;
 	}
 
 	void Entity::removeAll () {
 		//fixme: componentOperationHandler
-		while (!components.empty()) {
+		while (!components.empty())
 			removeInternal(components.front()->type);
-		}
 	}
 
 	void Entity::addInternal (ComponentBase *component) {
-		ComponentType type = component->type;
-
-		ComponentBase *oldComponent = getComponent(type);
+		auto type = component->type;
+		auto *oldComponent = getComponent(type);
 		if (component == oldComponent)
 			return;
 
@@ -46,6 +43,7 @@ namespace ECS {
 
 		if (type >= componentsByType.size())
 			componentsByType.resize(type + 1);
+
 		componentsByType[type] = component;
 		components.push_back(component);
 

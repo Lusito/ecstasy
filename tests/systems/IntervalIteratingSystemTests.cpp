@@ -38,14 +38,14 @@ namespace IntervalIteratingSystemTests {
 	TEST_CASE("intervalIteratingSystem") {
 		Engine engine;
 		IntervalIteratingSystemSpy intervalSystemSpy;
-		const std::vector<Entity *> *entities = engine.getEntitiesFor(Family::all<IntervalComponentSpy>().get());
+		auto *entities = engine.getEntitiesFor(Family::all<IntervalComponentSpy>().get());
 
 		engine.addSystem(&intervalSystemSpy);
 
 		Allocator<Entity> allocE;
 		Allocator<IntervalComponentSpy> allocC;
 		for (int i = 0; i < 10; ++i) {
-			Entity *entity = allocE.create();
+			auto *entity = allocE.create();
 			entity->add(allocC.create());
 			engine.addEntity(entity);
 		}

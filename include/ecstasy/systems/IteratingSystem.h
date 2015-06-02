@@ -45,9 +45,8 @@ namespace ECS {
 		}
 
 		void update(float deltaTime) override {
-			for (auto entity : *entities) {
+			for (auto entity : *entities)
 				processEntity(entity, deltaTime);
-			}
 		}
 
 	public:

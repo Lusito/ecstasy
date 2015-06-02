@@ -40,7 +40,7 @@ namespace ECS {
 	
 	void ComponentOperationHandler::add(Entity *entity, ComponentBase *component) {
 		if (engine.updating) {
-			ComponentOperation *operation = engine.componentOperationsPool.obtain();
+			auto *operation = engine.componentOperationsPool.obtain();
 			operation->makeAdd(entity, component);
 			engine.componentOperations.push_back(operation);
 		}
@@ -51,7 +51,7 @@ namespace ECS {
 
 	void ComponentOperationHandler::remove(Entity *entity, ComponentType componentType) {
 		if (engine.updating) {
-			ComponentOperation *operation = engine.componentOperationsPool.obtain();
+			auto *operation = engine.componentOperationsPool.obtain();
 			operation->makeRemove(entity, componentType);
 			engine.componentOperations.push_back(operation);
 		}

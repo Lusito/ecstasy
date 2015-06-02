@@ -22,7 +22,7 @@ namespace ECS {
 		virtual ~ComponentBase() {}
 
 	private:
-		/** Private Constructor so noone derives from this */
+		/** Private Constructor so nobody derives from this */
 		template<typename T> friend struct Component;
 		explicit ComponentBase(ComponentType type) :type(type) {}
 	};

@@ -54,9 +54,8 @@ namespace EngineTests {
 		void update (float deltaTime) override {
 			++updateCalls;
 
-			if (updates != nullptr) {
+			if (updates != nullptr)
 				updates->push_back(this->priority);
-			}
 		}
 
 		void addedToEngine (Engine *engine) override {
@@ -103,11 +102,10 @@ namespace EngineTests {
 
 		void update (float deltaTime) override {
 			for (int i = 0; i < entities->size(); ++i) {
-				if (i % 2 == 0) {
+				if (i % 2 == 0)
 					entities->at(i)->get<CounterComponent>()->counter++;
-				} else {
+				else
 					engine->removeEntity(entities->at(i));
-				}
 			}
 		}
 	};
@@ -258,8 +256,8 @@ namespace EngineTests {
 	TEST_CASE("entitiesForFamily") {
 		Engine engine;
 
-		const Family &family = Family::all<ComponentA, ComponentB>().get();
-		const std::vector<Entity *> *familyEntities = engine.getEntitiesFor(family);
+		auto &family = Family::all<ComponentA, ComponentB>().get();
+		auto *familyEntities = engine.getEntitiesFor(family);
 
 		REQUIRE(familyEntities->empty());
 
@@ -309,7 +307,7 @@ namespace EngineTests {
 
 		engine.addEntity(&entity);
 
-		const std::vector<Entity *> *entities = engine.getEntitiesFor(Family::all<ComponentA>().get());
+		auto *entities = engine.getEntitiesFor(Family::all<ComponentA>().get());
 
 		REQUIRE(1 == entities->size());
 		REQUIRE(contains(*entities, &entity));
@@ -324,8 +322,8 @@ namespace EngineTests {
 	TEST_CASE("entitiesForFamilyAfter") {
 		Engine engine;
 
-		const Family &family = Family::all<ComponentA, ComponentB>().get();
-		const std::vector<Entity *> *familyEntities = engine.getEntitiesFor(family);
+		auto &family = Family::all<ComponentA, ComponentB>().get();
+		auto *familyEntities = engine.getEntitiesFor(family);
 
 		REQUIRE(familyEntities->empty());
 
@@ -368,8 +366,8 @@ namespace EngineTests {
 	TEST_CASE("entitiesForFamilyWithRemoval") {
 		Engine engine;
 
-		const Family &family = Family::all<ComponentA, ComponentB>().get();
-		const std::vector<Entity *> *familyEntities = engine.getEntitiesFor(family);
+		auto &family = Family::all<ComponentA, ComponentB>().get();
+		auto *familyEntities = engine.getEntitiesFor(family);
 
 		Entity entity1;
 		Entity entity2;
@@ -419,10 +417,10 @@ namespace EngineTests {
 	TEST_CASE("entitiesForFamilyWithRemovalAndFiltering") {
 		Engine engine;
 
-		const std::vector<Entity *> *entitiesWithComponentAOnly = engine.getEntitiesFor(Family::all<ComponentA>()
+		auto *entitiesWithComponentAOnly = engine.getEntitiesFor(Family::all<ComponentA>()
 			.exclude<ComponentB>().get());
 
-		const std::vector<Entity *> *entitiesWithComponentB = engine.getEntitiesFor(Family::all<ComponentB>().get());
+		auto *entitiesWithComponentB = engine.getEntitiesFor(Family::all<ComponentB>().get());
 
 		Entity entity1;
 		Entity entity2;
@@ -461,7 +459,7 @@ namespace EngineTests {
 			engine.addEntity(entity);
 		}
 
-		const std::vector<Entity*> *entities = engine.getEntitiesFor(Family::all<CounterComponent>().get());
+		auto *entities = engine.getEntitiesFor(Family::all<CounterComponent>().get());
 
 		for (auto e: *entities) {
 			REQUIRE(0 == e->get<CounterComponent>()->counter);
@@ -481,8 +479,8 @@ namespace EngineTests {
 		EntityListenerMock listenerA;
 		EntityListenerMock listenerB;
 
-		const Family &familyA = Family::all<ComponentA>().get();
-		const Family &familyB = Family::all<ComponentB>().get();
+		auto &familyA = Family::all<ComponentA>().get();
+		auto &familyB = Family::all<ComponentB>().get();
 
 		auto refAAdded = engine.getEntityAddedSignal(familyA).connect(&listenerA, &EntityListenerMock::entityAdded);
 		auto refARemoved = engine.getEntityRemovedSignal(familyA).connect(&listenerA, &EntityListenerMock::entityRemoved);
@@ -557,7 +555,7 @@ namespace EngineTests {
 		Allocator<Entity> allocE;
 		Allocator<ComponentB> allocB;
 		for (int i = 0; 15000 > i; i++) {
-			Entity *e = allocE.create();
+			auto *e = allocE.create();
 			e->add(allocB.create());
 			engine.addEntity(e);
 		}
@@ -594,7 +592,7 @@ namespace EngineTests {
 		std::vector<Entity *> entities;
 		Allocator<Entity> alloc;
 		for (int i = 0; i < numEntities; ++i) {
-			Entity *entity = alloc.create();
+			auto *entity = alloc.create();
 			entities.push_back(entity);
 			engine.addEntity(entity);
 		}

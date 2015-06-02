@@ -62,7 +62,7 @@ namespace SortedIteratingSystemTests {
 		}
 
 		void processEntity(Entity *entity, float deltaTime) override {
-			OrderComponent *component = entity->get<OrderComponent>();
+			auto *component = entity->get<OrderComponent>();
 			REQUIRE(component);
 			REQUIRE(!expectedNames.empty());
 			REQUIRE(expectedNames.front() == component->name);
@@ -102,18 +102,17 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 
 		void processEntity(Entity *entity, float deltaTime) override {
 			int index = entity->get<IndexComponent>()->index;
-			if (index % 2 == 0) {
+			if (index % 2 == 0)
 				engine->removeEntity(entity);
-			} else {
+			else
 				entity->get<SpyComponent>()->updates++;
-			}
 		}
 	};
 
 	TEST_CASE("shouldIterateSortedEntitiesWithCorrectFamily") {
 		Engine engine;
 
-		const Family &family = Family::all<OrderComponent, ComponentB>().get();
+		auto &family = Family::all<OrderComponent, ComponentB>().get();
 		SortedIteratingSystemMock system(family);
 		Entity e;
 
@@ -147,7 +146,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 
 	TEST_CASE("entityRemovalWhileSortedIterating") {
 		Engine engine;
-		const std::vector<Entity *> *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
+		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
 		IteratingRemovalSystem system;
 		engine.addSystem(&system);
@@ -159,14 +158,14 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		Allocator <SpyComponent> allocS;
 		Allocator <OrderComponent> allocO;
 		for (int i = 0; i < numEntities; ++i) {
-			Entity *e = allocE.create();
+			auto *e = allocE.create();
 			e->add(allocS.create());
 			auto o = allocO.create();
 			o->name = "" + i;
 			o->zLayer = i;
 			e->add(o);
 
-			IndexComponent *in = allocI.create();
+			auto *in = allocI.create();
 			in->index = i + 1;
 
 			e->add(in);
@@ -186,7 +185,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 
 	TEST_CASE("componentRemovalWhileSortedIterating") {
 		Engine engine;
-		const std::vector<Entity *> *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
+		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
 		IteratingComponentRemovalSystem system;
 		engine.addSystem(&system);
@@ -198,14 +197,14 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		Allocator <SpyComponent> allocS;
 		Allocator <OrderComponent> allocO;
 		for (int i = 0; i < numEntities; ++i) {
-			Entity *e = allocE.create();
+			auto *e = allocE.create();
 			e->add(allocS.create());
 			auto o = allocO.create();
 			o->name = "" + i;
 			o->zLayer = i;
 			e->add(o);
 
-			IndexComponent *in = allocI.create();
+			auto *in = allocI.create();
 			in->index = i + 1;
 
 			e->add(in);
@@ -233,16 +232,16 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 	TEST_CASE("entityOrder") {
 		Engine engine;
 
-		const Family &family = Family::all<OrderComponent>().get();
+		auto &family = Family::all<OrderComponent>().get();
 		SortedIteratingSystemMock system(family);
 		engine.addSystem(&system);
 
 		Allocator <Entity> allocE;
 		Allocator <OrderComponent> allocO;
-		Entity *a = createOrderEntity("A", 0, allocE.create(), allocO.create());
-		Entity *b = createOrderEntity("B", 1, allocE.create(), allocO.create());
-		Entity *c = createOrderEntity("C", 3, allocE.create(), allocO.create());
-		Entity *d = createOrderEntity("D", 2, allocE.create(), allocO.create());
+		auto *a = createOrderEntity("A", 0, allocE.create(), allocO.create());
+		auto *b = createOrderEntity("B", 1, allocE.create(), allocO.create());
+		auto *c = createOrderEntity("C", 3, allocE.create(), allocO.create());
+		auto *d = createOrderEntity("D", 2, allocE.create(), allocO.create());
 
 		engine.addEntity(a);
 		engine.addEntity(b);
@@ -259,7 +258,6 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		system.expectedNames.push_back("C");
 		engine.update(0);
 
-		
 		a->get<OrderComponent>()->zLayer = 3;
 		b->get<OrderComponent>()->zLayer = 2;
 		c->get<OrderComponent>()->zLayer = 1;

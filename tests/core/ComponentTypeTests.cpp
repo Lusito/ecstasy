@@ -20,15 +20,15 @@ namespace ComponentTypeTests {
 	struct ComponentB : public Component<ComponentB> {};
 
 	TEST_CASE("sameComponentType") {
-		ComponentType componentType1 = getComponentType<ComponentA>();
-		ComponentType componentType2 = getComponentType<ComponentA>();
+		auto componentType1 = getComponentType<ComponentA>();
+		auto componentType2 = getComponentType<ComponentA>();
 
 		REQUIRE(componentType1 == componentType2);
 	}
 
 	TEST_CASE("differentComponentType") {
-		ComponentType componentType1 = getComponentType<ComponentA>();
-		ComponentType componentType2 = getComponentType<ComponentB>();
+		auto componentType1 = getComponentType<ComponentA>();
+		auto componentType2 = getComponentType<ComponentB>();
 
 		REQUIRE(componentType1 != componentType2);
 	}

@@ -55,9 +55,9 @@ namespace EntityTests {
 		REQUIRE(1 == entity.getComponents().size());
 
 		const Bits &componentBits = entity.getComponentBits();
-		ComponentType componentAIndex = getComponentType<ComponentA>();
+		auto componentAIndex = getComponentType<ComponentA>();
 		
-		for (ComponentType i = 0; i < componentBits.length(); ++i) {
+		for (auto i = 0; i < componentBits.length(); ++i) {
 			REQUIRE((i == componentAIndex) == componentBits.get(i));
 		}
 
@@ -90,11 +90,11 @@ namespace EntityTests {
 
 		REQUIRE(2 == entity.getComponents().size());
 
-		const Bits &componentBits = entity.getComponentBits();
-		ComponentType componentAIndex = getComponentType<ComponentA>();
-		ComponentType componentBIndex = getComponentType<ComponentB>();
+		auto &componentBits = entity.getComponentBits();
+		auto componentAIndex = getComponentType<ComponentA>();
+		auto componentBIndex = getComponentType<ComponentB>();
 		
-		for (ComponentType i = 0; i < componentBits.length(); ++i) {
+		for (auto i = 0; i < componentBits.length(); ++i) {
 			REQUIRE((i == componentAIndex || i == componentBIndex) == componentBits.get(i));
 		}
 
