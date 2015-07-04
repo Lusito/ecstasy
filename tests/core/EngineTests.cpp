@@ -121,8 +121,8 @@ namespace EngineTests {
 		auto refBAdded = engine.entityAdded.connect(&listenerB, &EntityListenerMock::entityAdded);
 		auto refBRemoved = engine.entityRemoved.connect(&listenerB, &EntityListenerMock::entityRemoved);
 
-		Entity entity1;
-		engine.addEntity(&entity1);
+		Entity *entity1 = engine.createEntity();
+		engine.addEntity(entity1);
 
 		REQUIRE(1 == listenerA.addedCount);
 		REQUIRE(1 == listenerB.addedCount);
@@ -130,8 +130,8 @@ namespace EngineTests {
 		refBAdded.disable();
 		refBRemoved.disable();
 
-		Entity entity2;
-		engine.addEntity(&entity2);
+		Entity *entity2 = engine.createEntity();
+		engine.addEntity(entity2);
 
 		REQUIRE(2 == listenerA.addedCount);
 		REQUIRE(1 == listenerB.addedCount);
@@ -261,62 +261,56 @@ namespace EngineTests {
 
 		REQUIRE(familyEntities->empty());
 
-		Entity entity1;
-		Entity entity2;
-		Entity entity3;
-		Entity entity4;
+		Entity *entity1 = engine.createEntity();
+		Entity *entity2 = engine.createEntity();
+		Entity *entity3 = engine.createEntity();
+		Entity *entity4 = engine.createEntity();
 		
-		Allocator<ComponentA> allocA;
-		Allocator<ComponentB> allocB;
-		Allocator<ComponentC> allocC;
+		entity1->add(engine.createComponent<ComponentA>());
+		entity1->add(engine.createComponent<ComponentB>());
 
-		entity1.add(allocA.create());
-		entity1.add(allocB.create());
+		entity2->add(engine.createComponent<ComponentA>());
+		entity2->add(engine.createComponent<ComponentC>());
 
-		entity2.add(allocA.create());
-		entity2.add(allocC.create());
+		entity3->add(engine.createComponent<ComponentA>());
+		entity3->add(engine.createComponent<ComponentB>());
+		entity3->add(engine.createComponent<ComponentC>());
 
-		entity3.add(allocA.create());
-		entity3.add(allocB.create());
-		entity3.add(allocC.create());
+		entity4->add(engine.createComponent<ComponentA>());
+		entity4->add(engine.createComponent<ComponentB>());
+		entity4->add(engine.createComponent<ComponentC>());
 
-		entity4.add(allocA.create());
-		entity4.add(allocB.create());
-		entity4.add(allocC.create());
-
-		engine.addEntity(&entity1);
-		engine.addEntity(&entity2);
-		engine.addEntity(&entity3);
-		engine.addEntity(&entity4);
+		engine.addEntity(entity1);
+		engine.addEntity(entity2);
+		engine.addEntity(entity3);
+		engine.addEntity(entity4);
 
 		REQUIRE(3 == familyEntities->size());
-		REQUIRE(contains(*familyEntities, &entity1));
-		REQUIRE(contains(*familyEntities, &entity3));
-		REQUIRE(contains(*familyEntities, &entity4));
-		REQUIRE(!contains(*familyEntities, &entity2));
-		engine.clear();
+		REQUIRE(contains(*familyEntities, entity1));
+		REQUIRE(contains(*familyEntities, entity3));
+		REQUIRE(contains(*familyEntities, entity4));
+		REQUIRE(!contains(*familyEntities, entity2));
 	}
 
 	TEST_CASE("entityForFamilyWithRemoval") {
 		// Test for issue #13
 		Engine engine;
 
-		Entity entity;
-		ComponentA a;
-		entity.add(&a);
+		Entity *entity = engine.createEntity();
+		ComponentA *a = engine.createComponent<ComponentA>();
+		entity->add(a);
 
-		engine.addEntity(&entity);
+		engine.addEntity(entity);
 
 		auto *entities = engine.getEntitiesFor(Family::all<ComponentA>().get());
 
 		REQUIRE(1 == entities->size());
-		REQUIRE(contains(*entities, &entity));
+		REQUIRE(contains(*entities, entity));
 
-		engine.removeEntity(&entity);
+		engine.removeEntity(entity);
 
 		REQUIRE(entities->empty());
-		REQUIRE(!contains(*entities, &entity));
-		engine.clear();
+		REQUIRE(!contains(*entities, entity));
 	}
 
 	TEST_CASE("entitiesForFamilyAfter") {
@@ -327,40 +321,35 @@ namespace EngineTests {
 
 		REQUIRE(familyEntities->empty());
 
-		Entity entity1;
-		Entity entity2;
-		Entity entity3;
-		Entity entity4;
+		Entity *entity1 = engine.createEntity();
+		Entity *entity2 = engine.createEntity();
+		Entity *entity3 = engine.createEntity();
+		Entity *entity4 = engine.createEntity();
 
-		engine.addEntity(&entity1);
-		engine.addEntity(&entity2);
-		engine.addEntity(&entity3);
-		engine.addEntity(&entity4);
-
-		Allocator<ComponentA> allocA;
-		Allocator<ComponentB> allocB;
-		Allocator<ComponentC> allocC;
+		engine.addEntity(entity1);
+		engine.addEntity(entity2);
+		engine.addEntity(entity3);
+		engine.addEntity(entity4);
 		
-		entity1.add(allocA.create());
-		entity1.add(allocB.create());
+		entity1->add(engine.createComponent<ComponentA>());
+		entity1->add(engine.createComponent<ComponentB>());
 
-		entity2.add(allocA.create());
-		entity2.add(allocC.create());
+		entity2->add(engine.createComponent<ComponentA>());
+		entity2->add(engine.createComponent<ComponentC>());
 
-		entity3.add(allocA.create());
-		entity3.add(allocB.create());
-		entity3.add(allocC.create());
+		entity3->add(engine.createComponent<ComponentA>());
+		entity3->add(engine.createComponent<ComponentB>());
+		entity3->add(engine.createComponent<ComponentC>());
 
-		entity4.add(allocA.create());
-		entity4.add(allocB.create());
-		entity4.add(allocC.create());
+		entity4->add(engine.createComponent<ComponentA>());
+		entity4->add(engine.createComponent<ComponentB>());
+		entity4->add(engine.createComponent<ComponentC>());
 
 		REQUIRE(3 == familyEntities->size());
-		REQUIRE(contains(*familyEntities, &entity1));
-		REQUIRE(contains(*familyEntities, &entity3));
-		REQUIRE(contains(*familyEntities, &entity4));
-		REQUIRE(!contains(*familyEntities, &entity2));
-		engine.clear();
+		REQUIRE(contains(*familyEntities, entity1));
+		REQUIRE(contains(*familyEntities, entity3));
+		REQUIRE(contains(*familyEntities, entity4));
+		REQUIRE(!contains(*familyEntities, entity2));
 	}
 
 	TEST_CASE("entitiesForFamilyWithRemoval") {
@@ -369,49 +358,44 @@ namespace EngineTests {
 		auto &family = Family::all<ComponentA, ComponentB>().get();
 		auto *familyEntities = engine.getEntitiesFor(family);
 
-		Entity entity1;
-		Entity entity2;
-		Entity entity3;
-		Entity entity4;
+		Entity *entity1 = engine.createEntity();
+		Entity *entity2 = engine.createEntity();
+		Entity *entity3 = engine.createEntity();
+		Entity *entity4 = engine.createEntity();
 
-		engine.addEntity(&entity1);
-		engine.addEntity(&entity2);
-		engine.addEntity(&entity3);
-		engine.addEntity(&entity4);
+		engine.addEntity(entity1);
+		engine.addEntity(entity2);
+		engine.addEntity(entity3);
+		engine.addEntity(entity4);
 
-		Allocator<ComponentA> allocA;
-		Allocator<ComponentB> allocB;
-		Allocator<ComponentC> allocC;
+		entity1->add(engine.createComponent<ComponentA>());
+		entity1->add(engine.createComponent<ComponentB>());
 
-		entity1.add(allocA.create());
-		entity1.add(allocB.create());
+		entity2->add(engine.createComponent<ComponentA>());
+		entity2->add(engine.createComponent<ComponentC>());
 
-		entity2.add(allocA.create());
-		entity2.add(allocC.create());
+		entity3->add(engine.createComponent<ComponentA>());
+		entity3->add(engine.createComponent<ComponentB>());
+		entity3->add(engine.createComponent<ComponentC>());
 
-		entity3.add(allocA.create());
-		entity3.add(allocB.create());
-		entity3.add(allocC.create());
-
-		entity4.add(allocA.create());
-		entity4.add(allocB.create());
-		entity4.add(allocC.create());
+		entity4->add(engine.createComponent<ComponentA>());
+		entity4->add(engine.createComponent<ComponentB>());
+		entity4->add(engine.createComponent<ComponentC>());
 
 		REQUIRE(3 == familyEntities->size());
-		REQUIRE(contains(*familyEntities, &entity1));
-		REQUIRE(contains(*familyEntities, &entity3));
-		REQUIRE(contains(*familyEntities, &entity4));
-		REQUIRE(!contains(*familyEntities, &entity2));
+		REQUIRE(contains(*familyEntities, entity1));
+		REQUIRE(contains(*familyEntities, entity3));
+		REQUIRE(contains(*familyEntities, entity4));
+		REQUIRE(!contains(*familyEntities, entity2));
 
-		entity1.remove<ComponentA>();
-		engine.removeEntity(&entity3);
+		entity1->remove<ComponentA>();
+		engine.removeEntity(entity3);
 
 		REQUIRE(1 == familyEntities->size());
-		REQUIRE(contains(*familyEntities, &entity4));
-		REQUIRE(!contains(*familyEntities, &entity1));
-		REQUIRE(!contains(*familyEntities, &entity3));
-		REQUIRE(!contains(*familyEntities, &entity2));
-		engine.clear();
+		REQUIRE(contains(*familyEntities, entity4));
+		REQUIRE(!contains(*familyEntities, entity1));
+		REQUIRE(!contains(*familyEntities, entity3));
+		REQUIRE(!contains(*familyEntities, entity2));
 	}
 
 	TEST_CASE("entitiesForFamilyWithRemovalAndFiltering") {
@@ -422,27 +406,24 @@ namespace EngineTests {
 
 		auto *entitiesWithComponentB = engine.getEntitiesFor(Family::all<ComponentB>().get());
 
-		Entity entity1;
-		Entity entity2;
+		Entity *entity1 = engine.createEntity();
+		Entity *entity2 = engine.createEntity();
 
-		engine.addEntity(&entity1);
-		engine.addEntity(&entity2);
+		engine.addEntity(entity1);
+		engine.addEntity(entity2);
 
-		Allocator<ComponentA> allocA;
-		Allocator<ComponentB> allocB;
-		entity1.add(allocA.create());
+		entity1->add(engine.createComponent<ComponentA>());
 
-		entity2.add(allocA.create());
-		entity2.add(allocB.create());
+		entity2->add(engine.createComponent<ComponentA>());
+		entity2->add(engine.createComponent<ComponentB>());
 
 		REQUIRE(1 == entitiesWithComponentAOnly->size());
 		REQUIRE(1 == entitiesWithComponentB->size());
 
-		entity2.remove<ComponentB>();
+		entity2->remove<ComponentB>();
 
 		REQUIRE(2 == entitiesWithComponentAOnly->size());
 		REQUIRE(entitiesWithComponentB->empty());
-		engine.clear();
 	}
 
 	TEST_CASE("entitySystemRemovalWhileIterating") {
@@ -451,11 +432,9 @@ namespace EngineTests {
 		CounterSystem system;
 		engine.addSystem(&system);
 
-		Allocator<Entity> allocE;
-		Allocator<CounterComponent> allocC;
 		for (int i = 0; i < 20; ++i) {
-			Entity *entity = allocE.create();
-			entity->add(allocC.create());
+			Entity *entity = engine.createEntity();
+			entity->add(engine.createComponent<CounterComponent>());
 			engine.addEntity(entity);
 		}
 
@@ -470,7 +449,6 @@ namespace EngineTests {
 		for (auto e : *entities) {
 			REQUIRE(1 == e->get<CounterComponent>()->counter);
 		}
-		engine.clear();
 	}
 
 	TEST_CASE("familyListener") {
@@ -488,37 +466,34 @@ namespace EngineTests {
 		auto refBAdded = engine.getEntityAddedSignal(familyB).connect(&listenerB, &EntityListenerMock::entityAdded);
 		auto refBRemoved = engine.getEntityRemovedSignal(familyB).connect(&listenerB, &EntityListenerMock::entityRemoved);
 
-		Entity entity1;
-		engine.addEntity(&entity1);
+		Entity *entity1 = engine.createEntity();
+		engine.addEntity(entity1);
 
 		REQUIRE(0 == listenerA.addedCount);
 		REQUIRE(0 == listenerB.addedCount);
 
-		Entity entity2;
-		engine.addEntity(&entity2);
+		Entity *entity2 = engine.createEntity();
+		engine.addEntity(entity2);
 
 		REQUIRE(0 == listenerA.addedCount);
 		REQUIRE(0 == listenerB.addedCount);
-
-		Allocator<ComponentA> allocA;
-		Allocator<ComponentB> allocB;
 		
-		entity1.add(allocA.create());
+		entity1->add(engine.createComponent<ComponentA>());
 
 		REQUIRE(1 == listenerA.addedCount);
 		REQUIRE(0 == listenerB.addedCount);
 
-		entity2.add(allocB.create());
+		entity2->add(engine.createComponent<ComponentB>());
 
 		REQUIRE(1 == listenerA.addedCount);
 		REQUIRE(1 == listenerB.addedCount);
 
-		entity1.remove<ComponentA>();
+		entity1->remove<ComponentA>();
 
 		REQUIRE(1 == listenerA.removedCount);
 		REQUIRE(0 == listenerB.removedCount);
 
-		engine.removeEntity(&entity2);
+		engine.removeEntity(entity2);
 
 		REQUIRE(1 == listenerA.removedCount);
 		REQUIRE(1 == listenerB.removedCount);
@@ -526,13 +501,15 @@ namespace EngineTests {
 		refBAdded.disable();
 		refBRemoved.disable();
 
-		engine.addEntity(&entity2);
+		entity2 = engine.createEntity();
+		entity2->add(engine.createComponent<ComponentB>());
+		engine.addEntity(entity2);
 
 		REQUIRE(1 == listenerA.addedCount);
 		REQUIRE(1 == listenerB.addedCount);
 
-		entity1.add(allocB.create());
-		entity1.add(allocA.create());
+		entity1->add(engine.createComponent<ComponentB>());
+		entity1->add(engine.createComponent<ComponentA>());
 
 		REQUIRE(2 == listenerA.addedCount);
 		REQUIRE(1 == listenerB.addedCount);
@@ -544,7 +521,6 @@ namespace EngineTests {
 
 		refBAdded.enable();
 		refBRemoved.enable();
-		engine.clear();
 	}
 
 	TEST_CASE("createManyEntitiesNoStackOverflow") {
@@ -552,36 +528,35 @@ namespace EngineTests {
 		CounterSystem system;
 		engine.addSystem(&system);
 
-		Allocator<Entity> allocE;
-		Allocator<ComponentB> allocB;
 		for (int i = 0; 15000 > i; i++) {
-			auto *e = allocE.create();
-			e->add(allocB.create());
+			auto *e = engine.createEntity();
+			e->add(engine.createComponent<ComponentB>());
 			engine.addEntity(e);
 		}
 
 		engine.update(0);
-		engine.clear();
 	}
 	
 	TEST_CASE("getEntityById") {
 		Engine engine;
-		Entity entity;
+		Entity *entity = engine.createEntity();
 		
-		REQUIRE(0 == entity.getId());
+		REQUIRE(0 == entity->getId());
+		REQUIRE(!entity->isValid());
 		
-		engine.addEntity(&entity);
+		engine.addEntity(entity);
 		
-		uint64_t entityId = entity.getId();
+		REQUIRE(entity->isValid());
+		
+		uint64_t entityId = entity->getId();
 		
 		REQUIRE(0 != entityId);
 		
-		REQUIRE(&entity == engine.getEntity(entityId));
+		REQUIRE(entity == engine.getEntity(entityId));
 		
-		engine.removeEntity(&entity);
+		engine.removeEntity(entity);
 		
 		REQUIRE(!engine.getEntity(entityId));
-		engine.clear();
 	}
 	
 	TEST_CASE("getEntities") {
@@ -590,9 +565,8 @@ namespace EngineTests {
 		Engine engine;
 		
 		std::vector<Entity *> entities;
-		Allocator<Entity> alloc;
 		for (int i = 0; i < numEntities; ++i) {
-			auto *entity = alloc.create();
+			auto *entity = engine.createEntity();
 			entities.push_back(entity);
 			engine.addEntity(entity);
 		}
@@ -608,6 +582,5 @@ namespace EngineTests {
 		engine.removeAllEntities();
 		
 		REQUIRE(engineEntities->empty());
-		engine.clear();
 	}
 }

@@ -42,11 +42,9 @@ namespace IntervalIteratingSystemTests {
 
 		engine.addSystem(&intervalSystemSpy);
 
-		Allocator<Entity> allocE;
-		Allocator<IntervalComponentSpy> allocC;
 		for (int i = 0; i < 10; ++i) {
-			auto *entity = allocE.create();
-			entity->add(allocC.create());
+			auto *entity = engine.createEntity();
+			entity->add(engine.createComponent<IntervalComponentSpy>());
 			engine.addEntity(entity);
 		}
 

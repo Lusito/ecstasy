@@ -17,24 +17,12 @@
 #include <ecstasy/systems/IteratingSystem.h>
 
 namespace FamilyTests {
-	struct ComponentA : public Component<ComponentA>, public Poolable {
-		void reset() override {}
-	};
-	struct ComponentB : public Component<ComponentB>, public Poolable {
-		void reset() override {}
-	};
-	struct ComponentC : public Component<ComponentC>, public Poolable {
-		void reset() override {}
-	};
-	struct ComponentD : public Component<ComponentD>, public Poolable {
-		void reset() override {}
-	};
-	struct ComponentE : public Component<ComponentE>, public Poolable {
-		void reset() override {}
-	};
-	struct ComponentF : public Component<ComponentF>, public Poolable {
-		void reset() override {}
-	};
+	struct ComponentA : public Component<ComponentA> {};
+	struct ComponentB : public Component<ComponentB> {};
+	struct ComponentC : public Component<ComponentC> {};
+	struct ComponentD : public Component<ComponentD> {};
+	struct ComponentE : public Component<ComponentE> {};
+	struct ComponentF : public Component<ComponentF> {};
 
 	class TestSystemA : public IteratingSystem<TestSystemA> {
 	public:
@@ -155,72 +143,77 @@ namespace FamilyTests {
 	TEST_CASE("entityMatch") {
 		auto &family = Family::all<ComponentA, ComponentB>().get();
 
-		Entity entity;
-		ComponentA a;
-		ComponentB b;
-		entity.add(&a);
-		entity.add(&b);
+		Engine engine;
+		Entity *entity = engine.createEntity();
+		ComponentA *a = engine.createComponent<ComponentA>();
+		ComponentB *b = engine.createComponent<ComponentB>();
+		entity->add(a);
+		entity->add(b);
 
-		REQUIRE(family.matches(&entity));
+		REQUIRE(family.matches(entity));
 
-		entity.add(new ComponentC());
+		entity->add(engine.createComponent<ComponentC>());
 
-		REQUIRE(family.matches(&entity));
+		REQUIRE(family.matches(entity));
 	}
 
 	TEST_CASE("entityMismatch") {
 		auto &family = Family::all<ComponentA, ComponentC>().get();
 
-		Entity entity;
-		ComponentA a;
-		ComponentB b;
-		entity.add(&a);
-		entity.add(&b);
+		Engine engine;
+		Entity *entity = engine.createEntity();
+		ComponentA *a = engine.createComponent<ComponentA>();
+		ComponentB *b = engine.createComponent<ComponentB>();
+		entity->add(a);
+		entity->add(b);
 
-		REQUIRE(!family.matches(&entity));
+		REQUIRE(!family.matches(entity));
 
-		entity.remove<ComponentB>();
+		entity->remove<ComponentB>();
 
-		REQUIRE(!family.matches(&entity));
+		REQUIRE(!family.matches(entity));
 	}
 
 	TEST_CASE("entityMatchThenMismatch") {
 		auto &family = Family::all<ComponentA, ComponentB>().get();
 
-		Entity entity;
-		ComponentA a;
-		ComponentB b;
-		entity.add(&a);
-		entity.add(&b);
+		Engine engine;
+		Entity *entity = engine.createEntity();
+		ComponentA *a = engine.createComponent<ComponentA>();
+		ComponentB *b = engine.createComponent<ComponentB>();
+		entity->add(a);
+		entity->add(b);
 
-		REQUIRE(family.matches(&entity));
+		REQUIRE(family.matches(entity));
 
-		entity.remove<ComponentA>();
+		entity->remove<ComponentA>();
 
-		REQUIRE(!family.matches(&entity));
+		REQUIRE(!family.matches(entity));
 	}
 
 	TEST_CASE("entityMismatchThenMatch") {
 		auto &family = Family::all<ComponentA, ComponentB>().get();
 
-		Entity entity;
-		ComponentA a;
-		ComponentB b;
-		ComponentC c;
-		entity.add(&a);
-		entity.add(&c);
+		Engine engine;
+		Entity *entity = engine.createEntity();
+		ComponentA *a = engine.createComponent<ComponentA>();
+		ComponentB *b = engine.createComponent<ComponentB>();
+		ComponentC *c = engine.createComponent<ComponentC>();
+		entity->add(a);
+		entity->add(c);
 
-		REQUIRE(!family.matches(&entity));
+		REQUIRE(!family.matches(entity));
 
-		entity.add(&b);
+		entity->add(b);
 
-		REQUIRE(family.matches(&entity));
+		REQUIRE(family.matches(entity));
 	}
 
 	TEST_CASE("testEmptyFamily") {
 		auto &family = Family::all().get();
-		Entity entity;
-		REQUIRE(family.matches(&entity));
+		Engine engine;
+		Entity *entity = engine.createEntity();
+		REQUIRE(family.matches(entity));
 	}
 
 	TEST_CASE("familyFiltering") {
@@ -230,50 +223,51 @@ namespace FamilyTests {
 		auto &family2 = Family::all<ComponentC, ComponentD>().one<ComponentA, ComponentB>()
 			.exclude<ComponentE, ComponentF>().get();
 
-		Entity entity;
+		Engine engine;
+		Entity *entity = engine.createEntity();
 
-		REQUIRE(!family1.matches(&entity));
-		REQUIRE(!family2.matches(&entity));
+		REQUIRE(!family1.matches(entity));
+		REQUIRE(!family2.matches(entity));
 
-		ComponentA a;
-		ComponentB b;
-		entity.add(&a);
-		entity.add(&b);
+		ComponentA *a = engine.createComponent<ComponentA>();
+		ComponentB *b = engine.createComponent<ComponentB>();
+		entity->add(a);
+		entity->add(b);
 
-		REQUIRE(!family1.matches(&entity));
-		REQUIRE(!family2.matches(&entity));
+		REQUIRE(!family1.matches(entity));
+		REQUIRE(!family2.matches(entity));
 
-		ComponentC c;
-		entity.add(&c);
+		ComponentC *c = engine.createComponent<ComponentC>();
+		entity->add(c);
 
-		REQUIRE(family1.matches(&entity));
-		REQUIRE(!family2.matches(&entity));
+		REQUIRE(family1.matches(entity));
+		REQUIRE(!family2.matches(entity));
 
-		ComponentD d;
-		entity.add(&d);
+		ComponentD *d = engine.createComponent<ComponentD>();
+		entity->add(d);
 
-		REQUIRE(family1.matches(&entity));
-		REQUIRE(family2.matches(&entity));
+		REQUIRE(family1.matches(entity));
+		REQUIRE(family2.matches(entity));
 
-		ComponentE e;
-		entity.add(&e);
+		ComponentE *e = engine.createComponent<ComponentE>();
+		entity->add(e);
 
-		REQUIRE(!family1.matches(&entity));
-		REQUIRE(!family2.matches(&entity));
+		REQUIRE(!family1.matches(entity));
+		REQUIRE(!family2.matches(entity));
 
-		entity.remove<ComponentE>();
+		entity->remove<ComponentE>();
 
-		REQUIRE(family1.matches(&entity));
-		REQUIRE(family2.matches(&entity));
+		REQUIRE(family1.matches(entity));
+		REQUIRE(family2.matches(entity));
 
-		entity.remove<ComponentA>();
+		entity->remove<ComponentA>();
 
-		REQUIRE(!family1.matches(&entity));
-		REQUIRE(family2.matches(&entity));
+		REQUIRE(!family1.matches(entity));
+		REQUIRE(family2.matches(entity));
 	}
 
-	TEST_CASE("matchWithPooledEngine") {
-		PooledEngine engine;
+	TEST_CASE("matchWithEngine") {
+		Engine engine;
 		TestSystemA systemA("A");
 		TestSystemB systemB("B");
 		engine.addSystem(&systemA);
@@ -287,12 +281,10 @@ namespace FamilyTests {
 		auto &f = Family::all<ComponentB>().exclude<ComponentA>().get();
 
 		REQUIRE(!f.matches(e));
-
-		engine.clearPools();
 	}
 
-	TEST_CASE("matchWithPooledEngineInverse") {
-		PooledEngine engine;
+	TEST_CASE("matchWithEngineInverse") {
+		Engine engine;
 
 		engine.addSystem(new TestSystemA("A"));
 		engine.addSystem(new TestSystemB("B"));
@@ -305,11 +297,10 @@ namespace FamilyTests {
 		auto &f = Family::all<ComponentA>().exclude<ComponentB>().get();
 
 		REQUIRE(!f.matches(e));
-		engine.clearPools();
 	}
 
 	TEST_CASE("matchWithoutSystems") {
-		PooledEngine engine;
+		Engine engine;
 
 		auto *e = engine.createEntity();
 		e->add(engine.createComponent<ComponentB>());
@@ -319,17 +310,17 @@ namespace FamilyTests {
 		auto &f = Family::all<ComponentB>().exclude<ComponentA>().get();
 
 		REQUIRE(!f.matches(e));
-		engine.clearPools();
 	}
 
 	TEST_CASE("matchWithComplexBuilding") {
 		auto &family = Family::all<ComponentB>().one<ComponentA>().exclude<ComponentC>().get();
-		Entity entity;
-		entity.add(new ComponentA());
-		REQUIRE(!family.matches(&entity));
-		entity.add(new ComponentB());
-		REQUIRE(family.matches(&entity));
-		entity.add(new ComponentC());
-		REQUIRE(!family.matches(&entity));
+		Engine engine;
+		Entity *entity = engine.createEntity();
+		entity->add(engine.createComponent<ComponentA>());
+		REQUIRE(!family.matches(entity));
+		entity->add(engine.createComponent<ComponentB>());
+		REQUIRE(family.matches(entity));
+		entity->add(engine.createComponent<ComponentC>());
+		REQUIRE(!family.matches(entity));
 	}
 }

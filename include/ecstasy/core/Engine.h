@@ -18,6 +18,7 @@
 #include "Types.h"
 #include "EntitySystem.h"
 #include "Entity.h"
+#include "Component.h"
 #include "ComponentOperations.h"
 #include "EntityOperations.h"
 #include "Family.h"
@@ -29,7 +30,36 @@
 namespace ECS {
 	typedef Signal11::Signal<void(Entity *, ComponentBase *)> ComponentSignal;
 	typedef Signal11::Signal<void(Entity *)> EntitySignal;
-		
+
+	
+	/** Component Pools */
+	class ComponentPoolBase {
+	public:
+		virtual ~ComponentPoolBase() {}
+		virtual void freeComponent(ComponentBase *object) = 0;
+	};
+
+	template<typename T>
+	class ComponentPool : public ComponentPoolBase, public ReflectionPool<T> {
+	public:
+		void freeComponent(ComponentBase *object) override {
+			ReflectionPool<T>::free((T*)object);
+		}
+	};
+
+	/** Entity Pool */
+	class EntityPool : public Pool<Entity> {
+	public:
+		EntityPool(int initialSize, int maxSize) : Pool<Entity>(initialSize, maxSize) {}
+
+	protected:
+		Entity *newObject() override {
+			return new Entity();
+		}
+	};
+			
+	/**
+	 */
 	/**
 	 * The heart of the Entity framework. It is responsible for keeping track of {@link Entity} and
 	 * managing {@link EntitySystem} objects. The Engine should be updated every tick via the {@link #update(float)} method.
@@ -44,6 +74,14 @@ namespace ECS {
 	 * <li>Register/unregister {@link EntityListener} objects</li>
 	 * </ul>
 	 *
+	 * Supports {@link Entity} and {@link Component} pooling. This improves performance in environments where creating/deleting
+	 * entities is frequent as it greatly reduces memory allocation.
+	 * <ul>
+	 * <li>Create entities using {@link #createEntity()}</li>
+	 * <li>Create components using {@link #createComponent(Class)}</li>
+	 * <li>Components should implement the {@link Poolable} interface when in need to reset its state upon removal</li>
+	 * </ul>
+	 * @author David Saltares
 	 * @author Stefan Bachmann
 	 */
 	class Engine {
@@ -75,6 +113,9 @@ namespace ECS {
 		std::vector<ComponentOperation *> componentOperations;
 		ComponentOperationHandler componentOperationHandler;
 
+		std::vector<ComponentPoolBase *> componentPoolsByType;
+		EntityPool entityPool;
+
 	public:
 		/** Will dispatch an event when a component is added. */
 		ComponentSignal componentAdded;
@@ -86,19 +127,54 @@ namespace ECS {
 		EntitySignal entityRemoved;
 		
 	public:
-		Engine();
-		void onComponentChange(Entity* entity, ComponentBase* component);
+		/**
+		 * Creates a new Engine with a maximum of 100 entities and 100 components of each type. Use
+		 * {@link #Engine(int, int, int, int)} to configure the entity and component pools.
+		 */
+		Engine () : Engine(10, 100, 10, 100) {}
+
+		/**
+		 * Creates new Engine with the specified pools size configurations.
+		 * @param entityPoolInitialSize initial number of pre-allocated entities.
+		 * @param entityPoolMaxSize maximum number of pooled entities.
+		 * @param componentPoolInitialSize initial size for each component type pool.
+		 * @param componentPoolMaxSize maximum size for each component type pool.
+		 */
+		Engine (int entityPoolInitialSize, int entityPoolMaxSize, int componentPoolInitialSize, int componentPoolMaxSize);
 
 		virtual ~Engine() {
 			// fixme: is this safe ?
 			clear();
 		}
+		
+		/** @return Clean {@link Entity} from the Engine pool. In order to add it to the {@link Engine}, use {@link #addEntity(Entity)}. */
+		Entity *createEntity();
+
+		/**
+		 * Retrieves a new {@link Component} from the {@link Engine} pool. It will be placed back in the pool whenever it's removed
+		 * from an {@link Entity} or the {@link Entity} itself it's removed.
+		 */
+		template<typename T>
+		T *createComponent() {
+			return getOrCreateComponentPool<T>()->obtain();
+		}
+		
+		void free(ComponentBase *component);
+
+		/**
+		 * Removes all free entities and components from their pools. Although this will likely result in garbage collection, it will
+		 * free up memory.
+		 */
+		void clearPools();
+		
+		void onComponentChange(Entity* entity, ComponentBase* component);
 
 		// fixme: if an engine gets deleted before remaining entities, etc. this is currently used in the testcases, not sure if its actually useful in real world code
 		void clear() {
 			processComponentOperations();
 			processPendingEntityOperations();
 			removeAllEntities();
+			clearPools();
 		}
 
 		uint64_t obtainEntityId() {
@@ -180,12 +256,10 @@ namespace ECS {
 	private:
 		void updateFamilyMembership(Entity *entity);
 
-	protected:
-		virtual void removeEntityInternal(Entity *entity);
+		void removeEntityInternal(Entity *entity);
 
-		virtual void addEntityInternal(Entity *entity);
+		void addEntityInternal(Entity *entity);
 
-	private:
 		void notifyFamilyListenersAdd(const Family &family, Entity *entity);
 
 		void notifyFamilyListenersRemove(const Family &family, Entity *entity);
@@ -195,5 +269,18 @@ namespace ECS {
 		void processPendingEntityOperations();
 
 		void processComponentOperations();
+		
+		template<typename T>
+		ComponentPool<T> *getOrCreateComponentPool() {
+			auto type = getComponentType<T>();
+			if (type >= componentPoolsByType.size())
+				componentPoolsByType.resize(type + 1);
+			auto *pool = (ComponentPool<T> *)componentPoolsByType[type];
+			if (!pool) {
+				pool = new ComponentPool<T>();
+				componentPoolsByType[type] = pool;
+			}
+			return pool;
+		}
 	};
 }

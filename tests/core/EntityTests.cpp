@@ -21,12 +21,11 @@ namespace EntityTests {
 
 	TEST_CASE("uniqueIndex") {
 		int numEntities = 10000;
-		Allocator<Entity> entities;
 		std::vector<uint64_t> ids;
 		Engine engine;
 
 		for (int i = 0; i < numEntities; ++i) {
-			auto entity = entities.create();
+			auto entity = engine.createEntity();
 			engine.addEntity(entity);
 			REQUIRE(!contains(ids, entity->getId()));
 			ids.push_back(entity->getId());
@@ -35,62 +34,65 @@ namespace EntityTests {
 
 
 	TEST_CASE("noComponents") {
-		Entity entity;
+		Engine engine;
+		Entity *entity = engine.createEntity();
 
-		REQUIRE(entity.getComponents().empty());
-		REQUIRE(entity.getComponentBits().isEmpty());
-		REQUIRE(!entity.get<ComponentA>());
-		REQUIRE(!entity.get<ComponentB>());
-		REQUIRE(!entity.has<ComponentA>());
-		REQUIRE(!entity.has<ComponentB>());
+		REQUIRE(entity->getAll().empty());
+		REQUIRE(entity->getComponentBits().isEmpty());
+		REQUIRE(!entity->get<ComponentA>());
+		REQUIRE(!entity->get<ComponentB>());
+		REQUIRE(!entity->has<ComponentA>());
+		REQUIRE(!entity->has<ComponentB>());
 	}
 
 
 	TEST_CASE("addAndRemoveComponent") {
-		Entity entity;
+		Engine engine;
+		Entity *entity = engine.createEntity();
 
-		ComponentA a;
-		entity.add(&a);
+		ComponentA *a = engine.createComponent<ComponentA>();
+		entity->add(a);
 
-		REQUIRE(1 == entity.getComponents().size());
+		REQUIRE(1 == entity->getAll().size());
 
-		const Bits &componentBits = entity.getComponentBits();
+		const Bits &componentBits = entity->getComponentBits();
 		auto componentAIndex = getComponentType<ComponentA>();
 		
 		for (auto i = 0; i < componentBits.length(); ++i) {
 			REQUIRE((i == componentAIndex) == componentBits.get(i));
 		}
 
-		REQUIRE(entity.get<ComponentA>());
-		REQUIRE(!entity.get<ComponentB>());
-		REQUIRE(entity.has<ComponentA>());
-		REQUIRE(!entity.has<ComponentB>());
+		REQUIRE(entity->get<ComponentA>());
+		REQUIRE(!entity->get<ComponentB>());
+		REQUIRE(entity->has<ComponentA>());
+		REQUIRE(!entity->has<ComponentB>());
 
-		entity.remove<ComponentA>();
+		entity->remove<ComponentA>();
 
-		REQUIRE(0 == entity.getComponents().size());
+		REQUIRE(0 == entity->getAll().size());
 
 		for (int i = 0; i < componentBits.length(); ++i) {
 			REQUIRE(!componentBits.get(i));
 		}
 
-		REQUIRE(!entity.get<ComponentA>());
-		REQUIRE(!entity.get<ComponentB>());
-		REQUIRE(!entity.has<ComponentA>());
-		REQUIRE(!entity.has<ComponentB>());
+		REQUIRE(!entity->get<ComponentA>());
+		REQUIRE(!entity->get<ComponentB>());
+		REQUIRE(!entity->has<ComponentA>());
+		REQUIRE(!entity->has<ComponentB>());
 	}
 
 
 	TEST_CASE("addAndRemoveAllComponents") {
-		Entity entity;
-		ComponentA a;
-		ComponentB b;
-		entity.add(&a);
-		entity.add(&b);
+		Engine engine;
+		Entity *entity = engine.createEntity();
+		ComponentA *a = engine.createComponent<ComponentA>();
+		ComponentB *b = engine.createComponent<ComponentB>();
+		entity->add(a);
+		entity->add(b);
 
-		REQUIRE(2 == entity.getComponents().size());
+		REQUIRE(2 == entity->getAll().size());
 
-		auto &componentBits = entity.getComponentBits();
+		auto &componentBits = entity->getComponentBits();
 		auto componentAIndex = getComponentType<ComponentA>();
 		auto componentBIndex = getComponentType<ComponentB>();
 		
@@ -98,46 +100,47 @@ namespace EntityTests {
 			REQUIRE((i == componentAIndex || i == componentBIndex) == componentBits.get(i));
 		}
 
-		REQUIRE(entity.get<ComponentA>());
-		REQUIRE(entity.get<ComponentB>());
-		REQUIRE(entity.has<ComponentA>());
-		REQUIRE(entity.has<ComponentB>());
+		REQUIRE(entity->get<ComponentA>());
+		REQUIRE(entity->get<ComponentB>());
+		REQUIRE(entity->has<ComponentA>());
+		REQUIRE(entity->has<ComponentB>());
 
-		entity.removeAll();
+		entity->removeAll();
 
-		REQUIRE(0 == entity.getComponents().size());
+		REQUIRE(0 == entity->getAll().size());
 
 		for (int i = 0; i < componentBits.length(); ++i) {
 			REQUIRE(!componentBits.get(i));
 		}
 
-		REQUIRE(!entity.get<ComponentA>());
-		REQUIRE(!entity.get<ComponentB>());
-		REQUIRE(!entity.has<ComponentA>());
-		REQUIRE(!entity.has<ComponentB>());
+		REQUIRE(!entity->get<ComponentA>());
+		REQUIRE(!entity->get<ComponentB>());
+		REQUIRE(!entity->has<ComponentA>());
+		REQUIRE(!entity->has<ComponentB>());
 	}
 
 
 	TEST_CASE("addSameComponent") {
-		Entity entity;
+		Engine engine;
+		Entity *entity = engine.createEntity();
 
-		ComponentA a1;
-		ComponentA a2;
+		ComponentA *a1 = engine.createComponent<ComponentA>();
+		ComponentA *a2 = engine.createComponent<ComponentA>();
 
-		entity.add(&a1);
-		entity.add(&a2);
+		entity->add(a1);
+		entity->add(a2);
 
-		REQUIRE(1 == entity.getComponents().size());
-		REQUIRE(entity.has<ComponentA>());
-		REQUIRE(&a1 != entity.get<ComponentA>());
-		REQUIRE(&a2 == entity.get<ComponentA>());
+		REQUIRE(1 == entity->getAll().size());
+		REQUIRE(entity->has<ComponentA>());
+		REQUIRE(a1 != entity->get<ComponentA>());
+		REQUIRE(a2 == entity->get<ComponentA>());
 	}
 
 
 	TEST_CASE("componentListener") {
 		Engine engine;
-		Entity entity;
-		engine.addEntity(&entity);
+		Entity *entity = engine.createEntity();
+		engine.addEntity(entity);
 
 		int totalAdds = 0;
 		int totalRemoves = 0;
@@ -147,42 +150,43 @@ namespace EntityTests {
 		REQUIRE(0 == totalAdds);
 		REQUIRE(0 == totalRemoves);
 
-		ComponentA a;
-		entity.add(&a);
+		ComponentA *a = engine.createComponent<ComponentA>();
+		entity->add(a);
 
 		REQUIRE(1 == totalAdds);
 		REQUIRE(0 == totalRemoves);
 
-		entity.remove<ComponentA>();
+		entity->remove<ComponentA>();
 
 		REQUIRE(1 == totalAdds);
 		REQUIRE(1 == totalRemoves);
 
-		ComponentB b;
-		entity.add(&b);
+		ComponentB *b = engine.createComponent<ComponentB>();
+		entity->add(b);
 
 		REQUIRE(2 == totalAdds);
 
-		entity.remove<ComponentB>();
+		entity->remove<ComponentB>();
 
 		REQUIRE(2 == totalRemoves);
 	}
 
 
 	TEST_CASE("getComponentByClass") {
-		ComponentA compA;
-		ComponentB compB;
+		Engine engine;
+		Entity *entity = engine.createEntity();
+		ComponentA *compA = engine.createComponent<ComponentA>();
+		ComponentB *compB = engine.createComponent<ComponentB>();
 
-		Entity entity;
-		entity.add(&compA).add(&compB);
+		entity->add(compA).add(compB);
 
-		ComponentA *retA = entity.get<ComponentA>();
-		ComponentB *retB = entity.get<ComponentB>();
+		ComponentA *retA = entity->get<ComponentA>();
+		ComponentB *retB = entity->get<ComponentB>();
 
 		REQUIRE(retA);
 		REQUIRE(retB);
 
-		REQUIRE(retA == &compA);
-		REQUIRE(retB == &compB);
+		REQUIRE(retA == compA);
+		REQUIRE(retB == compB);
 	}
 }

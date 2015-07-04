@@ -20,19 +20,20 @@ namespace ECS {
 	bool compareSystems(EntitySystemBase *a, EntitySystemBase *b) {
 		return a->priority < b->priority;
 	}
-	Engine:: Engine()
-		: componentOperationHandler(*this) {
+	Engine:: Engine(int entityPoolInitialSize, int entityPoolMaxSize, int componentPoolInitialSize, int componentPoolMaxSize)
+		//fixme: pass parameters to component pools
+		: componentOperationHandler(*this), entityPool(entityPoolInitialSize, entityPoolMaxSize) {
 		componentAdded.connect(this, &Engine::onComponentChange);
 		componentRemoved.connect(this, &Engine::onComponentChange);
 	}
 
 	void Engine::onComponentChange(Entity *entity, ComponentBase *component) {
-		updateFamilyMembership(entity);
+		if(!entity->scheduledForRemoval && entity->isValid())
+			updateFamilyMembership(entity);
 	}
 
 	void Engine::addEntity(Entity *entity){
 		entity->uuid = obtainEntityId();
-		entity->engine = this;
 		if (updating || notifying) {
 			auto *operation = entityOperationPool.obtain();
 			operation->entity = entity;
@@ -56,6 +57,7 @@ namespace ECS {
 			entityOperations.push_back(operation);
 		}
 		else {
+			entity->scheduledForRemoval = true;
 			removeEntityInternal(entity);
 		}
 	}
@@ -157,7 +159,9 @@ namespace ECS {
 	}
 
 	void Engine::removeEntityInternal(Entity *entity) {
-		entity->scheduledForRemoval = false;
+		// Check if entity is able to be removed (id == 0 means either entity is not used by engine, or already removed/in pool)
+		if (entity->getId() == 0) return;
+		
 		auto itEnt = std::find(entities.begin(), entities.end(), entity);
 		if(itEnt != entities.end())
 			entities.erase(itEnt);
@@ -186,6 +190,8 @@ namespace ECS {
 		notifying = true;
 		entityRemoved.emit(entity);
 		notifying = false;
+
+		entityPool.free(entity);
 	}
 
 	void Engine::addEntityInternal(Entity *entity) {
@@ -268,5 +274,26 @@ namespace ECS {
 		}
 
 		componentOperations.clear();
+	}
+
+	Entity *Engine::createEntity() {
+		auto *entity = entityPool.obtain();
+		entity->engine = this;
+		return entity;
+	}
+
+	void Engine::free(ComponentBase *component) {
+		auto pool = componentPoolsByType[component->type];
+		if (pool)
+			pool->freeComponent(component);
+	}
+
+	void Engine::clearPools() {
+		entityPool.clear();
+		for (auto pool : componentPoolsByType){
+			if (pool)
+				delete pool;
+		}
+		componentPoolsByType.clear();
 	}
 }

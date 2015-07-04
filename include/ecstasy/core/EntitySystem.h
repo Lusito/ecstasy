@@ -21,6 +21,7 @@ namespace ECS {
 	
 	class EntitySystemBase {
 	private:
+		//fixme: add Engine ptr
 		bool processing = true;
 
 	public:

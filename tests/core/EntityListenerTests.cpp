@@ -21,35 +21,32 @@ namespace EntityListenerTests {
 	TEST_CASE("Add EntityListener Family Remove") {
 		Engine engine;
 
-		std::shared_ptr<PositionComponent> component(new PositionComponent());
-		Entity e;
-		e.add(component.get());
-		engine.addEntity(&e);
+		Entity *e = engine.createEntity();
+		e->add(engine.createComponent<PositionComponent>());
+		engine.addEntity(e);
 
-		Allocator<Entity> entities;
 		auto &signal = engine.getEntityRemovedSignal(Family::all<PositionComponent>().get());
 		signal.connect([&](Entity *entity) {
-			engine.addEntity(entities.create());
+			engine.addEntity(engine.createEntity());
 		});
 
-		engine.removeEntity(&e);
+		engine.removeEntity(e);
 		engine.clear();
 	}
 
 	TEST_CASE("addEntityListenerFamilyAdd") {
 		Engine engine;
 
-		Entity e;
-		PositionComponent component;
-		e.add(&component);
+		Entity *e = engine.createEntity();
+		PositionComponent *component = engine.createComponent<PositionComponent>();
+		e->add(component);
 
-		Allocator<Entity> entities;
 		auto &signal = engine.getEntityAddedSignal(Family::all<PositionComponent>().get());
 		auto ref = signal.connect([&](Entity *entity) {
-			engine.addEntity(entities.create());
+			engine.addEntity(engine.createEntity());
 		});
 
-		engine.addEntity(&e);
+		engine.addEntity(e);
 		ref.disconnect();
 		engine.removeAllEntities();
 		engine.clear();
@@ -58,19 +55,18 @@ namespace EntityListenerTests {
 	TEST_CASE("addEntityListenerNoFamilyRemove") {
 		Engine engine;
 
-		Entity e;
-		PositionComponent component;
-		e.add(&component);
-		engine.addEntity(&e);
+		Entity *e = engine.createEntity();
+		PositionComponent *component = engine.createComponent<PositionComponent>();
+		e->add(component);
+		engine.addEntity(e);
 		auto &family = Family::all<PositionComponent>().get();
-		Allocator<Entity> entities;
 		auto &signal = engine.getEntityRemovedSignal(family);
 		auto ref = signal.connect([&](Entity *entity) {
 			if (family.matches(entity))
-				engine.addEntity(entities.create());
+				engine.addEntity(engine.createEntity());
 		});
 
-		engine.removeEntity(&e);
+		engine.removeEntity(e);
 		ref.disconnect();
 		engine.clear();
 	}
@@ -78,19 +74,18 @@ namespace EntityListenerTests {
 	TEST_CASE("addEntityListenerNoFamilyAdd") {
 		Engine engine;
 
-		Entity e;
-		PositionComponent component;
-		e.add(&component);
+		Entity *e = engine.createEntity();
+		PositionComponent *component = engine.createComponent<PositionComponent>();
+		e->add(component);
 
 		auto &family = Family::all<PositionComponent>().get();
-		Allocator<Entity> entities;
 		auto &signal = engine.getEntityAddedSignal(family);
 		signal.connect([&](Entity *entity) {
 			if (family.matches(entity))
-				engine.addEntity(entities.create());
+				engine.addEntity(engine.createEntity());
 		});
 
-		engine.addEntity(&e);
+		engine.addEntity(e);
 		engine.clear();
 	}
 }

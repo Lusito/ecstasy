@@ -17,9 +17,10 @@
 #include "Types.h"
 
 namespace ECS {
-	struct ComponentBase {
+	struct ComponentBase: public Poolable {
 		const ComponentType type;
 		virtual ~ComponentBase() {}
+		void reset() override {}
 
 	private:
 		/** Private Constructor so nobody derives from this */

@@ -49,8 +49,7 @@ namespace ECS {
 
 		componentBits.set(type);
 
-		if (engine)
-			engine->componentAdded.emit(this, component);
+		engine->componentAdded.emit(this, component);
 	}
 
 	ComponentBase *Entity::removeInternal(ComponentType type) {
@@ -61,9 +60,19 @@ namespace ECS {
 			components.erase(std::remove(components.begin(), components.end(), component), components.end());
 			componentBits.clear(type);
 
-			if (engine)
-				engine->componentRemoved.emit(this, component);
+			engine->componentRemoved.emit(this, component);
+			
+			auto pool = engine->componentPoolsByType[type];
+			pool->freeComponent(component);
 		}
 		return component;
+	}
+
+	void Entity::reset() {
+		removeAll();
+		uuid = 0;
+		flags = 0;
+		scheduledForRemoval = false;
+		engine = nullptr;
 	}
 }

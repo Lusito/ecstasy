@@ -92,7 +92,6 @@
     <ClInclude Include="..\..\include\ecstasy\core\EntityOperations.h" />
     <ClInclude Include="..\..\include\ecstasy\core\EntitySystem.h" />
     <ClInclude Include="..\..\include\ecstasy\core\Family.h" />
-    <ClInclude Include="..\..\include\ecstasy\core\PooledEngine.h" />
     <ClInclude Include="..\..\include\ecstasy\core\Types.h" />
     <ClInclude Include="..\..\include\ecstasy\systems\IntervalIteratingSystem.h" />
     <ClInclude Include="..\..\include\ecstasy\systems\IntervalSystem.h" />
@@ -107,7 +106,6 @@
     <ClCompile Include="..\..\source\core\Engine.cpp" />
     <ClCompile Include="..\..\source\core\Entity.cpp" />
     <ClCompile Include="..\..\source\core\Family.cpp" />
-    <ClCompile Include="..\..\source\core\PooledEngine.cpp" />
     <ClCompile Include="..\..\source\utils\Bits.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

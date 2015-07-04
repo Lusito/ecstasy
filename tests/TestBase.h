@@ -3,7 +3,6 @@
 #include <vector>
 #include <memory>
 #include <ecstasy/core/Engine.h>
-#include <ecstasy/core/PooledEngine.h>
 #include <ecstasy/core/Component.h>
 
 using namespace ECS;

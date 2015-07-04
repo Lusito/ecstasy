@@ -51,9 +51,6 @@
     <ClInclude Include="..\..\include\ecstasy\core\Family.h">
       <Filter>include\ecstasy\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\ecstasy\core\PooledEngine.h">
-      <Filter>include\ecstasy\core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\ecstasy\core\Types.h">
       <Filter>include\ecstasy\core</Filter>
     </ClInclude>
@@ -90,9 +87,6 @@
       <Filter>source\core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\core\Family.cpp">
-      <Filter>source\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\core\PooledEngine.cpp">
       <Filter>source\core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\utils\Bits.cpp">

@@ -23,10 +23,11 @@ namespace ECS {
 	 * Simple containers of {@link Component}s that give them "data". The component's data is then processed by {@link EntitySystem}s.
 	 * @author Stefan Bachmann
 	 */
-	class Entity {
+	class Entity: public Poolable {
 		friend class Family;
 		friend class ComponentOperationHandler;
 		friend class Engine;
+		friend class EntityPool;
 	public:
 		/** A flag that can be used to bit mask this entity. Up to the user to manage. */
 		int flags = 0;
@@ -42,11 +43,17 @@ namespace ECS {
 		Bits familyBits;
 		Engine *engine = nullptr;
 
+		Entity() {}
+		
 	public:
 		virtual ~Entity() {}
+		void reset() override;
 
 		/** @return The Entity's unique id. */
 		uint64_t getId () const { return uuid; }
+		
+		/** @return true if the entity is valid (added to the engine). */
+		bool isValid () const { return uuid > 0; }
 
 		/** @return true if the entity is scheduled to be removed */
 		bool isScheduledForRemoval () const { return scheduledForRemoval; }
@@ -74,7 +81,7 @@ namespace ECS {
 		void removeAll();
 
 		/** @return immutable collection with all the Entity {@link Component}s. */
-		const std::vector<ComponentBase *> &getComponents () const {
+		const std::vector<ComponentBase *> &getAll () const {
 			return components;
 		}
 

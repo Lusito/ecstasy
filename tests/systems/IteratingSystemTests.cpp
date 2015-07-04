@@ -85,37 +85,37 @@ namespace IteratingSystemTests {
 
 		auto &family = Family::all<ComponentA, ComponentB>().get();
 		IteratingSystemMock system(family);
-		Entity e;
+		Entity *e = engine.createEntity();
 
 		engine.addSystem(&system);
-		engine.addEntity(&e);
+		engine.addEntity(e);
 
 		// When entity has ComponentA
-		ComponentA a;
-		e.add(&a);
+		ComponentA *a = engine.createComponent<ComponentA>();
+		e->add(a);
 		engine.update(deltaTime);
 
 		REQUIRE(0 == system.numUpdates);
 
 		// When entity has ComponentA and ComponentB
 		system.numUpdates = 0;
-		ComponentB b;
-		e.add(&b);
+		ComponentB *b = engine.createComponent<ComponentB>();
+		e->add(b);
 		engine.update(deltaTime);
 
 		REQUIRE(1 == system.numUpdates);
 
 		// When entity has ComponentA, ComponentB and ComponentC
 		system.numUpdates = 0;
-		ComponentC c;
-		e.add(&c);
+		ComponentC *c = engine.createComponent<ComponentC>();
+		e->add(c);
 		engine.update(deltaTime);
 
 		REQUIRE(1 == system.numUpdates);
 
 		// When entity has ComponentB and ComponentC
 		system.numUpdates = 0;
-		e.remove<ComponentA>();
+		e->remove<ComponentA>();
 		engine.update(deltaTime);
 
 		REQUIRE(0 == system.numUpdates);
@@ -131,14 +131,11 @@ namespace IteratingSystemTests {
 
 		int numEntities = 10;
 
-		Allocator<Entity> allocE;
-		Allocator<SpyComponent> allocS;
-		Allocator<IndexComponent> allocI;
 		for (int i = 0; i < numEntities; ++i) {
-			auto *e = allocE.create();
-			e->add(allocS.create());
+			auto *e = engine.createEntity();
+			e->add(engine.createComponent<SpyComponent>());
 
-			auto *in = allocI.create();
+			auto *in = engine.createComponent<IndexComponent>();
 			in->index = i + 1;
 
 			e->add(in);
@@ -165,14 +162,11 @@ namespace IteratingSystemTests {
 
 		int numEntities = 10;
 
-		Allocator<Entity> allocE;
-		Allocator<SpyComponent> allocS;
-		Allocator<IndexComponent> allocI;
 		for (int i = 0; i < numEntities; ++i) {
-			auto *e = allocE.create();
-			e->add(allocS.create());
+			auto *e = engine.createEntity();
+			e->add(engine.createComponent<SpyComponent>());
 
-			auto *in = allocI.create();
+			auto *in = engine.createComponent<IndexComponent>();
 			in->index = i + 1;
 
 			e->add(in);
