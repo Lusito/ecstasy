@@ -89,13 +89,15 @@ namespace ECS {
 	void Engine::addSystem(EntitySystemBase *system){
 		auto systemType = system->type;
 
-		if (!systemsByType.count(systemType)) {
-			systems.push_back(system);
-			systemsByType[systemType] = system;
-			system->addedToEngine(this);
+		auto it = systemsByType.find(systemType);
+		if(it != systemsByType.end())
+			removeSystem(it->second);
+		
+		systems.push_back(system);
+		systemsByType[systemType] = system;
+		system->addedToEngine(this);
 
-			std::sort(systems.begin(), systems.end(), compareSystems);
-		}
+		std::sort(systems.begin(), systems.end(), compareSystems);
 	}
 
 	void Engine::removeSystem(EntitySystemBase *system){
@@ -163,12 +165,11 @@ namespace ECS {
 		// Check if entity is able to be removed (id == 0 means either entity is not used by engine, or already removed/in pool)
 		if (entity->getId() == 0) return;
 		
-		auto itEnt = std::find(entities.begin(), entities.end(), entity);
-		if(itEnt != entities.end())
-			entities.erase(itEnt);
-		auto itEntMap = entitiesById.find(entity->getId());
-		if(itEntMap != entitiesById.end())
-			entitiesById.erase(itEntMap);
+		auto it = std::find(entities.begin(), entities.end(), entity);
+		if(it == entities.end())
+			throw std::invalid_argument("Entity does not belong to this engine");
+		entities.erase(it);
+		entitiesById.erase(entitiesById.find(entity->getId()));
 
 		if(!entity->getFamilyBits().isEmpty()){
 			for (auto it = entitiesByFamily.begin(); it != entitiesByFamily.end(); it++) {
@@ -176,9 +177,9 @@ namespace ECS {
 				auto &familyEntities = it->second;
 
 				if(family->matches(entity)){
-					auto itEnt2 = std::find(familyEntities.begin(), familyEntities.end(), entity);
-					if(itEnt2 != familyEntities.end())
-						familyEntities.erase(itEnt2);
+					it = std::find(familyEntities.begin(), familyEntities.end(), entity);
+					if(it != familyEntities.end())
+						familyEntities.erase(it);
 
 					entity->familyBits.clear(family->index);
 					notifyFamilyListenersRemove(*family, entity);

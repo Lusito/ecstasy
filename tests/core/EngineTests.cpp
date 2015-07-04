@@ -596,4 +596,22 @@ namespace EngineTests {
 		}
 		REQUIRE(exceptionThrown);
 	}
+	
+	
+	TEST_CASE("addTwoSystemsOfSameClass") {
+		Engine engine;
+		EntitySystemMockA system1;
+		EntitySystemMockA system2;
+
+		REQUIRE(0 ==  engine.getSystems().size());
+		engine.addSystem(&system1);
+
+		REQUIRE(1 == engine.getSystems().size());
+		REQUIRE(&system1 == engine.getSystem<EntitySystemMockA>());
+
+		engine.addSystem(&system2);
+
+		REQUIRE(1 == engine.getSystems().size());
+		REQUIRE(&system2 == engine.getSystem<EntitySystemMockA>());
+	}
 }

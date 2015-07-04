@@ -100,6 +100,7 @@ namespace ECS {
 
 		std::unordered_map<const Family *, std::vector<Entity *>> entitiesByFamily;
 
+		//fixme: some sort of ordering/priority for signals ?
 		std::unordered_map<const Family *, EntitySignal> entityAddedSignals;
 		std::unordered_map<const Family *, EntitySignal> entityRemovedSignals;
 

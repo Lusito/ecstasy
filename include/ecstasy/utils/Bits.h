@@ -41,24 +41,20 @@ namespace ECS {
 		explicit Bits(int32_t nbits);
 
 		/** @param index the index of the bit
-		 * @return whether the bit is set
-		 * @throws ArrayIndexOutOfBoundsException if index < 0 */
+		 * @return whether the bit is set */
 		bool get (int32_t index) const;
 
 		/** Returns the bit at the given index and clears it in one go.
 		 * @param index the index of the bit
-		 * @return whether the bit was set before invocation
-		 * @throws ArrayIndexOutOfBoundsException if index < 0 */
+		 * @return whether the bit was set before invocation */
 		bool getAndClear (int32_t index);
 
 		/** Returns the bit at the given index and sets it in one go.
 		 * @param index the index of the bit
-		 * @return whether the bit was set before invocation
-		 * @throws ArrayIndexOutOfBoundsException if index < 0 */
+		 * @return whether the bit was set before invocation */
 		bool getAndSet (int32_t index);
 
-		/** @param index the index of the bit to set
-		 * @throws ArrayIndexOutOfBoundsException if index < 0 */
+		/** @param index the index of the bit to set */
 		void set (int32_t index);
 
 		/** @param index the index of the bit to flip */
@@ -71,8 +67,7 @@ namespace ECS {
 		void checkCapacity (int32_t len);
 
 	public:
-		/** @param index the index of the bit to clear
-		 * @throws ArrayIndexOutOfBoundsException if index < 0 */
+		/** @param index the index of the bit to clear */
 		void clear (int32_t index);
 
 		/** Clears the entire bitset */
