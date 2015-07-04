@@ -177,9 +177,9 @@ namespace ECS {
 				auto &familyEntities = it->second;
 
 				if(family->matches(entity)){
-					it = std::find(familyEntities.begin(), familyEntities.end(), entity);
-					if(it != familyEntities.end())
-						familyEntities.erase(it);
+					auto it2 = std::find(familyEntities.begin(), familyEntities.end(), entity);
+					if(it2 != familyEntities.end())
+						familyEntities.erase(it2);
 
 					entity->familyBits.clear(family->index);
 					notifyFamilyListenersRemove(*family, entity);

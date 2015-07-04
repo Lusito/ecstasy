@@ -127,8 +127,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		engine.update(deltaTime);
 
 		// When entity has OrderComponent and ComponentB
-		ComponentB *b = engine.createComponent<ComponentB>();
-		e->add(b);
+		e->add(engine.createComponent<ComponentB>());
 		system.expectedNames.push_back("A");
 		engine.update(deltaTime);
 

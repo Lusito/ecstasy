@@ -91,24 +91,21 @@ namespace IteratingSystemTests {
 		engine.addEntity(e);
 
 		// When entity has ComponentA
-		ComponentA *a = engine.createComponent<ComponentA>();
-		e->add(a);
+		e->add(engine.createComponent<ComponentA>());
 		engine.update(deltaTime);
 
 		REQUIRE(0 == system.numUpdates);
 
 		// When entity has ComponentA and ComponentB
 		system.numUpdates = 0;
-		ComponentB *b = engine.createComponent<ComponentB>();
-		e->add(b);
+		e->add(engine.createComponent<ComponentB>());
 		engine.update(deltaTime);
 
 		REQUIRE(1 == system.numUpdates);
 
 		// When entity has ComponentA, ComponentB and ComponentC
 		system.numUpdates = 0;
-		ComponentC *c = engine.createComponent<ComponentC>();
-		e->add(c);
+		e->add(engine.createComponent<ComponentC>());
 		engine.update(deltaTime);
 
 		REQUIRE(1 == system.numUpdates);

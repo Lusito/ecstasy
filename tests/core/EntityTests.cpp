@@ -50,8 +50,7 @@ namespace EntityTests {
 		Engine engine;
 		Entity *entity = engine.createEntity();
 
-		ComponentA *a = engine.createComponent<ComponentA>();
-		entity->add(a);
+		entity->add(engine.createComponent<ComponentA>());
 
 		REQUIRE(1 == entity->getAll().size());
 
@@ -85,10 +84,8 @@ namespace EntityTests {
 	TEST_CASE("addAndRemoveAllComponents") {
 		Engine engine;
 		Entity *entity = engine.createEntity();
-		ComponentA *a = engine.createComponent<ComponentA>();
-		ComponentB *b = engine.createComponent<ComponentB>();
-		entity->add(a);
-		entity->add(b);
+		entity->add(engine.createComponent<ComponentA>());
+		entity->add(engine.createComponent<ComponentB>());
 
 		REQUIRE(2 == entity->getAll().size());
 
@@ -150,8 +147,7 @@ namespace EntityTests {
 		REQUIRE(0 == totalAdds);
 		REQUIRE(0 == totalRemoves);
 
-		ComponentA *a = engine.createComponent<ComponentA>();
-		entity->add(a);
+		entity->add(engine.createComponent<ComponentA>());
 
 		REQUIRE(1 == totalAdds);
 		REQUIRE(0 == totalRemoves);
@@ -161,8 +157,7 @@ namespace EntityTests {
 		REQUIRE(1 == totalAdds);
 		REQUIRE(1 == totalRemoves);
 
-		ComponentB *b = engine.createComponent<ComponentB>();
-		entity->add(b);
+		entity->add(engine.createComponent<ComponentB>());
 
 		REQUIRE(2 == totalAdds);
 
