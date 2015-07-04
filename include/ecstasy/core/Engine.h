@@ -129,19 +129,13 @@ namespace ECS {
 		
 	public:
 		/**
-		 * Creates a new Engine with a maximum of 100 entities and 100 components of each type. Use
-		 * {@link #Engine(int, int, int, int)} to configure the entity and component pools.
-		 */
-		Engine () : Engine(10, 100, 10, 100) {}
-
-		/**
 		 * Creates new Engine with the specified pools size configurations.
 		 * @param entityPoolInitialSize initial number of pre-allocated entities.
 		 * @param entityPoolMaxSize maximum number of pooled entities.
 		 * @param componentPoolInitialSize initial size for each component type pool.
 		 * @param componentPoolMaxSize maximum size for each component type pool.
 		 */
-		Engine (int entityPoolInitialSize, int entityPoolMaxSize, int componentPoolInitialSize, int componentPoolMaxSize);
+		Engine (int entityPoolInitialSize = 10, int entityPoolMaxSize = 100, int componentPoolInitialSize = 10, int componentPoolMaxSize = 100);
 
 		virtual ~Engine() {
 			// fixme: is this safe ?
