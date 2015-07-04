@@ -217,6 +217,7 @@ namespace PooledEngineTests {
 
 		for (int i = 0; i < maxComponents; ++i) {
 			auto *e = engine.createEntity();
+			engine.addEntity(e);
 			auto *c = engine.createComponent<ComponentSpy>();
 
 			REQUIRE(c->recycled);

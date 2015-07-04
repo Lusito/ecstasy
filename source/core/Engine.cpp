@@ -163,7 +163,11 @@ namespace ECS {
 
 	void Engine::removeEntityInternal(Entity *entity) {
 		// Check if entity is able to be removed (id == 0 means either entity is not used by engine, or already removed/in pool)
-		if (entity->getId() == 0) return;
+		if (entity->getId() == 0) {
+			if (entity->engine == this)
+				entityPool.free(entity);
+			return;
+		}
 		
 		auto it = std::find(entities.begin(), entities.end(), entity);
 		if(it == entities.end())

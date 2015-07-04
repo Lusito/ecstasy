@@ -36,6 +36,7 @@ namespace EntityTests {
 	TEST_CASE("noComponents") {
 		Engine engine;
 		Entity *entity = engine.createEntity();
+		engine.addEntity(entity);
 
 		REQUIRE(entity->getAll().empty());
 		REQUIRE(entity->getComponentBits().isEmpty());
@@ -49,6 +50,7 @@ namespace EntityTests {
 	TEST_CASE("addAndRemoveComponent") {
 		Engine engine;
 		Entity *entity = engine.createEntity();
+		engine.addEntity(entity);
 
 		entity->add(engine.createComponent<ComponentA>());
 
@@ -84,6 +86,7 @@ namespace EntityTests {
 	TEST_CASE("addAndRemoveAllComponents") {
 		Engine engine;
 		Entity *entity = engine.createEntity();
+		engine.addEntity(entity);
 		entity->add(engine.createComponent<ComponentA>());
 		entity->add(engine.createComponent<ComponentB>());
 
@@ -120,6 +123,7 @@ namespace EntityTests {
 	TEST_CASE("addSameComponent") {
 		Engine engine;
 		Entity *entity = engine.createEntity();
+		engine.addEntity(entity);
 
 		ComponentA *a1 = engine.createComponent<ComponentA>();
 		ComponentA *a2 = engine.createComponent<ComponentA>();
@@ -170,6 +174,7 @@ namespace EntityTests {
 	TEST_CASE("getComponentByClass") {
 		Engine engine;
 		Entity *entity = engine.createEntity();
+		engine.addEntity(entity);
 		ComponentA *compA = engine.createComponent<ComponentA>();
 		ComponentB *compB = engine.createComponent<ComponentB>();
 

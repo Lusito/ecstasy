@@ -46,7 +46,7 @@ namespace ECS {
 		Entity() {}
 		
 	public:
-		virtual ~Entity() {}
+		virtual ~Entity() { removeAll(); }
 		void reset() override;
 
 		/** @return The Entity's unique id. */
