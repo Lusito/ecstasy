@@ -33,6 +33,7 @@ namespace ECS {
 	}
 
 	void Engine::addEntity(Entity *entity){
+		if (entity->uuid != 0) throw std::invalid_argument("Entity already added to an engine");
 		entity->uuid = obtainEntityId();
 		if (updating || notifying) {
 			auto *operation = entityOperationPool.obtain();

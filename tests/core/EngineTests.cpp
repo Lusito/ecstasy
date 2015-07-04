@@ -583,4 +583,17 @@ namespace EngineTests {
 		
 		REQUIRE(engineEntities->empty());
 	}
+	
+	TEST_CASE("addEntityTwice") {
+		Engine engine;
+		Entity *entity = engine.createEntity();
+		engine.addEntity(entity);
+		bool exceptionThrown = false;
+		try {
+			engine.addEntity(entity);
+		} catch(std::invalid_argument e) {
+			exceptionThrown = true;
+		}
+		REQUIRE(exceptionThrown);
+	}
 }
