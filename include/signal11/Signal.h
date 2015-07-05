@@ -439,7 +439,7 @@ namespace Signal11 {
 					}
 
 					decref();
-					// leave intact ->next, ->prev for stale iterators
+					// leave intact ->_next, ->_prev for stale iterators
 				}
 
 				SignalLink* addBefore(const CallbackFunction &callback) {
@@ -452,24 +452,6 @@ namespace Signal11 {
 					static_assert(sizeof(link) == sizeof(size_t), "sizeof size_t");
 
 					return link;
-				}
-
-				bool deactivate(const CallbackFunction &callback) {
-					if (callback == _callbackFunc) {
-						_callbackFunc = nullptr;      // deactivate static head
-						return true;
-					}
-
-					SignalLink *link = this->next ? this->next : this;
-
-					for(; link != this; link = link->next) {
-						if (callback == link->_callbackFunc) {
-							link->unlink();     // deactivate and unlink sibling
-							return true;
-						}
-					}
-
-					return false;
 				}
 
 				bool removeSibling(ProtoSignalLink *id) {
