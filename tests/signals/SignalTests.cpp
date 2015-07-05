@@ -16,6 +16,7 @@
 #include "../TestBase.h"
 #include <signal11/Signal.h>
 #include <stdarg.h>
+#include <stdio.h>
 
 namespace SignalTests {
 	using namespace Signal11;
@@ -126,7 +127,6 @@ namespace SignalTests {
 
 		ConnectionRef ref = signal.connect([&](Dummy *object) {
 			++count;
-			//fixme: ideally this connection would not be called during the same emit.
 			signal.connect([&](Dummy *object) {
 				++countB;
 			});
@@ -137,6 +137,11 @@ namespace SignalTests {
 
 		REQUIRE(1 == count);
 		REQUIRE(1 == listenerB.count);
+		REQUIRE(0 == countB);
+		ref.disconnect();
+		signal.emit(&dummy);
+		REQUIRE(1 == count);
+		REQUIRE(2 == listenerB.count);
 		REQUIRE(1 == countB);
 	}
 

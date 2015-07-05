@@ -25,9 +25,7 @@ namespace Signal11 {
 		public:
 			typedef Result CollectorResult;
 
-			explicit CollectorLast()
-			{
-			}
+			explicit CollectorLast() {}
 
 			inline bool operator()(Result r) {
 				_last = r;
@@ -44,8 +42,7 @@ namespace Signal11 {
 
 		/// CollectorDefault implements the default signal handler collection behaviour.
 		template<typename Result>
-		class CollectorDefault : public CollectorLast<Result>
-		{};
+		class CollectorDefault : public CollectorLast<Result> {};
 
 		/// CollectorDefault specialisation for signals with void return type.
 		template<>
@@ -78,15 +75,10 @@ namespace Signal11 {
 		};
 
 		struct ProtoSignalLink {
-			ProtoSignalLink()
-				:_enabled(true), _tempDisabled(false)
-			{
-			}
-
 			virtual bool removeSibling(ProtoSignalLink *link) = 0;
 
 			bool isEnabled() const {
-				return _enabled && !_tempDisabled;
+				return _enabled && !_tempDisabled && !_newLink;
 			}
 
 			void enable() {
@@ -106,34 +98,27 @@ namespace Signal11 {
 			}
 
 		protected:
-			bool _enabled;
-			bool _tempDisabled;
+			bool _enabled = true;
+			bool _tempDisabled = false;
+			bool _newLink = false;
+			template<typename, typename> friend class ProtoSignal;
 		};
 	} // namespace Lib
 
 	class ConnectionRef {
 	public:
-		ConnectionRef()
-			:_link(nullptr)
-		{
-		}
-
 		ConnectionRef(const std::shared_ptr<Lib::ProtoSignalLink> &head, Lib::ProtoSignalLink *link)
-			:_head(head), _link(link)
-		{
+			: _link(link), _head(head) {
 			assert((head == nullptr && link == nullptr) || (head != nullptr && link != nullptr));
 		}
 
 		ConnectionRef(ConnectionRef &&other)
-			:_link(std::move(other._link))
-		{
+			:_link(std::move(other._link)) {
 			std::swap(_head, other._head);
 			other._link = nullptr;
 		}
 
-		virtual ~ConnectionRef() {
-
-		}
+		virtual ~ConnectionRef() {}
 
 		ConnectionRef& operator=(ConnectionRef &&other) {
 			std::swap(_link, other._link);
@@ -158,29 +143,22 @@ namespace Signal11 {
 		}
 
 		bool isEnabled() const {
-			if(isValid()) {
-				return _link->isEnabled();
-			}
-
-			return false;
+			return isValid() && _link->isEnabled();
 		}
 
 		void enable() {
-			if(isValid()) {
+			if(isValid())
 				_link->enable();
-			}
 		}
 
 		void disable() {
-			if(isValid()) {
+			if(isValid())
 				_link->disable();
-			}
 		}
 
 		void setEnabled(bool flag) {
-			if(isValid()) {
+			if(isValid())
 				_link->setEnabled(flag);
-			}
 		}
 
 		bool isValid() const {
@@ -188,7 +166,7 @@ namespace Signal11 {
 		}
 
 	protected:
-		Lib::ProtoSignalLink *_link;
+		Lib::ProtoSignalLink *_link = nullptr;
 
 	private:
 		std::weak_ptr<Lib::ProtoSignalLink> _head;
@@ -198,19 +176,13 @@ namespace Signal11 {
 	class ScopedConnectionRef : public ConnectionRef {
 	public:
 		ScopedConnectionRef()
-			:ConnectionRef(nullptr, nullptr)
-		{
-		}
+			:ConnectionRef(nullptr, nullptr) {}
 
 		ScopedConnectionRef(ConnectionRef &&ref)
-			:ConnectionRef(std::move(ref))
-		{
-		}
+			:ConnectionRef(std::move(ref)) {}
 
 		ScopedConnectionRef(ScopedConnectionRef &&other)
-			:ConnectionRef(std::move(other))
-		{
-		}
+			:ConnectionRef(std::move(other)) {}
 
 		~ScopedConnectionRef() {
 			disconnect();
@@ -243,18 +215,12 @@ namespace Signal11 {
 
 	private:
 		ScopedConnectionRef(const ScopedConnectionRef &other)
-			:ConnectionRef(nullptr, nullptr)
-		{}
+			:ConnectionRef(nullptr, nullptr) {}
 		ScopedConnectionRef& operator=(const ScopedConnectionRef &other) { return *this; }
 	};
 	
 	class ConnectionScope {
 	public:
-		ConnectionScope()
-			:_enabled(true)
-		{
-		}
-
 		ScopedConnectionRef& operator+=(ConnectionRef &&ref) {
 			return insert(std::move(ref));
 		}
@@ -379,7 +345,7 @@ namespace Signal11 {
 
 	private:
 		std::vector<ScopedConnectionRef> _connections;
-		bool _enabled;
+		bool _enabled = true;
 	};
 
 	namespace Lib {
@@ -394,18 +360,16 @@ namespace Signal11 {
 		private:
 			/// SignalLink implements a doubly-linked ring with ref-counted nodes containing the signal handlers.
 			struct SignalLink : public ProtoSignalLink {
-				SignalLink *_next;
-				SignalLink *_prev;
+				SignalLink *_next = nullptr;
+				SignalLink *_prev = nullptr;
 				CallbackFunction _callbackFunc;
-				int _refCount;
+				int _refCount = 1;
 				int _priority;
 
 				friend class ConnectionRef;
 
 				explicit SignalLink(const CallbackFunction &callback, int priority=0)
-					:_next(nullptr), _prev(nullptr), _callbackFunc(callback), _refCount(1), _priority(priority)
-				{
-				}
+					: _callbackFunc(callback), _priority(priority) {}
 
 				~SignalLink() {
 					assert(_refCount == 0);
@@ -420,9 +384,8 @@ namespace Signal11 {
 					_refCount -= 1;
 					
 					if(_refCount == 0) {
-						if(performDelete) {
+						if(performDelete)
 							delete this;
-						}
 					} else {
 						assert(_refCount > 0);
 					}
@@ -431,13 +394,11 @@ namespace Signal11 {
 				void unlink() {
 					_callbackFunc = nullptr;
 					
-					if(_next) {
+					if(_next)
 						_next->_prev = _prev;
-					}
 
-					if(_prev) {
+					if(_prev)
 						_prev->_next = _next;
-					}
 
 					decref();
 					// leave intact ->_next, ->_prev for stale iterators
@@ -477,6 +438,8 @@ namespace Signal11 {
 			};
 
 			std::shared_ptr<SignalLink> _callbackRing; // linked ring of callback nodes
+			bool _hasNewLinks = false;
+			int _emitDepth = 0;
 			
 			void ensureRing() {
 				if(!_callbackRing) {
@@ -492,9 +455,7 @@ namespace Signal11 {
 
 		public:
 			/// ProtoSignal constructor, connects default callback if non-NULL.
-			ProtoSignal(const CallbackFunction &method)
-				:_callbackRing(nullptr)
-			{
+			ProtoSignal(const CallbackFunction &method) {
 				if(method != nullptr) {
 					ensureRing();
 					_callbackRing->_callbackFunc = method;
@@ -502,8 +463,7 @@ namespace Signal11 {
 			}
 
 			ProtoSignal(ProtoSignal &&other)
-				:_callbackRing(std::move(other._callbackRing))
-			{
+				:_callbackRing(std::move(other._callbackRing)) {
 				other._callbackRing = nullptr;
 			}
 
@@ -532,7 +492,12 @@ namespace Signal11 {
 			}
 			ConnectionRef connect(int priority, const CallbackFunction &callback) {
 				ensureRing();
-				return ConnectionRef(_callbackRing, _callbackRing->addBefore(callback, priority));
+				auto *link = _callbackRing->addBefore(callback, priority);
+				if (_emitDepth > 0) {
+					_hasNewLinks = true;
+					link->_newLink = true;
+				}
+				return ConnectionRef(_callbackRing, link);
 			}
 
 			template<class T>
@@ -578,20 +543,19 @@ namespace Signal11 {
 			CollectorResult emit(Args... args) {
 				Collector collector;
 
-				if (!_callbackRing) {
+				if (!_callbackRing)
 					return collector.result();
-				}
 
 				SignalLink *link = _callbackRing.get();
 				link->incref();
+				_emitDepth++;
 
 				do {
 					if(link->isEnabled() && link->_callbackFunc != nullptr) {
 						const bool continueEmission = this->invoke(collector, link->_callbackFunc, args...);
 
-						if(!continueEmission) {
+						if(!continueEmission)
 							break;
-						}
 					}
 
 					SignalLink *old = link;
@@ -599,10 +563,14 @@ namespace Signal11 {
 					link->incref();
 					old->decref();
 				}
-
 				while (link != _callbackRing.get());
 				
 				link->decref();
+				_emitDepth--;
+				if (_hasNewLinks && _emitDepth == 0) {
+					for (link = link->_next; link != _callbackRing.get(); link = link->_next)
+						link->_newLink = false;
+				}
 				return collector.result();
 			}
 		};
@@ -632,18 +600,13 @@ namespace Signal11 {
 
 		/// Signal constructor, supports a default callback as argument.
 		Signal(const CallbackFunction &method = CallbackFunction())
-			:ProtoSignal(method)
-		{
-		}
+			:ProtoSignal(method) {}
 
 		Signal(Signal &&other)
-			:ProtoSignal(std::move(other))
-		{
-		}
+			:ProtoSignal(std::move(other)) {}
 
 		Signal& operator=(Signal &&other) {
 			ProtoSignal::operator=(std::move(other));
-
 			return *this;
 		}
 	};
@@ -653,10 +616,7 @@ namespace Signal11 {
 	struct CollectorUntil0 {
 		typedef Result CollectorResult;
 
-		explicit CollectorUntil0()
-			:_result()
-		{
-		}
+		explicit CollectorUntil0() {}
 
 		const CollectorResult& result() {
 			return _result;
@@ -676,10 +636,7 @@ namespace Signal11 {
 	struct CollectorWhile0 {
 		typedef Result CollectorResult;
 
-		explicit CollectorWhile0()
-			:_result()
-		{
-		}
+		explicit CollectorWhile0() {}
 
 		const CollectorResult& result() {
 			return _result;
