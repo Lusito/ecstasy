@@ -398,11 +398,12 @@ namespace Signal11 {
 				SignalLink *_prev;
 				CallbackFunction _callbackFunc;
 				int _refCount;
+				int _priority;
 
 				friend class ConnectionRef;
 
-				explicit SignalLink(const CallbackFunction &callback)
-					:_next(nullptr), _prev(nullptr), _callbackFunc(callback), _refCount(1)
+				explicit SignalLink(const CallbackFunction &callback, int priority=0)
+					:_next(nullptr), _prev(nullptr), _callbackFunc(callback), _refCount(1), _priority(priority)
 				{
 				}
 
@@ -442,19 +443,26 @@ namespace Signal11 {
 					// leave intact ->_next, ->_prev for stale iterators
 				}
 
-				SignalLink* addBefore(const CallbackFunction &callback) {
-					SignalLink *link = new SignalLink(callback);
-					link->_prev = _prev; // link to last
-					link->_next = this;
-					_prev->_next = link; // link from last
-					_prev = link;
+				SignalLink* addBefore(const CallbackFunction &callback, int priority) {
+					auto *after = _prev;
+					while (after != this) {
+						if (after->_priority <= priority)
+							break;
+						after = after->_prev;
+					}
+
+					SignalLink *link = new SignalLink(callback, priority);
+					link->_prev = after;
+					link->_next = after->_next;
+					after->_next = link;
+					link->_next->_prev = link;
 
 					static_assert(sizeof(link) == sizeof(size_t), "sizeof size_t");
 
 					return link;
 				}
 
-				bool removeSibling(ProtoSignalLink *id) {
+				bool removeSibling(ProtoSignalLink *id) override {
 					SignalLink *link = this->_next ? this->_next : this;
 
 					for(; link != this; link = link->_next) {
@@ -520,26 +528,37 @@ namespace Signal11 {
 
 			/// Operator to add a new function or lambda as signal handler, returns a handler connection ID.
 			ConnectionRef connect(const CallbackFunction &callback) {
+				return connect(0, callback);
+			}
+			ConnectionRef connect(int priority, const CallbackFunction &callback) {
 				ensureRing();
-				return ConnectionRef(_callbackRing, _callbackRing->addBefore(callback));
+				return ConnectionRef(_callbackRing, _callbackRing->addBefore(callback, priority));
 			}
 
 			template<class T>
 			ConnectionRef connect(T &object, R(T::*method)(Args...)) {
+				return connect(0, object, method);
+			}
+			template<class T>
+			ConnectionRef connect(int priority, T &object, R(T::*method)(Args...)) {
 				CallbackFunction wrapper = [&object, method](Args&&... args) -> R {
 					return (object.*method)(args...);
 				};
 
-				return connect(wrapper);
+				return connect(priority, wrapper);
 			}
 
 			template<class T>
 			ConnectionRef connect(T *object, R(T::*method)(Args...)) {
+				return connect(0, object, method);
+			}
+			template<class T>
+			ConnectionRef connect(int priority, T *object, R(T::*method)(Args...)) {
 				CallbackFunction wrapper = [object, method](Args&&... args) -> R {
 					return (object->*method)(args...);
 				};
 
-				return connect(wrapper);
+				return connect(priority, wrapper);
 			}
 
 			/// Operator to remove a signal handler through it connection ID, returns if a handler was removed.

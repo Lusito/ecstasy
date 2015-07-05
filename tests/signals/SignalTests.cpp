@@ -33,6 +33,16 @@ namespace SignalTests {
 		}
 	};
 
+	struct ListenerPriorityMock {
+		int priority;
+		ListenerPriorityMock(int priority) :priority(priority) {}
+
+		void callback(int &count) {
+			REQUIRE(count == priority);
+			++count;
+		}
+	};
+
 	TEST_CASE("Add listener and emit") {
 		Dummy dummy;
 		Signal<void (Dummy *)> signal;
@@ -170,6 +180,31 @@ namespace SignalTests {
 
 		REQUIRE(1 == listenerA.count);
 		REQUIRE(1 == listenerB.count);
+	}
+
+	TEST_CASE("Signal priority") {
+		ListenerPriorityMock a(0);
+		ListenerPriorityMock b(1);
+		ListenerPriorityMock c(2);
+		ListenerPriorityMock d(3);
+
+		Signal<void(int &)> signal;
+		SECTION("Default Order") {
+			signal.connect(&a, &ListenerPriorityMock::callback);
+			signal.connect(&b, &ListenerPriorityMock::callback);
+			signal.connect(&c, &ListenerPriorityMock::callback);
+			signal.connect(&d, &ListenerPriorityMock::callback);
+		}
+		SECTION("Manual Order") {
+			signal.connect(3, &d, &ListenerPriorityMock::callback);
+			signal.connect(0, &a, &ListenerPriorityMock::callback);
+			signal.connect(2, &c, &ListenerPriorityMock::callback);
+			signal.connect(1, &b, &ListenerPriorityMock::callback);
+		}
+
+		int count = 0;
+		signal.emit(count);
+		REQUIRE(4 == count);
 	}
 
 	// Below are the original tests from Tim Janik (modified for catch).
