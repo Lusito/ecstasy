@@ -2,7 +2,6 @@
 
 [Ashley](http://github.com/libgdx/ashley/) on ~~Speed~~ C++.
 
-## About
 A tiny entity framework written in C++. It started as a port of the ECS [Ashley](http://github.com/libgdx/ashley/)
 from LibGDX but is not from the same Authors. ECS-tasy tries to be a high-performance
 entity framework  without the use of black-magic and thus making the API easy
