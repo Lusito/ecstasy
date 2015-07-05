@@ -41,6 +41,5 @@ namespace IntervalSystemTests {
 			engine.update(deltaTime);
 			REQUIRE((i / 2) == intervalSystemSpy.numUpdates);
 		}
-		engine.clear();
 	}
 }

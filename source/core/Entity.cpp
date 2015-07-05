@@ -19,17 +19,18 @@
 
 namespace ECS {
 	Entity &Entity::add (ComponentBase *component) {
-		if (componentOperationHandler != nullptr)
+		if (componentOperationHandler != nullptr && componentOperationHandler->isActive())
 			componentOperationHandler->add(this, component);
 		else
 			addInternal(component);
 		return *this;
 	}
 
-	void Entity::removeAll () {
-		//fixme: componentOperationHandler
-		while (!components.empty())
-			removeInternal(components.front()->type);
+	void Entity::removeAll() {
+		if (componentOperationHandler != nullptr && componentOperationHandler->isActive())
+			componentOperationHandler->removeAll(this);
+		else
+			removeAllInternal();
 	}
 
 	void Entity::addInternal (ComponentBase *component) {
@@ -66,6 +67,11 @@ namespace ECS {
 			pool->freeComponent(component);
 		}
 		return component;
+	}
+
+	void Entity::removeAllInternal() {
+		while (!components.empty())
+			removeInternal(components.front()->type);
 	}
 
 	void Entity::reset() {

@@ -26,7 +26,8 @@ namespace ECS {
 	public:
 		enum class Type {
 			Add,
-			Remove
+			Remove,
+			RemoveAll
 		};
 
 	public:
@@ -37,6 +38,7 @@ namespace ECS {
 
 		void makeAdd(Entity *entity, ComponentBase *component);
 		void makeRemove(Entity *entity, ComponentType componentType);
+		void makeRemoveAll(Entity* entity);
 		void reset() override;
 	};
 	
@@ -47,9 +49,13 @@ namespace ECS {
 	public:
 		explicit ComponentOperationHandler(Engine &engine) : engine(engine) {}
 
+		bool isActive();
+
 		void add(Entity *entity, ComponentBase *component);
 
 		void remove(Entity *entity, ComponentType componentType);
+
+		void removeAll(Entity *entity);
 	};
 	
 	class ComponentOperationPool: public Pool<ComponentOperation> {

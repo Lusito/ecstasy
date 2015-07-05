@@ -131,7 +131,6 @@ namespace PooledEngineTests {
 			engine.addEntity(entities[i]);
 			entities[i]->add(engine.createComponent<PositionComponent>());
 
-//			REQUIRE(entities[i]->componentOperationHandler); //fixme
 			REQUIRE(1 == entities[i]->getAll().size());
 			REQUIRE(!entities[i]->getFamilyBits().isEmpty());
 			REQUIRE(contains(*familyEntities, entities[i]));
@@ -147,7 +146,6 @@ namespace PooledEngineTests {
 
 		for (int i = 0; i < totalEntities; i++) {
 			REQUIRE(0 == entities[i]->flags);
-//			REQUIRE(!entities[i]->componentOperationHandler); //fixme
 			REQUIRE(0 == entities[i]->getAll().size());
 			REQUIRE(entities[i]->getFamilyBits().isEmpty());
 			REQUIRE(!contains(*familyEntities, entities[i]));

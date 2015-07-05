@@ -55,6 +55,5 @@ namespace IntervalIteratingSystemTests {
 				REQUIRE((i / 2) == e->get<IntervalComponentSpy>()->numUpdates);
 			}
 		}
-		engine.clear();
 	}
 }

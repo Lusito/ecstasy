@@ -46,7 +46,7 @@ namespace ECS {
 		Entity() {}
 		
 	public:
-		virtual ~Entity() { removeAll(); }
+		~Entity() { removeAll(); }
 		void reset() override;
 
 		/** @return The Entity's unique id. */
@@ -71,7 +71,7 @@ namespace ECS {
 		template<typename T>
 		void remove () {
 			auto type = getComponentType<T>();
-			if (componentOperationHandler != nullptr)
+			if (componentOperationHandler != nullptr && componentOperationHandler->isActive())
 				componentOperationHandler->remove(this, type);
 			else
 				removeInternal(type);
@@ -102,7 +102,6 @@ namespace ECS {
 		bool has() const {
 			return componentBits.get(getComponentType<T>());
 		}
-
 	private:
 		/**
 		 * Internal use.
@@ -128,8 +127,9 @@ namespace ECS {
 		}
 		
 	protected:
-		virtual void addInternal (ComponentBase *component);
-		virtual ComponentBase *removeInternal(ComponentType type);
+		void addInternal (ComponentBase *component);
+		ComponentBase *removeInternal(ComponentType type);
+		void removeAllInternal();
 
 	public:
 		bool operator ==(const Entity &other) const {

@@ -42,6 +42,8 @@ namespace ECS {
 	template<typename T>
 	class ComponentPool : public ComponentPoolBase, public ReflectionPool<T> {
 	public:
+		ComponentPool(int initialSize, int maxSize) : ReflectionPool<T>(initialSize, maxSize) {}
+
 		void freeComponent(ComponentBase *object) override {
 			ReflectionPool<T>::free((T*)object);
 		}
@@ -114,6 +116,7 @@ namespace ECS {
 		std::vector<ComponentOperation *> componentOperations;
 		ComponentOperationHandler componentOperationHandler;
 
+		int componentPoolInitialSize, componentPoolMaxSize;
 		std::vector<ComponentPoolBase *> componentPoolsByType;
 		EntityPool entityPool;
 
@@ -138,8 +141,10 @@ namespace ECS {
 		Engine (int entityPoolInitialSize = 10, int entityPoolMaxSize = 100, int componentPoolInitialSize = 10, int componentPoolMaxSize = 100);
 
 		virtual ~Engine() {
-			// fixme: is this safe ?
-			clear();
+			processComponentOperations();
+			processPendingEntityOperations();
+			removeAllEntities();
+			clearPools();
 		}
 		
 		/** @return Clean {@link Entity} from the Engine pool. In order to add it to the {@link Engine}, use {@link #addEntity(Entity)}. */
@@ -157,20 +162,11 @@ namespace ECS {
 		void free(ComponentBase *component);
 
 		/**
-		 * Removes all free entities and components from their pools. Although this will likely result in garbage collection, it will
-		 * free up memory.
+		 * Removes all free entities and components from their pools to free up memory.
 		 */
 		void clearPools();
 		
 		void onComponentChange(Entity* entity, ComponentBase* component);
-
-		// fixme: if an engine gets deleted before remaining entities, etc. this is currently used in the testcases, not sure if its actually useful in real world code
-		void clear() {
-			processComponentOperations();
-			processPendingEntityOperations();
-			removeAllEntities();
-			clearPools();
-		}
 
 		uint64_t obtainEntityId() {
 			return nextEntityId++;
@@ -272,7 +268,7 @@ namespace ECS {
 				componentPoolsByType.resize(type + 1);
 			auto *pool = (ComponentPool<T> *)componentPoolsByType[type];
 			if (!pool) {
-				pool = new ComponentPool<T>();
+				pool = new ComponentPool<T>(componentPoolInitialSize, componentPoolMaxSize);
 				componentPoolsByType[type] = pool;
 			}
 			return pool;

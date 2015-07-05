@@ -31,7 +31,6 @@ namespace EntityListenerTests {
 		});
 
 		engine.removeEntity(e);
-		engine.clear();
 	}
 
 	TEST_CASE("addEntityListenerFamilyAdd") {
@@ -49,7 +48,6 @@ namespace EntityListenerTests {
 		engine.addEntity(e);
 		ref.disconnect();
 		engine.removeAllEntities();
-		engine.clear();
 	}
 
 	TEST_CASE("addEntityListenerNoFamilyRemove") {
@@ -68,7 +66,6 @@ namespace EntityListenerTests {
 
 		engine.removeEntity(e);
 		ref.disconnect();
-		engine.clear();
 	}
 
 	TEST_CASE("addEntityListenerNoFamilyAdd") {
@@ -86,6 +83,5 @@ namespace EntityListenerTests {
 		});
 
 		engine.addEntity(e);
-		engine.clear();
 	}
 }

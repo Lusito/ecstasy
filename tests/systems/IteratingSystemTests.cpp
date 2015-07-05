@@ -116,7 +116,6 @@ namespace IteratingSystemTests {
 		engine.update(deltaTime);
 
 		REQUIRE(0 == system.numUpdates);
-		engine.clear();
 	}
 
 	TEST_CASE("entityRemovalWhileIterating") {
@@ -147,7 +146,6 @@ namespace IteratingSystemTests {
 		for (auto e : *entities) {
 			REQUIRE(1 == e->get<SpyComponent>()->updates);
 		}
-		engine.clear();
 	}
 
 	TEST_CASE("componentRemovalWhileIterating") {
@@ -178,6 +176,5 @@ namespace IteratingSystemTests {
 		for (auto e : *entities) {
 			REQUIRE(1 == e->get<SpyComponent>()->updates);
 		}
-		engine.clear();
 	}
 }

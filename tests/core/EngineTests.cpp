@@ -101,7 +101,7 @@ namespace EngineTests {
 		}
 
 		void update (float deltaTime) override {
-			for (int i = 0; i < entities->size(); ++i) {
+			for (size_t i = 0; i < entities->size(); ++i) {
 				if (i % 2 == 0)
 					entities->at(i)->get<CounterComponent>()->counter++;
 				else
@@ -588,13 +588,8 @@ namespace EngineTests {
 		Engine engine;
 		Entity *entity = engine.createEntity();
 		engine.addEntity(entity);
-		bool exceptionThrown = false;
-		try {
-			engine.addEntity(entity);
-		} catch(std::invalid_argument e) {
-			exceptionThrown = true;
-		}
-		REQUIRE(exceptionThrown);
+
+		REQUIRE_THROWS_AS( engine.addEntity(entity), std::invalid_argument );
 	}
 	
 	

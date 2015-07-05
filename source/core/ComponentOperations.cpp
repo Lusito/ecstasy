@@ -33,30 +33,37 @@ namespace ECS {
 		this->componentType = componentType;
 	}
 
+	void ComponentOperation::makeRemoveAll(Entity* entity) {
+		this->type = Type::RemoveAll;
+		this->entity = entity;
+		this->component = nullptr;
+		this->componentType = 0;
+	}
+
 	void ComponentOperation::reset() {
 		entity = nullptr;
 		component = nullptr;
 	}
-	
+
+	bool ComponentOperationHandler::isActive() {
+		return engine.updating;
+	}
+
 	void ComponentOperationHandler::add(Entity *entity, ComponentBase *component) {
-		if (engine.updating) {
-			auto *operation = engine.componentOperationsPool.obtain();
-			operation->makeAdd(entity, component);
-			engine.componentOperations.push_back(operation);
-		}
-		else {
-			entity->addInternal(component);
-		}
+		auto *operation = engine.componentOperationsPool.obtain();
+		operation->makeAdd(entity, component);
+		engine.componentOperations.push_back(operation);
 	}
 
 	void ComponentOperationHandler::remove(Entity *entity, ComponentType componentType) {
-		if (engine.updating) {
-			auto *operation = engine.componentOperationsPool.obtain();
-			operation->makeRemove(entity, componentType);
-			engine.componentOperations.push_back(operation);
-		}
-		else {
-			entity->removeInternal(componentType);
-		}
+		auto *operation = engine.componentOperationsPool.obtain();
+		operation->makeRemove(entity, componentType);
+		engine.componentOperations.push_back(operation);
+	}
+
+	void ComponentOperationHandler::removeAll(Entity *entity) {
+		auto *operation = engine.componentOperationsPool.obtain();
+		operation->makeRemoveAll(entity);
+		engine.componentOperations.push_back(operation);
 	}
 }

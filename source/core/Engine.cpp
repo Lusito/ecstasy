@@ -21,8 +21,8 @@ namespace ECS {
 		return a->priority < b->priority;
 	}
 	Engine:: Engine(int entityPoolInitialSize, int entityPoolMaxSize, int componentPoolInitialSize, int componentPoolMaxSize)
-		//fixme: pass parameters to component pools
-		: componentOperationHandler(*this), entityPool(entityPoolInitialSize, entityPoolMaxSize) {
+		: componentOperationHandler(*this), entityPool(entityPoolInitialSize, entityPoolMaxSize),
+		componentPoolInitialSize(componentPoolInitialSize), componentPoolMaxSize(componentPoolMaxSize) {
 		componentAdded.connect(this, &Engine::onComponentChange);
 		componentRemoved.connect(this, &Engine::onComponentChange);
 	}
@@ -273,6 +273,7 @@ namespace ECS {
 			switch(operation->type) {
 			case ComponentOperation::Type::Add: operation->entity->addInternal(operation->component); break;
 			case ComponentOperation::Type::Remove: operation->entity->removeInternal(operation->componentType); break;
+			case ComponentOperation::Type::RemoveAll: operation->entity->removeAllInternal(); break;
 			default: break;
 			}
 
