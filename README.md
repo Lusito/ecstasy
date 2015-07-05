@@ -1,4 +1,5 @@
-# ECS-tasy
+![](https://github.com/Lusito/ECS-tasy/blob/develop/images/ecstasy.png)
+
 [Ashley](http://github.com/libgdx/ashley/) on ~~Speed~~ C++.
 
 ## About
@@ -9,8 +10,7 @@ and transparent to use.
 
 ### Get started
 
-* [Read the Ashley wiki](https://github.com/libgdx/ashley/wiki)
-* Our own Wiki and more are about to come.
+* [Read the wiki](https://github.com/Lusito/ECS-tasy/wiki)
 
 ### Report isssues
 
