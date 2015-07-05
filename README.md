@@ -1,4 +1,4 @@
-![](https://github.com/Lusito/ECS-tasy/blob/develop/images/ecstasy.png)
+![](https://github.com/Lusito/ECS-tasy/blob/develop/ecstasy.png)
 
 [Ashley](http://github.com/libgdx/ashley/) on ~~Speed~~ C++.
 
