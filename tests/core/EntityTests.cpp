@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2014 See AUTHORS file.
+ * Copyright 2015 See AUTHORS file.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 #include "../TestBase.h"
+#include<set>
 
 namespace EntityTests {
 	struct ComponentA : public Component<ComponentA> {};
@@ -21,14 +22,13 @@ namespace EntityTests {
 
 	TEST_CASE("uniqueIndex") {
 		int numEntities = 10000;
-		std::vector<uint64_t> ids;
+		std::set<uint64_t> ids;
 		Engine engine;
 
 		for (int i = 0; i < numEntities; ++i) {
 			auto entity = engine.createEntity();
 			engine.addEntity(entity);
-			REQUIRE(!contains(ids, entity->getId()));
-			ids.push_back(entity->getId());
+			REQUIRE(ids.insert(entity->getId()).second);
 		}
 	}
 

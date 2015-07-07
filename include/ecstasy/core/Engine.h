@@ -1,6 +1,6 @@
 #pragma once
 /*******************************************************************************
- * Copyright 2014 See AUTHORS file.
+ * Copyright 2015 See AUTHORS file.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,9 +59,7 @@ namespace ECS {
 			return new Entity();
 		}
 	};
-			
-	/**
-	 */
+
 	/**
 	 * The heart of the Entity framework. It is responsible for keeping track of {@link Entity} and
 	 * managing {@link EntitySystem} objects. The Engine should be updated every tick via the {@link #update(float)} method.
