@@ -1,6 +1,4 @@
-![](https://github.com/Lusito/ECS-tasy/blob/develop/ecstasy.png)
-
-[Ashley](http://github.com/libgdx/ashley/) on ~~Speed~~ C++.
+![](http://lusito.github.io/ECS-tasy/ecstasy.png)
 
 A tiny entity framework written in C++. It started as a port of the ECS [Ashley](http://github.com/libgdx/ashley/)
 from LibGDX but is not from the same Authors. ECS-tasy tries to be a high-performance
