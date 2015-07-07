@@ -97,7 +97,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="_entity_system_8h_source.html">EntitySystem.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_entity_system_8h_source.html">ecstasy/core/EntitySystem.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -128,14 +128,20 @@ const SystemType&#160;</td><td class="memItemRight" valign="bottom"><b>type</b><
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
 class ECS::EntitySystem&lt; T &gt;</h3>
 
-<p>Abstract class for processing sets of <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> objects. </p><dl class="section author"><dt>Author</dt><dd>Stefan Bachmann </dd></dl>
+<p>Abstract class for processing sets of <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> objects.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> class used to create the type. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><div class="dynheader">
 Inheritance diagram for ECS::EntitySystem&lt; T &gt;:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_e_c_s_1_1_entity_system.png" usemap="#ECS::EntitySystem&lt; T &gt;_map" alt=""/>
   <map id="ECS::EntitySystem&lt; T &gt;_map" name="ECS::EntitySystem&lt; T &gt;_map">
-<area href="class_e_c_s_1_1_entity_system_base.html" alt="ECS::EntitySystemBase" shape="rect" coords="224,0,438,24"/>
+<area href="class_e_c_s_1_1_entity_system_base.html" title=": add Engine pointer " alt="ECS::EntitySystemBase" shape="rect" coords="224,0,438,24"/>
 <area href="class_e_c_s_1_1_interval_system.html" alt="ECS::IntervalSystem&lt; T &gt;" shape="rect" coords="0,112,214,136"/>
 <area href="class_e_c_s_1_1_iterating_system.html" alt="ECS::IteratingSystem&lt; T &gt;" shape="rect" coords="224,112,438,136"/>
 <area href="class_e_c_s_1_1_sorted_iterating_system.html" alt="ECS::SortedIteratingSystem&lt; T, C &gt;" shape="rect" coords="448,112,662,136"/>
@@ -166,7 +172,8 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Initialises the <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> with the priority specified. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>initializes the <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> with the priority specified.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">priority</td><td>The priority to execute this system with (lower means higher priority). </td></tr>
   </table>

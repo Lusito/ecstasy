@@ -119,92 +119,92 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_poolable.html#ad4ff4529abba64bd3ffad170ebf0fc7c">reset</a> () = 0;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    };</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html">   35</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_e_c_s_1_1_pool.html">Pool</a> {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        static_assert(std::is_base_of&lt;Poolable, T&gt;::value, <span class="stringliteral">&quot;T must derive from Poolable&quot;</span>);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">const</span> uint32_t max;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        uint32_t peak;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        std::vector&lt;T *&gt; freeObjects;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html">   38</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_e_c_s_1_1_pool.html">Pool</a> {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        static_assert(std::is_base_of&lt;Poolable, T&gt;::value, <span class="stringliteral">&quot;T must derive from Poolable&quot;</span>);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">const</span> uint32_t max;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        uint32_t peak;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html#a75eea47e8365fc1012a0243ff6c4d6bf">   47</a></span>&#160;        <a class="code" href="class_e_c_s_1_1_pool.html#a75eea47e8365fc1012a0243ff6c4d6bf">Pool</a> () : <a class="code" href="class_e_c_s_1_1_pool.html">Pool</a>(16, <a class="code" href="namespacestd.html">std</a>::numeric_limits&lt;uint32_t&gt;::max()) {}</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html#a421152973999cfcfb893dad3bf2f6a02">   50</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="class_e_c_s_1_1_pool.html#a421152973999cfcfb893dad3bf2f6a02">Pool</a>(<span class="keywordtype">int</span> initialCapacity) : <a class="code" href="class_e_c_s_1_1_pool.html">Pool</a>(initialCapacity, <a class="code" href="namespacestd.html">std</a>::numeric_limits&lt;uint32_t&gt;::max()) {}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        std::vector&lt;T *&gt; freeObjects;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html#a75eea47e8365fc1012a0243ff6c4d6bf">   50</a></span>&#160;        <a class="code" href="class_e_c_s_1_1_pool.html#a75eea47e8365fc1012a0243ff6c4d6bf">Pool</a> () : <a class="code" href="class_e_c_s_1_1_pool.html">Pool</a>(16, <a class="code" href="namespacestd.html">std</a>::numeric_limits&lt;uint32_t&gt;::max()) {}</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html#a65772e8a842f32aeeb051619326f1ccc">   53</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="class_e_c_s_1_1_pool.html#a65772e8a842f32aeeb051619326f1ccc">Pool</a> (<span class="keywordtype">int</span> initialCapacity, <span class="keywordtype">int</span> max) : max(max) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            freeObjects.reserve(initialCapacity);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="class_e_c_s_1_1_pool.html">Pool</a>() {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <a class="code" href="class_e_c_s_1_1_pool.html#af50db847c5efcbd5978e14dca372979b">clear</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html#a421152973999cfcfb893dad3bf2f6a02">   53</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="class_e_c_s_1_1_pool.html#a421152973999cfcfb893dad3bf2f6a02">Pool</a>(<span class="keywordtype">int</span> initialCapacity) : <a class="code" href="class_e_c_s_1_1_pool.html">Pool</a>(initialCapacity, <a class="code" href="namespacestd.html">std</a>::numeric_limits&lt;uint32_t&gt;::max()) {}</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html#a65772e8a842f32aeeb051619326f1ccc">   56</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="class_e_c_s_1_1_pool.html#a65772e8a842f32aeeb051619326f1ccc">Pool</a> (<span class="keywordtype">int</span> initialCapacity, <span class="keywordtype">int</span> max) : max(max) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            freeObjects.reserve(initialCapacity);</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keyword">virtual</span> T* newObject () = 0;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="class_e_c_s_1_1_pool.html">Pool</a>() {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <a class="code" href="class_e_c_s_1_1_pool.html#af50db847c5efcbd5978e14dca372979b">clear</a>();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        }</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html#a5c0fbf3ba42927932f32e47c0ea3f96e">   66</a></span>&#160;        T* <a class="code" href="class_e_c_s_1_1_pool.html#a5c0fbf3ba42927932f32e47c0ea3f96e">obtain</a> () {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keywordflow">if</span>(freeObjects.empty())</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                <span class="keywordflow">return</span> newObject();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            T* back = freeObjects.back();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            freeObjects.pop_back();</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">return</span> back;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html#ab103790322a2559c807778735d710d09">   76</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_pool.html#ab103790322a2559c807778735d710d09">free</a> (T *<span class="keywordtype">object</span>) {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <span class="keywordflow">if</span> (<span class="keywordtype">object</span> == <span class="keyword">nullptr</span>) <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;object cannot be null.&quot;</span>);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">if</span> (freeObjects.size() &lt; max) {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                <span class="keywordtype">object</span>-&gt;reset();</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                freeObjects.push_back(<span class="keywordtype">object</span>);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                peak = std::max(peak, (uint32_t)freeObjects.size());</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                <span class="keyword">delete</span> object;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        }</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html#af50db847c5efcbd5978e14dca372979b">   88</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_pool.html#af50db847c5efcbd5978e14dca372979b">clear</a> () {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">while</span> (!freeObjects.empty()) {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="keyword">delete</span> freeObjects.back();</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                freeObjects.pop_back();</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        }</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html#a6a7213ede93a7182ed8e34b55707c4af">   96</a></span>&#160;        <span class="keywordtype">int</span> <a class="code" href="class_e_c_s_1_1_pool.html#a6a7213ede93a7182ed8e34b55707c4af">getFree</a> ()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="keywordflow">return</span> freeObjects.size();</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    };</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_reflection_pool.html">  102</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_e_c_s_1_1_reflection_pool.html">ReflectionPool</a> : <span class="keyword">public</span> <a class="code" href="class_e_c_s_1_1_pool.html">Pool</a>&lt;T&gt; {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_reflection_pool.html#ae8b3d192a37f0da8955333cb562d62af">  105</a></span>&#160;        <a class="code" href="class_e_c_s_1_1_reflection_pool.html#ae8b3d192a37f0da8955333cb562d62af">ReflectionPool</a> () : <a class="code" href="class_e_c_s_1_1_pool.html">Pool</a>&lt;T&gt;() {}</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_reflection_pool.html#a57958b5c95c5636466096c4bd79a18ff">  108</a></span>&#160;        <a class="code" href="class_e_c_s_1_1_reflection_pool.html#a57958b5c95c5636466096c4bd79a18ff">ReflectionPool</a> (<span class="keywordtype">int</span> initialCapacity) : <a class="code" href="class_e_c_s_1_1_pool.html">Pool</a>&lt;T&gt;(initialCapacity) {}</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_reflection_pool.html#a526a67381e09a048b88bf52aba26b09e">  111</a></span>&#160;        <a class="code" href="class_e_c_s_1_1_reflection_pool.html#a526a67381e09a048b88bf52aba26b09e">ReflectionPool</a> (<span class="keywordtype">int</span> initialCapacity, <span class="keywordtype">int</span> max) : <a class="code" href="class_e_c_s_1_1_pool.html">Pool</a>&lt;T&gt;(initialCapacity, max) {}</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        T* newObject ()<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">new</span> T();</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        }</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    };</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
-<div class="ttc" id="class_e_c_s_1_1_pool_html_a75eea47e8365fc1012a0243ff6c4d6bf"><div class="ttname"><a href="class_e_c_s_1_1_pool.html#a75eea47e8365fc1012a0243ff6c4d6bf">ECS::Pool::Pool</a></div><div class="ttdeci">Pool()</div><div class="ttdef"><b>Definition:</b> Pool.h:47</div></div>
-<div class="ttc" id="class_e_c_s_1_1_reflection_pool_html_ae8b3d192a37f0da8955333cb562d62af"><div class="ttname"><a href="class_e_c_s_1_1_reflection_pool.html#ae8b3d192a37f0da8955333cb562d62af">ECS::ReflectionPool::ReflectionPool</a></div><div class="ttdeci">ReflectionPool()</div><div class="ttdef"><b>Definition:</b> Pool.h:105</div></div>
-<div class="ttc" id="class_e_c_s_1_1_pool_html_a5c0fbf3ba42927932f32e47c0ea3f96e"><div class="ttname"><a href="class_e_c_s_1_1_pool.html#a5c0fbf3ba42927932f32e47c0ea3f96e">ECS::Pool::obtain</a></div><div class="ttdeci">T * obtain()</div><div class="ttdef"><b>Definition:</b> Pool.h:66</div></div>
-<div class="ttc" id="class_e_c_s_1_1_pool_html_a421152973999cfcfb893dad3bf2f6a02"><div class="ttname"><a href="class_e_c_s_1_1_pool.html#a421152973999cfcfb893dad3bf2f6a02">ECS::Pool::Pool</a></div><div class="ttdeci">Pool(int initialCapacity)</div><div class="ttdef"><b>Definition:</b> Pool.h:50</div></div>
-<div class="ttc" id="class_e_c_s_1_1_reflection_pool_html_a57958b5c95c5636466096c4bd79a18ff"><div class="ttname"><a href="class_e_c_s_1_1_reflection_pool.html#a57958b5c95c5636466096c4bd79a18ff">ECS::ReflectionPool::ReflectionPool</a></div><div class="ttdeci">ReflectionPool(int initialCapacity)</div><div class="ttdef"><b>Definition:</b> Pool.h:108</div></div>
-<div class="ttc" id="class_e_c_s_1_1_pool_html_ab103790322a2559c807778735d710d09"><div class="ttname"><a href="class_e_c_s_1_1_pool.html#ab103790322a2559c807778735d710d09">ECS::Pool::free</a></div><div class="ttdeci">void free(T *object)</div><div class="ttdef"><b>Definition:</b> Pool.h:76</div></div>
-<div class="ttc" id="class_e_c_s_1_1_pool_html"><div class="ttname"><a href="class_e_c_s_1_1_pool.html">ECS::Pool</a></div><div class="ttdef"><b>Definition:</b> Pool.h:35</div></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keyword">virtual</span> T* newObject () = 0;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html#a5c0fbf3ba42927932f32e47c0ea3f96e">   71</a></span>&#160;        T* <a class="code" href="class_e_c_s_1_1_pool.html#a5c0fbf3ba42927932f32e47c0ea3f96e">obtain</a> () {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="keywordflow">if</span>(freeObjects.empty())</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                <span class="keywordflow">return</span> newObject();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            T* back = freeObjects.back();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            freeObjects.pop_back();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="keywordflow">return</span> back;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html#ab103790322a2559c807778735d710d09">   83</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_pool.html#ab103790322a2559c807778735d710d09">free</a> (T *<span class="keywordtype">object</span>) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <span class="keywordflow">if</span> (<span class="keywordtype">object</span> == <span class="keyword">nullptr</span>) <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;object cannot be null.&quot;</span>);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <span class="keywordflow">if</span> (freeObjects.size() &lt; max) {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                <span class="keywordtype">object</span>-&gt;reset();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                freeObjects.push_back(<span class="keywordtype">object</span>);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                peak = std::max(peak, (uint32_t)freeObjects.size());</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="keyword">delete</span> object;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html#af50db847c5efcbd5978e14dca372979b">   95</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_pool.html#af50db847c5efcbd5978e14dca372979b">clear</a> () {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            <span class="keywordflow">while</span> (!freeObjects.empty()) {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                <span class="keyword">delete</span> freeObjects.back();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                freeObjects.pop_back();</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            }</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_pool.html#a6a7213ede93a7182ed8e34b55707c4af">  103</a></span>&#160;        <span class="keywordtype">int</span> <a class="code" href="class_e_c_s_1_1_pool.html#a6a7213ede93a7182ed8e34b55707c4af">getFree</a> ()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordflow">return</span> freeObjects.size();</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    };</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_reflection_pool.html">  109</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_e_c_s_1_1_reflection_pool.html">ReflectionPool</a> : <span class="keyword">public</span> <a class="code" href="class_e_c_s_1_1_pool.html">Pool</a>&lt;T&gt; {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_reflection_pool.html#ae8b3d192a37f0da8955333cb562d62af">  112</a></span>&#160;        <a class="code" href="class_e_c_s_1_1_reflection_pool.html#ae8b3d192a37f0da8955333cb562d62af">ReflectionPool</a> () : <a class="code" href="class_e_c_s_1_1_pool.html">Pool</a>&lt;T&gt;() {}</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_reflection_pool.html#a57958b5c95c5636466096c4bd79a18ff">  115</a></span>&#160;        <a class="code" href="class_e_c_s_1_1_reflection_pool.html#a57958b5c95c5636466096c4bd79a18ff">ReflectionPool</a> (<span class="keywordtype">int</span> initialCapacity) : <a class="code" href="class_e_c_s_1_1_pool.html">Pool</a>&lt;T&gt;(initialCapacity) {}</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_reflection_pool.html#a526a67381e09a048b88bf52aba26b09e">  118</a></span>&#160;        <a class="code" href="class_e_c_s_1_1_reflection_pool.html#a526a67381e09a048b88bf52aba26b09e">ReflectionPool</a> (<span class="keywordtype">int</span> initialCapacity, <span class="keywordtype">int</span> max) : <a class="code" href="class_e_c_s_1_1_pool.html">Pool</a>&lt;T&gt;(initialCapacity, max) {}</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        T* newObject ()<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">new</span> T();</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        }</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    };</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;}</div>
+<div class="ttc" id="class_e_c_s_1_1_pool_html_a75eea47e8365fc1012a0243ff6c4d6bf"><div class="ttname"><a href="class_e_c_s_1_1_pool.html#a75eea47e8365fc1012a0243ff6c4d6bf">ECS::Pool::Pool</a></div><div class="ttdeci">Pool()</div><div class="ttdef"><b>Definition:</b> Pool.h:50</div></div>
+<div class="ttc" id="class_e_c_s_1_1_reflection_pool_html_ae8b3d192a37f0da8955333cb562d62af"><div class="ttname"><a href="class_e_c_s_1_1_reflection_pool.html#ae8b3d192a37f0da8955333cb562d62af">ECS::ReflectionPool::ReflectionPool</a></div><div class="ttdeci">ReflectionPool()</div><div class="ttdef"><b>Definition:</b> Pool.h:112</div></div>
+<div class="ttc" id="class_e_c_s_1_1_pool_html_a5c0fbf3ba42927932f32e47c0ea3f96e"><div class="ttname"><a href="class_e_c_s_1_1_pool.html#a5c0fbf3ba42927932f32e47c0ea3f96e">ECS::Pool::obtain</a></div><div class="ttdeci">T * obtain()</div><div class="ttdef"><b>Definition:</b> Pool.h:71</div></div>
+<div class="ttc" id="class_e_c_s_1_1_pool_html_a421152973999cfcfb893dad3bf2f6a02"><div class="ttname"><a href="class_e_c_s_1_1_pool.html#a421152973999cfcfb893dad3bf2f6a02">ECS::Pool::Pool</a></div><div class="ttdeci">Pool(int initialCapacity)</div><div class="ttdef"><b>Definition:</b> Pool.h:53</div></div>
+<div class="ttc" id="class_e_c_s_1_1_reflection_pool_html_a57958b5c95c5636466096c4bd79a18ff"><div class="ttname"><a href="class_e_c_s_1_1_reflection_pool.html#a57958b5c95c5636466096c4bd79a18ff">ECS::ReflectionPool::ReflectionPool</a></div><div class="ttdeci">ReflectionPool(int initialCapacity)</div><div class="ttdef"><b>Definition:</b> Pool.h:115</div></div>
+<div class="ttc" id="class_e_c_s_1_1_pool_html_ab103790322a2559c807778735d710d09"><div class="ttname"><a href="class_e_c_s_1_1_pool.html#ab103790322a2559c807778735d710d09">ECS::Pool::free</a></div><div class="ttdeci">void free(T *object)</div><div class="ttdef"><b>Definition:</b> Pool.h:83</div></div>
+<div class="ttc" id="class_e_c_s_1_1_pool_html"><div class="ttname"><a href="class_e_c_s_1_1_pool.html">ECS::Pool</a></div><div class="ttdef"><b>Definition:</b> Pool.h:38</div></div>
 <div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdoc">STL namespace. </div></div>
-<div class="ttc" id="class_e_c_s_1_1_pool_html_a65772e8a842f32aeeb051619326f1ccc"><div class="ttname"><a href="class_e_c_s_1_1_pool.html#a65772e8a842f32aeeb051619326f1ccc">ECS::Pool::Pool</a></div><div class="ttdeci">Pool(int initialCapacity, int max)</div><div class="ttdef"><b>Definition:</b> Pool.h:53</div></div>
-<div class="ttc" id="class_e_c_s_1_1_reflection_pool_html"><div class="ttname"><a href="class_e_c_s_1_1_reflection_pool.html">ECS::ReflectionPool</a></div><div class="ttdef"><b>Definition:</b> Pool.h:102</div></div>
-<div class="ttc" id="class_e_c_s_1_1_pool_html_af50db847c5efcbd5978e14dca372979b"><div class="ttname"><a href="class_e_c_s_1_1_pool.html#af50db847c5efcbd5978e14dca372979b">ECS::Pool::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition:</b> Pool.h:88</div></div>
+<div class="ttc" id="class_e_c_s_1_1_pool_html_a65772e8a842f32aeeb051619326f1ccc"><div class="ttname"><a href="class_e_c_s_1_1_pool.html#a65772e8a842f32aeeb051619326f1ccc">ECS::Pool::Pool</a></div><div class="ttdeci">Pool(int initialCapacity, int max)</div><div class="ttdef"><b>Definition:</b> Pool.h:56</div></div>
+<div class="ttc" id="class_e_c_s_1_1_reflection_pool_html"><div class="ttname"><a href="class_e_c_s_1_1_reflection_pool.html">ECS::ReflectionPool</a></div><div class="ttdef"><b>Definition:</b> Pool.h:109</div></div>
+<div class="ttc" id="class_e_c_s_1_1_pool_html_af50db847c5efcbd5978e14dca372979b"><div class="ttname"><a href="class_e_c_s_1_1_pool.html#af50db847c5efcbd5978e14dca372979b">ECS::Pool::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Deletes all free objects from this pool. </div><div class="ttdef"><b>Definition:</b> Pool.h:95</div></div>
 <div class="ttc" id="class_e_c_s_1_1_poolable_html_ad4ff4529abba64bd3ffad170ebf0fc7c"><div class="ttname"><a href="class_e_c_s_1_1_poolable.html#ad4ff4529abba64bd3ffad170ebf0fc7c">ECS::Poolable::reset</a></div><div class="ttdeci">virtual void reset()=0</div></div>
-<div class="ttc" id="class_e_c_s_1_1_reflection_pool_html_a526a67381e09a048b88bf52aba26b09e"><div class="ttname"><a href="class_e_c_s_1_1_reflection_pool.html#a526a67381e09a048b88bf52aba26b09e">ECS::ReflectionPool::ReflectionPool</a></div><div class="ttdeci">ReflectionPool(int initialCapacity, int max)</div><div class="ttdef"><b>Definition:</b> Pool.h:111</div></div>
+<div class="ttc" id="class_e_c_s_1_1_reflection_pool_html_a526a67381e09a048b88bf52aba26b09e"><div class="ttname"><a href="class_e_c_s_1_1_reflection_pool.html#a526a67381e09a048b88bf52aba26b09e">ECS::ReflectionPool::ReflectionPool</a></div><div class="ttdeci">ReflectionPool(int initialCapacity, int max)</div><div class="ttdef"><b>Definition:</b> Pool.h:118</div></div>
 <div class="ttc" id="class_e_c_s_1_1_poolable_html"><div class="ttname"><a href="class_e_c_s_1_1_poolable.html">ECS::Poolable</a></div><div class="ttdef"><b>Definition:</b> Pool.h:25</div></div>
-<div class="ttc" id="class_e_c_s_1_1_pool_html_a6a7213ede93a7182ed8e34b55707c4af"><div class="ttname"><a href="class_e_c_s_1_1_pool.html#a6a7213ede93a7182ed8e34b55707c4af">ECS::Pool::getFree</a></div><div class="ttdeci">int getFree() const </div><div class="ttdef"><b>Definition:</b> Pool.h:96</div></div>
+<div class="ttc" id="class_e_c_s_1_1_pool_html_a6a7213ede93a7182ed8e34b55707c4af"><div class="ttname"><a href="class_e_c_s_1_1_pool.html#a6a7213ede93a7182ed8e34b55707c4af">ECS::Pool::getFree</a></div><div class="ttdeci">int getFree() const </div><div class="ttdef"><b>Definition:</b> Pool.h:103</div></div>
 <div class="ttc" id="namespace_e_c_s_html"><div class="ttname"><a href="namespace_e_c_s.html">ECS</a></div><div class="ttdef"><b>Definition:</b> Component.h:19</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

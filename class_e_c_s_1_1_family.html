@@ -100,7 +100,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="_family_8h_source.html">Family.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_family_8h_source.html">ecstasy/core/Family.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -141,10 +141,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>FamilyBuilder</b></t
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a group of <a class="el" href="struct_e_c_s_1_1_component.html">Component</a>s. It is used to describe what <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> objects an <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> should process. Example:</p><div class="fragment"><div class="line">Family.all(PositionComponent.class, VelocityComponent.class).get() </div>
-</div><!-- fragment --><p> Families can't be instantiated directly but must be accessed via a builder ( start with</p><div class="fragment"><div class="line">Family.all() </div>
-</div><!-- fragment --><p> ,</p><div class="fragment"><div class="line">Family.one() </div>
-</div><!-- fragment --><p> or</p><div class="fragment"><div class="line">Family.exclude() </div>
-</div><!-- fragment --><p> ), this is to avoid duplicate families that describe the same components. </p><dl class="section author"><dt>Author</dt><dd>Stefan Bachmann </dd></dl>
+</div><!-- fragment --><p> Families can't be instantiated directly but must be accessed via a builder ( start with <a class="el" href="class_e_c_s_1_1_family.html#a4cc21abcf624b8af1e9ba6f92bfd8a74">Family::all()</a>, <a class="el" href="class_e_c_s_1_1_family.html#af032893ec397f7dbfc3bdeef277b4007">Family::one()</a> or <a class="el" href="class_e_c_s_1_1_family.html#abb2eb3ffa289295b1d6966e62ae8e271">Family::exclude()</a> ), this is to avoid duplicate families that describe the same components. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a4cc21abcf624b8af1e9ba6f92bfd8a74"></a>
 <div class="memitem">
@@ -192,9 +189,9 @@ template&lt;typename... Args&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">componentTypes</td><td>entities will have to contain all of the specified components. </td></tr>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Args</td><td>Entities will have to contain all of the specified components. </td></tr>
   </table>
   </dd>
 </dl>
@@ -224,9 +221,9 @@ template&lt;typename... Args&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">componentTypes</td><td>entities cannot contain any of the specified components. </td></tr>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Args</td><td>Entities cannot contain any of the specified components. </td></tr>
   </table>
   </dd>
 </dl>
@@ -247,6 +244,12 @@ template&lt;typename... Args&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>An entity </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>Whether the entity matches the family requirements or not </dd></dl>
 
 </div>
@@ -273,9 +276,9 @@ template&lt;typename... Args&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">componentTypes</td><td>entities will have to contain at least one of the specified components. </td></tr>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Args</td><td>Entities will have to contain at least one of the specified components. </td></tr>
   </table>
   </dd>
 </dl>

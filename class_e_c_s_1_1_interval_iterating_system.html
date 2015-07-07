@@ -98,7 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="_interval_iterating_system_8h_source.html">IntervalIteratingSystem.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_interval_iterating_system_8h_source.html">ecstasy/systems/IntervalIteratingSystem.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -146,7 +146,13 @@ const SystemType&#160;</td><td class="memItemRight" valign="bottom"><b>type</b><
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
 class ECS::IntervalIteratingSystem&lt; T &gt;</h3>
 
-<p>A simple <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> that processes a <a class="el" href="class_e_c_s_1_1_family.html">Family</a> of entities not once per frame, but after a given interval. <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> processing logic should be placed in <a class="el" href="">IntervalIteratingSystem#processEntity(Entity)</a>. </p><dl class="section author"><dt>Author</dt><dd>David Saltares </dd></dl>
+<p>A simple <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> that processes a <a class="el" href="class_e_c_s_1_1_family.html">Family</a> of entities not once per frame, but after a given interval. <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> processing logic should be placed in <a class="el" href="class_e_c_s_1_1_interval_iterating_system.html#a827e4816d8c00c1d2bcb7334edc9e1d5">processEntity()</a>.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> class used to create the type. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><div class="dynheader">
 Inheritance diagram for ECS::IntervalIteratingSystem&lt; T &gt;:</div>
 <div class="dyncontent">
@@ -155,7 +161,7 @@ Inheritance diagram for ECS::IntervalIteratingSystem&lt; T &gt;:</div>
   <map id="ECS::IntervalIteratingSystem&lt; T &gt;_map" name="ECS::IntervalIteratingSystem&lt; T &gt;_map">
 <area href="class_e_c_s_1_1_interval_system.html" alt="ECS::IntervalSystem&lt; T &gt;" shape="rect" coords="0,112,201,136"/>
 <area href="class_e_c_s_1_1_entity_system.html" alt="ECS::EntitySystem&lt; T &gt;" shape="rect" coords="0,56,201,80"/>
-<area href="class_e_c_s_1_1_entity_system_base.html" alt="ECS::EntitySystemBase" shape="rect" coords="0,0,201,24"/>
+<area href="class_e_c_s_1_1_entity_system_base.html" title=": add Engine pointer " alt="ECS::EntitySystemBase" shape="rect" coords="0,0,201,24"/>
 </map>
  </div></div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -200,8 +206,8 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">family</td><td>represents the collection of family the system should process </td></tr>
-    <tr><td class="paramname">interval</td><td>time in seconds between calls to <a class="el" href="class_e_c_s_1_1_interval_iterating_system.html#a5f2c3eb56d7796e9d799b334a64d7242">IntervalIteratingSystem#updateInterval()</a>. </td></tr>
+    <tr><td class="paramname">family</td><td>Represents the collection of family the system should process </td></tr>
+    <tr><td class="paramname">interval</td><td>Time in seconds between calls to <a class="el" href="class_e_c_s_1_1_interval_iterating_system.html#a5f2c3eb56d7796e9d799b334a64d7242">updateInterval()</a>. </td></tr>
     <tr><td class="paramname">priority</td><td></td></tr>
   </table>
   </dd>
@@ -233,7 +239,8 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Called when this <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is added to an <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Called when this <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is added to an <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">engine</td><td>The <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> this system was added to. </td></tr>
   </table>
@@ -266,7 +273,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>set of entities processed by the system </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A list of entities processed by the system </dd></dl>
 
 </div>
 </div>
@@ -292,7 +299,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_e_c_s_1_1_family.html">Family</a> used when the system was created </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_e_c_s_1_1_family.html">Family</a> used when the system was created </dd></dl>
 
 </div>
 </div>
@@ -319,7 +326,8 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>The user should place the entity processing logic here. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>The user should place the entity processing logic here.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entity</td><td></td></tr>
   </table>

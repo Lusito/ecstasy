@@ -98,7 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="_pool_8h_source.html">Pool.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_pool_8h_source.html">ecstasy/utils/Pool.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -112,7 +112,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5c0fbf3ba42927932f32e47c0ea3f96e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab103790322a2559c807778735d710d09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_pool.html#ab103790322a2559c807778735d710d09">free</a> (T *object)</td></tr>
 <tr class="separator:ab103790322a2559c807778735d710d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af50db847c5efcbd5978e14dca372979b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_pool.html#af50db847c5efcbd5978e14dca372979b">clear</a> ()</td></tr>
+<tr class="memitem:af50db847c5efcbd5978e14dca372979b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af50db847c5efcbd5978e14dca372979b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_pool.html#af50db847c5efcbd5978e14dca372979b">clear</a> ()</td></tr>
+<tr class="memdesc:af50db847c5efcbd5978e14dca372979b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes all free objects from this pool. <br /></td></tr>
 <tr class="separator:af50db847c5efcbd5978e14dca372979b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a7213ede93a7182ed8e34b55707c4af"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_pool.html#a6a7213ede93a7182ed8e34b55707c4af">getFree</a> () const </td></tr>
 <tr class="separator:a6a7213ede93a7182ed8e34b55707c4af"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,15 +129,20 @@ virtual T *&#160;</td><td class="memItemRight" valign="bottom"><b>newObject</b> 
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
 class ECS::Pool&lt; T &gt;</h3>
 
-<p>A pool of objects that can be reused to avoid allocation. </p><dl class="section author"><dt>Author</dt><dd>Nathan Sweet </dd></dl>
+<p>A pool of objects that can be reused to avoid allocation.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The class to be stored. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><div class="dynheader">
 Inheritance diagram for ECS::Pool&lt; T &gt;:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_e_c_s_1_1_pool.png" usemap="#ECS::Pool&lt; T &gt;_map" alt=""/>
   <map id="ECS::Pool&lt; T &gt;_map" name="ECS::Pool&lt; T &gt;_map">
-<area href="class_e_c_s_1_1_reflection_pool.html" alt="ECS::ReflectionPool&lt; T &gt;" shape="rect" coords="0,56,162,80"/>
-<area href="class_e_c_s_1_1_component_pool.html" alt="ECS::ComponentPool&lt; T &gt;" shape="rect" coords="0,112,162,136"/>
+<area href="class_e_c_s_1_1_reflection_pool.html" alt="ECS::ReflectionPool&lt; T &gt;" shape="rect" coords="0,56,155,80"/>
 </map>
  </div></div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -143,7 +150,7 @@ Inheritance diagram for ECS::Pool&lt; T &gt;:</div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T&gt; </div>
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -169,7 +176,7 @@ template&lt;typename T&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T&gt; </div>
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -196,7 +203,7 @@ template&lt;typename T&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T&gt; </div>
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -235,37 +242,11 @@ template&lt;typename T&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="af50db847c5efcbd5978e14dca372979b"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="class_e_c_s_1_1_pool.html">ECS::Pool</a>&lt; T &gt;::clear </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Deletes all free objects from this pool. </p>
-
-</div>
-</div>
 <a class="anchor" id="ab103790322a2559c807778735d710d09"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T&gt; </div>
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -292,7 +273,7 @@ template&lt;typename T&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T&gt; </div>
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -310,7 +291,7 @@ template&lt;typename T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>The number of objects available to be obtained. </p>
+<dl class="section return"><dt>Returns</dt><dd>The number of objects available to be obtained. </dd></dl>
 
 </div>
 </div>
@@ -318,7 +299,7 @@ template&lt;typename T&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T&gt; </div>
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">

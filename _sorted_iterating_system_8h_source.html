@@ -113,112 +113,103 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_e_c_s.html">ECS</a> {</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">class </span>Entity;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">// Comparator example:</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">//  struct Less {</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">//      bool operator () (Entity *a, Entity *b) {</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">//          auto ac = a-&gt;get&lt;OrderComponent&gt;();</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">//          auto bc = b-&gt;get&lt;OrderComponent&gt;();</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">//          return ac-&gt;zLayer &lt; bc-&gt;zLayer;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">//      }</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">//  };</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> C&gt;</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html">   41</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html">SortedIteratingSystem</a> : <span class="keyword">public</span> <a class="code" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>&lt;T&gt; {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_family.html">Family</a> &amp;family;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        std::vector&lt;Entity *&gt; sortedEntities;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordtype">bool</span> shouldSort;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        C comparator;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="class_signal11_1_1_connection_scope.html">Signal11::ConnectionScope</a> scope;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html#acebbb8c732495099dd515e81c636742a">   56</a></span>&#160;        <a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#acebbb8c732495099dd515e81c636742a">SortedIteratingSystem</a>(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_family.html">Family</a> &amp;family, C comparator, <span class="keywordtype">int</span> <a class="code" href="class_e_c_s_1_1_entity_system_base.html#ab77b8f654e570261ac98cc74345d7ee8">priority</a>=0) : <a class="code" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>&lt;T&gt;(<a class="code" href="class_e_c_s_1_1_entity_system_base.html#ab77b8f654e570261ac98cc74345d7ee8">priority</a>) , family(family), comparator(comparator) {}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> C&gt;</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html">   33</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html">SortedIteratingSystem</a> : <span class="keyword">public</span> <a class="code" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>&lt;T&gt; {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_family.html">Family</a> &amp;family;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        std::vector&lt;Entity *&gt; sortedEntities;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordtype">bool</span> shouldSort;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        C comparator;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="class_signal11_1_1_connection_scope.html">Signal11::ConnectionScope</a> scope;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html#acebbb8c732495099dd515e81c636742a">   49</a></span>&#160;        <a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#acebbb8c732495099dd515e81c636742a">SortedIteratingSystem</a>(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_family.html">Family</a> &amp;family, C comparator, <span class="keywordtype">int</span> <a class="code" href="class_e_c_s_1_1_entity_system_base.html#ab77b8f654e570261ac98cc74345d7ee8">priority</a>=0) : <a class="code" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>&lt;T&gt;(<a class="code" href="class_e_c_s_1_1_entity_system_base.html#ab77b8f654e570261ac98cc74345d7ee8">priority</a>) , family(family), comparator(comparator) {}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html#a4fe87421353dbb5d6ddc2b3422fb51b9">   54</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#a4fe87421353dbb5d6ddc2b3422fb51b9">forceSort</a>() {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            shouldSort = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        }</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html#a4fe87421353dbb5d6ddc2b3422fb51b9">   61</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#a4fe87421353dbb5d6ddc2b3422fb51b9">forceSort</a>() {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            shouldSort = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordtype">void</span> sort() {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keywordflow">if</span> (shouldSort) {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                std::sort(sortedEntities.begin(), sortedEntities.end(), comparator);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                shouldSort = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html#a26cd0418361cea33467ad1ea81232568">   74</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#a26cd0418361cea33467ad1ea81232568">addedToEngine</a>(<a class="code" href="class_e_c_s_1_1_engine.html">Engine</a> *engine)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="keyword">auto</span> *newEntities = engine-&gt;<a class="code" href="class_e_c_s_1_1_engine.html#a834265add83e274ec381b08ba3550225">getEntitiesFor</a>(family);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            sortedEntities.clear();</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <span class="keywordflow">if</span> (!newEntities-&gt;empty()) {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                <span class="keywordflow">for</span> (<span class="keyword">auto</span> entity : *newEntities) {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                    sortedEntities.push_back(entity);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                std::sort(sortedEntities.begin(), sortedEntities.end(), comparator);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            shouldSort = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            scope += engine-&gt;<a class="code" href="class_e_c_s_1_1_engine.html#a73084c8551f9fcc4733dd2c2c6cdfbc1">getEntityAddedSignal</a>(family).connect(<span class="keyword">this</span>, &amp;SortedIteratingSystem::entityAdded);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            scope += engine-&gt;<a class="code" href="class_e_c_s_1_1_engine.html#a7441793cea40ea9cd8d20805d4a0c30d">getEntityRemovedSignal</a>(family).connect(<span class="keyword">this</span>, &amp;SortedIteratingSystem::entityRemoved);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html#a52ee853e67791c191f5ca1278bd872fe">   88</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#a52ee853e67791c191f5ca1278bd872fe">removedFromEngine</a>(<a class="code" href="class_e_c_s_1_1_engine.html">Engine</a> *engine)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            scope.removeAll();</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            sortedEntities.clear();</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            shouldSort = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordtype">void</span> entityAdded(<a class="code" href="class_e_c_s_1_1_entity.html">Entity</a> *entity) {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            sortedEntities.push_back(entity);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            shouldSort = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordtype">void</span> entityRemoved(Entity *entity) {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keyword">auto</span> it = std::find(sortedEntities.begin(), sortedEntities.end(), entity);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">if</span> (it != sortedEntities.end()) {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                sortedEntities.erase(it);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                shouldSort = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">void</span> sort() {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keywordflow">if</span> (shouldSort) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                std::sort(sortedEntities.begin(), sortedEntities.end(), comparator);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                shouldSort = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html#a26cd0418361cea33467ad1ea81232568">   67</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#a26cd0418361cea33467ad1ea81232568">addedToEngine</a>(<a class="code" href="class_e_c_s_1_1_engine.html">Engine</a> *engine)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <span class="keyword">auto</span> *newEntities = engine-&gt;<a class="code" href="class_e_c_s_1_1_engine.html#a834265add83e274ec381b08ba3550225">getEntitiesFor</a>(family);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            sortedEntities.clear();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordflow">if</span> (!newEntities-&gt;empty()) {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                <span class="keywordflow">for</span> (<span class="keyword">auto</span> entity : *newEntities) {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                    sortedEntities.push_back(entity);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                std::sort(sortedEntities.begin(), sortedEntities.end(), comparator);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            shouldSort = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            scope += engine-&gt;<a class="code" href="class_e_c_s_1_1_engine.html#a73084c8551f9fcc4733dd2c2c6cdfbc1">getEntityAddedSignal</a>(family).connect(<span class="keyword">this</span>, &amp;SortedIteratingSystem::entityAdded);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            scope += engine-&gt;<a class="code" href="class_e_c_s_1_1_engine.html#a7441793cea40ea9cd8d20805d4a0c30d">getEntityRemovedSignal</a>(family).connect(<span class="keyword">this</span>, &amp;SortedIteratingSystem::entityRemoved);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html#a52ee853e67791c191f5ca1278bd872fe">   81</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#a52ee853e67791c191f5ca1278bd872fe">removedFromEngine</a>(<a class="code" href="class_e_c_s_1_1_engine.html">Engine</a> *engine)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            scope.removeAll();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            sortedEntities.clear();</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            shouldSort = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordtype">void</span> entityAdded(<a class="code" href="class_e_c_s_1_1_entity.html">Entity</a> *entity) {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            sortedEntities.push_back(entity);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            shouldSort = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordtype">void</span> entityRemoved(Entity *entity) {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <span class="keyword">auto</span> it = std::find(sortedEntities.begin(), sortedEntities.end(), entity);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="keywordflow">if</span> (it != sortedEntities.end()) {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                sortedEntities.erase(it);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                shouldSort = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            }</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html#a38bc289f1947ab69589e5f8912298726">  100</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#a38bc289f1947ab69589e5f8912298726">update</a>(<span class="keywordtype">float</span> deltaTime)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            sort();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">auto</span> entity : sortedEntities) {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                <a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#a11514deb3f943c77b954163ac1f9b16b">processEntity</a>(entity, deltaTime);</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            }</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        }</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html#a38bc289f1947ab69589e5f8912298726">  107</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#a38bc289f1947ab69589e5f8912298726">update</a>(<span class="keywordtype">float</span> deltaTime)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            sort();</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">auto</span> entity : sortedEntities) {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                <a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#a11514deb3f943c77b954163ac1f9b16b">processEntity</a>(entity, deltaTime);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            }</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        }</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html#a35065b8587e12cc30c7b62c9835b3e68">  117</a></span>&#160;        <span class="keyword">const</span> std::vector&lt;Entity *&gt; *<a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#a35065b8587e12cc30c7b62c9835b3e68">getEntities</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            sort();</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            <span class="keywordflow">return</span> &amp;sortedEntities;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
-<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html#ad7e2af822bae13f4c97f7f66471bdd73">  125</a></span>&#160;        <span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_family.html">Family</a> &amp;<a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#ad7e2af822bae13f4c97f7f66471bdd73">getFamily</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="keywordflow">return</span> family;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        }</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#a11514deb3f943c77b954163ac1f9b16b">processEntity</a>(<a class="code" href="class_e_c_s_1_1_entity.html">Entity</a> *entity, <span class="keywordtype">float</span> deltaTime) = 0;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    };</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;}</div>
-<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html_a52ee853e67791c191f5ca1278bd872fe"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html#a52ee853e67791c191f5ca1278bd872fe">ECS::SortedIteratingSystem::removedFromEngine</a></div><div class="ttdeci">void removedFromEngine(Engine *engine) override</div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:88</div></div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html#a35065b8587e12cc30c7b62c9835b3e68">  110</a></span>&#160;        <span class="keyword">const</span> std::vector&lt;Entity *&gt; *<a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#a35065b8587e12cc30c7b62c9835b3e68">getEntities</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            sort();</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordflow">return</span> &amp;sortedEntities;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        }</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_sorted_iterating_system.html#ad7e2af822bae13f4c97f7f66471bdd73">  116</a></span>&#160;        <span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_family.html">Family</a> &amp;<a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#ad7e2af822bae13f4c97f7f66471bdd73">getFamily</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keywordflow">return</span> family;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_sorted_iterating_system.html#a11514deb3f943c77b954163ac1f9b16b">processEntity</a>(<a class="code" href="class_e_c_s_1_1_entity.html">Entity</a> *entity, <span class="keywordtype">float</span> deltaTime) = 0;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    };</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
+<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html_a52ee853e67791c191f5ca1278bd872fe"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html#a52ee853e67791c191f5ca1278bd872fe">ECS::SortedIteratingSystem::removedFromEngine</a></div><div class="ttdeci">void removedFromEngine(Engine *engine) override</div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:81</div></div>
 <div class="ttc" id="class_signal11_1_1_connection_scope_html"><div class="ttname"><a href="class_signal11_1_1_connection_scope.html">Signal11::ConnectionScope</a></div><div class="ttdef"><b>Definition:</b> Signal.h:222</div></div>
-<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html_a38bc289f1947ab69589e5f8912298726"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html#a38bc289f1947ab69589e5f8912298726">ECS::SortedIteratingSystem::update</a></div><div class="ttdeci">void update(float deltaTime) override</div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:107</div></div>
+<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html_a38bc289f1947ab69589e5f8912298726"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html#a38bc289f1947ab69589e5f8912298726">ECS::SortedIteratingSystem::update</a></div><div class="ttdeci">void update(float deltaTime) override</div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:100</div></div>
 <div class="ttc" id="class_e_c_s_1_1_engine_html_a73084c8551f9fcc4733dd2c2c6cdfbc1"><div class="ttname"><a href="class_e_c_s_1_1_engine.html#a73084c8551f9fcc4733dd2c2c6cdfbc1">ECS::Engine::getEntityAddedSignal</a></div><div class="ttdeci">EntitySignal &amp; getEntityAddedSignal(const Family &amp;family)</div></div>
 <div class="ttc" id="class_e_c_s_1_1_engine_html_a7441793cea40ea9cd8d20805d4a0c30d"><div class="ttname"><a href="class_e_c_s_1_1_engine.html#a7441793cea40ea9cd8d20805d4a0c30d">ECS::Engine::getEntityRemovedSignal</a></div><div class="ttdeci">EntitySignal &amp; getEntityRemovedSignal(const Family &amp;family)</div></div>
 <div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html_a11514deb3f943c77b954163ac1f9b16b"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html#a11514deb3f943c77b954163ac1f9b16b">ECS::SortedIteratingSystem::processEntity</a></div><div class="ttdeci">virtual void processEntity(Entity *entity, float deltaTime)=0</div></div>
-<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html_ad7e2af822bae13f4c97f7f66471bdd73"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html#ad7e2af822bae13f4c97f7f66471bdd73">ECS::SortedIteratingSystem::getFamily</a></div><div class="ttdeci">const Family &amp; getFamily() const </div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:125</div></div>
-<div class="ttc" id="class_e_c_s_1_1_engine_html"><div class="ttname"><a href="class_e_c_s_1_1_engine.html">ECS::Engine</a></div><div class="ttdef"><b>Definition:</b> Engine.h:87</div></div>
-<div class="ttc" id="class_e_c_s_1_1_entity_system_html"><div class="ttname"><a href="class_e_c_s_1_1_entity_system.html">ECS::EntitySystem</a></div><div class="ttdef"><b>Definition:</b> EntitySystem.h:73</div></div>
+<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html_ad7e2af822bae13f4c97f7f66471bdd73"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html#ad7e2af822bae13f4c97f7f66471bdd73">ECS::SortedIteratingSystem::getFamily</a></div><div class="ttdeci">const Family &amp; getFamily() const </div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:116</div></div>
+<div class="ttc" id="class_e_c_s_1_1_engine_html"><div class="ttname"><a href="class_e_c_s_1_1_engine.html">ECS::Engine</a></div><div class="ttdef"><b>Definition:</b> Engine.h:82</div></div>
+<div class="ttc" id="class_e_c_s_1_1_entity_system_html"><div class="ttname"><a href="class_e_c_s_1_1_entity_system.html">ECS::EntitySystem</a></div><div class="ttdef"><b>Definition:</b> EntitySystem.h:80</div></div>
 <div class="ttc" id="class_e_c_s_1_1_entity_system_base_html_ab77b8f654e570261ac98cc74345d7ee8"><div class="ttname"><a href="class_e_c_s_1_1_entity_system_base.html#ab77b8f654e570261ac98cc74345d7ee8">ECS::EntitySystemBase::priority</a></div><div class="ttdeci">int priority</div><div class="ttdef"><b>Definition:</b> EntitySystem.h:30</div></div>
-<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html_a4fe87421353dbb5d6ddc2b3422fb51b9"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html#a4fe87421353dbb5d6ddc2b3422fb51b9">ECS::SortedIteratingSystem::forceSort</a></div><div class="ttdeci">void forceSort()</div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:61</div></div>
-<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html_a35065b8587e12cc30c7b62c9835b3e68"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html#a35065b8587e12cc30c7b62c9835b3e68">ECS::SortedIteratingSystem::getEntities</a></div><div class="ttdeci">const std::vector&lt; Entity * &gt; * getEntities() const </div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:117</div></div>
-<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html_a26cd0418361cea33467ad1ea81232568"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html#a26cd0418361cea33467ad1ea81232568">ECS::SortedIteratingSystem::addedToEngine</a></div><div class="ttdeci">void addedToEngine(Engine *engine) override</div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:74</div></div>
-<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html">ECS::SortedIteratingSystem</a></div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:41</div></div>
-<div class="ttc" id="class_e_c_s_1_1_family_html"><div class="ttname"><a href="class_e_c_s_1_1_family.html">ECS::Family</a></div><div class="ttdef"><b>Definition:</b> Family.h:109</div></div>
-<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html_acebbb8c732495099dd515e81c636742a"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html#acebbb8c732495099dd515e81c636742a">ECS::SortedIteratingSystem::SortedIteratingSystem</a></div><div class="ttdeci">SortedIteratingSystem(const Family &amp;family, C comparator, int priority=0)</div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:56</div></div>
+<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html_a4fe87421353dbb5d6ddc2b3422fb51b9"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html#a4fe87421353dbb5d6ddc2b3422fb51b9">ECS::SortedIteratingSystem::forceSort</a></div><div class="ttdeci">void forceSort()</div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:54</div></div>
+<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html_a35065b8587e12cc30c7b62c9835b3e68"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html#a35065b8587e12cc30c7b62c9835b3e68">ECS::SortedIteratingSystem::getEntities</a></div><div class="ttdeci">const std::vector&lt; Entity * &gt; * getEntities() const </div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:110</div></div>
+<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html_a26cd0418361cea33467ad1ea81232568"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html#a26cd0418361cea33467ad1ea81232568">ECS::SortedIteratingSystem::addedToEngine</a></div><div class="ttdeci">void addedToEngine(Engine *engine) override</div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:67</div></div>
+<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html">ECS::SortedIteratingSystem</a></div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:33</div></div>
+<div class="ttc" id="class_e_c_s_1_1_family_html"><div class="ttname"><a href="class_e_c_s_1_1_family.html">ECS::Family</a></div><div class="ttdef"><b>Definition:</b> Family.h:107</div></div>
+<div class="ttc" id="class_e_c_s_1_1_sorted_iterating_system_html_acebbb8c732495099dd515e81c636742a"><div class="ttname"><a href="class_e_c_s_1_1_sorted_iterating_system.html#acebbb8c732495099dd515e81c636742a">ECS::SortedIteratingSystem::SortedIteratingSystem</a></div><div class="ttdeci">SortedIteratingSystem(const Family &amp;family, C comparator, int priority=0)</div><div class="ttdef"><b>Definition:</b> SortedIteratingSystem.h:49</div></div>
 <div class="ttc" id="namespace_e_c_s_html"><div class="ttname"><a href="namespace_e_c_s.html">ECS</a></div><div class="ttdef"><b>Definition:</b> Component.h:19</div></div>
-<div class="ttc" id="class_e_c_s_1_1_entity_html"><div class="ttname"><a href="class_e_c_s_1_1_entity.html">ECS::Entity</a></div><div class="ttdef"><b>Definition:</b> Entity.h:26</div></div>
-<div class="ttc" id="class_e_c_s_1_1_engine_html_a834265add83e274ec381b08ba3550225"><div class="ttname"><a href="class_e_c_s_1_1_engine.html#a834265add83e274ec381b08ba3550225">ECS::Engine::getEntitiesFor</a></div><div class="ttdeci">const std::vector&lt; Entity * &gt; * getEntitiesFor(const Family &amp;family)</div><div class="ttdef"><b>Definition:</b> Engine.h:224</div></div>
+<div class="ttc" id="class_e_c_s_1_1_entity_html"><div class="ttname"><a href="class_e_c_s_1_1_entity.html">ECS::Entity</a></div><div class="ttdef"><b>Definition:</b> Entity.h:25</div></div>
+<div class="ttc" id="class_e_c_s_1_1_engine_html_a834265add83e274ec381b08ba3550225"><div class="ttname"><a href="class_e_c_s_1_1_engine.html#a834265add83e274ec381b08ba3550225">ECS::Engine::getEntitiesFor</a></div><div class="ttdeci">const std::vector&lt; Entity * &gt; * getEntitiesFor(const Family &amp;family)</div><div class="ttdef"><b>Definition:</b> Engine.h:229</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

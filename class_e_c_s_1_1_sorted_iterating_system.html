@@ -98,7 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="_sorted_iterating_system_8h_source.html">SortedIteratingSystem.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_sorted_iterating_system_8h_source.html">ecstasy/systems/SortedIteratingSystem.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -149,7 +149,13 @@ const SystemType&#160;</td><td class="memItemRight" valign="bottom"><b>type</b><
 <div class="textblock"><h3>template&lt;typename T, typename C&gt;<br />
 class ECS::SortedIteratingSystem&lt; T, C &gt;</h3>
 
-<p>A simple <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> that processes each entity of a given family in the order specified by a comparator and calls <a class="el" href="class_e_c_s_1_1_sorted_iterating_system.html#a11514deb3f943c77b954163ac1f9b16b">processEntity()</a> for each entity every time the <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is updated. This is really just a convenience class as rendering systems tend to iterate over a list of entities in a sorted manner. Adding entities will cause the entity list to be resorted. Call <a class="el" href="class_e_c_s_1_1_sorted_iterating_system.html#a4fe87421353dbb5d6ddc2b3422fb51b9">forceSort()</a> if you changed your sorting criteria. </p><dl class="section author"><dt>Author</dt><dd>Santo Pfingsten </dd></dl>
+<p>A simple <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> that processes each entity of a given family in the order specified by a comparator and calls <a class="el" href="class_e_c_s_1_1_sorted_iterating_system.html#a11514deb3f943c77b954163ac1f9b16b">processEntity()</a> for each entity every time the <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is updated. This is really just a convenience class as rendering systems tend to iterate over a list of entities in a sorted manner. Adding entities will cause the entity list to be resorted. Call <a class="el" href="class_e_c_s_1_1_sorted_iterating_system.html#a4fe87421353dbb5d6ddc2b3422fb51b9">forceSort()</a> if you changed your sorting criteria.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> class used to create the type. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><div class="dynheader">
 Inheritance diagram for ECS::SortedIteratingSystem&lt; T, C &gt;:</div>
 <div class="dyncontent">
@@ -157,7 +163,7 @@ Inheritance diagram for ECS::SortedIteratingSystem&lt; T, C &gt;:</div>
   <img src="class_e_c_s_1_1_sorted_iterating_system.png" usemap="#ECS::SortedIteratingSystem&lt; T, C &gt;_map" alt=""/>
   <map id="ECS::SortedIteratingSystem&lt; T, C &gt;_map" name="ECS::SortedIteratingSystem&lt; T, C &gt;_map">
 <area href="class_e_c_s_1_1_entity_system.html" alt="ECS::EntitySystem&lt; T &gt;" shape="rect" coords="0,56,214,80"/>
-<area href="class_e_c_s_1_1_entity_system_base.html" alt="ECS::EntitySystemBase" shape="rect" coords="0,0,214,24"/>
+<area href="class_e_c_s_1_1_entity_system_base.html" title=": add Engine pointer " alt="ECS::EntitySystemBase" shape="rect" coords="0,0,214,24"/>
 </map>
  </div></div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -200,7 +206,8 @@ template&lt;typename T , typename C &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Instantiates a system that will iterate over the entities described by the <a class="el" href="class_e_c_s_1_1_family.html">Family</a>, with a specific priority. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Instantiates a system that will iterate over the entities described by the <a class="el" href="class_e_c_s_1_1_family.html">Family</a>, with a specific priority.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">family</td><td>The family of entities iterated over in this System </td></tr>
     <tr><td class="paramname">comparator</td><td>The comparator to sort the entities </td></tr>
@@ -235,7 +242,8 @@ template&lt;typename T , typename C &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Called when this <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is added to an <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Called when this <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is added to an <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">engine</td><td>The <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> this system was added to. </td></tr>
   </table>
@@ -320,7 +328,7 @@ template&lt;typename T , typename C &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_e_c_s_1_1_family.html">Family</a> used when the system was created </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_e_c_s_1_1_family.html">Family</a> used when the system was created </dd></dl>
 
 </div>
 </div>
@@ -357,7 +365,8 @@ template&lt;typename T , typename C &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>This method is called on every entity on every update call of the <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>. Override this to implement your system's specific processing. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>This method is called on every entity on every update call of the <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>. Override this to implement your system's specific processing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entity</td><td>The current <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> being processed </td></tr>
     <tr><td class="paramname">deltaTime</td><td>The delta time between the last and current frame </td></tr>
@@ -390,7 +399,8 @@ template&lt;typename T , typename C &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Called when this <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is removed from an <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Called when this <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is removed from an <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">engine</td><td>The <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> the system was removed from. </td></tr>
   </table>
@@ -424,7 +434,8 @@ template&lt;typename T , typename C &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>The update method called every tick. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>The update method called every tick.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">deltaTime</td><td>The time passed since last frame in seconds. </td></tr>
   </table>

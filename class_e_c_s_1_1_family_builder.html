@@ -143,13 +143,13 @@ template&lt;typename... Args&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">componentTypes</td><td>entities will have to contain all of the specified components. </td></tr>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Args</td><td>Entities will have to contain all of the specified components. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A Builder singleton instance to get a family </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>*this for chaining </dd></dl>
 
 </div>
 </div>
@@ -175,13 +175,13 @@ template&lt;typename... Args&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">componentTypes</td><td>entities cannot contain any of the specified components. </td></tr>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Args</td><td>Entities cannot contain any of the specified components. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A Builder singleton instance to get a family </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>*this for chaining </dd></dl>
 
 </div>
 </div>
@@ -197,7 +197,7 @@ template&lt;typename... Args&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>A family for the configured component types </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="class_e_c_s_1_1_family.html">Family</a> for the configured component types </dd></dl>
 
 </div>
 </div>
@@ -223,13 +223,13 @@ template&lt;typename... Args&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">componentTypes</td><td>entities will have to contain at least one of the specified components. </td></tr>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Args</td><td>Entities will have to contain at least one of the specified components. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A Builder singleton instance to get a family </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>*this for chaining </dd></dl>
 
 </div>
 </div>
@@ -245,7 +245,8 @@ template&lt;typename... Args&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Resets the builder instance </p><dl class="section return"><dt>Returns</dt><dd>A Builder singleton instance to get a family </dd></dl>
+<p>Resets the builder instance</p>
+<dl class="section return"><dt>Returns</dt><dd>*this for chaining </dd></dl>
 
 </div>
 </div>

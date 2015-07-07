@@ -97,7 +97,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="_pool_8h_source.html">Pool.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_pool_8h_source.html">ecstasy/utils/Pool.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -105,18 +105,16 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad4ff4529abba64bd3ffad170ebf0fc7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Objects implementing this interface will have <a class="el" href="class_e_c_s_1_1_poolable.html#ad4ff4529abba64bd3ffad170ebf0fc7c">reset()</a> called when passed to <a class="el" href="">free(Object)</a>. </p>
+<div class="textblock"><p>Objects implementing this interface will have <a class="el" href="class_e_c_s_1_1_poolable.html#ad4ff4529abba64bd3ffad170ebf0fc7c">reset()</a> called when passed to <a class="el" href="class_e_c_s_1_1_pool.html#ab103790322a2559c807778735d710d09">Pool::free()</a>. </p>
 </div><div class="dynheader">
 Inheritance diagram for ECS::Poolable:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_e_c_s_1_1_poolable.png" usemap="#ECS::Poolable_map" alt=""/>
   <map id="ECS::Poolable_map" name="ECS::Poolable_map">
-<area href="struct_e_c_s_1_1_component_base.html" alt="ECS::ComponentBase" shape="rect" coords="0,56,162,80"/>
-<area href="class_e_c_s_1_1_component_operation.html" alt="ECS::ComponentOperation" shape="rect" coords="172,56,334,80"/>
-<area href="class_e_c_s_1_1_entity.html" alt="ECS::Entity" shape="rect" coords="344,56,506,80"/>
-<area href="class_e_c_s_1_1_entity_operation.html" alt="ECS::EntityOperation" shape="rect" coords="516,56,678,80"/>
-<area href="struct_e_c_s_1_1_component.html" alt="ECS::Component&lt; T &gt;" shape="rect" coords="0,112,162,136"/>
+<area href="struct_e_c_s_1_1_component_base.html" title="Non-Template base-class for Component. Extend Component instead. " alt="ECS::ComponentBase" shape="rect" coords="0,56,137,80"/>
+<area href="class_e_c_s_1_1_entity.html" alt="ECS::Entity" shape="rect" coords="147,56,284,80"/>
+<area href="struct_e_c_s_1_1_component.html" alt="ECS::Component&lt; T &gt;" shape="rect" coords="0,112,137,136"/>
 </map>
  </div></div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -142,7 +140,7 @@ Inheritance diagram for ECS::Poolable:</div>
 </div><div class="memdoc">
 <p>Resets the object for reuse. Object references should be nulled and fields may be set to default values. </p>
 
-<p>Implemented in <a class="el" href="class_e_c_s_1_1_entity.html#a1772f318556ef4ff5b1303b0ca3b00cb">ECS::Entity</a>, <a class="el" href="class_e_c_s_1_1_component_operation.html#ad039f9e5b5facc72307256fce5f6450b">ECS::ComponentOperation</a>, <a class="el" href="class_e_c_s_1_1_entity_operation.html#a4e7a560519751013fab849a517e62e8f">ECS::EntityOperation</a>, and <a class="el" href="struct_e_c_s_1_1_component_base.html#a15cf201ea0c6dfbbd0ce6713b907a4c8">ECS::ComponentBase</a>.</p>
+<p>Implemented in <a class="el" href="class_e_c_s_1_1_entity.html#a1772f318556ef4ff5b1303b0ca3b00cb">ECS::Entity</a>, and <a class="el" href="struct_e_c_s_1_1_component_base.html#a15cf201ea0c6dfbbd0ce6713b907a4c8">ECS::ComponentBase</a>.</p>
 
 </div>
 </div>

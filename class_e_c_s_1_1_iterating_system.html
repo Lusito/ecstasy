@@ -98,7 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="_iterating_system_8h_source.html">IteratingSystem.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_iterating_system_8h_source.html">ecstasy/systems/IteratingSystem.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -141,7 +141,13 @@ const SystemType&#160;</td><td class="memItemRight" valign="bottom"><b>type</b><
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
 class ECS::IteratingSystem&lt; T &gt;</h3>
 
-<p>A simple <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> that iterates over each entity and calls <a class="el" href="class_e_c_s_1_1_iterating_system.html#a438b3be14ffdc0d670e070ab6d8525ec">processEntity()</a> for each entity every time the <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is updated. This is really just a convenience class as most systems iterate over a list of entities. </p><dl class="section author"><dt>Author</dt><dd>Stefan Bachmann </dd></dl>
+<p>A simple <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> that iterates over each entity and calls <a class="el" href="class_e_c_s_1_1_iterating_system.html#a438b3be14ffdc0d670e070ab6d8525ec">processEntity()</a> for each entity every time the <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is updated. This is really just a convenience class as most systems iterate over a list of entities.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> class used to create the type. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><div class="dynheader">
 Inheritance diagram for ECS::IteratingSystem&lt; T &gt;:</div>
 <div class="dyncontent">
@@ -149,7 +155,7 @@ Inheritance diagram for ECS::IteratingSystem&lt; T &gt;:</div>
   <img src="class_e_c_s_1_1_iterating_system.png" usemap="#ECS::IteratingSystem&lt; T &gt;_map" alt=""/>
   <map id="ECS::IteratingSystem&lt; T &gt;_map" name="ECS::IteratingSystem&lt; T &gt;_map">
 <area href="class_e_c_s_1_1_entity_system.html" alt="ECS::EntitySystem&lt; T &gt;" shape="rect" coords="0,56,159,80"/>
-<area href="class_e_c_s_1_1_entity_system_base.html" alt="ECS::EntitySystemBase" shape="rect" coords="0,0,159,24"/>
+<area href="class_e_c_s_1_1_entity_system_base.html" title=": add Engine pointer " alt="ECS::EntitySystemBase" shape="rect" coords="0,0,159,24"/>
 </map>
  </div></div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -186,7 +192,8 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Instantiates a system that will iterate over the entities described by the <a class="el" href="class_e_c_s_1_1_family.html">Family</a>, with a specific priority. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Instantiates a system that will iterate over the entities described by the <a class="el" href="class_e_c_s_1_1_family.html">Family</a>, with a specific priority.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">family</td><td>The family of entities iterated over in this System </td></tr>
     <tr><td class="paramname">priority</td><td>The priority to execute this system with (lower means higher priority) </td></tr>
@@ -220,7 +227,8 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Called when this <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is added to an <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Called when this <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is added to an <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">engine</td><td>The <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> this system was added to. </td></tr>
   </table>
@@ -253,7 +261,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>set of entities processed by the system </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A list of entities processed by the system </dd></dl>
 
 </div>
 </div>
@@ -279,7 +287,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_e_c_s_1_1_family.html">Family</a> used when the system was created </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_e_c_s_1_1_family.html">Family</a> used when the system was created </dd></dl>
 
 </div>
 </div>
@@ -316,7 +324,8 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>This method is called on every entity on every update call of the <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>. Override this to implement your system's specific processing. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>This method is called on every entity on every update call of the <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>. Override this to implement your system's specific processing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entity</td><td>The current <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> being processed </td></tr>
     <tr><td class="paramname">deltaTime</td><td>The delta time between the last and current frame </td></tr>
@@ -349,7 +358,8 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>The update method called every tick. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>The update method called every tick.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">deltaTime</td><td>The time passed since last frame in seconds. </td></tr>
   </table>

@@ -98,7 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="_interval_system_8h_source.html">IntervalSystem.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_interval_system_8h_source.html">ecstasy/systems/IntervalSystem.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -137,7 +137,13 @@ const SystemType&#160;</td><td class="memItemRight" valign="bottom"><b>type</b><
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
 class ECS::IntervalSystem&lt; T &gt;</h3>
 
-<p>A simple <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> that does not run its update logic every call to <a class="el" href="class_e_c_s_1_1_entity_system_base.html#a5c5b56b2d4017d28e1ecee0a606a4e98">EntitySystem#update(float)</a>, but after a given interval. The actual logic should be placed in <a class="el" href="class_e_c_s_1_1_interval_system.html#a2676d693ff0fd75c6556a60edbcdea93">IntervalSystem#updateInterval()</a>. </p><dl class="section author"><dt>Author</dt><dd>David Saltares </dd></dl>
+<p>A simple <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> that does not run its update logic every call to <a class="el" href="class_e_c_s_1_1_interval_system.html#a05240b551a86512345accacc2c03633b">update(float)</a>, but after a given interval. The actual logic should be placed in <a class="el" href="class_e_c_s_1_1_interval_system.html#a2676d693ff0fd75c6556a60edbcdea93">updateInterval()</a>.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> class used to create the type. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><div class="dynheader">
 Inheritance diagram for ECS::IntervalSystem&lt; T &gt;:</div>
 <div class="dyncontent">
@@ -145,7 +151,7 @@ Inheritance diagram for ECS::IntervalSystem&lt; T &gt;:</div>
   <img src="class_e_c_s_1_1_interval_system.png" usemap="#ECS::IntervalSystem&lt; T &gt;_map" alt=""/>
   <map id="ECS::IntervalSystem&lt; T &gt;_map" name="ECS::IntervalSystem&lt; T &gt;_map">
 <area href="class_e_c_s_1_1_entity_system.html" alt="ECS::EntitySystem&lt; T &gt;" shape="rect" coords="0,56,201,80"/>
-<area href="class_e_c_s_1_1_entity_system_base.html" alt="ECS::EntitySystemBase" shape="rect" coords="0,0,201,24"/>
+<area href="class_e_c_s_1_1_entity_system_base.html" title=": add Engine pointer " alt="ECS::EntitySystemBase" shape="rect" coords="0,0,201,24"/>
 <area href="class_e_c_s_1_1_interval_iterating_system.html" alt="ECS::IntervalIteratingSystem&lt; T &gt;" shape="rect" coords="0,168,201,192"/>
 </map>
  </div></div>
@@ -185,7 +191,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">interval</td><td>time in seconds between calls to <a class="el" href="class_e_c_s_1_1_interval_system.html#a2676d693ff0fd75c6556a60edbcdea93">IntervalSystem#updateInterval()</a>. </td></tr>
+    <tr><td class="paramname">interval</td><td>time in seconds between calls to <a class="el" href="class_e_c_s_1_1_interval_system.html#a2676d693ff0fd75c6556a60edbcdea93">updateInterval()</a>. </td></tr>
     <tr><td class="paramname">priority</td><td></td></tr>
   </table>
   </dd>
@@ -217,7 +223,8 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>The update method called every tick. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>The update method called every tick.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">deltaTime</td><td>The time passed since last frame in seconds. </td></tr>
   </table>

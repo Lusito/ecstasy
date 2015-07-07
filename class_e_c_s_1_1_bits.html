@@ -97,7 +97,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="_bits_8h_source.html">Bits.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_bits_8h_source.html">ecstasy/utils/Bits.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -117,7 +117,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a56c4e0160e27eeb597e4325c1e8f730b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bde8c28f61b6daeb68b2131069049ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_bits.html#a8bde8c28f61b6daeb68b2131069049ad">clear</a> (int32_t index)</td></tr>
 <tr class="separator:a8bde8c28f61b6daeb68b2131069049ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b6abd0de981755d65eb29db6b56ce8a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_bits.html#a8b6abd0de981755d65eb29db6b56ce8a">clear</a> ()</td></tr>
+<tr class="memitem:a8b6abd0de981755d65eb29db6b56ce8a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8b6abd0de981755d65eb29db6b56ce8a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_bits.html#a8b6abd0de981755d65eb29db6b56ce8a">clear</a> ()</td></tr>
+<tr class="memdesc:a8b6abd0de981755d65eb29db6b56ce8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the entire bitset. <br /></td></tr>
 <tr class="separator:a8b6abd0de981755d65eb29db6b56ce8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6368d05679395113bb17afd705d5cded"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_bits.html#a6368d05679395113bb17afd705d5cded">numBits</a> () const </td></tr>
 <tr class="separator:a6368d05679395113bb17afd705d5cded"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,10 +156,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const
 <tr class="separator:a33b55970b6f1faa2ebef11efce44e7f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A bitset, without size limitation, allows comparison via bitwise operators to other bitfields.</p>
-<dl class="section author"><dt>Author</dt><dd>mzechner </dd>
-<dd>
-jshapcott </dd></dl>
+<div class="textblock"><p>A bitset, without size limitation, allows comparison via bitwise operators to other bitfields. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a549a8ce3b28bb00b53a91206360b9020"></a>
 <div class="memitem">
@@ -180,7 +179,8 @@ jshapcott </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Creates a bit set whose initial size is large enough to explicitly represent bits with indices in the range 0 through nbits-1. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Creates a bit set whose initial size is large enough to explicitly represent bits with indices in the range 0 through nbits-1.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nbits</td><td>the initial size of the bit set </td></tr>
   </table>
@@ -232,22 +232,6 @@ jshapcott </dd></dl>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a class="anchor" id="a8b6abd0de981755d65eb29db6b56ce8a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ECS::Bits::clear </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Clears the entire bitset </p>
 
 </div>
 </div>
@@ -378,7 +362,7 @@ jshapcott </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>all longs as string, commasparated </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>all longs as string, comma separated </dd></dl>
 
 </div>
 </div>
@@ -502,7 +486,8 @@ jshapcott </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Performs a logical <b>AND</b> of this target bit set with the argument bit set. This bit set is modified so that each bit in it has the value true if and only if it both initially had the value true and the corresponding bit in the bit set argument also had the value true. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Performs a logical <b>AND</b> of this target bit set with the argument bit set. This bit set is modified so that each bit in it has the value true if and only if it both initially had the value true and the corresponding bit in the bit set argument also had the value true.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">other</td><td>a bit set </td></tr>
   </table>
@@ -552,7 +537,8 @@ The bit initially has the value false, and the corresponding bit in the argument
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Performs a logical <b>OR</b> of this bit set with the bit set argument. This bit set is modified so that a bit in it has the value true if and only if it either already had the value true or the corresponding bit in the bit set argument has the value true. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Performs a logical <b>OR</b> of this bit set with the bit set argument. This bit set is modified so that a bit in it has the value true if and only if it either already had the value true or the corresponding bit in the bit set argument has the value true.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">other</td><td>a bit set </td></tr>
   </table>

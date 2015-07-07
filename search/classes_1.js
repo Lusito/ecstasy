@@ -11,11 +11,6 @@ var searchData=
   ['collectorwhile0',['CollectorWhile0',['../struct_signal11_1_1_collector_while0.html',1,'Signal11']]],
   ['component',['Component',['../struct_e_c_s_1_1_component.html',1,'ECS']]],
   ['componentbase',['ComponentBase',['../struct_e_c_s_1_1_component_base.html',1,'ECS']]],
-  ['componentoperation',['ComponentOperation',['../class_e_c_s_1_1_component_operation.html',1,'ECS']]],
-  ['componentoperationhandler',['ComponentOperationHandler',['../class_e_c_s_1_1_component_operation_handler.html',1,'ECS']]],
-  ['componentoperationpool',['ComponentOperationPool',['../class_e_c_s_1_1_component_operation_pool.html',1,'ECS']]],
-  ['componentpool',['ComponentPool',['../class_e_c_s_1_1_component_pool.html',1,'ECS']]],
-  ['componentpoolbase',['ComponentPoolBase',['../class_e_c_s_1_1_component_pool_base.html',1,'ECS']]],
   ['connectionref',['ConnectionRef',['../class_signal11_1_1_connection_ref.html',1,'Signal11']]],
   ['connectionscope',['ConnectionScope',['../class_signal11_1_1_connection_scope.html',1,'Signal11']]]
 ];

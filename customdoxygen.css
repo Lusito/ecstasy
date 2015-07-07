@@ -719,7 +719,9 @@ dl.reflist dd {
         padding-left: 0px;
 }       
 
-.params .paramname, .retval .paramname {
+.tparams .paramname,
+.params .paramname,
+ .retval .paramname {
         //font-weight: bold;
 	   //font-family: "Courier New", courier, monospace;
 	   font-family: Courier, Consolas, monospace;

@@ -98,6 +98,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">ECS::EntitySystemBase Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>: add <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> pointer  
+ <a href="class_e_c_s_1_1_entity_system_base.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_entity_system_8h_source.html">ecstasy/core/EntitySystem.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -127,7 +132,9 @@ template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a96541073b86d0b90df0436c423f1e9b1"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><b>EntitySystem</b></td></tr>
 <tr class="separator:a96541073b86d0b90df0436c423f1e9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<div class="dynheader">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>: add <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> pointer </p>
+</div><div class="dynheader">
 Inheritance diagram for ECS::EntitySystemBase:</div>
 <div class="dyncontent">
  <div class="center">
@@ -162,7 +169,8 @@ Inheritance diagram for ECS::EntitySystemBase:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Called when this <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is added to an <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Called when this <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is added to an <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">engine</td><td>The <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> this system was added to. </td></tr>
   </table>
@@ -218,7 +226,8 @@ Inheritance diagram for ECS::EntitySystemBase:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Called when this <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is removed from an <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Called when this <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> is removed from an <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">engine</td><td>The <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> the system was removed from. </td></tr>
   </table>
@@ -250,7 +259,12 @@ Inheritance diagram for ECS::EntitySystemBase:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets whether or not the system should be processed by the <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>. </p>
+<p>Sets whether or not the system should be processed by the <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">processing</td><td>true to enable, false to disable processing </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -275,7 +289,8 @@ Inheritance diagram for ECS::EntitySystemBase:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>The update method called every tick. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>The update method called every tick.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">deltaTime</td><td>The time passed since last frame in seconds. </td></tr>
   </table>

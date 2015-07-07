@@ -101,7 +101,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="_entity_8h_source.html">Entity.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_entity_8h_source.html">ecstasy/core/Entity.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -118,7 +118,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4ec2442c2a4976da5d51da84ef643fe1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a4ec2442c2a4976da5d51da84ef643fe1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity.html#a4ec2442c2a4976da5d51da84ef643fe1">remove</a> ()</td></tr>
 <tr class="separator:a4ec2442c2a4976da5d51da84ef643fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcb2bd4a8a02763007baebdbd5153435"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity.html#afcb2bd4a8a02763007baebdbd5153435">removeAll</a> ()</td></tr>
+<tr class="memitem:afcb2bd4a8a02763007baebdbd5153435"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afcb2bd4a8a02763007baebdbd5153435"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity.html#afcb2bd4a8a02763007baebdbd5153435">removeAll</a> ()</td></tr>
+<tr class="memdesc:afcb2bd4a8a02763007baebdbd5153435"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all the <a class="el" href="struct_e_c_s_1_1_component.html">Component</a>'s from the <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a>. <br /></td></tr>
 <tr class="separator:afcb2bd4a8a02763007baebdbd5153435"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41a82d38f60dfd1dd6f2e4643df5e877"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="struct_e_c_s_1_1_component_base.html">ComponentBase</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity.html#a41a82d38f60dfd1dd6f2e4643df5e877">getAll</a> () const </td></tr>
 <tr class="separator:a41a82d38f60dfd1dd6f2e4643df5e877"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,8 +143,10 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a0d7c6a4c2f8f738a404d58ef880ec0d9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity.html#a0d7c6a4c2f8f738a404d58ef880ec0d9">flags</a> = 0</td></tr>
-<tr class="separator:a0d7c6a4c2f8f738a404d58ef880ec0d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a108fc608114f9b0b8d82baa2dbe227d3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a108fc608114f9b0b8d82baa2dbe227d3"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity.html#a108fc608114f9b0b8d82baa2dbe227d3">flags</a> = 0</td></tr>
+<tr class="memdesc:a108fc608114f9b0b8d82baa2dbe227d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">A flag that can be used to bit mask this entity. Up to the user to manage. <br /></td></tr>
+<tr class="separator:a108fc608114f9b0b8d82baa2dbe227d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -165,7 +169,7 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>uuid</b> = 0</td>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>scheduledForRemoval</b> = false</td></tr>
 <tr class="separator:a37d21416d1402bf1557eeb6c51adb232"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39ecfb52668831717e0dcbb7282c8042"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a39ecfb52668831717e0dcbb7282c8042"></a>
-<a class="el" href="class_e_c_s_1_1_component_operation_handler.html">ComponentOperationHandler</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>componentOperationHandler</b> = nullptr</td></tr>
+ComponentOperationHandler *&#160;</td><td class="memItemRight" valign="bottom"><b>componentOperationHandler</b> = nullptr</td></tr>
 <tr class="separator:a39ecfb52668831717e0dcbb7282c8042"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f2a5ba37db228d96911080f4e6b4eb1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9f2a5ba37db228d96911080f4e6b4eb1"></a>
 std::vector&lt; <a class="el" href="struct_e_c_s_1_1_component_base.html">ComponentBase</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>componentsByType</b></td></tr>
@@ -199,7 +203,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>EntityPool</b></td><
 <tr class="separator:a3dfe189f698af2f5edf01c2e6133f9ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Simple containers of <a class="el" href="struct_e_c_s_1_1_component.html">Component</a>s that give them "data". The component's data is then processed by <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>s. </p><dl class="section author"><dt>Author</dt><dd>Stefan Bachmann </dd></dl>
+<div class="textblock"><p>Simple containers of <a class="el" href="struct_e_c_s_1_1_component.html">Component</a>s that give them "data". The component's data is then processed by <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>s. </p>
 </div><div class="dynheader">
 Inheritance diagram for ECS::Entity:</div>
 <div class="dyncontent">
@@ -223,7 +227,14 @@ Inheritance diagram for ECS::Entity:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Adds a <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> to this <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a>. If a <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> of the same type already exists, it'll be replaced. </p><dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> for easy chaining </dd></dl>
+<p>Adds a <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> to this <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a>. If a <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> of the same type already exists, it'll be replaced.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">The</td><td>component to add </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> for easy chaining </dd></dl>
 
 </div>
 </div>
@@ -249,7 +260,14 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Retrieve a component from this <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> by class. </p><dl class="section return"><dt>Returns</dt><dd>the instance of the specified <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> attached to this <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a>, or null if no such <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> exists. </dd></dl>
+<p>Retrieve a <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> from this <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> by class.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> class </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The instance of the specified <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> attached to this <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a>, or null if no such <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> exists. </dd></dl>
 
 </div>
 </div>
@@ -273,7 +291,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>immutable collection with all the <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> <a class="el" href="struct_e_c_s_1_1_component.html">Component</a>s. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A list with all the <a class="el" href="struct_e_c_s_1_1_component.html">Component</a>s of this <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a>. </dd></dl>
 
 </div>
 </div>
@@ -371,6 +389,12 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> class </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>Whether or not the <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> has a <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> for the specified class. </dd></dl>
 
 </div>
@@ -445,23 +469,13 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Removes the <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> of the specified type. Since there is only ever one component of one type, we don't need an instance reference. </p>
-
-</div>
-</div>
-<a class="anchor" id="afcb2bd4a8a02763007baebdbd5153435"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ECS::Entity::removeAll </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Removes all the <a class="el" href="struct_e_c_s_1_1_component.html">Component</a>'s from the <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a>. </p>
+<p>Removes the <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> of the specified type. Since there is only ever one component of one type, we don't need an instance reference.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> class </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -488,20 +502,6 @@ template&lt;typename T &gt; </div>
 <p>Resets the object for reuse. Object references should be nulled and fields may be set to default values. </p>
 
 <p>Implements <a class="el" href="class_e_c_s_1_1_poolable.html#ad4ff4529abba64bd3ffad170ebf0fc7c">ECS::Poolable</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a0d7c6a4c2f8f738a404d58ef880ec0d9"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ECS::Entity::flags = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>A flag that can be used to bit mask this entity. Up to the user to manage. </p>
 
 </div>
 </div>
