@@ -21,21 +21,13 @@
 namespace ECS {
 	class Entity;
 
-	// Comparator example:
-//	struct Less {
-//		bool operator () (Entity *a, Entity *b) {
-//			auto ac = a->get<OrderComponent>();
-//			auto bc = b->get<OrderComponent>();
-//			return ac->zLayer < bc->zLayer;
-//		}
-//	};
-
 	/**
 	 * A simple EntitySystem that processes each entity of a given family in the order specified by a comparator and calls
 	 * processEntity() for each entity every time the EntitySystem is updated. This is really just a convenience class as rendering
 	 * systems tend to iterate over a list of entities in a sorted manner. Adding entities will cause the entity list to be resorted.
 	 * Call forceSort() if you changed your sorting criteria.
-	 * @author Santo Pfingsten
+	 * 
+	 * @tparam T: The EntitySystem class used to create the type.
 	 */
 	template<typename T, typename C>
 	class SortedIteratingSystem : public EntitySystem<T> {
@@ -48,11 +40,12 @@ namespace ECS {
 
 	public:
 		/**
-		* Instantiates a system that will iterate over the entities described by the Family, with a specific priority.
-		* @param family The family of entities iterated over in this System
-		* @param comparator The comparator to sort the entities
-		* @param priority The priority to execute this system with (lower means higher priority)
-		*/
+		 * Instantiates a system that will iterate over the entities described by the Family, with a specific priority.
+		 * 
+		 * @param family The family of entities iterated over in this System
+		 * @param comparator The comparator to sort the entities
+		 * @param priority The priority to execute this system with (lower means higher priority)
+		 */
 		SortedIteratingSystem(const Family &family, C comparator, int priority=0) : EntitySystem<T>(priority) , family(family), comparator(comparator) {}
 
 		/**
@@ -119,20 +112,19 @@ namespace ECS {
 			return &sortedEntities;
 		}
 
-		/**
-		* @return the Family used when the system was created
-		*/
+		/// @return The Family used when the system was created
 		const Family &getFamily() const {
 			return family;
 		}
 
-		/**
-		* This method is called on every entity on every update call of the EntitySystem. Override this to implement your system's
-		* specific processing.
-		* @param entity The current Entity being processed
-		* @param deltaTime The delta time between the last and current frame
-		*/
 	protected:
+		/**
+		 * This method is called on every entity on every update call of the EntitySystem. Override this to implement your system's
+		 * specific processing.
+		 * 
+		 * @param entity The current Entity being processed
+		 * @param deltaTime The delta time between the last and current frame
+		 */
 		virtual void processEntity(Entity *entity, float deltaTime) = 0;
 	};
 }

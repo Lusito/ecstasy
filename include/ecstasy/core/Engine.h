@@ -32,7 +32,7 @@ namespace ECS {
 	typedef Signal11::Signal<void(Entity *)> EntitySignal;
 
 	
-	/** Component Pools */
+/// \cond HIDDEN_SYMBOLS
 	class ComponentPoolBase {
 	public:
 		virtual ~ComponentPoolBase() {}
@@ -59,30 +59,25 @@ namespace ECS {
 			return new Entity();
 		}
 	};
+/// \endcond
 
 	/**
 	 * The heart of the Entity framework. It is responsible for keeping track of {@link Entity} and
-	 * managing {@link EntitySystem} objects. The Engine should be updated every tick via the {@link #update(float)} method.
+	 * managing {@link EntitySystem} objects. The Engine should be updated every tick via the {@link update(float)} method.
+	 * Supports {@link Entity} and {@link Component} pooling. This improves performance in environments where creating/deleting
+	 * entities is frequent as it greatly reduces memory allocation.
 	 *
 	 * With the Engine you can:
 	 *
 	 * <ul>
+	 * <li>Create entities using {@link createEntity()}</li>
+	 * <li>Create components using {@link createComponent()}</li>
 	 * <li>Add/Remove {@link Entity} objects</li>
 	 * <li>Add/Remove {@link EntitySystem}s</li>
 	 * <li>Obtain a list of entities for a specific {@link Family}</li>
 	 * <li>Update the main loop</li>
 	 * <li>Register/unregister {@link EntityListener} objects</li>
 	 * </ul>
-	 *
-	 * Supports {@link Entity} and {@link Component} pooling. This improves performance in environments where creating/deleting
-	 * entities is frequent as it greatly reduces memory allocation.
-	 * <ul>
-	 * <li>Create entities using {@link #createEntity()}</li>
-	 * <li>Create components using {@link #createComponent(Class)}</li>
-	 * <li>Components should implement the {@link Poolable} interface when in need to reset its state upon removal</li>
-	 * </ul>
-	 * @author David Saltares
-	 * @author Stefan Bachmann
 	 */
 	class Engine {
 	private:
@@ -108,7 +103,7 @@ namespace ECS {
 		bool notifying = false;
 		uint64_t nextEntityId = 1;
 
-		/** Mechanism to delay component addition/removal to avoid affecting system processing */
+		// Mechanism to delay component addition/removal to avoid affecting system processing
 		ComponentOperationPool componentOperationsPool;
 		std::vector<ComponentOperation *> componentOperations;
 		ComponentOperationHandler componentOperationHandler;
@@ -118,18 +113,19 @@ namespace ECS {
 		EntityPool entityPool;
 
 	public:
-		/** Will dispatch an event when a component is added. */
+		/// Will dispatch an event when a component is added.
 		ComponentSignal componentAdded;
-		/** Will dispatch an event when a component is removed. */
+		/// Will dispatch an event when a component is removed.
 		ComponentSignal componentRemoved;
-		/** Will dispatch an event when an entity is added. */
+		/// Will dispatch an event when an entity is added.
 		EntitySignal entityAdded;
-		/** Will dispatch an event when an entity is removed. */
+		/// Will dispatch an event when an entity is removed.
 		EntitySignal entityRemoved;
 		
 	public:
 		/**
 		 * Creates new Engine with the specified pools size configurations.
+		 * 
 		 * @param entityPoolInitialSize initial number of pre-allocated entities.
 		 * @param entityPoolMaxSize maximum number of pooled entities.
 		 * @param componentPoolInitialSize initial size for each component type pool.
@@ -144,12 +140,14 @@ namespace ECS {
 			clearPools();
 		}
 		
-		/** @return Clean {@link Entity} from the Engine pool. In order to add it to the {@link Engine}, use {@link #addEntity(Entity)}. */
+		/// @return Clean {@link Entity} from the Engine pool. In order to add it to the {@link Engine}, use {@link addEntity(Entity)}.
 		Entity *createEntity();
 
 		/**
 		 * Retrieves a new {@link Component} from the {@link Engine} pool. It will be placed back in the pool whenever it's removed
-		 * from an {@link Entity} or the {@link Entity} itself it's removed.
+		 * from an {@link Entity} or the {@link Entity} itself is removed.
+		 * 
+		 * @tparam T The Component class
 		 */
 		template<typename T>
 		T *createComponent() {
@@ -171,11 +169,15 @@ namespace ECS {
 
 		/**
 		 * Adds an entity to this Engine.
+		 * 
+		 * @param entity the entity to add
 		 */
 		void addEntity(Entity *entity);
 
 		/**
 		 * Removes an entity from this Engine.
+		 * 
+		 * @param entity the entity to remove
 		 */
 		void removeEntity(Entity *entity);
 
@@ -202,6 +204,8 @@ namespace ECS {
 
 		/**
 		 * Quick {@link EntitySystem} retrieval.
+		 * 
+		 * @tparam T The EntitySystem class
 		 */
 		template<typename T>
 		T *getSystem() const {
@@ -212,31 +216,35 @@ namespace ECS {
 		}
 
 		/**
-		 * @return immutable array of all entity systems managed by the {@link Engine}.
+		 * @return A list of all entity systems managed by the {@link Engine}.
 		 */
 		const std::vector<EntitySystemBase *> &getSystems() const {
 			return systems;
 		}
 
 		/**
-		 * Returns immutable collection of entities for the specified {@link Family}. Will return the same instance every time.
+		 * @return The EntitySignal which emits when an entity is added to the specified Family
+		 * @return A list of entities for the specified Family. Will return the same instance every time.
 		 */
 		const std::vector<Entity *> *getEntitiesFor(const Family &family) {
 			return registerFamily(family);
 		}
 
 		/**
-		* Get the EntitySignal which emits when an entity is added to a family
-		*/
+		 * @param family A Family instance
+		 * @return The EntitySignal which emits when an entity is added to the specified Family
+		 */
 		EntitySignal &getEntityAddedSignal(const Family &family);
 
 		/**
-		* Get the EntitySignal which emits when an entity is removed from a family
-		*/
+		 * @param family A Family instance
+		 * @return The EntitySignal which emits when an entity is removed from the specified Family
+		 */
 		EntitySignal &getEntityRemovedSignal(const Family &family);
 
 		/**
 		 * Updates all the systems in this Engine.
+		 * 
 		 * @param deltaTime The time passed since the last frame.
 		 */
 		void update(float deltaTime);

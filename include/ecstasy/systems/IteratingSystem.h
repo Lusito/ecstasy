@@ -22,10 +22,11 @@ namespace ECS {
 	class Entity;
 
 	/**
-	* A simple EntitySystem that iterates over each entity and calls processEntity() for each entity every time the EntitySystem is
-	* updated. This is really just a convenience class as most systems iterate over a list of entities.
-	* @author Stefan Bachmann
-	*/
+	 * A simple EntitySystem that iterates over each entity and calls processEntity() for each entity every time the EntitySystem is
+	 * updated. This is really just a convenience class as most systems iterate over a list of entities.
+	 * 
+	 * @tparam T: The EntitySystem class used to create the type.
+	 */
 	template<typename T>
 	class IteratingSystem : public EntitySystem<T> {
 	private:
@@ -34,10 +35,11 @@ namespace ECS {
 
 	public:
 		/**
-		* Instantiates a system that will iterate over the entities described by the Family, with a specific priority.
-		* @param family The family of entities iterated over in this System
-		* @param priority The priority to execute this system with (lower means higher priority)
-		*/
+		 * Instantiates a system that will iterate over the entities described by the Family, with a specific priority.
+		 * 
+		 * @param family The family of entities iterated over in this System
+		 * @param priority The priority to execute this system with (lower means higher priority)
+		 */
 		IteratingSystem(const Family &family, int priority = 0) : EntitySystem<T>(priority), family(family) {}
 
 		void addedToEngine(Engine *engine) override {
@@ -50,27 +52,24 @@ namespace ECS {
 		}
 
 	public:
-		/**
-		* @return set of entities processed by the system
-		*/
+		/// @return A list of entities processed by the system
 		const std::vector<Entity *> *getEntities() const {
 			return entities;
 		}
 
-		/**
-		* @return the Family used when the system was created
-		*/
+		/// @return The Family used when the system was created
 		const Family &getFamily() const {
 			return family;
 		}
 
 	protected:
 		/**
-		* This method is called on every entity on every update call of the EntitySystem. Override this to implement your system's
-		* specific processing.
-		* @param entity The current Entity being processed
-		* @param deltaTime The delta time between the last and current frame
-		*/
+		 * This method is called on every entity on every update call of the EntitySystem. Override this to implement your system's
+		 * specific processing.
+		 * 
+		 * @param entity The current Entity being processed
+		 * @param deltaTime The delta time between the last and current frame
+		 */
 		virtual void processEntity(Entity *entity, float deltaTime) = 0;
 	};
 }

@@ -22,6 +22,7 @@ namespace ECS {
 	class Engine;
 	struct ComponentBase;
 	
+/// \cond HIDDEN_SYMBOLS
 	class ComponentOperation: public Poolable {
 	public:
 		enum class Type {
@@ -64,4 +65,5 @@ namespace ECS {
 			return new ComponentOperation();
 		}
 	};
+/// \endcond
 }

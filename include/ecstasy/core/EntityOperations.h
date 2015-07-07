@@ -19,6 +19,7 @@
 namespace ECS {
 	class Entity;
 
+/// \cond HIDDEN_SYMBOLS
 	class EntityOperation: public Poolable {
 	public:
 		enum class Type {
@@ -41,4 +42,5 @@ namespace ECS {
 			return new EntityOperation();
 		}
 	};
+/// \endcond
 }

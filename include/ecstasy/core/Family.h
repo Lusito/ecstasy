@@ -26,10 +26,7 @@ namespace ECS {
 	
 	class Family;
 
-	/**
-	* @return Bits representing the collection of components for quick comparison and matching. See
-	*         {@link Family#get(Bits, Bits, Bits)}.
-	*/
+/// \cond HIDDEN_SYMBOLS
 	template<typename... Args>
 	Bits getComponentTypeBits() {
 		Bits bits;
@@ -47,6 +44,7 @@ namespace ECS {
 		getComponentTypeBits<T1>(bits);
 		getComponentTypeBits<T2, Args...>(bits);
 	}
+/// \endcond
 
 	class FamilyBuilder {
 		friend class Family;
@@ -61,13 +59,14 @@ namespace ECS {
 		~FamilyBuilder();
 		/**
 		 * Resets the builder instance
-		 * @return A Builder singleton instance to get a family
+		 * 
+		 * @return *this for chaining
 		 */
 		FamilyBuilder &reset ();
 
 		/**
-		 * @param componentTypes entities will have to contain all of the specified components.
-		 * @return A Builder singleton instance to get a family
+		 * @tparam Args Entities will have to contain all of the specified components.
+		 * @return *this for chaining
 		 */
 		template<typename... Args>
 		FamilyBuilder &all() {
@@ -76,8 +75,8 @@ namespace ECS {
 		}
 
 		/**
-		 * @param componentTypes entities will have to contain at least one of the specified components.
-		 * @return A Builder singleton instance to get a family
+		 * @tparam Args Entities will have to contain at least one of the specified components.
+		 * @return *this for chaining
 		 */
 		template<typename... Args>
 		FamilyBuilder &one() {
@@ -86,8 +85,8 @@ namespace ECS {
 		}
 
 		/**
-		 * @param componentTypes entities cannot contain any of the specified components.
-		 * @return A Builder singleton instance to get a family
+		 * @tparam Args Entities cannot contain any of the specified components.
+		 * @return *this for chaining
 		 */
 		template<typename... Args>
 		FamilyBuilder &exclude() {
@@ -95,16 +94,15 @@ namespace ECS {
 			return *this;
 		}
 
-		/** @return A family for the configured component types */
+		/// @return A Family for the configured component types
 		const Family &get ();
 	};
 	
 	/**
 	 * Represents a group of {@link Component}s. It is used to describe what {@link Entity} objects an {@link EntitySystem} should
 	 * process. Example: {@code Family.all(PositionComponent.class, VelocityComponent.class).get()} Families can't be instantiated
-	 * directly but must be accessed via a builder ( start with {@code Family.all()}, {@code Family.one()} or {@code Family.exclude()}
+	 * directly but must be accessed via a builder ( start with {@link Family::all()}, {@link Family::one()} or {@link Family::exclude()}
 	 * ), this is to avoid duplicate families that describe the same components.
-	 * @author Stefan Bachmann
 	 */
 	class Family
 	{
@@ -120,16 +118,19 @@ namespace ECS {
 
 	private:
 		friend class FamilyBuilder;
-		/** Private constructor, use static method Family.getFamilyFor() */
+		// Private constructor
 		Family(Bits *all, Bits *one, Bits *exclude) : m_all(all), m_one(one), m_exclude(exclude), index(getUniqueTypeId<FamilyType>()) {}
 
-		/** Do not copy */
+		// Do not copy
 		Family(const Family &other) : index(0) {}
 		
 	public:
 		~Family();
 		
-		/** @return Whether the entity matches the family requirements or not */
+		/**
+		 * @param entity An entity
+		 * @return Whether the entity matches the family requirements or not
+		 */
 		bool matches (Entity *entity) const;
 
 		/**
@@ -140,7 +141,7 @@ namespace ECS {
 		}
 		
 		/**
-		 * @param componentTypes entities will have to contain all of the specified components.
+		 * @tparam Args Entities will have to contain all of the specified components.
 		 * @return A Builder singleton instance to get a family
 		 */
 		template<typename... Args>
@@ -149,7 +150,7 @@ namespace ECS {
 		}
 
 		/**
-		 * @param componentTypes entities will have to contain at least one of the specified components.
+		 * @tparam Args Entities will have to contain at least one of the specified components.
 		 * @return A Builder singleton instance to get a family
 		 */
 		template<typename... Args>
@@ -158,7 +159,7 @@ namespace ECS {
 		}
 
 		/**
-		 * @param componentTypes entities cannot contain any of the specified components.
+		 * @tparam Args Entities cannot contain any of the specified components.
 		 * @return A Builder singleton instance to get a family
 		 */
 		template<typename... Args>

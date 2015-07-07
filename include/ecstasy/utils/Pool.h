@@ -21,7 +21,7 @@
 #include <vector>
 
 namespace ECS {
-	/** Objects implementing this interface will have {@link #reset()} called when passed to {@link #free(Object)}. */
+	/** Objects implementing this interface will have {@link reset()} called when passed to {@link Pool::free()}. */
 	class Poolable {
 	public:
 		virtual ~Poolable() {}
@@ -29,8 +29,11 @@ namespace ECS {
 		virtual void reset () = 0;
 	};
 	
-	/** A pool of objects that can be reused to avoid allocation.
-	 * @author Nathan Sweet */
+	/**
+	 * A pool of objects that can be reused to avoid allocation.
+	 * 
+	 * @tparam T: The class to be stored.
+	 */
 	template<typename T>
 	class Pool {
 		static_assert(std::is_base_of<Poolable, T>::value, "T must derive from Poolable");
@@ -61,8 +64,10 @@ namespace ECS {
 		virtual T* newObject () = 0;
 
 	public:
-		/** Returns an object from this pool. The object may be new (from {@link #newObject()}) or reused (previously
-		 * {@link #free(Object) freed}). */
+		/**
+		 * Returns an object from this pool. The object may be new (from {@link newObject()}) or reused (previously
+		 * {@link free(Object) freed}).
+		 */
 		T* obtain () {
 			if(freeObjects.empty())
 				return newObject();
@@ -71,8 +76,10 @@ namespace ECS {
 			return back;
 		}
 
-		/** Puts the specified object in the pool, making it eligible to be returned by {@link #obtain()}. If the pool already contains
-		 * {@link #max} free objects, the specified object is reset but not added to the pool. */
+		/**
+		 * Puts the specified object in the pool, making it eligible to be returned by {@link obtain()}. If the pool already contains
+		 * {@link max} free objects, the specified object is reset but not added to the pool.
+		 */
 		void free (T *object) {
 			if (object == nullptr) throw std::invalid_argument("object cannot be null.");
 			if (freeObjects.size() < max) {
@@ -84,7 +91,7 @@ namespace ECS {
 			}
 		}
 
-		/** Deletes all free objects from this pool. */
+		/// Deletes all free objects from this pool.
 		void clear () {
 			while (!freeObjects.empty()) {
 				delete freeObjects.back();
@@ -92,7 +99,7 @@ namespace ECS {
 			}
 		}
 
-		/** The number of objects available to be obtained. */
+		/// @return The number of objects available to be obtained.
 		int getFree () const {
 			return freeObjects.size();
 		}

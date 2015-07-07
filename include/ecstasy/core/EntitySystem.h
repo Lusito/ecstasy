@@ -19,9 +19,9 @@
 namespace ECS {
 	class Engine;
 	
+	/// @fixme: add Engine pointer
 	class EntitySystemBase {
 	private:
-		//fixme: add Engine ptr
 		bool processing = true;
 
 	public:
@@ -38,28 +38,34 @@ namespace ECS {
 
 		/**
 		* Called when this EntitySystem is added to an {@link Engine}.
+		 * 
 		* @param engine The {@link Engine} this system was added to.
 		*/
 		virtual void addedToEngine(Engine *engine) {}
 
 		/**
 		* Called when this EntitySystem is removed from an {@link Engine}.
+		 * 
 		* @param engine The {@link Engine} the system was removed from.
 		*/
 		virtual void removedFromEngine(Engine *engine) {}
 
 		/**
 		* The update method called every tick.
+		 * 
 		* @param deltaTime The time passed since last frame in seconds.
 		*/
 		virtual void update(float deltaTime) {}
 
-		/** @return Whether or not the system should be processed. */
+		/// @return Whether or not the system should be processed.
 		virtual bool checkProcessing() const {
 			return processing;
 		}
 
-		/** Sets whether or not the system should be processed by the {@link Engine}. */
+		/**
+		 * Sets whether or not the system should be processed by the {@link Engine}.
+		 * @param processing true to enable, false to disable processing
+		 */
 		virtual void setProcessing(bool processing) {
 			this->processing = processing;
 		}
@@ -67,14 +73,16 @@ namespace ECS {
 
 	/**
 	 * Abstract class for processing sets of {@link Entity} objects.
-	 * @author Stefan Bachmann
+	 * 
+	 * @tparam T: The EntitySystem class used to create the type.
 	 */
 	template<typename T>
 	class EntitySystem : public EntitySystemBase {
 	public:
 
 		/**
-		 * Initialises the EntitySystem with the priority specified.
+		 * initializes the EntitySystem with the priority specified.
+		 * 
 		 * @param priority The priority to execute this system with (lower means higher priority).
 		 */
 		explicit EntitySystem (int priority=0) : EntitySystemBase(getSystemType<T>(), priority) {}

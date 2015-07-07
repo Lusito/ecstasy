@@ -21,7 +21,6 @@
 namespace ECS {
 	/**
 	 * Simple containers of {@link Component}s that give them "data". The component's data is then processed by {@link EntitySystem}s.
-	 * @author Stefan Bachmann
 	 */
 	class Entity: public Poolable {
 		friend class Family;
@@ -29,8 +28,8 @@ namespace ECS {
 		friend class Engine;
 		friend class EntityPool;
 	public:
-		/** A flag that can be used to bit mask this entity. Up to the user to manage. */
-		int flags = 0;
+		/// A flag that can be used to bit mask this entity. Up to the user to manage.
+		uint32_t flags = 0;
 
 	protected:
 		uint64_t uuid = 0;
@@ -49,10 +48,10 @@ namespace ECS {
 		~Entity() { removeAll(); }
 		void reset() override;
 
-		/** @return The Entity's unique id. */
+		/// @return The Entity's unique id.
 		uint64_t getId () const { return uuid; }
 		
-		/** @return true if the entity is valid (added to the engine). */
+		/// @return true if the entity is valid (added to the engine).
 		bool isValid () const { return uuid > 0; }
 
 		/** @return true if the entity is scheduled to be removed */
@@ -60,6 +59,8 @@ namespace ECS {
 
 		/**
 		 * Adds a {@link Component} to this Entity. If a {@link Component} of the same type already exists, it'll be replaced.
+		 * 
+		 * @param The component to add
 		 * @return The Entity for easy chaining
 		 */
 		Entity &add (ComponentBase *component);
@@ -67,6 +68,8 @@ namespace ECS {
 		/**
 		 * Removes the {@link Component} of the specified type. Since there is only ever one component of one type, we don't need an
 		 * instance reference.
+		 * 
+		 * @tparam T The Component class
 		 */
 		template<typename T>
 		void remove () {
@@ -77,17 +80,19 @@ namespace ECS {
 				removeInternal(type);
 		}
 
-		/** Removes all the {@link Component}'s from the Entity. */
+		/// Removes all the {@link Component}'s from the Entity.
 		void removeAll();
 
-		/** @return immutable collection with all the Entity {@link Component}s. */
+		/// @return A list with all the {@link Component}s of this Entity.
 		const std::vector<ComponentBase *> &getAll () const {
 			return components;
 		}
 
 		/**
-		 * Retrieve a component from this {@link Entity} by class.
-		 * @return the instance of the specified {@link Component} attached to this {@link Entity}, or null if no such
+		 * Retrieve a Component from this {@link Entity} by class.
+		 * 
+		 * @tparam T The Component class
+		 * @return The instance of the specified {@link Component} attached to this {@link Entity}, or null if no such
 		 *         {@link Component} exists.
 		 */
 		template<typename T>
@@ -96,6 +101,7 @@ namespace ECS {
 		}
 
 		/**
+		 * @tparam T The Component class
 		 * @return Whether or not the Entity has a {@link Component} for the specified class.
 		 */
 		template<typename T>
@@ -103,10 +109,7 @@ namespace ECS {
 			return componentBits.get(getComponentType<T>());
 		}
 	private:
-		/**
-		 * Internal use.
-		 * @return The {@link Component} object for the specified class, null if the Entity does not have any components for that class.
-		 */
+		/// @return The {@link Component} object for the specified class, null if the Entity does not have any components for that class.
 		ComponentBase *getComponent(ComponentType componentType) const {
 			if (componentType >= componentsByType.size())
 				return nullptr;
@@ -114,14 +117,12 @@ namespace ECS {
 		}
 
 	public:
-		/**
-		 * @return This Entity's component bits, describing all the {@link Component}s it contains.
-		 */
+		/// @return This Entity's component bits, describing all the {@link Component}s it contains.
 		const Bits &getComponentBits() const {
 			return componentBits;
 		}
 
-		/** @return This Entity's {@link Family} bits, describing all the {@link EntitySystem}s it currently is being processed by. */
+		/// @return This Entity's {@link Family} bits, describing all the {@link EntitySystem}s it currently is being processed by.
 		const Bits &getFamilyBits() const {
 			return familyBits;
 		}

@@ -20,9 +20,10 @@ namespace ECS {
 	class Entity;
 
 	/**
-	 * A simple {@link EntitySystem} that does not run its update logic every call to {@link EntitySystem#update(float)}, but after a
-	 * given interval. The actual logic should be placed in {@link IntervalSystem#updateInterval()}.
-	 * @author David Saltares
+	 * A simple {@link EntitySystem} that does not run its update logic every call to {@link update(float)}, but after a
+	 * given interval. The actual logic should be placed in {@link updateInterval()}.
+	 * 
+	 * @tparam T: The EntitySystem class used to create the type.
 	 */
 	template<typename T>
 	class IntervalSystem: public EntitySystem<T> {
@@ -32,7 +33,7 @@ namespace ECS {
 
 	public:
 		/**
-		 * @param interval time in seconds between calls to {@link IntervalSystem#updateInterval()}.
+		 * @param interval time in seconds between calls to {@link updateInterval()}.
 		 * @param priority
 		 */
 		explicit IntervalSystem(float interval, int priority = 0) : EntitySystem<T>(priority), interval(interval) {}

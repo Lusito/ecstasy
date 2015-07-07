@@ -30,10 +30,7 @@ namespace ECS {
 	
 	/**
 	 * Uniquely identifies a {@link Component} sub-class. It assigns them an index which is used internally for fast comparison and
-	 * retrieval. See {@link Family} and {@link Entity}. ComponentType is a package protected class. You cannot instantiate a
-	 * ComponentType. They can only be accessed via {@link #getIndexFor(Class<? extends Component>)}. Each component class will always
-	 * return the same instance of ComponentType.
-	 * @author Santo Pfingsten
+	 * retrieval. See {@link Family} and {@link Entity}.
 	 */
 	typedef uint32_t ComponentType;
 	
@@ -45,10 +42,7 @@ namespace ECS {
 
 	/**
 	* Uniquely identifies an {@link EntitySystem} sub-class. It assigns them an index which is used internally for fast comparison and
-	* retrieval. See {@link Family} and {@link Entity}. SystemType is a package protected class. You cannot instantiate a
-	* SystemType. They can only be accessed via {@link #getIndexFor(Class<? extends EntitySystem>)}. Each component class will always
-	* return the same instance of SystemType.
-	* @author Santo Pfingsten
+	* retrieval. See {@link Engine}.
 	*/
 	typedef uint32_t SystemType;
 	template <typename C>

@@ -17,6 +17,7 @@
 #include "Types.h"
 
 namespace ECS {
+	/// Non-Template base-class for Component. Extend Component instead.
 	struct ComponentBase: public Poolable {
 		const ComponentType type;
 		virtual ~ComponentBase() {}
@@ -31,7 +32,8 @@ namespace ECS {
 	/**
 	 * Base class for all Components. A Component is intended as a data holder and provides data to be processed in an
 	 * {@link EntitySystem}. But do as you wish.
-	 * @author Stefan Bachmann
+	 * 
+	 * @tparam T: The Component class used to create the type.
 	 */
 	template<typename T>
 	struct Component : public ComponentBase {
