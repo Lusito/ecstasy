@@ -8,6 +8,8 @@ and transparent to use.
 ### Get started
 
 * [Read the wiki](https://github.com/Lusito/ECS-tasy/wiki)
+* [Refer to the javadocs](http://lusito.github.io/ECS-tasy/annotated.html)
+* [Read the examples](https://github.com/Lusito/ECS-tasy/tree/develop/tests)
 
 ### Report isssues
 
