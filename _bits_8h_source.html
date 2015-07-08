@@ -41,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -121,65 +122,67 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keyword">delete</span>[] data;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        }</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> ();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a>(int32_t nbits);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">bool</span> <span class="keyword">get</span> (int32_t index) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_e_c_s_1_1_bits.html#a4ce1981ba3b1969275183f6cf2ff599a">getAndClear</a> (int32_t index);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_e_c_s_1_1_bits.html#ac57b162c52ef38742bd8d49775b3061c">getAndSet</a> (int32_t index);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_bits.html#ac4763630ca74b620a18d1ef63ab2bedd">set</a> (int32_t index);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_bits.html#ae133d64bb9f14abeb44bb62fd64505fd">flip</a> (int32_t index);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        std::string <a class="code" href="class_e_c_s_1_1_bits.html#a56c4e0160e27eeb597e4325c1e8f730b">getStringId</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordtype">void</span> checkCapacity (int32_t len);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_bits.html#a8b6abd0de981755d65eb29db6b56ce8a">clear</a> (int32_t index);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_bits.html#a8b6abd0de981755d65eb29db6b56ce8a">clear</a> ();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <a class="code" href="class_e_c_s_1_1_bits.html#a62f5e61f1af1955b8b874da3df518fc9">Bits</a>();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="class_e_c_s_1_1_bits.html#a62f5e61f1af1955b8b874da3df518fc9">Bits</a>(int32_t nbits);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">bool</span> <span class="keyword">get</span>(int32_t index) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_e_c_s_1_1_bits.html#a4ce1981ba3b1969275183f6cf2ff599a">getAndClear</a>(int32_t index);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_e_c_s_1_1_bits.html#ac57b162c52ef38742bd8d49775b3061c">getAndSet</a>(int32_t index);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_bits.html#ac4763630ca74b620a18d1ef63ab2bedd">set</a>(int32_t index);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_bits.html#ae133d64bb9f14abeb44bb62fd64505fd">flip</a>(int32_t index);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        std::string <a class="code" href="class_e_c_s_1_1_bits.html#a56c4e0160e27eeb597e4325c1e8f730b">getStringId</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordtype">void</span> checkCapacity(int32_t len);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordtype">bool</span> equals(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        int32_t <a class="code" href="class_e_c_s_1_1_bits.html#a6368d05679395113bb17afd705d5cded">numBits</a> () <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        int32_t <a class="code" href="class_e_c_s_1_1_bits.html#aea92ab2aa81705c844a4ce4f5cca368a">usedWords</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        int32_t <a class="code" href="class_e_c_s_1_1_bits.html#ac6b6687fb260c99d271eade83854f15c">length</a> () <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_e_c_s_1_1_bits.html#a94240668cbc91b4dafe9b1e1c140c5c2">isEmpty</a> () <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        int32_t <a class="code" href="class_e_c_s_1_1_bits.html#af851d8c859666f1112037e4e92ca9ace">nextSetBit</a> (int32_t fromIndex);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        int32_t <a class="code" href="class_e_c_s_1_1_bits.html#ac863e23458c3caa00bf23fb94306c2d3">nextClearBit</a>(int32_t fromIndex) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a>&amp; <a class="code" href="class_e_c_s_1_1_bits.html#aa1015c2ce04aa6ea45a56f8ad7f9bc67">operator &amp;=</a>(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_bits.html#ae5d4784350170ff21ad32bfcf9b2c93f">andNot</a> (<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other);</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a>&amp; <a class="code" href="class_e_c_s_1_1_bits.html#a24c7986fd2e81555091e6df63dbedb86">operator |=</a>(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a>&amp; <a class="code" href="class_e_c_s_1_1_bits.html#a424e9279301349dbc3ea71fd1d77b4d1">operator ^=</a>(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other);</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_e_c_s_1_1_bits.html#a11b85ce74bd4268ab8a6ee40a8668f33">intersects</a> (<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_e_c_s_1_1_bits.html#a757edb22bdd80450849510364da2479e">containsAll</a> (<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordtype">bool</span> equals(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keywordtype">bool</span> operator ==(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;            <span class="keywordflow">return</span> equals(other);</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        }</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="keywordtype">bool</span> operator !=(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            <span class="keywordflow">return</span> !equals(other);</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        }</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    };</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;}</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_bits.html#a8b6abd0de981755d65eb29db6b56ce8a">clear</a>(int32_t index);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_bits.html#a8b6abd0de981755d65eb29db6b56ce8a">clear</a>();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        int32_t <a class="code" href="class_e_c_s_1_1_bits.html#a6368d05679395113bb17afd705d5cded">numBits</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        int32_t <a class="code" href="class_e_c_s_1_1_bits.html#aea92ab2aa81705c844a4ce4f5cca368a">usedWords</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        int32_t <a class="code" href="class_e_c_s_1_1_bits.html#ac6b6687fb260c99d271eade83854f15c">length</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_e_c_s_1_1_bits.html#a94240668cbc91b4dafe9b1e1c140c5c2">isEmpty</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        int32_t <a class="code" href="class_e_c_s_1_1_bits.html#af851d8c859666f1112037e4e92ca9ace">nextSetBit</a>(int32_t fromIndex);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        int32_t <a class="code" href="class_e_c_s_1_1_bits.html#ac863e23458c3caa00bf23fb94306c2d3">nextClearBit</a>(int32_t fromIndex) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a>&amp; <a class="code" href="class_e_c_s_1_1_bits.html#aa1015c2ce04aa6ea45a56f8ad7f9bc67">operator &amp;=</a>(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_e_c_s_1_1_bits.html#ae5d4784350170ff21ad32bfcf9b2c93f">andNot</a>(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other);</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a>&amp; <a class="code" href="class_e_c_s_1_1_bits.html#a24c7986fd2e81555091e6df63dbedb86">operator |=</a>(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a>&amp; <a class="code" href="class_e_c_s_1_1_bits.html#a424e9279301349dbc3ea71fd1d77b4d1">operator ^=</a>(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_e_c_s_1_1_bits.html#a11b85ce74bd4268ab8a6ee40a8668f33">intersects</a> (<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_e_c_s_1_1_bits.html#a757edb22bdd80450849510364da2479e">containsAll</a>(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        </div>
+<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_bits.html#ac76ad3a8e95e015073ae6495204715e3">  184</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_e_c_s_1_1_bits.html#ac76ad3a8e95e015073ae6495204715e3">operator ==</a>(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            <span class="keywordflow">return</span> equals(other);</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        }</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        </div>
+<div class="line"><a name="l00192"></a><span class="lineno"><a class="line" href="class_e_c_s_1_1_bits.html#a33b55970b6f1faa2ebef11efce44e7f2">  192</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_e_c_s_1_1_bits.html#a33b55970b6f1faa2ebef11efce44e7f2">operator !=</a>(<span class="keyword">const</span> <a class="code" href="class_e_c_s_1_1_bits.html">Bits</a> &amp;other)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            <span class="keywordflow">return</span> !equals(other);</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        }</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    };</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;}</div>
 <div class="ttc" id="class_e_c_s_1_1_bits_html_ac863e23458c3caa00bf23fb94306c2d3"><div class="ttname"><a href="class_e_c_s_1_1_bits.html#ac863e23458c3caa00bf23fb94306c2d3">ECS::Bits::nextClearBit</a></div><div class="ttdeci">int32_t nextClearBit(int32_t fromIndex) const </div></div>
+<div class="ttc" id="class_e_c_s_1_1_bits_html_ac76ad3a8e95e015073ae6495204715e3"><div class="ttname"><a href="class_e_c_s_1_1_bits.html#ac76ad3a8e95e015073ae6495204715e3">ECS::Bits::operator==</a></div><div class="ttdeci">bool operator==(const Bits &amp;other) const </div><div class="ttdef"><b>Definition:</b> Bits.h:184</div></div>
 <div class="ttc" id="class_e_c_s_1_1_bits_html_a56c4e0160e27eeb597e4325c1e8f730b"><div class="ttname"><a href="class_e_c_s_1_1_bits.html#a56c4e0160e27eeb597e4325c1e8f730b">ECS::Bits::getStringId</a></div><div class="ttdeci">std::string getStringId() const </div></div>
 <div class="ttc" id="class_e_c_s_1_1_bits_html_ae133d64bb9f14abeb44bb62fd64505fd"><div class="ttname"><a href="class_e_c_s_1_1_bits.html#ae133d64bb9f14abeb44bb62fd64505fd">ECS::Bits::flip</a></div><div class="ttdeci">void flip(int32_t index)</div></div>
 <div class="ttc" id="class_e_c_s_1_1_bits_html_ac4763630ca74b620a18d1ef63ab2bedd"><div class="ttname"><a href="class_e_c_s_1_1_bits.html#ac4763630ca74b620a18d1ef63ab2bedd">ECS::Bits::set</a></div><div class="ttdeci">void set(int32_t index)</div></div>
@@ -187,9 +190,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="class_e_c_s_1_1_bits_html_a94240668cbc91b4dafe9b1e1c140c5c2"><div class="ttname"><a href="class_e_c_s_1_1_bits.html#a94240668cbc91b4dafe9b1e1c140c5c2">ECS::Bits::isEmpty</a></div><div class="ttdeci">bool isEmpty() const </div></div>
 <div class="ttc" id="class_e_c_s_1_1_bits_html"><div class="ttname"><a href="class_e_c_s_1_1_bits.html">ECS::Bits</a></div><div class="ttdef"><b>Definition:</b> Bits.h:25</div></div>
 <div class="ttc" id="class_e_c_s_1_1_bits_html_ae5d4784350170ff21ad32bfcf9b2c93f"><div class="ttname"><a href="class_e_c_s_1_1_bits.html#ae5d4784350170ff21ad32bfcf9b2c93f">ECS::Bits::andNot</a></div><div class="ttdeci">void andNot(const Bits &amp;other)</div></div>
+<div class="ttc" id="class_e_c_s_1_1_bits_html_a33b55970b6f1faa2ebef11efce44e7f2"><div class="ttname"><a href="class_e_c_s_1_1_bits.html#a33b55970b6f1faa2ebef11efce44e7f2">ECS::Bits::operator!=</a></div><div class="ttdeci">bool operator!=(const Bits &amp;other) const </div><div class="ttdef"><b>Definition:</b> Bits.h:192</div></div>
 <div class="ttc" id="class_e_c_s_1_1_bits_html_a24c7986fd2e81555091e6df63dbedb86"><div class="ttname"><a href="class_e_c_s_1_1_bits.html#a24c7986fd2e81555091e6df63dbedb86">ECS::Bits::operator|=</a></div><div class="ttdeci">Bits &amp; operator|=(const Bits &amp;other)</div></div>
 <div class="ttc" id="class_e_c_s_1_1_bits_html_a11b85ce74bd4268ab8a6ee40a8668f33"><div class="ttname"><a href="class_e_c_s_1_1_bits.html#a11b85ce74bd4268ab8a6ee40a8668f33">ECS::Bits::intersects</a></div><div class="ttdeci">bool intersects(const Bits &amp;other) const </div></div>
 <div class="ttc" id="class_e_c_s_1_1_bits_html_a424e9279301349dbc3ea71fd1d77b4d1"><div class="ttname"><a href="class_e_c_s_1_1_bits.html#a424e9279301349dbc3ea71fd1d77b4d1">ECS::Bits::operator^=</a></div><div class="ttdeci">Bits &amp; operator^=(const Bits &amp;other)</div></div>
+<div class="ttc" id="class_e_c_s_1_1_bits_html_a62f5e61f1af1955b8b874da3df518fc9"><div class="ttname"><a href="class_e_c_s_1_1_bits.html#a62f5e61f1af1955b8b874da3df518fc9">ECS::Bits::Bits</a></div><div class="ttdeci">Bits()</div></div>
 <div class="ttc" id="class_e_c_s_1_1_bits_html_a6368d05679395113bb17afd705d5cded"><div class="ttname"><a href="class_e_c_s_1_1_bits.html#a6368d05679395113bb17afd705d5cded">ECS::Bits::numBits</a></div><div class="ttdeci">int32_t numBits() const </div></div>
 <div class="ttc" id="class_e_c_s_1_1_bits_html_aea92ab2aa81705c844a4ce4f5cca368a"><div class="ttname"><a href="class_e_c_s_1_1_bits.html#aea92ab2aa81705c844a4ce4f5cca368a">ECS::Bits::usedWords</a></div><div class="ttdeci">int32_t usedWords() const </div></div>
 <div class="ttc" id="class_e_c_s_1_1_bits_html_ac6b6687fb260c99d271eade83854f15c"><div class="ttname"><a href="class_e_c_s_1_1_bits.html#ac6b6687fb260c99d271eade83854f15c">ECS::Bits::length</a></div><div class="ttdeci">int32_t length() const </div></div>

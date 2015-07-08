@@ -41,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -92,6 +93,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_e_c_s_1_1_entity_system_base-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -99,17 +101,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>: add <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> pointer  
- <a href="class_e_c_s_1_1_entity_system_base.html#details">More...</a></p>
-
 <p><code>#include &lt;<a class="el" href="_entity_system_8h_source.html">ecstasy/core/EntitySystem.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9aff0154891d4b3810ef8454cd6ba855"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#a9aff0154891d4b3810ef8454cd6ba855">addedToEngine</a> (<a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> *engine)</td></tr>
-<tr class="separator:a9aff0154891d4b3810ef8454cd6ba855"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72952e4e46d05d0efa5cedf5c9854abe"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#a72952e4e46d05d0efa5cedf5c9854abe">removedFromEngine</a> (<a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> *engine)</td></tr>
-<tr class="separator:a72952e4e46d05d0efa5cedf5c9854abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c5b56b2d4017d28e1ecee0a606a4e98"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#a5c5b56b2d4017d28e1ecee0a606a4e98">update</a> (float deltaTime)</td></tr>
 <tr class="separator:a5c5b56b2d4017d28e1ecee0a606a4e98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87b50c8e937b81aa00aa995f58271e0e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#a87b50c8e937b81aa00aa995f58271e0e">checkProcessing</a> () const </td></tr>
@@ -120,10 +115,20 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:aae2e6f5c57b0fe237cc1d96ee9addb3b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae2e6f5c57b0fe237cc1d96ee9addb3b"></a>
-const SystemType&#160;</td><td class="memItemRight" valign="bottom"><b>type</b></td></tr>
+const SystemType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#aae2e6f5c57b0fe237cc1d96ee9addb3b">type</a></td></tr>
+<tr class="memdesc:aae2e6f5c57b0fe237cc1d96ee9addb3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unique identifier of this <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>'s class. <br /></td></tr>
 <tr class="separator:aae2e6f5c57b0fe237cc1d96ee9addb3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab77b8f654e570261ac98cc74345d7ee8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#ab77b8f654e570261ac98cc74345d7ee8">priority</a></td></tr>
+<tr class="memitem:ab77b8f654e570261ac98cc74345d7ee8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab77b8f654e570261ac98cc74345d7ee8"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#ab77b8f654e570261ac98cc74345d7ee8">priority</a></td></tr>
+<tr class="memdesc:ab77b8f654e570261ac98cc74345d7ee8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use this to set the priority of the system. Lower means it'll get executed first. <br /></td></tr>
 <tr class="separator:ab77b8f654e570261ac98cc74345d7ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a9aff0154891d4b3810ef8454cd6ba855"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#a9aff0154891d4b3810ef8454cd6ba855">addedToEngine</a> (<a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> *engine)</td></tr>
+<tr class="separator:a9aff0154891d4b3810ef8454cd6ba855"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72952e4e46d05d0efa5cedf5c9854abe"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#a72952e4e46d05d0efa5cedf5c9854abe">removedFromEngine</a> (<a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> *engine)</td></tr>
+<tr class="separator:a72952e4e46d05d0efa5cedf5c9854abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -131,9 +136,13 @@ Friends</h2></td></tr>
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a96541073b86d0b90df0436c423f1e9b1"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><b>EntitySystem</b></td></tr>
 <tr class="separator:a96541073b86d0b90df0436c423f1e9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e1914489e4bed4f9f23cdeab34a43dc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e1914489e4bed4f9f23cdeab34a43dc"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Engine</b></td></tr>
+<tr class="separator:a3e1914489e4bed4f9f23cdeab34a43dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>: add <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> pointer </p>
+<div class="textblock"><p>Non-Template base-class for <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>. Extend <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> instead.</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>: add <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> pointer </dd></dl>
 </div><div class="dynheader">
 Inheritance diagram for ECS::EntitySystemBase:</div>
 <div class="dyncontent">
@@ -165,7 +174,7 @@ Inheritance diagram for ECS::EntitySystemBase:</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -177,7 +186,7 @@ Inheritance diagram for ECS::EntitySystemBase:</div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="class_e_c_s_1_1_sorted_iterating_system.html#a26cd0418361cea33467ad1ea81232568">ECS::SortedIteratingSystem&lt; T, C &gt;</a>, <a class="el" href="class_e_c_s_1_1_interval_iterating_system.html#a029ada1739448384d81cdfaa604c54ed">ECS::IntervalIteratingSystem&lt; T &gt;</a>, and <a class="el" href="class_e_c_s_1_1_iterating_system.html#abf7e6e09a3b62797e8f3ef5fa4da4619">ECS::IteratingSystem&lt; T &gt;</a>.</p>
+<p>Reimplemented in <a class="el" href="class_e_c_s_1_1_sorted_iterating_system.html#a26cd0418361cea33467ad1ea81232568">ECS::SortedIteratingSystem&lt; T, C &gt;</a>, <a class="el" href="class_e_c_s_1_1_iterating_system.html#abf7e6e09a3b62797e8f3ef5fa4da4619">ECS::IteratingSystem&lt; T &gt;</a>, and <a class="el" href="class_e_c_s_1_1_interval_iterating_system.html#a029ada1739448384d81cdfaa604c54ed">ECS::IntervalIteratingSystem&lt; T &gt;</a>.</p>
 
 </div>
 </div>
@@ -222,7 +231,7 @@ Inheritance diagram for ECS::EntitySystemBase:</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -259,7 +268,8 @@ Inheritance diagram for ECS::EntitySystemBase:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets whether or not the system should be processed by the <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets whether or not the system should be processed by the <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">processing</td><td>true to enable, false to disable processing </td></tr>
   </table>
@@ -298,20 +308,6 @@ Inheritance diagram for ECS::EntitySystemBase:</div>
 </dl>
 
 <p>Reimplemented in <a class="el" href="class_e_c_s_1_1_sorted_iterating_system.html#a38bc289f1947ab69589e5f8912298726">ECS::SortedIteratingSystem&lt; T, C &gt;</a>, <a class="el" href="class_e_c_s_1_1_iterating_system.html#aed4d5de6b481bc81e61d9362e48065bb">ECS::IteratingSystem&lt; T &gt;</a>, and <a class="el" href="class_e_c_s_1_1_interval_system.html#a05240b551a86512345accacc2c03633b">ECS::IntervalSystem&lt; T &gt;</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ab77b8f654e570261ac98cc74345d7ee8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ECS::EntitySystemBase::priority</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Use this to set the priority of the system. Lower means it'll get executed first. </p>
 
 </div>
 </div>

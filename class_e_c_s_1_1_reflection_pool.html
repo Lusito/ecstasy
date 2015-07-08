@@ -41,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -97,6 +98,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">ECS::ReflectionPool&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_pool_8h_source.html">ecstasy/utils/Pool.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -126,11 +129,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a4bde1b2900ace8d4c2937e268f294162"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4bde1b2900ace8d4c2937e268f294162"></a>
-T *&#160;</td><td class="memItemRight" valign="bottom"><b>newObject</b> () override</td></tr>
+<tr class="memitem:a4bde1b2900ace8d4c2937e268f294162"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_reflection_pool.html#a4bde1b2900ace8d4c2937e268f294162">newObject</a> () override</td></tr>
 <tr class="separator:a4bde1b2900ace8d4c2937e268f294162"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<div class="dynheader">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class ECS::ReflectionPool&lt; T &gt;</h3>
+
+<p>A <a class="el" href="class_e_c_s_1_1_pool.html">Pool</a> that creates new objects automatically</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The class to be stored. </td></tr>
+  </table>
+  </dd>
+</dl>
+</div><div class="dynheader">
 Inheritance diagram for ECS::ReflectionPool&lt; T &gt;:</div>
 <div class="dyncontent">
  <div class="center">
@@ -162,6 +175,8 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p></p>
 <p>Creates a pool with an initial capacity of 16 and no maximum. </p>
 
 </div>
@@ -189,7 +204,15 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Creates a pool with the specified initial capacity and no maximum. </p>
+
+<p></p>
+<p>Creates a pool with the specified initial capacity and no maximum.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">initialCapacity</td><td>The initial capacity </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -226,12 +249,45 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p></p>
+<p>Creates a pool with the specified initial capacity and maximum.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">initialCapacity</td><td>The initial capacity </td></tr>
     <tr><td class="paramname">max</td><td>The maximum number of free objects to store in this pool. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a4bde1b2900ace8d4c2937e268f294162"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T* <a class="el" href="class_e_c_s_1_1_reflection_pool.html">ECS::ReflectionPool</a>&lt; T &gt;::newObject </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A new object of type T (to be implemented) </dd></dl>
+
+<p>Implements <a class="el" href="class_e_c_s_1_1_pool.html#a4f8f08b445bebb834192470c96f1e6ff">ECS::Pool&lt; T &gt;</a>.</p>
 
 </div>
 </div>

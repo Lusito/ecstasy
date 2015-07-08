@@ -41,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -106,11 +107,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae8ada8aa248df8c37f9f5bb19b3ad8e2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_family.html#ae8ada8aa248df8c37f9f5bb19b3ad8e2">matches</a> (<a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> *entity) const </td></tr>
 <tr class="separator:ae8ada8aa248df8c37f9f5bb19b3ad8e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a390322bd7b5692f44de4a27999d690da"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a390322bd7b5692f44de4a27999d690da"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_e_c_s_1_1_family.html">Family</a> &amp;other) const </td></tr>
+<tr class="memitem:a390322bd7b5692f44de4a27999d690da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_family.html#a390322bd7b5692f44de4a27999d690da">operator==</a> (const <a class="el" href="class_e_c_s_1_1_family.html">Family</a> &amp;other) const </td></tr>
 <tr class="separator:a390322bd7b5692f44de4a27999d690da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab98418466e42475cecf904d2f021f615"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab98418466e42475cecf904d2f021f615"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const <a class="el" href="class_e_c_s_1_1_family.html">Family</a> &amp;other) const </td></tr>
+<tr class="memitem:ab98418466e42475cecf904d2f021f615"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_family.html#ab98418466e42475cecf904d2f021f615">operator!=</a> (const <a class="el" href="class_e_c_s_1_1_family.html">Family</a> &amp;other) const </td></tr>
 <tr class="separator:ab98418466e42475cecf904d2f021f615"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -130,7 +129,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ab275973f8ac5e52cf52f3d1c87f4c4c2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab275973f8ac5e52cf52f3d1c87f4c4c2"></a>
-const FamilyType&#160;</td><td class="memItemRight" valign="bottom"><b>index</b></td></tr>
+const FamilyType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_family.html#ab275973f8ac5e52cf52f3d1c87f4c4c2">index</a></td></tr>
+<tr class="memdesc:ab275973f8ac5e52cf52f3d1c87f4c4c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unique identifier of this <a class="el" href="class_e_c_s_1_1_family.html">Family</a>. <br /></td></tr>
 <tr class="separator:ab275973f8ac5e52cf52f3d1c87f4c4c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
@@ -140,8 +140,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>FamilyBuilder</b></t
 <tr class="separator:a61c75cd51d12a333b4b9b21d92a18a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a group of <a class="el" href="struct_e_c_s_1_1_component.html">Component</a>s. It is used to describe what <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> objects an <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> should process. Example:</p><div class="fragment"><div class="line">Family.all(PositionComponent.class, VelocityComponent.class).get() </div>
-</div><!-- fragment --><p> Families can't be instantiated directly but must be accessed via a builder ( start with <a class="el" href="class_e_c_s_1_1_family.html#a4cc21abcf624b8af1e9ba6f92bfd8a74">Family::all()</a>, <a class="el" href="class_e_c_s_1_1_family.html#af032893ec397f7dbfc3bdeef277b4007">Family::one()</a> or <a class="el" href="class_e_c_s_1_1_family.html#abb2eb3ffa289295b1d6966e62ae8e271">Family::exclude()</a> ), this is to avoid duplicate families that describe the same components. </p>
+<div class="textblock"><p>Represents a group of <a class="el" href="struct_e_c_s_1_1_component.html">Component</a>s. It is used to describe what <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> objects an <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> should process. Families can't be instantiated directly but must be accessed via a builder. This is to avoid duplicate families that describe the same components Start with <a class="el" href="class_e_c_s_1_1_family.html#a4cc21abcf624b8af1e9ba6f92bfd8a74">Family::all()</a>, <a class="el" href="class_e_c_s_1_1_family.html#af032893ec397f7dbfc3bdeef277b4007">Family::one()</a> or <a class="el" href="class_e_c_s_1_1_family.html#abb2eb3ffa289295b1d6966e62ae8e271">Family::exclude()</a>. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a4cc21abcf624b8af1e9ba6f92bfd8a74"></a>
 <div class="memitem">
@@ -163,7 +162,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>FamilyBuilder</b></t
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>A Builder singleton instance to get a family </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A builder singleton instance to get a <a class="el" href="class_e_c_s_1_1_family.html">Family</a> </dd></dl>
 
 </div>
 </div>
@@ -195,7 +194,7 @@ template&lt;typename... Args&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A Builder singleton instance to get a family </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A builder singleton instance to get a <a class="el" href="class_e_c_s_1_1_family.html">Family</a> </dd></dl>
 
 </div>
 </div>
@@ -227,7 +226,7 @@ template&lt;typename... Args&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A Builder singleton instance to get a family </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A builder singleton instance to get a <a class="el" href="class_e_c_s_1_1_family.html">Family</a> </dd></dl>
 
 </div>
 </div>
@@ -282,7 +281,57 @@ template&lt;typename... Args&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A Builder singleton instance to get a family </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A builder singleton instance to get a <a class="el" href="class_e_c_s_1_1_family.html">Family</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab98418466e42475cecf904d2f021f615"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ECS::Family::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_e_c_s_1_1_family.html">Family</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if the families are unequal </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a390322bd7b5692f44de4a27999d690da"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ECS::Family::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_e_c_s_1_1_family.html">Family</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if the families are equal </dd></dl>
 
 </div>
 </div>

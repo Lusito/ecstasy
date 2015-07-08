@@ -41,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -104,8 +105,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a890ef442fa41355101be714b86821190"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_iterating_system.html#a890ef442fa41355101be714b86821190">IteratingSystem</a> (const <a class="el" href="class_e_c_s_1_1_family.html">Family</a> &amp;family, int <a class="el" href="class_e_c_s_1_1_entity_system_base.html#ab77b8f654e570261ac98cc74345d7ee8">priority</a>=0)</td></tr>
 <tr class="separator:a890ef442fa41355101be714b86821190"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf7e6e09a3b62797e8f3ef5fa4da4619"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_iterating_system.html#abf7e6e09a3b62797e8f3ef5fa4da4619">addedToEngine</a> (<a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> *engine) override</td></tr>
-<tr class="separator:abf7e6e09a3b62797e8f3ef5fa4da4619"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed4d5de6b481bc81e61d9362e48065bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_iterating_system.html#aed4d5de6b481bc81e61d9362e48065bb">update</a> (float deltaTime) override</td></tr>
 <tr class="separator:aed4d5de6b481bc81e61d9362e48065bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea227394473d54e75dc0cfb17cb20d9e"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_iterating_system.html#aea227394473d54e75dc0cfb17cb20d9e">getEntities</a> () const </td></tr>
@@ -116,8 +115,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad9cc43b6e4cc65ff3defb715aa24cfe8 inherit pub_methods_class_e_c_s_1_1_entity_system"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system.html#ad9cc43b6e4cc65ff3defb715aa24cfe8">EntitySystem</a> (int <a class="el" href="class_e_c_s_1_1_entity_system_base.html#ab77b8f654e570261ac98cc74345d7ee8">priority</a>=0)</td></tr>
 <tr class="separator:ad9cc43b6e4cc65ff3defb715aa24cfe8 inherit pub_methods_class_e_c_s_1_1_entity_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_e_c_s_1_1_entity_system_base"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_e_c_s_1_1_entity_system_base')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_e_c_s_1_1_entity_system_base.html">ECS::EntitySystemBase</a></td></tr>
-<tr class="memitem:a72952e4e46d05d0efa5cedf5c9854abe inherit pub_methods_class_e_c_s_1_1_entity_system_base"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#a72952e4e46d05d0efa5cedf5c9854abe">removedFromEngine</a> (<a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> *engine)</td></tr>
-<tr class="separator:a72952e4e46d05d0efa5cedf5c9854abe inherit pub_methods_class_e_c_s_1_1_entity_system_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87b50c8e937b81aa00aa995f58271e0e inherit pub_methods_class_e_c_s_1_1_entity_system_base"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#a87b50c8e937b81aa00aa995f58271e0e">checkProcessing</a> () const </td></tr>
 <tr class="separator:a87b50c8e937b81aa00aa995f58271e0e inherit pub_methods_class_e_c_s_1_1_entity_system_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73438f48e58e8f28469ca16239cede98 inherit pub_methods_class_e_c_s_1_1_entity_system_base"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#a73438f48e58e8f28469ca16239cede98">setProcessing</a> (bool processing)</td></tr>
@@ -125,16 +122,24 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
+<tr class="memitem:abf7e6e09a3b62797e8f3ef5fa4da4619"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_iterating_system.html#abf7e6e09a3b62797e8f3ef5fa4da4619">addedToEngine</a> (<a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> *engine) override</td></tr>
+<tr class="separator:abf7e6e09a3b62797e8f3ef5fa4da4619"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a438b3be14ffdc0d670e070ab6d8525ec"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_iterating_system.html#a438b3be14ffdc0d670e070ab6d8525ec">processEntity</a> (<a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> *entity, float deltaTime)=0</td></tr>
 <tr class="separator:a438b3be14ffdc0d670e070ab6d8525ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_e_c_s_1_1_entity_system_base"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_e_c_s_1_1_entity_system_base')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_e_c_s_1_1_entity_system_base.html">ECS::EntitySystemBase</a></td></tr>
+<tr class="memitem:a72952e4e46d05d0efa5cedf5c9854abe inherit pro_methods_class_e_c_s_1_1_entity_system_base"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#a72952e4e46d05d0efa5cedf5c9854abe">removedFromEngine</a> (<a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> *engine)</td></tr>
+<tr class="separator:a72952e4e46d05d0efa5cedf5c9854abe inherit pro_methods_class_e_c_s_1_1_entity_system_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_attribs_class_e_c_s_1_1_entity_system_base"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_e_c_s_1_1_entity_system_base')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_e_c_s_1_1_entity_system_base.html">ECS::EntitySystemBase</a></td></tr>
 <tr class="memitem:aae2e6f5c57b0fe237cc1d96ee9addb3b inherit pub_attribs_class_e_c_s_1_1_entity_system_base"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae2e6f5c57b0fe237cc1d96ee9addb3b"></a>
-const SystemType&#160;</td><td class="memItemRight" valign="bottom"><b>type</b></td></tr>
+const SystemType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#aae2e6f5c57b0fe237cc1d96ee9addb3b">type</a></td></tr>
+<tr class="memdesc:aae2e6f5c57b0fe237cc1d96ee9addb3b inherit pub_attribs_class_e_c_s_1_1_entity_system_base"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unique identifier of this <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>'s class. <br /></td></tr>
 <tr class="separator:aae2e6f5c57b0fe237cc1d96ee9addb3b inherit pub_attribs_class_e_c_s_1_1_entity_system_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab77b8f654e570261ac98cc74345d7ee8 inherit pub_attribs_class_e_c_s_1_1_entity_system_base"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#ab77b8f654e570261ac98cc74345d7ee8">priority</a></td></tr>
+<tr class="memitem:ab77b8f654e570261ac98cc74345d7ee8 inherit pub_attribs_class_e_c_s_1_1_entity_system_base"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab77b8f654e570261ac98cc74345d7ee8"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#ab77b8f654e570261ac98cc74345d7ee8">priority</a></td></tr>
+<tr class="memdesc:ab77b8f654e570261ac98cc74345d7ee8 inherit pub_attribs_class_e_c_s_1_1_entity_system_base"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use this to set the priority of the system. Lower means it'll get executed first. <br /></td></tr>
 <tr class="separator:ab77b8f654e570261ac98cc74345d7ee8 inherit pub_attribs_class_e_c_s_1_1_entity_system_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -155,7 +160,7 @@ Inheritance diagram for ECS::IteratingSystem&lt; T &gt;:</div>
   <img src="class_e_c_s_1_1_iterating_system.png" usemap="#ECS::IteratingSystem&lt; T &gt;_map" alt=""/>
   <map id="ECS::IteratingSystem&lt; T &gt;_map" name="ECS::IteratingSystem&lt; T &gt;_map">
 <area href="class_e_c_s_1_1_entity_system.html" alt="ECS::EntitySystem&lt; T &gt;" shape="rect" coords="0,56,159,80"/>
-<area href="class_e_c_s_1_1_entity_system_base.html" title=": add Engine pointer " alt="ECS::EntitySystemBase" shape="rect" coords="0,0,159,24"/>
+<area href="class_e_c_s_1_1_entity_system_base.html" alt="ECS::EntitySystemBase" shape="rect" coords="0,0,159,24"/>
 </map>
  </div></div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -196,7 +201,7 @@ template&lt;typename T &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">family</td><td>The family of entities iterated over in this System </td></tr>
-    <tr><td class="paramname">priority</td><td>The priority to execute this system with (lower means higher priority) </td></tr>
+    <tr><td class="paramname">priority</td><td>The priority to execute this system with (lower means higher priority). </td></tr>
   </table>
   </dd>
 </dl>
@@ -223,7 +228,7 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

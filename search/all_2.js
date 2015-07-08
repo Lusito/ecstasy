@@ -12,7 +12,6 @@ var searchData=
   ['collectoruntil0',['CollectorUntil0',['../struct_signal11_1_1_collector_until0.html',1,'Signal11']]],
   ['collectorvector',['CollectorVector',['../struct_signal11_1_1_collector_vector.html',1,'Signal11']]],
   ['collectorwhile0',['CollectorWhile0',['../struct_signal11_1_1_collector_while0.html',1,'Signal11']]],
-  ['component',['Component',['../struct_e_c_s_1_1_component_base.html#a4fff89a065223ace7030069b55d9e3bf',1,'ECS::ComponentBase']]],
   ['component',['Component',['../struct_e_c_s_1_1_component.html',1,'ECS']]],
   ['componentadded',['componentAdded',['../class_e_c_s_1_1_engine.html#a09a02a8baee15ab6223051857f233f16',1,'ECS::Engine']]],
   ['componentbase',['ComponentBase',['../struct_e_c_s_1_1_component_base.html',1,'ECS']]],
