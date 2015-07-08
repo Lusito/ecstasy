@@ -32,10 +32,13 @@ namespace ECS {
 			delete[] data;
 		}
 		
-		Bits ();
+		/**
+		 * Creates a bit set whose initial size is large enough to explicitly represent bits with indices in the range 0 through 63.
+		 */
+		Bits();
 
 		/**
-		 *  Creates a bit set whose initial size is large enough to explicitly represent bits with indices in the range 0 through nbits-1.
+		 * Creates a bit set whose initial size is large enough to explicitly represent bits with indices in the range 0 through nbits-1.
 		 * 
 		 * @param nbits the initial size of the bit set
 		 */
@@ -45,129 +48,147 @@ namespace ECS {
 		 * @param index the index of the bit
 		 * @return whether the bit is set
 		 */
-		bool get (int32_t index) const;
+		bool get(int32_t index) const;
 
 		/**
 		 * Returns the bit at the given index and clears it in one go.
+		 * 
 		 * @param index the index of the bit
 		 * @return whether the bit was set before invocation
 		 */
-		bool getAndClear (int32_t index);
+		bool getAndClear(int32_t index);
 
 		/**
 		 * Returns the bit at the given index and sets it in one go.
+		 * 
 		 * @param index the index of the bit
 		 * @return whether the bit was set before invocation
 		 */
-		bool getAndSet (int32_t index);
+		bool getAndSet(int32_t index);
 
 		/// @param index the index of the bit to set
-		void set (int32_t index);
+		void set(int32_t index);
 
 		/// @param index the index of the bit to flip
-		void flip (int32_t index);
+		void flip(int32_t index);
 
 		/// @return all longs as string, comma separated
 		std::string getStringId() const;
 
 	private:
-		void checkCapacity (int32_t len);
+		void checkCapacity(int32_t len);
+
+		bool equals(const Bits &other) const;
 
 	public:
 		/// @param index the index of the bit to clear
-		void clear (int32_t index);
+		void clear(int32_t index);
 
 		/// Clears the entire bitset
-		void clear ();
+		void clear();
 
 		/// @return the number of bits currently stored, <b>not</b> the highset set bit!
-		int32_t numBits () const;
+		int32_t numBits() const;
 
 		/// @return the minimal number of words to store all the bits
 		int32_t usedWords() const;
 
 		/**
-		 * Returns the "logical size" of this bitset: the index of the highest set bit in the bitset plus one. Returns zero if the
-		 * bitset contains no set bits.
+		 * Returns the "logical size" of this bitset: The index of the highest set bit in the bitset plus one.
+		 * Returns zero if the bitset contains no set bits.
 		 * 
 		 * @return the logical size of this bitset
 		 */
-		int32_t length () const;
+		int32_t length() const;
 
 		/// @return true if this bitset contains no bits that are set to true
-		bool isEmpty () const;
+		bool isEmpty() const;
 
 		/**
-		 * Returns the index of the first bit that is set to true that occurs on or after the specified starting index. If no such bit
-		 * exists then -1 is returned.
+		 * Returns the index of the first bit that is set to true that occurs on or after the specified starting index.
+		 * 
+		 * @param fromIndex the index to start looking
+		 * @return >= 0 if a truthy bit was found, -1 otherwise.
 		 */
-		int32_t nextSetBit (int32_t fromIndex);
+		int32_t nextSetBit(int32_t fromIndex);
 
 		/**
-		 * Returns the index of the first bit that is set to false that occurs on or after the specified starting index. If no such bit
-		 * exists then -1 is returned.
+		 * Returns the index of the first bit that is set to false that occurs on or after the specified starting index.
+		 * 
+		 * @param fromIndex the index to start looking
+		 * @return >= 0 if a falsy bit was found, -1 otherwise.
 		 */
 		int32_t nextClearBit(int32_t fromIndex) const;
 
 		/**
-		 * Performs a logical <b>AND</b> of this target bit set with the argument bit set. This bit set is modified so that each bit in
-		 * it has the value true if and only if it both initially had the value true and the corresponding bit in the bit set argument
-		 * also had the value true.
+		 * Performs a logical <b>AND</b> of this target bit set with the argument bit set. This bit set is modified so
+		 * that each bit in  it has the value true if and only if it both initially had the value true and the
+		 * corresponding bit in the bit set argument also had the value true.
 		 * 
-		 * @param other a bit set
+		 * @param other The other instance
+		 * @return *this
 		 */
 		Bits& operator &=(const Bits &other);
 
 		/**
-		 * Clears all of the bits in this bit set whose corresponding bit is set in the specified bit set.
+		 * Clears all of the bits in this instance whose corresponding bit is set in the other instance.
 		 * 
-		 * @param other a bit set
+		 * @param other The other instance
 		 */
-		void andNot (const Bits &other);
+		void andNot(const Bits &other);
 
 		/**
-		 * Performs a logical <b>OR</b> of this bit set with the bit set argument. This bit set is modified so that a bit in it has the
-		 * value true if and only if it either already had the value true or the corresponding bit in the bit set argument has the
-		 * value true.
+		 * Performs a logical <b>OR</b> of this instance with the other instance. This instance is modified so that a
+		 * bit in it has the value true if and only if it either already had the value true or the corresponding bit in
+		 * the other instance has the value true.
 		 * 
 		 * @param other a bit set
+		 * @return *this
 		 */
 		Bits& operator |=(const Bits &other);
 
 		/**
-		 * Performs a logical <b>XOR</b> of this bit set with the bit set argument. This bit set is modified so that a bit in it has
-		 * the value true if and only if one of the following statements holds:
+		 * Performs a logical <b>XOR</b> of this bit set with the bit set argument. This bit set is modified so that a
+		 * bit in it has the value true if and only if one of the following statements holds:
 		 * <ul>
 		 * <li>The bit initially has the value true, and the corresponding bit in the argument has the value false.</li>
 		 * <li>The bit initially has the value false, and the corresponding bit in the argument has the value true.</li>
 		 * </ul>
 		 * 
-		 * @param other
+		 * @param other The other instance
+		 * @return *this
 		 */
 		Bits& operator ^=(const Bits &other);
 
 		/**
-		 * Returns true if the specified BitSet has any bits set to true that are also set to true in this BitSet.
+		 * Returns true if the other instance has any bits set to true that are also set to true in this instance.
 		 * 
-		 * @param other a bit set
+		 * @param other The other instance
 		 * @return boolean indicating whether this bit set intersects the specified bit set
 		 */
 		bool intersects (const Bits &other) const;
 
 		/**
-		 * Returns true if this bit set is a super set of the specified set, i.e. it has all bits set to true that are also set to true
-		 * in the specified BitSet.
+		 * Returns true if this instance is a super set of the other instance, i.e. it has all bits set to true that are
+		 *  also set to true in the other instance.
 		 * 
-		 * @param other a bit set
+		 * @param other The other instance
 		 * @return boolean indicating whether this bit set is a super set of the specified set
 		 */
-		bool containsAll (const Bits &other) const;
-
-		bool equals(const Bits &other) const;
+		bool containsAll(const Bits &other) const;
 		
+		/**
+		 * @param other The other instance
+		 * @return true if all truthy bits equal the truthy bits in the other instance
+		 */
 		bool operator ==(const Bits &other) const {
 			return equals(other);
 		}
+		
+		/**
+		 * @param other The other instance
+		 * @return true if at least one truthy bit is unequal a truthy bit in the other instance
+		 */
 		bool operator !=(const Bits &other) const {
 			return !equals(other);
 		}

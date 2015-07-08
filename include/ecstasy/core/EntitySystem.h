@@ -19,14 +19,19 @@
 namespace ECS {
 	class Engine;
 	
-	/// @fixme: add Engine pointer
+	/**
+	 * Non-Template base-class for EntitySystem. Extend EntitySystem instead.
+	 * 
+	 * @todo: add Engine pointer
+	 */
 	class EntitySystemBase {
 	private:
 		bool processing = true;
 
 	public:
+		/// The unique identifier of this EntitySystem's class
 		const SystemType type;
-		/** Use this to set the priority of the system. Lower means it'll get executed first. */
+		/// Use this to set the priority of the system. Lower means it'll get executed first.
 		int priority;
 
 	private:
@@ -37,24 +42,10 @@ namespace ECS {
 		virtual ~EntitySystemBase() {}
 
 		/**
-		* Called when this EntitySystem is added to an {@link Engine}.
+		 * The update method called every tick.
 		 * 
-		* @param engine The {@link Engine} this system was added to.
-		*/
-		virtual void addedToEngine(Engine *engine) {}
-
-		/**
-		* Called when this EntitySystem is removed from an {@link Engine}.
-		 * 
-		* @param engine The {@link Engine} the system was removed from.
-		*/
-		virtual void removedFromEngine(Engine *engine) {}
-
-		/**
-		* The update method called every tick.
-		 * 
-		* @param deltaTime The time passed since last frame in seconds.
-		*/
+		 * @param deltaTime The time passed since last frame in seconds.
+		 */
 		virtual void update(float deltaTime) {}
 
 		/// @return Whether or not the system should be processed.
@@ -63,16 +54,35 @@ namespace ECS {
 		}
 
 		/**
-		 * Sets whether or not the system should be processed by the {@link Engine}.
+		 * Sets whether or not the system should be processed by the Engine.
+		 * 
 		 * @param processing true to enable, false to disable processing
 		 */
 		virtual void setProcessing(bool processing) {
 			this->processing = processing;
 		}
+
+	protected:
+		friend class Engine;
+		
+		/**
+		 * Called when this EntitySystem is added to an Engine.
+		 * 
+		 * @param engine The Engine this system was added to.
+		 */
+		virtual void addedToEngine(Engine *engine) {}
+
+		/**
+		 * Called when this EntitySystem is removed from an Engine.
+		 * 
+		 * @param engine The Engine the system was removed from.
+		 */
+		virtual void removedFromEngine(Engine *engine) {}
+
 	};
 
 	/**
-	 * Abstract class for processing sets of {@link Entity} objects.
+	 * Base class for all systems. An EntitySystem is intended to process entities.
 	 * 
 	 * @tparam T: The EntitySystem class used to create the type.
 	 */
@@ -81,8 +91,6 @@ namespace ECS {
 	public:
 
 		/**
-		 * initializes the EntitySystem with the priority specified.
-		 * 
 		 * @param priority The priority to execute this system with (lower means higher priority).
 		 */
 		explicit EntitySystem (int priority=0) : EntitySystemBase(getSystemType<T>(), priority) {}

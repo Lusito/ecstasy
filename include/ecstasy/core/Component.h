@@ -19,19 +19,20 @@
 namespace ECS {
 	/// Non-Template base-class for Component. Extend Component instead.
 	struct ComponentBase: public Poolable {
+		/// The unique identifier of this Component's class
 		const ComponentType type;
 		virtual ~ComponentBase() {}
 		void reset() override {}
 
 	private:
-		/** Private Constructor so nobody derives from this */
 		template<typename T> friend struct Component;
+		// Private Constructor so nobody derives from this
 		explicit ComponentBase(ComponentType type) :type(type) {}
 	};
 	
 	/**
-	 * Base class for all Components. A Component is intended as a data holder and provides data to be processed in an
-	 * {@link EntitySystem}. But do as you wish.
+	 * Base class for all components. A Component is intended as a data holder
+	 * and provides data to be processed in an EntitySystem.
 	 * 
 	 * @tparam T: The Component class used to create the type.
 	 */

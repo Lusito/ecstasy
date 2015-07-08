@@ -20,7 +20,8 @@
 
 namespace ECS {
 	/**
-	 * Simple containers of {@link Component}s that give them "data". The component's data is then processed by {@link EntitySystem}s.
+	 * Simple containers of {@link Component}s that give them "data".
+	 * The component's data is then processed by {@link EntitySystem}s.
 	 */
 	class Entity: public Poolable {
 		friend class Family;
@@ -31,7 +32,7 @@ namespace ECS {
 		/// A flag that can be used to bit mask this entity. Up to the user to manage.
 		uint32_t flags = 0;
 
-	protected:
+	private:
 		uint64_t uuid = 0;
 		bool scheduledForRemoval = false;
 		ComponentOperationHandler *componentOperationHandler = nullptr;
@@ -54,20 +55,20 @@ namespace ECS {
 		/// @return true if the entity is valid (added to the engine).
 		bool isValid () const { return uuid > 0; }
 
-		/** @return true if the entity is scheduled to be removed */
+		/// @return true if the entity is scheduled to be removed
 		bool isScheduledForRemoval () const { return scheduledForRemoval; }
 
 		/**
-		 * Adds a {@link Component} to this Entity. If a {@link Component} of the same type already exists, it'll be replaced.
+		 * Adds a Component to this Entity. If a Component of the same type already exists, it'll be replaced.
 		 * 
-		 * @param The component to add
+		 * @param component The Component to add
 		 * @return The Entity for easy chaining
 		 */
-		Entity &add (ComponentBase *component);
+		Entity &add(ComponentBase *component);
 
 		/**
-		 * Removes the {@link Component} of the specified type. Since there is only ever one component of one type, we don't need an
-		 * instance reference.
+		 * Removes the Component of the specified type. Since there is only ever one Component of one type, we don't
+		 * need an instance reference.
 		 * 
 		 * @tparam T The Component class
 		 */
@@ -80,7 +81,7 @@ namespace ECS {
 				removeInternal(type);
 		}
 
-		/// Removes all the {@link Component}'s from the Entity.
+		/// Removes all the {@link Component}s from the Entity.
 		void removeAll();
 
 		/// @return A list with all the {@link Component}s of this Entity.
@@ -89,11 +90,10 @@ namespace ECS {
 		}
 
 		/**
-		 * Retrieve a Component from this {@link Entity} by class.
+		 * Retrieve a Component from this Entity by class.
 		 * 
 		 * @tparam T The Component class
-		 * @return The instance of the specified {@link Component} attached to this {@link Entity}, or null if no such
-		 *         {@link Component} exists.
+		 * @return The instance of the specified Component attached to this Entity, or null if no such Component exists.
 		 */
 		template<typename T>
 		T *get() const {
@@ -102,45 +102,44 @@ namespace ECS {
 
 		/**
 		 * @tparam T The Component class
-		 * @return Whether or not the Entity has a {@link Component} for the specified class.
+		 * @return Whether or not the Entity has a Component for the specified class.
 		 */
 		template<typename T>
 		bool has() const {
 			return componentBits.get(getComponentType<T>());
 		}
 	private:
-		/// @return The {@link Component} object for the specified class, null if the Entity does not have any components for that class.
+		/// @return The Component object for the specified class, null if the Entity does not have any components for that class.
 		ComponentBase *getComponent(ComponentType componentType) const {
 			if (componentType >= componentsByType.size())
 				return nullptr;
 			return componentsByType[componentType];
 		}
-
-	public:
-		/// @return This Entity's component bits, describing all the {@link Component}s it contains.
-		const Bits &getComponentBits() const {
-			return componentBits;
-		}
-
-		/// @return This Entity's {@link Family} bits, describing all the {@link EntitySystem}s it currently is being processed by.
-		const Bits &getFamilyBits() const {
-			return familyBits;
-		}
 		
-	protected:
 		void addInternal (ComponentBase *component);
 		ComponentBase *removeInternal(ComponentType type);
 		void removeAllInternal();
 
 	public:
-		bool operator ==(const Entity &other) const {
-			if (this == &other) return true;
-			return uuid == other.uuid;
+		/// @return This Entity's Component bits, describing all the {@link Component}s it contains.
+		const Bits &getComponentBits() const {
+			return componentBits;
 		}
 
+		/// @return This Entity's Family bits, describing all the {@link EntitySystem}s it currently is being processed by.
+		const Bits &getFamilyBits() const {
+			return familyBits;
+		}
+
+	public:
+		/// @return true if the entities are equal
+		bool operator ==(const Entity &other) const {
+			return this == &other;
+		}
+
+		/// @return true if the entities are unequal
 		bool operator !=(const Entity &other) const {
-			if (this == &other) return false;
-			return uuid != other.uuid;
+			return this != &other;
 		}
 	};
 }

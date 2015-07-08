@@ -22,12 +22,13 @@ namespace ECS {
 	class Entity;
 
 	/**
-	 * A simple EntitySystem that processes each entity of a given family in the order specified by a comparator and calls
-	 * processEntity() for each entity every time the EntitySystem is updated. This is really just a convenience class as rendering
-	 * systems tend to iterate over a list of entities in a sorted manner. Adding entities will cause the entity list to be resorted.
-	 * Call forceSort() if you changed your sorting criteria.
+	 * A simple EntitySystem that processes each Entity of a given Family in the order specified by a comparator and
+	 * calls processEntity() for each Entity every time the EntitySystem is updated. This is really just a convenience
+	 * class as rendering systems tend to iterate over a list of entities in a sorted manner. Adding entities will cause
+	 * the entity list to be resorted. Call forceSort() if you changed your sorting criteria.
 	 * 
-	 * @tparam T: The EntitySystem class used to create the type.
+	 * @tparam T The EntitySystem class used to create the type.
+	 * @tparam C The comparator type
 	 */
 	template<typename T, typename C>
 	class SortedIteratingSystem : public EntitySystem<T> {
@@ -44,13 +45,15 @@ namespace ECS {
 		 * 
 		 * @param family The family of entities iterated over in this System
 		 * @param comparator The comparator to sort the entities
-		 * @param priority The priority to execute this system with (lower means higher priority)
+		 * @copydetails EntitySystem::EntitySystem()
 		 */
-		SortedIteratingSystem(const Family &family, C comparator, int priority=0) : EntitySystem<T>(priority) , family(family), comparator(comparator) {}
+		SortedIteratingSystem(const Family &family, C comparator, int priority=0)
+			: EntitySystem<T>(priority) , family(family), comparator(comparator) {}
 
 		/**
-		* Call this if the sorting criteria have changed. The actual sorting will be delayed until the entities are processed.
-		*/
+		 * Call this if the sorting criteria have changed.
+		 * The actual sorting will be delayed until the entities are processed.
+		 */
 		void forceSort() {
 			shouldSort = true;
 		}
@@ -62,8 +65,21 @@ namespace ECS {
 				shouldSort = false;
 			}
 		}
-		
-	public:
+
+		void entityAdded(Entity *entity) {
+			sortedEntities.push_back(entity);
+			shouldSort = true;
+		}
+
+		void entityRemoved(Entity *entity) {
+			auto it = std::find(sortedEntities.begin(), sortedEntities.end(), entity);
+			if (it != sortedEntities.end()) {
+				sortedEntities.erase(it);
+				shouldSort = true;
+			}
+		}
+
+	protected:
 		void addedToEngine(Engine *engine) override {
 			auto *newEntities = engine->getEntitiesFor(family);
 			sortedEntities.clear();
@@ -84,19 +100,7 @@ namespace ECS {
 			shouldSort = false;
 		}
 
-		void entityAdded(Entity *entity) {
-			sortedEntities.push_back(entity);
-			shouldSort = true;
-		}
-
-		void entityRemoved(Entity *entity) {
-			auto it = std::find(sortedEntities.begin(), sortedEntities.end(), entity);
-			if (it != sortedEntities.end()) {
-				sortedEntities.erase(it);
-				shouldSort = true;
-			}
-		}
-
+	public:
 		void update(float deltaTime) override {
 			sort();
 			for (auto entity : sortedEntities) {
@@ -105,8 +109,8 @@ namespace ECS {
 		}
 
 		/**
-		* @return set of entities processed by the system
-		*/
+		 * @return set of entities processed by the system
+		 */
 		const std::vector<Entity *> *getEntities() const {
 			sort();
 			return &sortedEntities;
@@ -119,8 +123,8 @@ namespace ECS {
 
 	protected:
 		/**
-		 * This method is called on every entity on every update call of the EntitySystem. Override this to implement your system's
-		 * specific processing.
+		 * This method is called on every entity on every update call of the EntitySystem.
+		 * Override this to implement your system's specific processing.
 		 * 
 		 * @param entity The current Entity being processed
 		 * @param deltaTime The delta time between the last and current frame

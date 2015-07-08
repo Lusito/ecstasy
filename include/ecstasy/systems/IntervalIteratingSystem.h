@@ -23,8 +23,8 @@ namespace ECS {
 	class Entity;
 
 	/**
-	 * A simple {@link EntitySystem} that processes a {@link Family} of entities not once per frame, but after a given interval.
-	 * Entity processing logic should be placed in {@link processEntity()}.
+	 * A simple EntitySystem that processes a Family of entities not once per frame, but after a given interval.
+	 * Entity processing logic should be placed in processEntity().
 	 * 
 	 * @tparam T: The EntitySystem class used to create the type.
 	 */
@@ -37,16 +37,16 @@ namespace ECS {
 	public:
 		/**
 		 * @param family Represents the collection of family the system should process
-		 * @param interval Time in seconds between calls to {@link updateInterval()}.
-		 * @param priority
+		 * @copydetails IntervalSystem::IntervalSystem()
 		 */
-		IntervalIteratingSystem(const Family &family, float interval, int priority = 0) : IntervalSystem<T>(interval, priority), family(family) {}
+		IntervalIteratingSystem(const Family &family, float interval, int priority = 0)
+			: IntervalSystem<T>(interval, priority), family(family) {}
 
+	protected:
 		void addedToEngine(Engine *engine) override {
 			entities = engine->getEntitiesFor(family);
 		}
 
-	protected:
 		void updateInterval() override {
 			for (auto entity: *entities) {
 				processEntity(entity);
@@ -54,16 +54,12 @@ namespace ECS {
 		}
 
 	public:
-		/**
-		 * @return A list of entities processed by the system
-		 */
+		/// @return A list of entities processed by the system
 		const std::vector<Entity *> *getEntities() const {
 			return entities;
 		}
 
-		/**
-		 * @return The Family used when the system was created
-		 */
+		/// @return The Family used when the system was created
 		const Family &getFamily() const {
 			return family;
 		}
@@ -72,7 +68,7 @@ namespace ECS {
 		/**
 		 * The user should place the entity processing logic here.
 		 * 
-		 * @param entity
+		 * @param entity The entity to be processed
 		 */
 		virtual void processEntity(Entity *entity) = 0;
 	};

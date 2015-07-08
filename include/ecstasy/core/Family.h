@@ -46,6 +46,10 @@ namespace ECS {
 	}
 /// \endcond
 
+	/**
+	 * A builder pattern to create Family objects.
+	 * Use Family::all(), Family::one() or Family::exclude() to start
+	 */
 	class FamilyBuilder {
 		friend class Family;
 	private:
@@ -57,6 +61,7 @@ namespace ECS {
 
 	public:
 		~FamilyBuilder();
+
 		/**
 		 * Resets the builder instance
 		 * 
@@ -99,10 +104,10 @@ namespace ECS {
 	};
 	
 	/**
-	 * Represents a group of {@link Component}s. It is used to describe what {@link Entity} objects an {@link EntitySystem} should
-	 * process. Example: {@code Family.all(PositionComponent.class, VelocityComponent.class).get()} Families can't be instantiated
-	 * directly but must be accessed via a builder ( start with {@link Family::all()}, {@link Family::one()} or {@link Family::exclude()}
-	 * ), this is to avoid duplicate families that describe the same components.
+	 * Represents a group of {@link Component}s. It is used to describe what Entity objects an EntitySystem should
+	 * process. Families can't be instantiated directly but must be accessed via a builder.
+	 * This is to avoid duplicate families that describe the same components
+	 * Start with Family::all(), Family::one() or Family::exclude().
 	 */
 	class Family
 	{
@@ -114,6 +119,7 @@ namespace ECS {
 		Bits *m_exclude;
 		
 	public:
+		/// The unique identifier of this Family
 		const FamilyType index;
 
 	private:
@@ -133,16 +139,14 @@ namespace ECS {
 		 */
 		bool matches (Entity *entity) const;
 
-		/**
-		 * @return A Builder singleton instance to get a family
-		 */
+		/// @return A builder singleton instance to get a Family
 		static FamilyBuilder &all() {
 			return builder.reset();
 		}
 		
 		/**
 		 * @tparam Args Entities will have to contain all of the specified components.
-		 * @return A Builder singleton instance to get a family
+		 * @return A builder singleton instance to get a Family
 		 */
 		template<typename... Args>
 		static FamilyBuilder &all() {
@@ -151,7 +155,7 @@ namespace ECS {
 
 		/**
 		 * @tparam Args Entities will have to contain at least one of the specified components.
-		 * @return A Builder singleton instance to get a family
+		 * @return A builder singleton instance to get a Family
 		 */
 		template<typename... Args>
 		static FamilyBuilder &one() {
@@ -160,17 +164,19 @@ namespace ECS {
 
 		/**
 		 * @tparam Args Entities cannot contain any of the specified components.
-		 * @return A Builder singleton instance to get a family
+		 * @return A builder singleton instance to get a Family
 		 */
 		template<typename... Args>
 		static FamilyBuilder &exclude() {
 			return builder.reset().exclude<Args...>();
 		}
 
+		/// @return true if the families are equal
 		bool operator == (const Family &other) const {
 			return this == &other;
 		}
 
+		/// @return true if the families are unequal
 		bool operator != (const Family &other) const {
 			return this != &other;
 		}

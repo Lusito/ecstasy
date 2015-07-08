@@ -22,10 +22,10 @@ namespace ECS {
 	class Entity;
 
 	/**
-	 * A simple EntitySystem that iterates over each entity and calls processEntity() for each entity every time the EntitySystem is
-	 * updated. This is really just a convenience class as most systems iterate over a list of entities.
+	 * A simple EntitySystem that iterates over each entity and calls processEntity() for each entity every time the
+	 * EntitySystem is updated. This is really just a convenience class as most systems iterate over a list of entities.
 	 * 
-	 * @tparam T: The EntitySystem class used to create the type.
+	 * @tparam T The EntitySystem class used to create the type.
 	 */
 	template<typename T>
 	class IteratingSystem : public EntitySystem<T> {
@@ -38,17 +38,18 @@ namespace ECS {
 		 * Instantiates a system that will iterate over the entities described by the Family, with a specific priority.
 		 * 
 		 * @param family The family of entities iterated over in this System
-		 * @param priority The priority to execute this system with (lower means higher priority)
+		 * @copydetails EntitySystem::EntitySystem()
 		 */
 		IteratingSystem(const Family &family, int priority = 0) : EntitySystem<T>(priority), family(family) {}
-
-		void addedToEngine(Engine *engine) override {
-			entities = engine->getEntitiesFor(family);
-		}
 
 		void update(float deltaTime) override {
 			for (auto entity : *entities)
 				processEntity(entity, deltaTime);
+		}
+
+	protected:
+		void addedToEngine(Engine *engine) override {
+			entities = engine->getEntitiesFor(family);
 		}
 
 	public:
@@ -64,8 +65,8 @@ namespace ECS {
 
 	protected:
 		/**
-		 * This method is called on every entity on every update call of the EntitySystem. Override this to implement your system's
-		 * specific processing.
+		 * This method is called on every entity on every update call of the EntitySystem.
+		 * Override this to implement your system's specific processing.
 		 * 
 		 * @param entity The current Entity being processed
 		 * @param deltaTime The delta time between the last and current frame

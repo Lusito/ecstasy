@@ -21,6 +21,8 @@
 namespace ECS {
 	/**
 	 * Gets a unique id for a typed integral
+	 * 
+	 * @tparam T The type to get an id for.
 	 */
 	template <typename T>
 	T getUniqueTypeId() {
@@ -28,24 +30,31 @@ namespace ECS {
 		return type++;
 	}
 	
-	/**
-	 * Uniquely identifies a {@link Component} sub-class. It assigns them an index which is used internally for fast comparison and
-	 * retrieval. See {@link Family} and {@link Entity}.
-	 */
+	/// Uniquely identifies a Component sub-class.
 	typedef uint32_t ComponentType;
 	
+	/**
+	 * Get a unique index for a specified Component class.
+	 * 
+	 * @tparam T The Component class
+     * @return A unique identifier
+     */
 	template <typename T>
 	ComponentType getComponentType() {
 		static ComponentType type(getUniqueTypeId<ComponentType>());
 		return type;
 	}
 
-	/**
-	* Uniquely identifies an {@link EntitySystem} sub-class. It assigns them an index which is used internally for fast comparison and
-	* retrieval. See {@link Engine}.
-	*/
+	/// Uniquely identifies an EntitySystem sub-class.
 	typedef uint32_t SystemType;
-	template <typename C>
+	
+	/**
+	 * Get a unique index for a specified EntitySystem class.
+	 * 
+	 * @tparam T The EntitySystem class
+     * @return A unique identifier
+     */
+	template <typename T>
 	SystemType getSystemType() {
 		static SystemType type(getUniqueTypeId<SystemType>());
 		return type;

@@ -20,25 +20,25 @@
 #include <sstream>
 
 namespace ECS {
-	Bits::Bits () {
+	Bits::Bits() {
 		dataLength = 1;
 		data = new uint64_t[dataLength];
 		clear();
 	}
 
-	Bits::Bits (int32_t nbits) {
+	Bits::Bits(int32_t nbits) {
 		dataLength = 1 + (nbits >> 6);
 		data = new uint64_t[dataLength];
 		clear();
 	}
 
-	bool Bits::get (int32_t index) const {
+	bool Bits::get(int32_t index) const {
 		int32_t word = index >> 6;
 		if (word >= dataLength) return false;
 		return (data[word] & (1ull << (index & 0x3F))) != 0ull;
 	}
 
-	bool Bits::getAndClear (int32_t index) {
+	bool Bits::getAndClear(int32_t index) {
 		int32_t word = index >> 6;
 		if (word >= dataLength) return false;
 		uint64_t oldData = data[word];
@@ -46,7 +46,7 @@ namespace ECS {
 		return data[word] != oldData;
 	}
 
-	bool Bits::getAndSet (int32_t index) {
+	bool Bits::getAndSet(int32_t index) {
 		int32_t word = index >> 6;
 		checkCapacity(word);
 		uint64_t oldData = data[word];
@@ -54,13 +54,13 @@ namespace ECS {
 		return data[word] == oldData;
 	}
 
-	void Bits::set (int32_t index) {
+	void Bits::set(int32_t index) {
 		int32_t word = index >> 6;
 		checkCapacity(word);
 		data[word] |= 1ull << (index & 0x3F);
 	}
 
-	void Bits::flip (int32_t index) {
+	void Bits::flip(int32_t index) {
 		int32_t word = index >> 6;
 		checkCapacity(word);
 		data[word] ^= 1ull << (index & 0x3F);
@@ -78,7 +78,7 @@ namespace ECS {
 		return ss.str();
 	}
 
-	void Bits::checkCapacity (int32_t len) {
+	void Bits::checkCapacity(int32_t len) {
 		if (len >= dataLength) {
 			len++;
 			uint64_t *newData = new uint64_t[len];
@@ -90,17 +90,17 @@ namespace ECS {
 		}
 	}
 
-	void Bits::clear (int32_t index) {
+	void Bits::clear(int32_t index) {
 		int32_t word = index >> 6;
 		if (word >= dataLength) return;
 		data[word] &= ~(1ull << (index & 0x3F));
 	}
 
-	void Bits::clear () {
+	void Bits::clear() {
 		memset(data, 0, dataLength * sizeof(uint64_t));
 	}
 
-	int32_t Bits::numBits () const {
+	int32_t Bits::numBits() const {
 		return dataLength << 6;
 	}
 
@@ -113,7 +113,7 @@ namespace ECS {
 		return 0;
 	}
 
-	int32_t Bits::length () const {
+	int32_t Bits::length() const {
 		for (int32_t word = dataLength - 1; word >= 0; --word) {
 			uint64_t dataAtWord = data[word];
 			if (dataAtWord != 0) {
@@ -127,7 +127,7 @@ namespace ECS {
 		return 0;
 	}
 
-	bool Bits::isEmpty () const {
+	bool Bits::isEmpty() const {
 		int32_t length = dataLength;
 		for (int32_t i = 0; i < length; i++) {
 			if (data[i] != 0ull) {
@@ -137,7 +137,7 @@ namespace ECS {
 		return true;
 	}
 
-	int32_t Bits::nextSetBit (int32_t fromIndex) {
+	int32_t Bits::nextSetBit(int32_t fromIndex) {
 		int32_t word = fromIndex >> 6;
 		if (word >= dataLength) return -1;
 		uint64_t dataAtWord = data[word];
@@ -200,7 +200,7 @@ namespace ECS {
 		return *this;
 	}
 
-	void Bits::andNot (const Bits &other) {
+	void Bits::andNot(const Bits &other) {
 		for (int32_t i = 0, j = dataLength, k = other.dataLength; i < j && i < k; i++) {
 			data[i] &= ~other.data[i];
 		}
@@ -241,7 +241,7 @@ namespace ECS {
 		return *this;
 	}
 
-	bool Bits::intersects (const Bits &other) const {
+	bool Bits::intersects(const Bits &other) const {
 		for (int32_t i = std::min(dataLength, other.dataLength) - 1; i >= 0; i--) {
 			if ((data[i] & other.data[i]) != 0) {
 				return true;
@@ -250,7 +250,7 @@ namespace ECS {
 		return false;
 	}
 
-	bool Bits::containsAll (const Bits &other) const {
+	bool Bits::containsAll(const Bits &other) const {
 		for (int32_t i = dataLength; i < other.dataLength; i++) {
 			if (other.data[i] != 0) {
 				return false;

@@ -21,7 +21,7 @@
 #include <vector>
 
 namespace ECS {
-	/** Objects implementing this interface will have {@link reset()} called when passed to {@link Pool::free()}. */
+	/** Objects implementing this interface will have reset() called when passed to {@link Pool::free()}. */
 	class Poolable {
 	public:
 		virtual ~Poolable() {}
@@ -46,13 +46,24 @@ namespace ECS {
 		std::vector<T *> freeObjects;
 
 	public:
-		/** Creates a pool with an initial capacity of 16 and no maximum. */
+		/**
+		 * Creates a pool with an initial capacity of 16 and no maximum.
+		 */
 		Pool () : Pool(16, std::numeric_limits<uint32_t>::max()) {}
 
-		/** Creates a pool with the specified initial capacity and no maximum. */
+		/**
+		 * Creates a pool with the specified initial capacity and no maximum.
+		 * 
+		 * @param initialCapacity The initial capacity
+		 */
 		explicit Pool(int initialCapacity) : Pool(initialCapacity, std::numeric_limits<uint32_t>::max()) {}
 
-		/** @param max The maximum number of free objects to store in this pool. */
+		/**
+		 * Creates a pool with the specified initial capacity and maximum.
+		 * 
+		 * @param initialCapacity The initial capacity
+		 * @param max The maximum number of free objects to store in this pool.
+		 */
 		explicit Pool (int initialCapacity, int max) : max(max) {
 			freeObjects.reserve(initialCapacity);
 		}
@@ -61,12 +72,13 @@ namespace ECS {
 		}
 
 	protected:
+		/// @return A new object of type T (to be implemented)
 		virtual T* newObject () = 0;
 
 	public:
 		/**
-		 * Returns an object from this pool. The object may be new (from {@link newObject()}) or reused (previously
-		 * {@link free(Object) freed}).
+		 * Returns an object from this pool. The object may be new (from newObject()) or reused (previously
+		 * {@link free() freed}).
 		 */
 		T* obtain () {
 			if(freeObjects.empty())
@@ -77,8 +89,8 @@ namespace ECS {
 		}
 
 		/**
-		 * Puts the specified object in the pool, making it eligible to be returned by {@link obtain()}. If the pool already contains
-		 * {@link max} free objects, the specified object is reset but not added to the pool.
+		 * Puts the specified object in the pool, making it eligible to be returned by obtain(). If the pool already contains
+		 * <b>max</b> free objects, the specified object is reset but not added to the pool.
 		 */
 		void free (T *object) {
 			if (object == nullptr) throw std::invalid_argument("object cannot be null.");
@@ -105,16 +117,21 @@ namespace ECS {
 		}
 	};
 	
+	/**
+	 * A Pool that creates new objects automatically
+	 * 
+	 * @tparam T: The class to be stored.
+     */
 	template <typename T>
 	class ReflectionPool : public Pool<T> {
 	public:
-		/** Creates a pool with an initial capacity of 16 and no maximum. */
+		/// @copydoc Pool::Pool()
 		ReflectionPool () : Pool<T>() {}
 
-		/** Creates a pool with the specified initial capacity and no maximum. */
+		/// @copydoc Pool::Pool(int)
 		ReflectionPool (int initialCapacity) : Pool<T>(initialCapacity) {}
 
-		/** @param max The maximum number of free objects to store in this pool. */
+		/// @copydoc Pool::Pool(int, int)
 		ReflectionPool (int initialCapacity, int max) : Pool<T>(initialCapacity, max) {}
 
 	protected:
