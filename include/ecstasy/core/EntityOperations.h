@@ -36,11 +36,5 @@ namespace ECS {
 		}
 	};
 
-	class EntityOperationPool: public Pool<EntityOperation> {
-	protected:
-		EntityOperation *newObject() override {
-			return new EntityOperation();
-		}
-	};
 /// \endcond
 }

@@ -58,12 +58,6 @@ namespace ECS {
 
 		void removeAll(Entity *entity);
 	};
-	
-	class ComponentOperationPool: public Pool<ComponentOperation> {
-	protected:
-		ComponentOperation *newObject() override {
-			return new ComponentOperation();
-		}
-	};
+
 /// \endcond
 }

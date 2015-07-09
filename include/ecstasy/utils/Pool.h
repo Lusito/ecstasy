@@ -71,18 +71,11 @@ namespace ECS {
 			clear();
 		}
 
-	protected:
-		/// @return A new object of type T (to be implemented)
-		virtual T* newObject () = 0;
-
 	public:
-		/**
-		 * Returns an object from this pool. The object may be new (from newObject()) or reused (previously
-		 * {@link free() freed}).
-		 */
+		/// @return An object from this pool. The object may be new or reused (previously {@link free() freed}).
 		T* obtain () {
 			if(freeObjects.empty())
-				return newObject();
+				return new T();
 			T* back = freeObjects.back();
 			freeObjects.pop_back();
 			return back;
@@ -114,29 +107,6 @@ namespace ECS {
 		/// @return The number of objects available to be obtained.
 		int getFree () const {
 			return freeObjects.size();
-		}
-	};
-	
-	/**
-	 * A Pool that creates new objects automatically
-	 * 
-	 * @tparam T: The class to be stored.
-     */
-	template <typename T>
-	class ReflectionPool : public Pool<T> {
-	public:
-		/// @copydoc Pool::Pool()
-		ReflectionPool () : Pool<T>() {}
-
-		/// @copydoc Pool::Pool(int)
-		ReflectionPool (int initialCapacity) : Pool<T>(initialCapacity) {}
-
-		/// @copydoc Pool::Pool(int, int)
-		ReflectionPool (int initialCapacity, int max) : Pool<T>(initialCapacity, max) {}
-
-	protected:
-		T* newObject () override {
-			return new T();
 		}
 	};
 }

@@ -27,7 +27,7 @@ namespace ECS {
 		friend class Family;
 		friend class ComponentOperationHandler;
 		friend class Engine;
-		friend class EntityPool;
+		friend class Pool<Entity>;
 	public:
 		/// A flag that can be used to bit mask this entity. Up to the user to manage.
 		uint32_t flags = 0;

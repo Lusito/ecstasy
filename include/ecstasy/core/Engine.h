@@ -42,24 +42,15 @@ namespace ECS {
 	};
 
 	template<typename T>
-	class ComponentPool : public ComponentPoolBase, public ReflectionPool<T> {
+	class ComponentPool : public ComponentPoolBase, public Pool<T> {
 	public:
-		ComponentPool(int initialSize, int maxSize) : ReflectionPool<T>(initialSize, maxSize) {}
+		ComponentPool(int initialSize, int maxSize) : Pool<T>(initialSize, maxSize) {}
 
 		void freeComponent(ComponentBase *object) override {
-			ReflectionPool<T>::free((T*)object);
+			Pool<T>::free((T*)object);
 		}
 	};
 
-	class EntityPool : public Pool<Entity> {
-	public:
-		EntityPool(int initialSize, int maxSize) : Pool<Entity>(initialSize, maxSize) {}
-
-	protected:
-		Entity *newObject() override {
-			return new Entity();
-		}
-	};
 /// \endcond
 
 	/**
@@ -89,7 +80,7 @@ namespace ECS {
 		std::unordered_map<uint64_t, Entity *> entitiesById;
 
 		std::vector<EntityOperation *> entityOperations;
-		EntityOperationPool entityOperationPool;
+		Pool<EntityOperation> entityOperationPool;
 
 		std::vector<EntitySystemBase *> systems;
 		std::vector<EntitySystemBase *> systemsByType;
@@ -105,13 +96,13 @@ namespace ECS {
 		uint64_t nextEntityId = 1;
 
 		// Mechanism to delay component addition/removal to avoid affecting system processing
-		ComponentOperationPool componentOperationsPool;
+		Pool<ComponentOperation> componentOperationsPool;
 		std::vector<ComponentOperation *> componentOperations;
 		ComponentOperationHandler componentOperationHandler;
 
 		int componentPoolInitialSize, componentPoolMaxSize;
 		std::vector<ComponentPoolBase *> componentPoolsByType;
-		EntityPool entityPool;
+		Pool<Entity> entityPool;
 
 	public:
 		/// Will dispatch an event when a component is added.
