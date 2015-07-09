@@ -92,7 +92,7 @@ namespace ECS {
 		EntityOperationPool entityOperationPool;
 
 		std::vector<EntitySystemBase *> systems;
-		std::unordered_map<SystemType, EntitySystemBase *> systemsByType;
+		std::vector<EntitySystemBase *> systemsByType;
 
 		std::unordered_map<const Family *, std::vector<Entity *>> entitiesByFamily;
 
@@ -219,10 +219,10 @@ namespace ECS {
 		 */
 		template<typename T>
 		T *getSystem() const {
-			auto it = systemsByType.find(getSystemType<T>());
-			if(it == systemsByType.end())
+			auto type = getSystemType<T>();
+			if (type >= systemsByType.size())
 				return nullptr;
-			return (T *) it->second;
+			return (T *)systemsByType[type];
 		}
 
 		/**

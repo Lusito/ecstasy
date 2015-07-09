@@ -89,10 +89,13 @@ namespace ECS {
 	void Engine::addSystem(EntitySystemBase *system){
 		auto systemType = system->type;
 
-		auto it = systemsByType.find(systemType);
-		if(it != systemsByType.end())
-			removeSystem(it->second);
-		
+		if (systemType >= systemsByType.size())
+			systemsByType.resize(systemType + 1);
+		else {
+			auto *oldSystem = systemsByType[systemType];
+			if(oldSystem)
+				removeSystem(oldSystem);
+		}
 		systems.push_back(system);
 		systemsByType[systemType] = system;
 		system->addedToEngine(this);
@@ -101,13 +104,16 @@ namespace ECS {
 	}
 
 	void Engine::removeSystem(EntitySystemBase *system){
-		auto it = std::find(systems.begin(), systems.end(), system);
-		if(it != systems.end()) {
-			systems.erase(it);
-			auto it2 = systemsByType.find(system->type);
-			if(it2 != systemsByType.end())
-				systemsByType.erase(it2);
-			system->removedFromEngine(this);
+		if (system->type < systemsByType.size()) {
+			auto *oldSystem = systemsByType[system->type];
+			if(oldSystem) {
+				systemsByType[system->type] = nullptr;
+
+				auto it = std::find(systems.begin(), systems.end(), system);
+				if(it != systems.end())
+					systems.erase(it);
+				system->removedFromEngine(this);
+			}
 		}
 	}
 

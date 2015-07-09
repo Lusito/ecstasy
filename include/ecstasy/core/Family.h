@@ -22,7 +22,7 @@
 namespace ECS {
 	class Entity;
 	
-	typedef uint32_t FamilyType;
+	ECS_UUID_TYPE(FamilyType);
 	
 	class Family;
 
