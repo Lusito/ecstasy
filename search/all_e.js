@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['reflectionpool',['ReflectionPool',['../class_e_c_s_1_1_reflection_pool.html',1,'ECS']]],
-  ['reflectionpool',['ReflectionPool',['../class_e_c_s_1_1_reflection_pool.html#ae8b3d192a37f0da8955333cb562d62af',1,'ECS::ReflectionPool::ReflectionPool()'],['../class_e_c_s_1_1_reflection_pool.html#a57958b5c95c5636466096c4bd79a18ff',1,'ECS::ReflectionPool::ReflectionPool(int initialCapacity)'],['../class_e_c_s_1_1_reflection_pool.html#a526a67381e09a048b88bf52aba26b09e',1,'ECS::ReflectionPool::ReflectionPool(int initialCapacity, int max)']]],
   ['remove',['remove',['../class_e_c_s_1_1_entity.html#a4ec2442c2a4976da5d51da84ef643fe1',1,'ECS::Entity']]],
   ['removeall',['removeAll',['../class_e_c_s_1_1_entity.html#afcb2bd4a8a02763007baebdbd5153435',1,'ECS::Entity']]],
   ['removeallentities',['removeAllEntities',['../class_e_c_s_1_1_engine.html#a4f235696166eabead54bf77b8c94839b',1,'ECS::Engine']]],

@@ -2,6 +2,9 @@ var searchData=
 [
   ['pool',['Pool',['../class_e_c_s_1_1_pool.html',1,'ECS']]],
   ['pool',['Pool',['../class_e_c_s_1_1_pool.html#a75eea47e8365fc1012a0243ff6c4d6bf',1,'ECS::Pool::Pool()'],['../class_e_c_s_1_1_pool.html#a421152973999cfcfb893dad3bf2f6a02',1,'ECS::Pool::Pool(int initialCapacity)'],['../class_e_c_s_1_1_pool.html#a65772e8a842f32aeeb051619326f1ccc',1,'ECS::Pool::Pool(int initialCapacity, int max)']]],
+  ['pool_3c_20componentoperation_20_3e',['Pool&lt; ComponentOperation &gt;',['../class_e_c_s_1_1_pool.html',1,'ECS']]],
+  ['pool_3c_20ecs_3a_3aentity_20_3e',['Pool&lt; ECS::Entity &gt;',['../class_e_c_s_1_1_pool.html',1,'ECS']]],
+  ['pool_3c_20entityoperation_20_3e',['Pool&lt; EntityOperation &gt;',['../class_e_c_s_1_1_pool.html',1,'ECS']]],
   ['poolable',['Poolable',['../class_e_c_s_1_1_poolable.html',1,'ECS']]],
   ['priority',['priority',['../class_e_c_s_1_1_entity_system_base.html#ab77b8f654e570261ac98cc74345d7ee8',1,'ECS::EntitySystemBase']]],
   ['processentity',['processEntity',['../class_e_c_s_1_1_interval_iterating_system.html#a827e4816d8c00c1d2bcb7334edc9e1d5',1,'ECS::IntervalIteratingSystem::processEntity()'],['../class_e_c_s_1_1_iterating_system.html#a438b3be14ffdc0d670e070ab6d8525ec',1,'ECS::IteratingSystem::processEntity()'],['../class_e_c_s_1_1_sorted_iterating_system.html#a11514deb3f943c77b954163ac1f9b16b',1,'ECS::SortedIteratingSystem::processEntity()']]],
