@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="core">
+      <UniqueIdentifier>{4E40957C-3A77-960D-E363-7C10CF79120F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="signals">
+      <UniqueIdentifier>{B66A9C94-224A-1B30-2B62-A60697C08191}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="systems">
+      <UniqueIdentifier>{3D76CBBA-A955-4A56-B26D-D52C1ECCB0B7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{169C8510-82B0-ADC1-4B32-5121B705AAF2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\tests\TestBase.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\tests\MainTest.cpp" />
+    <ClCompile Include="..\..\tests\core\ComponentTypeTests.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tests\core\EngineTests.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tests\core\EntityListenerTests.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tests\core\EntityTests.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tests\core\FamilyTests.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tests\core\PooledEngineTests.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tests\signals\SignalTests.cpp">
+      <Filter>signals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tests\systems\IntervalIteratingSystemTests.cpp">
+      <Filter>systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tests\systems\IntervalSystemTests.cpp">
+      <Filter>systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tests\systems\IteratingSystemTests.cpp">
+      <Filter>systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tests\systems\SortedIteratingSystemTests.cpp">
+      <Filter>systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tests\utils\BitsTests.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

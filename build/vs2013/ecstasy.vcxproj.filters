@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{89AF369E-F58E-B539-FEA6-40106A051C9B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ecstasy">
+      <UniqueIdentifier>{14362F8A-80C1-9C4E-89D2-1F43F5DCF84E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ecstasy\core">
+      <UniqueIdentifier>{0CD35268-F861-DC31-A180-F02C8DEEECD7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ecstasy\systems">
+      <UniqueIdentifier>{3BF8DFB9-A72F-2851-B039-8C741CF04E4A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ecstasy\utils">
+      <UniqueIdentifier>{9486F573-00F3-B06E-C9E6-48CC3512D3D6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\signal11">
+      <UniqueIdentifier>{F867226D-E460-41BF-0D93-2644F9EA20CB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{76FF3A1C-62A1-65F2-4B5C-7946379DEC42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\core">
+      <UniqueIdentifier>{AEC9BDBA-1A7F-36B0-A373-30870F282DB4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\utils">
+      <UniqueIdentifier>{7651BF13-62B4-4EB8-0B3A-876EF77B1A3B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\ecstasy\core\Component.h">
+      <Filter>include\ecstasy\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ecstasy\core\ComponentOperations.h">
+      <Filter>include\ecstasy\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ecstasy\core\Engine.h">
+      <Filter>include\ecstasy\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ecstasy\core\Entity.h">
+      <Filter>include\ecstasy\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ecstasy\core\EntityOperations.h">
+      <Filter>include\ecstasy\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ecstasy\core\EntitySystem.h">
+      <Filter>include\ecstasy\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ecstasy\core\Family.h">
+      <Filter>include\ecstasy\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ecstasy\core\Types.h">
+      <Filter>include\ecstasy\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ecstasy\systems\IntervalIteratingSystem.h">
+      <Filter>include\ecstasy\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ecstasy\systems\IntervalSystem.h">
+      <Filter>include\ecstasy\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ecstasy\systems\IteratingSystem.h">
+      <Filter>include\ecstasy\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ecstasy\systems\SortedIteratingSystem.h">
+      <Filter>include\ecstasy\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ecstasy\utils\Bits.h">
+      <Filter>include\ecstasy\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ecstasy\utils\Pool.h">
+      <Filter>include\ecstasy\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\signal11\Signal.h">
+      <Filter>include\signal11</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\source\core\ComponentOperations.cpp">
+      <Filter>source\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\Engine.cpp">
+      <Filter>source\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\Entity.cpp">
+      <Filter>source\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\Family.cpp">
+      <Filter>source\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\utils\Bits.cpp">
+      <Filter>source\utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

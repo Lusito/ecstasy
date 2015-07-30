@@ -28,3 +28,5 @@
 *.pdf binary
 *.zip binary
 *.expected binary
+premake5 binary
+premake5.exe binary

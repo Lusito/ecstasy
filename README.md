@@ -1,18 +1,20 @@
-# ECS-tasy
-[Ashley](http://github.com/libgdx/ashley/) on ~~Speed~~ C++.
+![](http://lusito.github.io/ECS-tasy/ecstasy.png)
 
-Note: There is no release version yet, so check out the [develop branch](https://github.com/Lusito/ECS-tasy/tree/develop) for now.
+[![Build Status](https://travis-ci.org/Lusito/ECS-tasy.svg)](https://travis-ci.org/Lusito/ECS-tasy)
 
-## About
-A tiny entity framework written in C++. It started as a port of the ECS [Ashley](http://github.com/libgdx/ashley/)
+A tiny entity framework written in C++. It started as a port of the [Entity Component System](http://www.gamedev.net/page/resources/_/technical/game-programming/understanding-component-entity-systems-r3013) [Ashley](http://github.com/libgdx/ashley/)
 from LibGDX but is not from the same Authors. ECS-tasy tries to be a high-performance
 entity framework  without the use of black-magic and thus making the API easy
 and transparent to use.
 
+We're now running automated unit tests on [Travis-CI](https://travis-ci.org/)
+
 ### Get started
 
-* [Read the Ashley wiki](https://github.com/libgdx/ashley/wiki)
-* Our own Wiki and more are about to come.
+* [Find out how an ECS works](http://www.gamedev.net/page/resources/_/technical/game-programming/understanding-component-entity-systems-r3013)
+* [Read the wiki](https://github.com/Lusito/ECS-tasy/wiki)
+* [Refer to the doxygen documentation](http://lusito.github.io/ECS-tasy/annotated.html)
+* [Read the examples](https://github.com/Lusito/ECS-tasy/tree/develop/tests)
 
 ### Report isssues
 
