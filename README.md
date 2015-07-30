@@ -1,5 +1,7 @@
 ![](http://lusito.github.io/ECS-tasy/ecstasy.png)
 
+[![Build Status](https://travis-ci.org/Lusito/ECS-tasy.svg?branch=develop)](https://travis-ci.org/Lusito/ECS-tasy)
+
 A tiny entity framework written in C++. It started as a port of the [Entity Component System](http://www.gamedev.net/page/resources/_/technical/game-programming/understanding-component-entity-systems-r3013) [Ashley](http://github.com/libgdx/ashley/)
 from LibGDX but is not from the same Authors. ECS-tasy tries to be a high-performance
 entity framework  without the use of black-magic and thus making the API easy
