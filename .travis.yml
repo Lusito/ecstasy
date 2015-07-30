@@ -1,7 +1,8 @@
+language: C++
 os:
   - linux
 
-script
+script:
   - cd build
   - premake/premake5 gmake
   - cd gmake
