@@ -10,7 +10,8 @@ end
 -- Check for supported action
 isNetbeans = _ACTION == "netbeans"
 isVisualStudio = _ACTION == "vs2013"
-if not isNetbeans and not isVisualStudio then
+isGMake = _ACTION == "gmake"
+if not isNetbeans and not isVisualStudio and not isGMake then
 	printf("Error: %s is not supported yet", _ACTION)
 	return
 end
@@ -41,6 +42,8 @@ if isLinux and isNetbeans then
 else
 	location (buildDir)
 end
+
+flags {"C++11"}
 
 filter { "system:windows" }
 	defines { "WIN32" }
