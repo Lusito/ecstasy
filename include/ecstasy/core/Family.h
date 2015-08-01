@@ -182,3 +182,7 @@ namespace ECS {
 		}
 	};
 }
+
+#ifdef USING_ECSTASY
+	using ECS::Family;
+#endif

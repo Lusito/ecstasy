@@ -96,3 +96,8 @@ namespace ECS {
 		explicit EntitySystem (int priority=0) : EntitySystemBase(getSystemType<T>(), priority) {}
 	};
 }
+
+#ifdef USING_ECSTASY
+	using ECS::EntitySystemBase;
+	using ECS::EntitySystem;
+#endif

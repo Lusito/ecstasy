@@ -5,7 +5,8 @@
 #include <ecstasy/core/Engine.h>
 #include <ecstasy/core/Component.h>
 
-using namespace ECS;
+using ECS::Bits;
+using ECS::getComponentType;
 
 template<typename T>
 class Allocator {

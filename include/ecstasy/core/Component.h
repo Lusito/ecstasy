@@ -41,3 +41,8 @@ namespace ECS {
 		Component() :ComponentBase(getComponentType<T>()) {}
 	};
 }
+
+#ifdef USING_ECSTASY
+	using ECS::ComponentBase;
+	using ECS::Component;
+#endif

@@ -89,6 +89,7 @@ solution "ECS-tasy"
 		kind "ConsoleApp"
 		language "C++"
 		objdir( objectDir .. "/Test" )
+		defines { "USING_ECSTASY", "USING_SIGNAL11"}
 		includedirs {
 			includeDir
 		}

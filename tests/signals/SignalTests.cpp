@@ -19,7 +19,6 @@
 #include <stdio.h>
 
 namespace SignalTests {
-	using namespace Signal11;
 	class Dummy {
 
 	};

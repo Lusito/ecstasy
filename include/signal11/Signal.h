@@ -670,3 +670,13 @@ namespace Signal11 {
 	};
 
 } // Signal11
+
+#ifdef USING_SIGNAL11
+	using Signal11::ConnectionRef;
+	using Signal11::ScopedConnectionRef;
+	using Signal11::ConnectionScope;
+	using Signal11::Signal;
+	using Signal11::CollectorUntil0;
+	using Signal11::CollectorWhile0;
+	using Signal11::CollectorVector;
+#endif

@@ -287,3 +287,7 @@ namespace ECS {
 		}
 	};
 }
+
+#ifdef USING_ECSTASY
+	using ECS::Engine;
+#endif

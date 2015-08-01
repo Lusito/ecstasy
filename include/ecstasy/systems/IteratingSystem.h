@@ -74,3 +74,7 @@ namespace ECS {
 		virtual void processEntity(Entity *entity, float deltaTime) = 0;
 	};
 }
+
+#ifdef USING_ECSTASY
+	using ECS::IteratingSystem;
+#endif

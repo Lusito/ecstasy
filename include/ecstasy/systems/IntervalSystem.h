@@ -54,3 +54,7 @@ namespace ECS {
 		virtual void updateInterval() = 0;
 	};
 }
+
+#ifdef USING_ECSTASY
+	using ECS::IntervalSystem;
+#endif

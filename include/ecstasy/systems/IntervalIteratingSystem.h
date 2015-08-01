@@ -73,3 +73,7 @@ namespace ECS {
 		virtual void processEntity(Entity *entity) = 0;
 	};
 }
+
+#ifdef USING_ECSTASY
+	using ECS::IntervalIteratingSystem;
+#endif

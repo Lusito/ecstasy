@@ -143,3 +143,7 @@ namespace ECS {
 		}
 	};
 }
+
+#ifdef USING_ECSTASY
+	using ECS::Entity;
+#endif
