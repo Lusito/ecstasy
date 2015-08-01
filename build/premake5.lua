@@ -1,5 +1,4 @@
-dofile "premake/actions/netbeans5/_netbeans.lua"
-dofile "premake/actions/netbeans5/netbeans_cpp.lua"
+require('netbeans')
 
 -- Prevent from script error when no action is given
 if not _ACTION then
@@ -37,13 +36,14 @@ buildDir		= (_ACTION)
 
 -- [start] Settings that are true for all projects
 configurations { "Debug", "Release" }
+
 if isLinux and isNetbeans then
-	location ("netbeans-linux")
+    location ("netbeans-linux")
 else
-	location (buildDir)
+    location (buildDir)
 end
 
-flags {"C++11"}
+flags {"C++11", "nbProjectFolder"}
 
 filter { "system:windows" }
 	defines { "WIN32" }
