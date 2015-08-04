@@ -20,9 +20,8 @@ namespace ECS {
 	bool compareSystems(EntitySystemBase *a, EntitySystemBase *b) {
 		return a->priority < b->priority;
 	}
-	Engine:: Engine(int entityPoolInitialSize, int entityPoolMaxSize, int componentPoolInitialSize, int componentPoolMaxSize)
-		: componentOperationHandler(*this), entityPool(entityPoolInitialSize, entityPoolMaxSize),
-		componentPoolInitialSize(componentPoolInitialSize), componentPoolMaxSize(componentPoolMaxSize) {
+	Engine:: Engine(int entityPoolInitialSize, int entityPoolMaxSize)
+		: componentOperationHandler(*this), entityPool(entityPoolInitialSize, entityPoolMaxSize) {
 		componentAdded.connect(this, &Engine::onComponentChange);
 		componentRemoved.connect(this, &Engine::onComponentChange);
 	}
@@ -298,17 +297,10 @@ namespace ECS {
 	}
 
 	void Engine::free(ComponentBase *component) {
-		auto pool = componentPoolsByType[component->type];
-		if (pool)
-			pool->freeComponent(component);
+		delete component;
 	}
 
 	void Engine::clearPools() {
 		entityPool.clear();
-		for (auto pool : componentPoolsByType){
-			if (pool)
-				delete pool;
-		}
-		componentPoolsByType.clear();
 	}
 }

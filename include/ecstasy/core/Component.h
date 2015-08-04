@@ -19,11 +19,10 @@
 
 namespace ECS {
 	/// Non-Template base-class for Component. Extend Component instead.
-	struct ComponentBase: public Poolable {
+	struct ComponentBase {
 		/// The unique identifier of this Component's class
 		const ComponentType type;
 		virtual ~ComponentBase() {}
-		void reset() override {}
 
 	private:
 		template<typename T> friend struct Component;

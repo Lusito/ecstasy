@@ -58,6 +58,18 @@ namespace ECS {
 		/// @return true if the entity is scheduled to be removed
 		bool isScheduledForRemoval () const { return scheduledForRemoval; }
 
+
+		/**
+		 * Assign a Component to an Entity, passing through Component constructor arguments.
+		 * 
+		 * @return The Entity for easy chaining
+		 */
+		template <typename T, typename ... Args>
+		Entity &assign(Args && ... args) {
+			add(engine->createComponent<T>(std::forward<Args>(args) ...));
+			return *this;
+		}
+
 		/**
 		 * Adds a Component to this Entity. If a Component of the same type already exists, it'll be replaced.
 		 * 

@@ -63,8 +63,7 @@ namespace ECS {
 
 			engine->componentRemoved.emit(this, component);
 			
-			auto pool = engine->componentPoolsByType[type];
-			pool->freeComponent(component);
+			engine->free(component);
 		}
 		return component;
 	}

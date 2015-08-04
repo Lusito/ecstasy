@@ -19,10 +19,6 @@ namespace PooledEngineTests {
 	struct PositionComponent : public Component<PositionComponent> {
 		float x = 0.0f;
 		float y = 0.0f;
-
-		void reset() override {
-			x = y = 0;
-		}
 	};
 
 	class CombinedSystem : public EntitySystem<CombinedSystem> {
@@ -72,15 +68,6 @@ namespace PooledEngineTests {
 			}
 		}
 	};
-
-	struct ComponentSpy : public Component<ComponentSpy> {
-		bool recycled = false;
-
-		void reset() override {
-			recycled = true;
-		}
-	};
-
 
 	TEST_CASE("entityRemovalListenerOrder") {
 		Engine engine;
@@ -155,7 +142,7 @@ namespace PooledEngineTests {
 
 
 	TEST_CASE("recycleEntity") {
-		Engine engine(10, 200, 10, 200);
+		Engine engine(10, 200);
 
 		int numEntities = 200;
 		std::vector<Entity *> entities;
@@ -192,37 +179,5 @@ namespace PooledEngineTests {
 
 		for (int j = 0; j < 2; j++)
 			engine.update(0);
-	}
-
-
-	TEST_CASE("recycleComponent") {
-		int maxEntities = 10;
-		int maxComponents = 10;
-		Engine engine(maxEntities, maxEntities, maxComponents, maxComponents);
-
-		for (int i = 0; i < maxComponents; ++i) {
-			auto *e = engine.createEntity();
-			auto *c = engine.createComponent<ComponentSpy>();
-
-			REQUIRE(!c->recycled);
-
-			e->add(c);
-
-			engine.addEntity(e);
-		}
-
-		engine.removeAllEntities();
-
-		for (int i = 0; i < maxComponents; ++i) {
-			auto *e = engine.createEntity();
-			engine.addEntity(e);
-			auto *c = engine.createComponent<ComponentSpy>();
-
-			REQUIRE(c->recycled);
-
-			e->add(c);
-		}
-
-		engine.removeAllEntities();
 	}
 }

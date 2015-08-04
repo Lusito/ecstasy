@@ -33,30 +33,10 @@ namespace ECS {
 	/// Signal11::Signal for Entity signals
 	typedef Signal11::Signal<void(Entity *)> EntitySignal;
 
-	
-/// \cond HIDDEN_SYMBOLS
-	class ComponentPoolBase {
-	public:
-		virtual ~ComponentPoolBase() {}
-		virtual void freeComponent(ComponentBase *object) = 0;
-	};
-
-	template<typename T>
-	class ComponentPool : public ComponentPoolBase, public Pool<T> {
-	public:
-		ComponentPool(int initialSize, int maxSize) : Pool<T>(initialSize, maxSize) {}
-
-		void freeComponent(ComponentBase *object) override {
-			Pool<T>::free((T*)object);
-		}
-	};
-
-/// \endcond
-
 	/**
 	 * The heart of the Entity framework. It is responsible for keeping track of Entity and
 	 * managing EntitySystem objects. The Engine should be updated every tick via the update(float) method.
-	 * Supports Entity and Component pooling. This improves performance in environments where creating/deleting
+	 * Supports Entity pooling. This improves performance in environments where creating/deleting
 	 * entities is frequent as it greatly reduces memory allocation.
 	 *
 	 * With the Engine you can:
@@ -100,8 +80,6 @@ namespace ECS {
 		std::vector<ComponentOperation *> componentOperations;
 		ComponentOperationHandler componentOperationHandler;
 
-		int componentPoolInitialSize, componentPoolMaxSize;
-		std::vector<ComponentPoolBase *> componentPoolsByType;
 		Pool<Entity> entityPool;
 
 	public:
@@ -120,10 +98,8 @@ namespace ECS {
 		 * 
 		 * @param entityPoolInitialSize initial number of pre-allocated entities.
 		 * @param entityPoolMaxSize maximum number of pooled entities.
-		 * @param componentPoolInitialSize initial size for each component type pool.
-		 * @param componentPoolMaxSize maximum size for each component type pool.
 		 */
-		Engine (int entityPoolInitialSize = 10, int entityPoolMaxSize = 100, int componentPoolInitialSize = 10, int componentPoolMaxSize = 100);
+		Engine (int entityPoolInitialSize = 10, int entityPoolMaxSize = 100);
 
 		virtual ~Engine() {
 			processComponentOperations();
@@ -141,9 +117,9 @@ namespace ECS {
 		 * 
 		 * @tparam T The Component class
 		 */
-		template<typename T>
-		T *createComponent() {
-			return getOrCreateComponentPool<T>()->obtain();
+		template <typename T, typename ... Args>
+		T *createComponent(Args && ... args) {
+			return new T(std::forward<Args>(args) ...);
 		}
 		
 		/**
@@ -154,7 +130,7 @@ namespace ECS {
 		void free(ComponentBase *component);
 
 		/**
-		 * Removes all free entities and components from their pools to free up memory.
+		 * Removes all free entities from the pool to free up memory.
 		 */
 		void clearPools();
 
@@ -272,19 +248,6 @@ namespace ECS {
 		void processPendingEntityOperations();
 
 		void processComponentOperations();
-		
-		template<typename T>
-		ComponentPool<T> *getOrCreateComponentPool() {
-			auto type = getComponentType<T>();
-			if (type >= componentPoolsByType.size())
-				componentPoolsByType.resize(type + 1);
-			auto *pool = (ComponentPool<T> *)componentPoolsByType[type];
-			if (!pool) {
-				pool = new ComponentPool<T>(componentPoolInitialSize, componentPoolMaxSize);
-				componentPoolsByType[type] = pool;
-			}
-			return pool;
-		}
 	};
 }
 
