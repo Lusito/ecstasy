@@ -21,12 +21,12 @@ namespace ECS {
 	
 	/**
 	 * Non-Template base-class for EntitySystem. Extend EntitySystem instead.
-	 * 
-	 * @todo: add Engine pointer
 	 */
 	class EntitySystemBase {
 	private:
+		friend class Engine;
 		bool processing = true;
+		Engine *engine = nullptr;
 
 	public:
 		/// The unique identifier of this EntitySystem's class
@@ -61,9 +61,10 @@ namespace ECS {
 		virtual void setProcessing(bool processing) {
 			this->processing = processing;
 		}
+		
+		Engine *getEngine() { return engine; }
 
 	protected:
-		friend class Engine;
 		
 		/**
 		 * Called when this EntitySystem is added to an Engine.

@@ -98,6 +98,7 @@ namespace ECS {
 		}
 		systems.push_back(system);
 		systemsByType[systemType] = system;
+		system->engine = this;
 		system->addedToEngine(this);
 
 		std::sort(systems.begin(), systems.end(), compareSystems);
@@ -113,6 +114,7 @@ namespace ECS {
 				if(it != systems.end())
 					systems.erase(it);
 				system->removedFromEngine(this);
+				system->engine = nullptr;
 			}
 		}
 	}
