@@ -112,6 +112,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:acd35d9879555e89d341ac121f2d05c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1a891d760b6f777fc941a6761e7da10"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity.html#ac1a891d760b6f777fc941a6761e7da10">isScheduledForRemoval</a> () const </td></tr>
 <tr class="separator:ac1a891d760b6f777fc941a6761e7da10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6566ff8757f9694c58a725b476e58495"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... Args&gt; </td></tr>
+<tr class="memitem:a6566ff8757f9694c58a725b476e58495"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity.html#a6566ff8757f9694c58a725b476e58495">assign</a> (Args &amp;&amp;...args)</td></tr>
+<tr class="separator:a6566ff8757f9694c58a725b476e58495"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a413082ee8957c31faa88f5229b744710"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity.html#a413082ee8957c31faa88f5229b744710">add</a> (<a class="el" href="struct_e_c_s_1_1_component_base.html">ComponentBase</a> *component)</td></tr>
 <tr class="separator:a413082ee8957c31faa88f5229b744710"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ec2442c2a4976da5d51da84ef643fe1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
@@ -192,6 +195,34 @@ Inheritance diagram for ECS::Entity:</div>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> for easy chaining </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6566ff8757f9694c58a725b476e58495"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_e_c_s_1_1_entity.html">Entity</a>&amp; ECS::Entity::assign </td>
+          <td>(</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Assign a <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> to an <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a>, passing through <a class="el" href="struct_e_c_s_1_1_component.html">Component</a> constructor arguments.</p>
 <dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_e_c_s_1_1_entity.html">Entity</a> for easy chaining </dd></dl>
 
 </div>

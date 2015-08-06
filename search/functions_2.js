@@ -5,6 +5,6 @@ var searchData=
   ['clearpools',['clearPools',['../class_e_c_s_1_1_engine.html#a4b59dc09da24d84e122545788f5cd4b6',1,'ECS::Engine']]],
   ['connect',['connect',['../class_signal11_1_1_lib_1_1_proto_signal_3_01_r_07_args_8_8_8_08_00_01_collector_01_4.html#a0b46aaad8e3d4e3948732bac2ed6920c',1,'Signal11::Lib::ProtoSignal&lt; R(Args...), Collector &gt;']]],
   ['containsall',['containsAll',['../class_e_c_s_1_1_bits.html#a757edb22bdd80450849510364da2479e',1,'ECS::Bits']]],
-  ['createcomponent',['createComponent',['../class_e_c_s_1_1_engine.html#ad7016eef9d09af7e8af1dd437aa8b767',1,'ECS::Engine']]],
+  ['createcomponent',['createComponent',['../class_e_c_s_1_1_component_allocator.html#a7dac95ee313414550a54bbbef2171222',1,'ECS::ComponentAllocator']]],
   ['createentity',['createEntity',['../class_e_c_s_1_1_engine.html#af98c25ea23b91bba762b287c219756b1',1,'ECS::Engine']]]
 ];

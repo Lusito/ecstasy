@@ -730,6 +730,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;    };</div>
 <div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;</div>
 <div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;} <span class="comment">// Signal11</span></div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;</div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;<span class="preprocessor">#ifdef USING_SIGNAL11</span></div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;    <span class="keyword">using</span> <a class="code" href="class_signal11_1_1_connection_ref.html">Signal11::ConnectionRef</a>;</div>
+<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;    <span class="keyword">using</span> <a class="code" href="class_signal11_1_1_scoped_connection_ref.html">Signal11::ScopedConnectionRef</a>;</div>
+<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;    <span class="keyword">using</span> <a class="code" href="class_signal11_1_1_connection_scope.html">Signal11::ConnectionScope</a>;</div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;    <span class="keyword">using</span> <a class="code" href="struct_signal11_1_1_signal.html">Signal11::Signal</a>;</div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;    <span class="keyword">using</span> <a class="code" href="struct_signal11_1_1_collector_until0.html">Signal11::CollectorUntil0</a>;</div>
+<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;    <span class="keyword">using</span> <a class="code" href="struct_signal11_1_1_collector_while0.html">Signal11::CollectorWhile0</a>;</div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;    <span class="keyword">using</span> <a class="code" href="struct_signal11_1_1_collector_vector.html">Signal11::CollectorVector</a>;</div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="class_signal11_1_1_scoped_connection_ref_html"><div class="ttname"><a href="class_signal11_1_1_scoped_connection_ref.html">Signal11::ScopedConnectionRef</a></div><div class="ttdef"><b>Definition:</b> Signal.h:176</div></div>
 <div class="ttc" id="class_signal11_1_1_connection_ref_html"><div class="ttname"><a href="class_signal11_1_1_connection_ref.html">Signal11::ConnectionRef</a></div><div class="ttdef"><b>Definition:</b> Signal.h:108</div></div>
 <div class="ttc" id="class_signal11_1_1_lib_1_1_proto_signal_3_01_r_07_args_8_8_8_08_00_01_collector_01_4_html_a0b46aaad8e3d4e3948732bac2ed6920c"><div class="ttname"><a href="class_signal11_1_1_lib_1_1_proto_signal_3_01_r_07_args_8_8_8_08_00_01_collector_01_4.html#a0b46aaad8e3d4e3948732bac2ed6920c">Signal11::Lib::ProtoSignal&lt; R(Args...), Collector &gt;::connect</a></div><div class="ttdeci">ConnectionRef connect(const CallbackFunction &amp;callback)</div><div class="ttdoc">Operator to add a new function or lambda as signal handler, returns a handler connection ID...</div><div class="ttdef"><b>Definition:</b> Signal.h:490</div></div>

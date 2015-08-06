@@ -131,7 +131,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="class_e_c_s_1_1_engine.html#a0a5508b5085e8679a8662a87b7182895">ECS::Engine</a>
 </li>
 <li>addSystem()
-: <a class="el" href="class_e_c_s_1_1_engine.html#a284967d4ca85b68bbf081881984f846e">ECS::Engine</a>
+: <a class="el" href="class_e_c_s_1_1_engine.html#a9da5222a44d209b40e21b98c41cbd54e">ECS::Engine</a>
 </li>
 <li>all()
 : <a class="el" href="class_e_c_s_1_1_family.html#a0cb17b675ac5b7cab487c0c6ef9e39fa">ECS::Family</a>
@@ -139,6 +139,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>andNot()
 : <a class="el" href="class_e_c_s_1_1_bits.html#ae5d4784350170ff21ad32bfcf9b2c93f">ECS::Bits</a>
+</li>
+<li>assign()
+: <a class="el" href="class_e_c_s_1_1_entity.html#a6566ff8757f9694c58a725b476e58495">ECS::Entity</a>
 </li>
 </ul>
 
@@ -168,7 +171,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="class_e_c_s_1_1_bits.html#a757edb22bdd80450849510364da2479e">ECS::Bits</a>
 </li>
 <li>createComponent()
-: <a class="el" href="class_e_c_s_1_1_engine.html#ad7016eef9d09af7e8af1dd437aa8b767">ECS::Engine</a>
+: <a class="el" href="class_e_c_s_1_1_component_allocator.html#a7dac95ee313414550a54bbbef2171222">ECS::ComponentAllocator</a>
 </li>
 <li>createEntity()
 : <a class="el" href="class_e_c_s_1_1_engine.html#af98c25ea23b91bba762b287c219756b1">ECS::Engine</a>
@@ -188,7 +191,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="class_signal11_1_1_lib_1_1_proto_signal_3_01_r_07_args_8_8_8_08_00_01_collector_01_4.html#a5eeb8b0989c792a3dab8eeec84e68191">Signal11::Lib::ProtoSignal&lt; R(Args...), Collector &gt;</a>
 </li>
 <li>Engine()
-: <a class="el" href="class_e_c_s_1_1_engine.html#a313454306844e70c2c6a13eae6847b75">ECS::Engine</a>
+: <a class="el" href="class_e_c_s_1_1_engine.html#ae89aa58e4af37faf6f6bf28a8aefd8bf">ECS::Engine</a>
 </li>
 <li>EntitySystem()
 : <a class="el" href="class_e_c_s_1_1_entity_system.html#ad9cc43b6e4cc65ff3defb715aa24cfe8">ECS::EntitySystem&lt; T &gt;</a>
@@ -208,8 +211,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="class_e_c_s_1_1_sorted_iterating_system.html#a4fe87421353dbb5d6ddc2b3422fb51b9">ECS::SortedIteratingSystem&lt; T, C &gt;</a>
 </li>
 <li>free()
-: <a class="el" href="class_e_c_s_1_1_engine.html#a5b8b1de4a6db39aa8f32b59e1d0a6e2c">ECS::Engine</a>
-, <a class="el" href="class_e_c_s_1_1_pool.html#ab103790322a2559c807778735d710d09">ECS::Pool&lt; T &gt;</a>
+: <a class="el" href="class_e_c_s_1_1_pool.html#ab103790322a2559c807778735d710d09">ECS::Pool&lt; T &gt;</a>
+</li>
+<li>freeComponent()
+: <a class="el" href="class_e_c_s_1_1_component_allocator.html#a56265390721406b0eca11c74a700f803">ECS::ComponentAllocator</a>
 </li>
 </ul>
 
@@ -263,6 +268,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>getId()
 : <a class="el" href="class_e_c_s_1_1_entity.html#a30a94dd4a7ab262c69ed96af65f42a76">ECS::Entity</a>
+</li>
+<li>getPriority()
+: <a class="el" href="class_e_c_s_1_1_entity_system_base.html#a5d1a866b077cb8e03c2553375c2d2158">ECS::EntitySystemBase</a>
 </li>
 <li>getStringId()
 : <a class="el" href="class_e_c_s_1_1_bits.html#a56c4e0160e27eeb597e4325c1e8f730b">ECS::Bits</a>
@@ -390,6 +398,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>removeAllEntities()
 : <a class="el" href="class_e_c_s_1_1_engine.html#a4f235696166eabead54bf77b8c94839b">ECS::Engine</a>
 </li>
+<li>removeAllSystems()
+: <a class="el" href="class_e_c_s_1_1_engine.html#a136ae63175f8793a63bb4cf6ad1350a4">ECS::Engine</a>
+</li>
 <li>removedFromEngine()
 : <a class="el" href="class_e_c_s_1_1_entity_system_base.html#a72952e4e46d05d0efa5cedf5c9854abe">ECS::EntitySystemBase</a>
 , <a class="el" href="class_e_c_s_1_1_sorted_iterating_system.html#a52ee853e67791c191f5ca1278bd872fe">ECS::SortedIteratingSystem&lt; T, C &gt;</a>
@@ -398,11 +409,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="class_e_c_s_1_1_engine.html#a652c0ef9ff8f4be9a523d640a5f0d693">ECS::Engine</a>
 </li>
 <li>removeSystem()
-: <a class="el" href="class_e_c_s_1_1_engine.html#a03390803ef39fd3bbca7e4b941960945">ECS::Engine</a>
+: <a class="el" href="class_e_c_s_1_1_engine.html#af164abab02239ca47299d7ffa5d03120">ECS::Engine</a>
 </li>
 <li>reset()
-: <a class="el" href="struct_e_c_s_1_1_component_base.html#a15cf201ea0c6dfbbd0ce6713b907a4c8">ECS::ComponentBase</a>
-, <a class="el" href="class_e_c_s_1_1_entity.html#a1772f318556ef4ff5b1303b0ca3b00cb">ECS::Entity</a>
+: <a class="el" href="class_e_c_s_1_1_entity.html#a1772f318556ef4ff5b1303b0ca3b00cb">ECS::Entity</a>
 , <a class="el" href="class_e_c_s_1_1_family_builder.html#ac1db9855f44deb94852c13c074a3d3fb">ECS::FamilyBuilder</a>
 , <a class="el" href="class_e_c_s_1_1_poolable.html#ad4ff4529abba64bd3ffad170ebf0fc7c">ECS::Poolable</a>
 </li>
@@ -413,6 +423,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>set()
 : <a class="el" href="class_e_c_s_1_1_bits.html#ac4763630ca74b620a18d1ef63ab2bedd">ECS::Bits</a>
 </li>
+<li>setPriority()
+: <a class="el" href="class_e_c_s_1_1_entity_system_base.html#a404d253673ae8ee82fde9ba2d34ed72e">ECS::EntitySystemBase</a>
+</li>
 <li>setProcessing()
 : <a class="el" href="class_e_c_s_1_1_entity_system_base.html#a73438f48e58e8f28469ca16239cede98">ECS::EntitySystemBase</a>
 </li>
@@ -421,6 +434,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>SortedIteratingSystem()
 : <a class="el" href="class_e_c_s_1_1_sorted_iterating_system.html#acebbb8c732495099dd515e81c636742a">ECS::SortedIteratingSystem&lt; T, C &gt;</a>
+</li>
+<li>sortSystems()
+: <a class="el" href="class_e_c_s_1_1_engine.html#a3d6ee9b4e021aeae10e37a9ecabc2c83">ECS::Engine</a>
 </li>
 </ul>
 

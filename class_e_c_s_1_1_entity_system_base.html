@@ -111,6 +111,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a87b50c8e937b81aa00aa995f58271e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73438f48e58e8f28469ca16239cede98"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#a73438f48e58e8f28469ca16239cede98">setProcessing</a> (bool processing)</td></tr>
 <tr class="separator:a73438f48e58e8f28469ca16239cede98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d1a866b077cb8e03c2553375c2d2158"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#a5d1a866b077cb8e03c2553375c2d2158">getPriority</a> ()</td></tr>
+<tr class="separator:a5d1a866b077cb8e03c2553375c2d2158"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a404d253673ae8ee82fde9ba2d34ed72e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#a404d253673ae8ee82fde9ba2d34ed72e">setPriority</a> (int priority)</td></tr>
+<tr class="separator:a404d253673ae8ee82fde9ba2d34ed72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94f13f19c3fb209d764d4dfa9ce91908"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a94f13f19c3fb209d764d4dfa9ce91908"></a>
+<a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getEngine</b> ()</td></tr>
+<tr class="separator:a94f13f19c3fb209d764d4dfa9ce91908"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -118,10 +125,6 @@ Public Attributes</h2></td></tr>
 const SystemType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#aae2e6f5c57b0fe237cc1d96ee9addb3b">type</a></td></tr>
 <tr class="memdesc:aae2e6f5c57b0fe237cc1d96ee9addb3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unique identifier of this <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>'s class. <br /></td></tr>
 <tr class="separator:aae2e6f5c57b0fe237cc1d96ee9addb3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab77b8f654e570261ac98cc74345d7ee8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab77b8f654e570261ac98cc74345d7ee8"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_c_s_1_1_entity_system_base.html#ab77b8f654e570261ac98cc74345d7ee8">priority</a></td></tr>
-<tr class="memdesc:ab77b8f654e570261ac98cc74345d7ee8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use this to set the priority of the system. Lower means it'll get executed first. <br /></td></tr>
-<tr class="separator:ab77b8f654e570261ac98cc74345d7ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -132,17 +135,16 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
+<tr class="memitem:a3e1914489e4bed4f9f23cdeab34a43dc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e1914489e4bed4f9f23cdeab34a43dc"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Engine</b></td></tr>
+<tr class="separator:a3e1914489e4bed4f9f23cdeab34a43dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96541073b86d0b90df0436c423f1e9b1"><td class="memTemplParams" colspan="2"><a class="anchor" id="a96541073b86d0b90df0436c423f1e9b1"></a>
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a96541073b86d0b90df0436c423f1e9b1"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><b>EntitySystem</b></td></tr>
 <tr class="separator:a96541073b86d0b90df0436c423f1e9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e1914489e4bed4f9f23cdeab34a43dc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e1914489e4bed4f9f23cdeab34a43dc"></a>
-class&#160;</td><td class="memItemRight" valign="bottom"><b>Engine</b></td></tr>
-<tr class="separator:a3e1914489e4bed4f9f23cdeab34a43dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Non-Template base-class for <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>. Extend <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> instead.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>: add <a class="el" href="class_e_c_s_1_1_engine.html">Engine</a> pointer </dd></dl>
+<div class="textblock"><p>Non-Template base-class for <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a>. Extend <a class="el" href="class_e_c_s_1_1_entity_system.html">EntitySystem</a> instead. </p>
 </div><div class="dynheader">
 Inheritance diagram for ECS::EntitySystemBase:</div>
 <div class="dyncontent">
@@ -214,6 +216,30 @@ Inheritance diagram for ECS::EntitySystemBase:</div>
 
 </div>
 </div>
+<a class="anchor" id="a5d1a866b077cb8e03c2553375c2d2158"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int ECS::EntitySystemBase::getPriority </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The priority of the system </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a72952e4e46d05d0efa5cedf5c9854abe"></a>
 <div class="memitem">
 <div class="memproto">
@@ -244,6 +270,37 @@ Inheritance diagram for ECS::EntitySystemBase:</div>
 </dl>
 
 <p>Reimplemented in <a class="el" href="class_e_c_s_1_1_sorted_iterating_system.html#a52ee853e67791c191f5ca1278bd872fe">ECS::SortedIteratingSystem&lt; T, C &gt;</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a404d253673ae8ee82fde9ba2d34ed72e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ECS::EntitySystemBase::setPriority </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>priority</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Use this to set the priority of the system. Lower means it'll get executed first.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">priority</td><td>the new priority </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

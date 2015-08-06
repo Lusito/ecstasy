@@ -10,6 +10,7 @@ var searchData=
   ['collectorvector',['CollectorVector',['../struct_signal11_1_1_collector_vector.html',1,'Signal11']]],
   ['collectorwhile0',['CollectorWhile0',['../struct_signal11_1_1_collector_while0.html',1,'Signal11']]],
   ['component',['Component',['../struct_e_c_s_1_1_component.html',1,'ECS']]],
+  ['componentallocator',['ComponentAllocator',['../class_e_c_s_1_1_component_allocator.html',1,'ECS']]],
   ['componentbase',['ComponentBase',['../struct_e_c_s_1_1_component_base.html',1,'ECS']]],
   ['connectionref',['ConnectionRef',['../class_signal11_1_1_connection_ref.html',1,'Signal11']]],
   ['connectionscope',['ConnectionScope',['../class_signal11_1_1_connection_scope.html',1,'Signal11']]]

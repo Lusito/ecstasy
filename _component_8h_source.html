@@ -108,12 +108,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> * limitations under the License.</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;Types.h&quot;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_e_c_s.html">ECS</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="struct_e_c_s_1_1_component_base.html">   21</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="struct_e_c_s_1_1_component_base.html">ComponentBase</a>: <span class="keyword">public</span> <a class="code" href="class_e_c_s_1_1_poolable.html">Poolable</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="struct_e_c_s_1_1_component_base.html#a853f772768c10e52b7c8368abc21876f">   23</a></span>&#160;        <span class="keyword">const</span> ComponentType <a class="code" href="struct_e_c_s_1_1_component_base.html#a853f772768c10e52b7c8368abc21876f">type</a>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="struct_e_c_s_1_1_component_base.html">ComponentBase</a>() {}</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="struct_e_c_s_1_1_component_base.html#a15cf201ea0c6dfbbd0ce6713b907a4c8">   25</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="struct_e_c_s_1_1_component_base.html#a15cf201ea0c6dfbbd0ce6713b907a4c8">reset</a>()<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;../utils/Pool.h&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_e_c_s.html">ECS</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="struct_e_c_s_1_1_component_base.html">   22</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="struct_e_c_s_1_1_component_base.html">ComponentBase</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="struct_e_c_s_1_1_component_base.html#a853f772768c10e52b7c8368abc21876f">   24</a></span>&#160;        <span class="keyword">const</span> ComponentType <a class="code" href="struct_e_c_s_1_1_component_base.html#a853f772768c10e52b7c8368abc21876f">type</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="struct_e_c_s_1_1_component_base.html">ComponentBase</a>() {}</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="struct_e_c_s_1_1_component.html">Component</a>;</div>
@@ -126,12 +126,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="struct_e_c_s_1_1_component.html">Component</a>() :<a class="code" href="struct_e_c_s_1_1_component_base.html">ComponentBase</a>(getComponentType&lt;T&gt;()) {}</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    };</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
-<div class="ttc" id="struct_e_c_s_1_1_component_base_html_a15cf201ea0c6dfbbd0ce6713b907a4c8"><div class="ttname"><a href="struct_e_c_s_1_1_component_base.html#a15cf201ea0c6dfbbd0ce6713b907a4c8">ECS::ComponentBase::reset</a></div><div class="ttdeci">void reset() override</div><div class="ttdef"><b>Definition:</b> Component.h:25</div></div>
-<div class="ttc" id="struct_e_c_s_1_1_component_base_html"><div class="ttname"><a href="struct_e_c_s_1_1_component_base.html">ECS::ComponentBase</a></div><div class="ttdoc">Non-Template base-class for Component. Extend Component instead. </div><div class="ttdef"><b>Definition:</b> Component.h:21</div></div>
-<div class="ttc" id="struct_e_c_s_1_1_component_base_html_a853f772768c10e52b7c8368abc21876f"><div class="ttname"><a href="struct_e_c_s_1_1_component_base.html#a853f772768c10e52b7c8368abc21876f">ECS::ComponentBase::type</a></div><div class="ttdeci">const ComponentType type</div><div class="ttdoc">The unique identifier of this Component&#39;s class. </div><div class="ttdef"><b>Definition:</b> Component.h:23</div></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#ifdef USING_ECSTASY</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">using</span> <a class="code" href="struct_e_c_s_1_1_component_base.html">ECS::ComponentBase</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">using</span> <a class="code" href="struct_e_c_s_1_1_component.html">ECS::Component</a>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="struct_e_c_s_1_1_component_base_html"><div class="ttname"><a href="struct_e_c_s_1_1_component_base.html">ECS::ComponentBase</a></div><div class="ttdoc">Non-Template base-class for Component. Extend Component instead. </div><div class="ttdef"><b>Definition:</b> Component.h:22</div></div>
+<div class="ttc" id="struct_e_c_s_1_1_component_base_html_a853f772768c10e52b7c8368abc21876f"><div class="ttname"><a href="struct_e_c_s_1_1_component_base.html#a853f772768c10e52b7c8368abc21876f">ECS::ComponentBase::type</a></div><div class="ttdeci">const ComponentType type</div><div class="ttdoc">The unique identifier of this Component&#39;s class. </div><div class="ttdef"><b>Definition:</b> Component.h:24</div></div>
 <div class="ttc" id="struct_e_c_s_1_1_component_html"><div class="ttname"><a href="struct_e_c_s_1_1_component.html">ECS::Component</a></div><div class="ttdef"><b>Definition:</b> Component.h:40</div></div>
-<div class="ttc" id="class_e_c_s_1_1_poolable_html"><div class="ttname"><a href="class_e_c_s_1_1_poolable.html">ECS::Poolable</a></div><div class="ttdef"><b>Definition:</b> Pool.h:25</div></div>
-<div class="ttc" id="namespace_e_c_s_html"><div class="ttname"><a href="namespace_e_c_s.html">ECS</a></div><div class="ttdef"><b>Definition:</b> Component.h:19</div></div>
+<div class="ttc" id="namespace_e_c_s_html"><div class="ttname"><a href="namespace_e_c_s.html">ECS</a></div><div class="ttdef"><b>Definition:</b> Component.h:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

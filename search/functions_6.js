@@ -14,6 +14,7 @@ var searchData=
   ['getfamilybits',['getFamilyBits',['../class_e_c_s_1_1_entity.html#ab5d014f145969a3f27df4acf56aee4f6',1,'ECS::Entity']]],
   ['getfree',['getFree',['../class_e_c_s_1_1_pool.html#a6a7213ede93a7182ed8e34b55707c4af',1,'ECS::Pool']]],
   ['getid',['getId',['../class_e_c_s_1_1_entity.html#a30a94dd4a7ab262c69ed96af65f42a76',1,'ECS::Entity']]],
+  ['getpriority',['getPriority',['../class_e_c_s_1_1_entity_system_base.html#a5d1a866b077cb8e03c2553375c2d2158',1,'ECS::EntitySystemBase']]],
   ['getstringid',['getStringId',['../class_e_c_s_1_1_bits.html#a56c4e0160e27eeb597e4325c1e8f730b',1,'ECS::Bits']]],
   ['getsystem',['getSystem',['../class_e_c_s_1_1_engine.html#a2e28cec59237642f6e0ec537b391dfc2',1,'ECS::Engine']]],
   ['getsystems',['getSystems',['../class_e_c_s_1_1_engine.html#a23829a3ff47de9c2132f90fa80c4bab2',1,'ECS::Engine']]]
