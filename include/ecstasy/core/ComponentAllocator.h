@@ -38,7 +38,7 @@ namespace ECS {
 		 * 
          * @param component The component to free
          */
-		void free(ComponentBase *component);
+		void freeComponent(ComponentBase *component);
 	};
 /// \endcond
 }

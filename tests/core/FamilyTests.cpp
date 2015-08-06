@@ -262,10 +262,8 @@ namespace FamilyTests {
 
 	TEST_CASE("matchWithEngine") {
 		Engine engine;
-		TestSystemA systemA("A");
-		TestSystemB systemB("B");
-		engine.addSystem(&systemA);
-		engine.addSystem(&systemB);
+		engine.addSystem<TestSystemA>("A");
+		engine.addSystem<TestSystemA>("B");
 
 		auto *e = engine.createEntity();
 		e->add(engine.createComponent<ComponentB>());
@@ -280,10 +278,8 @@ namespace FamilyTests {
 	TEST_CASE("matchWithEngineInverse") {
 		Engine engine;
 
-		TestSystemA systemA("A");
-		TestSystemB systemB("B");
-		engine.addSystem(&systemA);
-		engine.addSystem(&systemB);
+		engine.addSystem<TestSystemA>("A");
+		engine.addSystem<TestSystemA>("B");
 
 		auto *e = engine.createEntity();
 		e->add(engine.createComponent<ComponentB>());

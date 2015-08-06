@@ -72,9 +72,8 @@ namespace PooledEngineTests {
 	TEST_CASE("entityRemovalListenerOrder") {
 		Engine engine;
 
-		CombinedSystem combinedSystem(&engine);
+		auto *combinedSystem = engine.addSystem<CombinedSystem>(&engine);
 
-		engine.addSystem(&combinedSystem);
 		auto &signal = engine.getEntityRemovedSignal(Family::all<PositionComponent>().get());
 		signal.connect([](Entity *entity) {
 			REQUIRE(entity->get<PositionComponent>());
@@ -86,7 +85,7 @@ namespace PooledEngineTests {
 			engine.addEntity(entity);
 		}
 
-		REQUIRE(10 == combinedSystem.entities->size());
+		REQUIRE(10 == combinedSystem->entities->size());
 
 		float deltaTime = 0.16f;
 		for (int i = 0; i < 10; i++)
@@ -174,8 +173,7 @@ namespace PooledEngineTests {
 
 	TEST_CASE("removeEntityTwice") {
 		Engine engine;
-		RemoveEntityTwiceSystem system;
-		engine.addSystem(&system);
+		engine.addSystem<RemoveEntityTwiceSystem>();
 
 		for (int j = 0; j < 2; j++)
 			engine.update(0);

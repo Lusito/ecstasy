@@ -37,53 +37,59 @@ namespace EngineTests {
 			REQUIRE(entity);
 		}
 	};
+	
+	struct MockLog {
+		int updateCalls = 0;
+		int addedCalls = 0;
+		int removedCalls = 0;
+	};
 
 	template<typename T>
 	class EntitySystemMockBase: public EntitySystem<T> {
 	public:
-		int updateCalls = 0;
-		int addedCalls = 0;
-		int removedCalls = 0;
-
+		MockLog &log;
 		std::vector<int> *updates = nullptr;
 
-		EntitySystemMockBase() {}
+		EntitySystemMockBase(MockLog &log) : log(log) {}
 		
-		EntitySystemMockBase(std::vector<int> *updates) : updates(updates) {}
+		EntitySystemMockBase(MockLog &log, std::vector<int> *updates) : log(log), updates(updates) {}
 
 		void update (float deltaTime) override {
-			++updateCalls;
+			++log.updateCalls;
 
 			if (updates != nullptr)
-				updates->push_back(this->priority);
+				updates->push_back(this->getPriority());
 		}
 
 		void addedToEngine (Engine *engine) override {
-			++addedCalls;
+			++log.addedCalls;
 
 			REQUIRE(engine);
 		}
 
 		void removedFromEngine (Engine *engine) override {
-			++removedCalls;
+			++log.removedCalls;
 
 			REQUIRE(engine);
 		}
 	};
-	class EntitySystemMock : public EntitySystemMockBase<EntitySystemMock> {};
+	class EntitySystemMock : public EntitySystemMockBase<EntitySystemMock> {
+	public:
+		EntitySystemMock(MockLog &log) : EntitySystemMockBase(log) {}
+	};
 
 	class EntitySystemMockA : public EntitySystemMockBase<EntitySystemMockA> {
 	public:
-		EntitySystemMockA() {}
+		EntitySystemMockA(MockLog &log) : EntitySystemMockBase(log) {}
 
-		EntitySystemMockA(std::vector<int> *updates) : EntitySystemMockBase(updates){}
+		EntitySystemMockA(MockLog &log, std::vector<int> *updates) : EntitySystemMockBase(log, updates){}
 	};
 
 	class EntitySystemMockB : public EntitySystemMockBase<EntitySystemMockB> {
 	public:
-		EntitySystemMockB() {}
+		EntitySystemMockB(MockLog &log) : EntitySystemMockBase(log) {}
 
-		EntitySystemMockB(std::vector<int> *updates) : EntitySystemMockBase(updates) {}
+		EntitySystemMockB(MockLog &log, std::vector<int> *updates) : EntitySystemMockBase(log, updates) {}
 	};
 
 	struct CounterComponent : public Component<CounterComponent> {
@@ -147,86 +153,85 @@ namespace EngineTests {
 
 	TEST_CASE("addAndRemoveSystem") {
 		Engine engine;
-		EntitySystemMockA systemA;
-		EntitySystemMockB systemB;
+		MockLog logA;
+		MockLog logB;
 
 		REQUIRE(!engine.getSystem<EntitySystemMockA>());
 		REQUIRE(!engine.getSystem<EntitySystemMockB>());
 
-		engine.addSystem(&systemA);
-		engine.addSystem(&systemB);
+		engine.addSystem<EntitySystemMockA>(logA);
+		engine.addSystem<EntitySystemMockB>(logB);
 
 		REQUIRE(engine.getSystem<EntitySystemMockA>());
 		REQUIRE(engine.getSystem<EntitySystemMockB>());
-		REQUIRE(1 == systemA.addedCalls);
-		REQUIRE(1 == systemB.addedCalls);
+		REQUIRE(1 == logA.addedCalls);
+		REQUIRE(1 == logB.addedCalls);
 
-		engine.removeSystem(&systemA);
-		engine.removeSystem(&systemB);
+		engine.removeSystem<EntitySystemMockA>();
+		engine.removeSystem<EntitySystemMockB>();
 
 		REQUIRE(!engine.getSystem<EntitySystemMockA>());
 		REQUIRE(!engine.getSystem<EntitySystemMockB>());
-		REQUIRE(1 == systemA.removedCalls);
-		REQUIRE(1 == systemB.removedCalls);
+		REQUIRE(1 == logA.removedCalls);
+		REQUIRE(1 == logB.removedCalls);
 	}
 
 	TEST_CASE("getSystems") {
 		Engine engine;
-		EntitySystemMockA systemA;
-		EntitySystemMockB systemB;
+		MockLog logA;
+		MockLog logB;
 
 		REQUIRE(engine.getSystems().empty());
 
-		engine.addSystem(&systemA);
-		engine.addSystem(&systemB);
+		engine.addSystem<EntitySystemMockA>(logA);
+		engine.addSystem<EntitySystemMockB>(logB);
 
 		REQUIRE(2 == engine.getSystems().size());
 	}
 
 	TEST_CASE("systemUpdate") {
 		Engine engine;
-		EntitySystemMockA systemA;
-		EntitySystemMockB systemB;
+		MockLog logA;
+		MockLog logB;
 
-		engine.addSystem(&systemA);
-		engine.addSystem(&systemB);
+		engine.addSystem<EntitySystemMockA>(logA);
+		engine.addSystem<EntitySystemMockB>(logB);
 
 		int numUpdates = 10;
 
 		for (int i = 0; i < numUpdates; ++i) {
-			REQUIRE(i == systemA.updateCalls);
-			REQUIRE(i == systemB.updateCalls);
+			REQUIRE(i == logA.updateCalls);
+			REQUIRE(i == logB.updateCalls);
 
 			engine.update(deltaTime);
 
-			REQUIRE((i + 1) == systemA.updateCalls);
-			REQUIRE((i + 1) == systemB.updateCalls);
+			REQUIRE((i + 1) == logA.updateCalls);
+			REQUIRE((i + 1) == logB.updateCalls);
 		}
 
-		engine.removeSystem(&systemB);
+		engine.removeSystem<EntitySystemMockB>();
 
 		for (int i = 0; i < numUpdates; ++i) {
-			REQUIRE((i + numUpdates) == systemA.updateCalls);
-			REQUIRE(numUpdates == systemB.updateCalls);
+			REQUIRE((i + numUpdates) == logA.updateCalls);
+			REQUIRE(numUpdates == logB.updateCalls);
 
 			engine.update(deltaTime);
 
-			REQUIRE((i + 1 + numUpdates) == systemA.updateCalls);
-			REQUIRE(numUpdates == systemB.updateCalls);
+			REQUIRE((i + 1 + numUpdates) == logA.updateCalls);
+			REQUIRE(numUpdates == logB.updateCalls);
 		}
 	}
 	TEST_CASE("systemUpdateOrder") {
 		std::vector<int> updates;
 
 		Engine engine;
-		EntitySystemMockA system1(&updates);
-		EntitySystemMockB system2(&updates);
+		MockLog log1;
+		MockLog log2;
 
-		system1.priority = 2;
-		system2.priority = 1;
+		engine.addSystem<EntitySystemMockA>(log1, &updates)->setPriority(2);
+		engine.addSystem<EntitySystemMockB>(log2, &updates)->setPriority(1);
 
-		engine.addSystem(&system1);
-		engine.addSystem(&system2);
+		engine.sortSystems();
 
 		engine.update(deltaTime);
 
@@ -240,16 +245,16 @@ namespace EngineTests {
 
 	TEST_CASE("ignoreSystem") {
 		Engine engine;
-		EntitySystemMock system;
+		MockLog log;
 
-		engine.addSystem(&system);
+		auto *system = engine.addSystem<EntitySystemMock>(log);
 
 		int numUpdates = 10;
 
 		for (int i = 0; i < numUpdates; ++i) {
-			system.setProcessing(i % 2 == 0);
+			system->setProcessing(i % 2 == 0);
 			engine.update(deltaTime);
-			REQUIRE((i / 2 + 1) == system.updateCalls);
+			REQUIRE((i / 2 + 1) == log.updateCalls);
 		}
 	}
 
@@ -429,8 +434,7 @@ namespace EngineTests {
 	TEST_CASE("entitySystemRemovalWhileIterating") {
 		Engine engine;
 
-		CounterSystem system;
-		engine.addSystem(&system);
+		engine.addSystem<CounterSystem>();
 
 		for (int i = 0; i < 20; ++i) {
 			Entity *entity = engine.createEntity();
@@ -525,8 +529,7 @@ namespace EngineTests {
 
 	TEST_CASE("createManyEntitiesNoStackOverflow") {
 		Engine engine;
-		CounterSystem system;
-		engine.addSystem(&system);
+		engine.addSystem<CounterSystem>();
 
 		for (int i = 0; 15000 > i; i++) {
 			auto *e = engine.createEntity();
@@ -595,18 +598,18 @@ namespace EngineTests {
 	
 	TEST_CASE("addTwoSystemsOfSameClass") {
 		Engine engine;
-		EntitySystemMockA system1;
-		EntitySystemMockA system2;
+		MockLog log1;
+		MockLog log2;
 
 		REQUIRE(0 ==  engine.getSystems().size());
-		engine.addSystem(&system1);
+		auto *system1 = engine.addSystem<EntitySystemMockA>(log1);
 
 		REQUIRE(1 == engine.getSystems().size());
-		REQUIRE(&system1 == engine.getSystem<EntitySystemMockA>());
+		REQUIRE(system1 == engine.getSystem<EntitySystemMockA>());
 
-		engine.addSystem(&system2);
+		auto *system2 = engine.addSystem<EntitySystemMockA>(log2);
 
 		REQUIRE(1 == engine.getSystems().size());
-		REQUIRE(&system2 == engine.getSystem<EntitySystemMockA>());
+		REQUIRE(system2 == engine.getSystem<EntitySystemMockA>());
 	}
 }

@@ -27,12 +27,11 @@ namespace ECS {
 		friend class Engine;
 		bool processing = true;
 		Engine *engine = nullptr;
+		int priority;
 
 	public:
 		/// The unique identifier of this EntitySystem's class
 		const SystemType type;
-		/// Use this to set the priority of the system. Lower means it'll get executed first.
-		int priority;
 
 	private:
 		template<typename T> friend class EntitySystem;
@@ -61,6 +60,18 @@ namespace ECS {
 		virtual void setProcessing(bool processing) {
 			this->processing = processing;
 		}
+		
+		/// @return The priority of the system
+		virtual int getPriority() {
+			return priority;
+		}
+		
+		/**
+		 * Use this to set the priority of the system. Lower means it'll get executed first.
+		 * 
+		 * @param priority the new priority
+		 */
+		virtual void setPriority(int priority);
 		
 		Engine *getEngine() { return engine; }
 

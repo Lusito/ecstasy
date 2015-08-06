@@ -104,8 +104,7 @@ namespace EntityListenerTests {
 		engine.addEntity(e1);
 		engine.addEntity(e2);
 		
-		EntityRemoverSystem system(e1);
-		engine.addSystem(&system);
+		engine.addSystem<EntityRemoverSystem>(e1);
 
 		engine.entityRemoved.connect([&](Entity *entity) {
 			if(entity == e1)

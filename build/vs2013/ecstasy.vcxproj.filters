@@ -89,6 +89,9 @@
     <ClCompile Include="..\..\source\core\EntityOperations.cpp">
       <Filter>source\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\core\EntitySystem.cpp">
+      <Filter>source\core</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\source\core\Family.cpp">
       <Filter>source\core</Filter>
     </ClCompile>

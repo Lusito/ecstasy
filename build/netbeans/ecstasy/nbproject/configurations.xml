@@ -35,6 +35,7 @@
           <itemPath>../../../source/core/Engine.cpp</itemPath>
           <itemPath>../../../source/core/Entity.cpp</itemPath>
           <itemPath>../../../source/core/EntityOperations.cpp</itemPath>
+          <itemPath>../../../source/core/EntitySystem.cpp</itemPath>
           <itemPath>../../../source/core/Family.cpp</itemPath>
         </logicalFolder>
         <logicalFolder name="utils" displayName="utils" projectFiles="true">
@@ -104,6 +105,7 @@
       <item path="../../../source/core/Engine.cpp" ex="false" tool="1" flavor2="0"></item>
       <item path="../../../source/core/Entity.cpp" ex="false" tool="1" flavor2="0"></item>
       <item path="../../../source/core/EntityOperations.cpp" ex="false" tool="1" flavor2="0"></item>
+      <item path="../../../source/core/EntitySystem.cpp" ex="false" tool="1" flavor2="0"></item>
       <item path="../../../source/core/Family.cpp" ex="false" tool="1" flavor2="0"></item>
       <item path="../../../source/utils/Bits.cpp" ex="false" tool="1" flavor2="0"></item>
     </conf>
@@ -161,6 +163,7 @@
       <item path="../../../source/core/Engine.cpp" ex="false" tool="1" flavor2="0"></item>
       <item path="../../../source/core/Entity.cpp" ex="false" tool="1" flavor2="0"></item>
       <item path="../../../source/core/EntityOperations.cpp" ex="false" tool="1" flavor2="0"></item>
+      <item path="../../../source/core/EntitySystem.cpp" ex="false" tool="1" flavor2="0"></item>
       <item path="../../../source/core/Family.cpp" ex="false" tool="1" flavor2="0"></item>
       <item path="../../../source/utils/Bits.cpp" ex="false" tool="1" flavor2="0"></item>
     </conf>

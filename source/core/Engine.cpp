@@ -18,7 +18,7 @@
 
 namespace ECS {
 	bool compareSystems(EntitySystemBase *a, EntitySystemBase *b) {
-		return a->priority < b->priority;
+		return a->getPriority() < b->getPriority();
 	}
 	Engine:: Engine(int entityPoolInitialSize, int entityPoolMaxSize)
 		: componentOperationHandler(*this), entityOperationHandler(*this), entityPool(entityPoolInitialSize, entityPoolMaxSize) {
@@ -31,7 +31,7 @@ namespace ECS {
 			updateFamilyMembership(entity);
 	}
 
-	void Engine::addEntity(Entity *entity){
+	void Engine::addEntity(Entity *entity) {
 		if (entity->uuid != 0) throw std::invalid_argument("Entity already added to an engine");
 		entity->uuid = obtainEntityId();
 		if (updating || notifying)
@@ -40,7 +40,7 @@ namespace ECS {
 			addEntityInternal(entity);
 	}
 
-	void Engine::removeEntity(Entity *entity){
+	void Engine::removeEntity(Entity *entity) {
 		if (updating || notifying) {
 			if(entity->scheduledForRemoval)
 				return;
@@ -75,37 +75,50 @@ namespace ECS {
 		return it->second;
 	}
 
-	void Engine::addSystem(EntitySystemBase *system){
+	void Engine::addSystemInternal(EntitySystemBase *system) {
 		auto systemType = system->type;
 
 		if (systemType >= systemsByType.size())
 			systemsByType.resize(systemType + 1);
-		else {
-			auto *oldSystem = systemsByType[systemType];
-			if(oldSystem)
-				removeSystem(oldSystem);
-		}
+		else
+			removeSystemInternal(systemType);
+
 		systems.push_back(system);
 		systemsByType[systemType] = system;
 		system->engine = this;
 		system->addedToEngine(this);
 
-		std::sort(systems.begin(), systems.end(), compareSystems);
+		sortSystems();
 	}
 
-	void Engine::removeSystem(EntitySystemBase *system){
-		if (system->type < systemsByType.size()) {
-			auto *oldSystem = systemsByType[system->type];
-			if(oldSystem) {
-				systemsByType[system->type] = nullptr;
+	void Engine::removeSystemInternal(const SystemType &type) {
+		if (type < systemsByType.size()) {
+			auto *system = systemsByType[type];
+			if(system) {
+				systemsByType[type] = nullptr;
 
 				auto it = std::find(systems.begin(), systems.end(), system);
 				if(it != systems.end())
 					systems.erase(it);
 				system->removedFromEngine(this);
 				system->engine = nullptr;
+				delete system;
 			}
 		}
+	}
+
+	void Engine::removeAllSystems() {
+		for (auto system : systems) {
+			system->removedFromEngine(this);
+			system->engine = nullptr;
+			delete system;
+		}
+		systems.clear();
+		systemsByType.clear();
+	}
+	
+	void Engine::sortSystems() {
+		std::sort(systems.begin(), systems.end(), compareSystems);
 	}
 
 	EntitySignal &Engine::getEntityAddedSignal(const Family &family) {

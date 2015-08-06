@@ -113,10 +113,8 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		Engine engine;
 
 		auto &family = Family::all<OrderComponent, ComponentB>().get();
-		SortedIteratingSystemMock system(family);
+		auto *system = engine.addSystem<SortedIteratingSystemMock>(family);
 		Entity *e = engine.createEntity();
-
-		engine.addSystem(&system);
 		engine.addEntity(e);
 
 		// When entity has OrderComponent
@@ -128,13 +126,13 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 
 		// When entity has OrderComponent and ComponentB
 		e->add(engine.createComponent<ComponentB>());
-		system.expectedNames.push_back("A");
+		system->expectedNames.push_back("A");
 		engine.update(deltaTime);
 
 		// When entity has OrderComponent, ComponentB and ComponentC
 		ComponentC *c = engine.createComponent<ComponentC>();
 		e->add(c);
-		system.expectedNames.push_back("A");
+		system->expectedNames.push_back("A");
 		engine.update(deltaTime);
 
 		// When entity has ComponentB and ComponentC
@@ -146,8 +144,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		Engine engine;
 		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
-		IteratingRemovalSystem system;
-		engine.addSystem(&system);
+		engine.addSystem<IteratingRemovalSystem>();
 
 		int numEntities = 10;
 
@@ -180,8 +177,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		Engine engine;
 		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
-		IteratingComponentRemovalSystem system;
-		engine.addSystem(&system);
+		engine.addSystem<IteratingComponentRemovalSystem>();
 
 		int numEntities = 10;
 
@@ -223,8 +219,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		Engine engine;
 
 		auto &family = Family::all<OrderComponent>().get();
-		SortedIteratingSystemMock system(family);
-		engine.addSystem(&system);
+		auto *system = engine.addSystem<SortedIteratingSystemMock>(family);
 
 		auto *a = createOrderEntity("A", 0, engine);
 		auto *b = createOrderEntity("B", 1, engine);
@@ -234,27 +229,27 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		engine.addEntity(a);
 		engine.addEntity(b);
 		engine.addEntity(c);
-		system.expectedNames.push_back("A");
-		system.expectedNames.push_back("B");
-		system.expectedNames.push_back("C");
+		system->expectedNames.push_back("A");
+		system->expectedNames.push_back("B");
+		system->expectedNames.push_back("C");
 		engine.update(0);
 
 		engine.addEntity(d);
-		system.expectedNames.push_back("A");
-		system.expectedNames.push_back("B");
-		system.expectedNames.push_back("D");
-		system.expectedNames.push_back("C");
+		system->expectedNames.push_back("A");
+		system->expectedNames.push_back("B");
+		system->expectedNames.push_back("D");
+		system->expectedNames.push_back("C");
 		engine.update(0);
 
 		a->get<OrderComponent>()->zLayer = 3;
 		b->get<OrderComponent>()->zLayer = 2;
 		c->get<OrderComponent>()->zLayer = 1;
 		d->get<OrderComponent>()->zLayer = 0;
-		system.forceSort();
-		system.expectedNames.push_back("D");
-		system.expectedNames.push_back("C");
-		system.expectedNames.push_back("B");
-		system.expectedNames.push_back("A");
+		system->forceSort();
+		system->expectedNames.push_back("D");
+		system->expectedNames.push_back("C");
+		system->expectedNames.push_back("B");
+		system->expectedNames.push_back("A");
 		engine.update(0);
 	}
 }

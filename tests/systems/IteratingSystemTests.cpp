@@ -84,46 +84,43 @@ namespace IteratingSystemTests {
 		Engine engine;
 
 		auto &family = Family::all<ComponentA, ComponentB>().get();
-		IteratingSystemMock system(family);
+		auto *system = engine.addSystem<IteratingSystemMock>(family);
 		Entity *e = engine.createEntity();
-
-		engine.addSystem(&system);
 		engine.addEntity(e);
 
 		// When entity has ComponentA
 		e->add(engine.createComponent<ComponentA>());
 		engine.update(deltaTime);
 
-		REQUIRE(0 == system.numUpdates);
+		REQUIRE(0 == system->numUpdates);
 
 		// When entity has ComponentA and ComponentB
-		system.numUpdates = 0;
+		system->numUpdates = 0;
 		e->add(engine.createComponent<ComponentB>());
 		engine.update(deltaTime);
 
-		REQUIRE(1 == system.numUpdates);
+		REQUIRE(1 == system->numUpdates);
 
 		// When entity has ComponentA, ComponentB and ComponentC
-		system.numUpdates = 0;
+		system->numUpdates = 0;
 		e->add(engine.createComponent<ComponentC>());
 		engine.update(deltaTime);
 
-		REQUIRE(1 == system.numUpdates);
+		REQUIRE(1 == system->numUpdates);
 
 		// When entity has ComponentB and ComponentC
-		system.numUpdates = 0;
+		system->numUpdates = 0;
 		e->remove<ComponentA>();
 		engine.update(deltaTime);
 
-		REQUIRE(0 == system.numUpdates);
+		REQUIRE(0 == system->numUpdates);
 	}
 
 	TEST_CASE("entityRemovalWhileIterating") {
 		Engine engine;
 		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
-		IteratingRemovalSystem system;
-		engine.addSystem(&system);
+		engine.addSystem<IteratingRemovalSystem>();
 
 		int numEntities = 10;
 
@@ -152,8 +149,7 @@ namespace IteratingSystemTests {
 		Engine engine;
 		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
-		IteratingComponentRemovalSystem system;
-		engine.addSystem(&system);
+		engine.addSystem<IteratingComponentRemovalSystem>();
 
 		int numEntities = 10;
 

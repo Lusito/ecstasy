@@ -99,10 +99,13 @@ namespace ECS {
 		Engine (int entityPoolInitialSize = 10, int entityPoolMaxSize = 100);
 
 		virtual ~Engine() {
-			componentOperationHandler.process();
-			entityOperationHandler.process();
-			removeAllEntities();
-			clearPools();
+			do {
+				removeAllEntities();
+				componentOperationHandler.process();
+				entityOperationHandler.process();
+			} while (!entities.empty());
+
+			removeAllSystems();
 		}
 		
 		/// @return Clean Entity from the Engine pool. In order to add it to the Engine, use addEntity(Entity).
@@ -143,20 +146,56 @@ namespace ECS {
 			return &entities;
 		}
 
+
+		/**
+		 * Adds a new system
+		 *
+		 * @tparam T The System class
+		 * @param ... The constructor arguments
+		 */
+		template <typename T, typename ... Args>
+		T *addSystem(Args && ... args) {
+			auto system = new T(std::forward<Args>(args) ...);
+			addSystemInternal(system);
+			return system;
+		}
+
+		/**
+		 * Removes the EntitySystem from this Engine.
+		 *
+		 * @tparam T The System class to remove
+		 */
+		template <typename T, typename ... Args>
+		void removeSystem() {
+			removeSystemInternal(getSystemType<T>());
+		}
+
+		/**
+		 * Removes all systems registered with this Engine.
+		 */
+		void removeAllSystems();
+		
+		/**
+		 * Sort all systems (usually done automatically, except if you override EntitySystem::getPriority())
+		 */
+		void sortSystems();
+
+	private:
 		/**
 		 * Adds the EntitySystem to this Engine.
 		 * 
 		 * @param system The EntitySystem to add
 		 */
-		void addSystem(EntitySystemBase *system);
+		void addSystemInternal(EntitySystemBase *system);
 
 		/**
 		 * Removes the EntitySystem from this Engine.
 		 * 
-		 * @param system The EntitySystem to remove
+		 * @param type The EntitySystem type to remove
 		 */
-		void removeSystem(EntitySystemBase *system);
+		void removeSystemInternal(const SystemType &type);
 
+	public:
 		/**
 		 * Quick EntitySystem retrieval.
 		 * 

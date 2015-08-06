@@ -106,6 +106,7 @@
     <ClCompile Include="..\..\source\core\Engine.cpp" />
     <ClCompile Include="..\..\source\core\Entity.cpp" />
     <ClCompile Include="..\..\source\core\EntityOperations.cpp" />
+    <ClCompile Include="..\..\source\core\EntitySystem.cpp" />
     <ClCompile Include="..\..\source\core\Family.cpp" />
     <ClCompile Include="..\..\source\utils\Bits.cpp" />
   </ItemGroup>

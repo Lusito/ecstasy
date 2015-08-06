@@ -37,10 +37,9 @@ namespace IntervalIteratingSystemTests {
 
 	TEST_CASE("intervalIteratingSystem") {
 		Engine engine;
-		IntervalIteratingSystemSpy intervalSystemSpy;
 		auto *entities = engine.getEntitiesFor(Family::all<IntervalComponentSpy>().get());
 
-		engine.addSystem(&intervalSystemSpy);
+		engine.addSystem<IntervalIteratingSystemSpy>();
 
 		for (int i = 0; i < 10; ++i) {
 			auto *entity = engine.createEntity();
