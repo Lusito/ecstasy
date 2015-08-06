@@ -16,7 +16,8 @@
  ******************************************************************************/
 
 #include <stdint.h>
-#include "ComponentOperations.h"
+#include "ComponentAllocator.h"
+#include "EntityOperations.h"
 
 namespace ECS {
 	/**
@@ -41,6 +42,7 @@ namespace ECS {
 		std::vector<ComponentBase *> components;
 		Bits componentBits;
 		Bits familyBits;
+		ComponentAllocator *allocator = nullptr;
 		Engine *engine = nullptr;
 
 		Entity() {}
@@ -66,7 +68,7 @@ namespace ECS {
 		 */
 		template <typename T, typename ... Args>
 		Entity &assign(Args && ... args) {
-			add(engine->createComponent<T>(std::forward<Args>(args) ...));
+			add(allocator->createComponent<T>(std::forward<Args>(args) ...));
 			return *this;
 		}
 

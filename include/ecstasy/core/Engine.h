@@ -19,7 +19,7 @@
 #include "EntitySystem.h"
 #include "Entity.h"
 #include "Component.h"
-#include "ComponentOperations.h"
+#include "ComponentAllocator.h"
 #include "EntityOperations.h"
 #include "Family.h"
 #include <stdint.h>
@@ -51,16 +51,14 @@ namespace ECS {
 	 * <li>Connect to/Disconnect from EntitySignal</li>
 	 * </ul>
 	 */
-	class Engine {
+	class Engine : public ComponentAllocator {
 	private:
 		friend class ComponentOperationHandler;
+		friend class EntityOperationHandler;
 		friend class Entity;
 
 		std::vector<Entity *> entities;
 		std::unordered_map<uint64_t, Entity *> entitiesById;
-
-		std::vector<EntityOperation *> entityOperations;
-		Pool<EntityOperation> entityOperationPool;
 
 		std::vector<EntitySystemBase *> systems;
 		std::vector<EntitySystemBase *> systemsByType;
@@ -76,8 +74,7 @@ namespace ECS {
 		uint64_t nextEntityId = 1;
 
 		// Mechanism to delay component addition/removal to avoid affecting system processing
-		Pool<ComponentOperation> componentOperationsPool;
-		std::vector<ComponentOperation *> componentOperations;
+		EntityOperationHandler entityOperationHandler;
 		ComponentOperationHandler componentOperationHandler;
 
 		Pool<Entity> entityPool;
@@ -102,8 +99,8 @@ namespace ECS {
 		Engine (int entityPoolInitialSize = 10, int entityPoolMaxSize = 100);
 
 		virtual ~Engine() {
-			processComponentOperations();
-			processPendingEntityOperations();
+			componentOperationHandler.process();
+			entityOperationHandler.process();
 			removeAllEntities();
 			clearPools();
 		}
@@ -112,25 +109,7 @@ namespace ECS {
 		Entity *createEntity();
 
 		/**
-		 * Retrieves a new Component from the Engine pool. It will be placed back in the pool whenever it's removed
-		 * from an Entity or the Entity itself is removed.
-		 * 
-		 * @tparam T The Component class
-		 */
-		template <typename T, typename ... Args>
-		T *createComponent(Args && ... args) {
-			return new T(std::forward<Args>(args) ...);
-		}
-		
-		/**
-		 * Return a Component back to the pool
-		 * 
-         * @param component The component to free
-         */
-		void free(ComponentBase *component);
-
-		/**
-		 * Removes all free entities from the pool to free up memory.
+		 * Removes all free entities and operations from the pools to free up memory.
 		 */
 		void clearPools();
 
@@ -244,10 +223,6 @@ namespace ECS {
 		void notifyFamilyListenersRemove(const Family &family, Entity *entity);
 
 		const std::vector<Entity *> *registerFamily(const Family &family);
-
-		void processPendingEntityOperations();
-
-		void processComponentOperations();
 	};
 }
 

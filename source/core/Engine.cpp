@@ -21,7 +21,7 @@ namespace ECS {
 		return a->priority < b->priority;
 	}
 	Engine:: Engine(int entityPoolInitialSize, int entityPoolMaxSize)
-		: componentOperationHandler(*this), entityPool(entityPoolInitialSize, entityPoolMaxSize) {
+		: componentOperationHandler(*this), entityOperationHandler(*this), entityPool(entityPoolInitialSize, entityPoolMaxSize) {
 		componentAdded.connect(this, &Engine::onComponentChange);
 		componentRemoved.connect(this, &Engine::onComponentChange);
 	}
@@ -34,15 +34,10 @@ namespace ECS {
 	void Engine::addEntity(Entity *entity){
 		if (entity->uuid != 0) throw std::invalid_argument("Entity already added to an engine");
 		entity->uuid = obtainEntityId();
-		if (updating || notifying) {
-			auto *operation = entityOperationPool.obtain();
-			operation->entity = entity;
-			operation->type = EntityOperation::Type::Add;
-			entityOperations.push_back(operation);
-		}
-		else {
+		if (updating || notifying)
+			entityOperationHandler.add(entity);
+		else
 			addEntityInternal(entity);
-		}
 	}
 
 	void Engine::removeEntity(Entity *entity){
@@ -51,10 +46,7 @@ namespace ECS {
 				return;
 			
 			entity->scheduledForRemoval = true;
-			auto *operation = entityOperationPool.obtain();
-			operation->entity = entity;
-			operation->type = EntityOperation::Type::Remove;
-			entityOperations.push_back(operation);
+			entityOperationHandler.remove(entity);
 		}
 		else {
 			entity->scheduledForRemoval = true;
@@ -67,9 +59,7 @@ namespace ECS {
 			for(auto *entity: entities)
 				entity->scheduledForRemoval = true;
 			
-			auto *operation = entityOperationPool.obtain();
-			operation->type = EntityOperation::Type::RemoveAll;
-			entityOperations.push_back(operation);
+			entityOperationHandler.removeAll();
 		}
 		else {
 			while(!entities.empty()) {
@@ -134,8 +124,8 @@ namespace ECS {
 			if (system->checkProcessing())
 				system->update(deltaTime);
 
-			processComponentOperations();
-			processPendingEntityOperations();
+			componentOperationHandler.process();
+			entityOperationHandler.process();
 		}
 
 		updating = false;
@@ -255,52 +245,16 @@ namespace ECS {
 		return &familyEntities;
 	}
 
-	void Engine::processPendingEntityOperations() {
-		for(auto *operation: entityOperations) {
-			switch(operation->type) {
-			case EntityOperation::Type::Add: addEntityInternal(operation->entity); break;
-			case EntityOperation::Type::Remove: removeEntityInternal(operation->entity); break;
-			case EntityOperation::Type::RemoveAll:
-				while(!entities.empty()) {
-					removeEntityInternal(entities.back());
-				}
-				break;
-			default:
-				throw std::runtime_error("Unexpected EntityOperation type");
-			}
-
-			entityOperationPool.free(operation);
-		}
-
-		entityOperations.clear();
-	}
-
-	void Engine::processComponentOperations() {
-		for(auto *operation : componentOperations) {
-			switch(operation->type) {
-			case ComponentOperation::Type::Add: operation->entity->addInternal(operation->component); break;
-			case ComponentOperation::Type::Remove: operation->entity->removeInternal(operation->componentType); break;
-			case ComponentOperation::Type::RemoveAll: operation->entity->removeAllInternal(); break;
-			default: break;
-			}
-
-			componentOperationsPool.free(operation);
-		}
-
-		componentOperations.clear();
-	}
-
 	Entity *Engine::createEntity() {
 		auto *entity = entityPool.obtain();
 		entity->engine = this;
+		entity->allocator = this;
 		return entity;
-	}
-
-	void Engine::free(ComponentBase *component) {
-		delete component;
 	}
 
 	void Engine::clearPools() {
 		entityPool.clear();
+		entityOperationHandler.clearPools();
+		componentOperationHandler.clearPools();
 	}
 }

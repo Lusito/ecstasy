@@ -33,7 +33,7 @@
     <ClInclude Include="..\..\include\ecstasy\core\Component.h">
       <Filter>include\ecstasy\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\ecstasy\core\ComponentOperations.h">
+    <ClInclude Include="..\..\include\ecstasy\core\ComponentAllocator.h">
       <Filter>include\ecstasy\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\ecstasy\core\Engine.h">
@@ -77,13 +77,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\source\core\ComponentOperations.cpp">
+    <ClCompile Include="..\..\source\core\ComponentAllocator.cpp">
       <Filter>source\core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\core\Engine.cpp">
       <Filter>source\core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\core\Entity.cpp">
+      <Filter>source\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\core\EntityOperations.cpp">
       <Filter>source\core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\core\Family.cpp">

@@ -84,4 +84,33 @@ namespace EntityListenerTests {
 
 		engine.addEntity(e);
 	}
+
+	class EntityRemoverSystem : public EntitySystem<EntityRemoverSystem> {
+	public:
+		EntityRemoverSystem(Entity *entity) : entity(entity) {}
+		
+		Entity *entity;
+		
+		void update(float deltaTime) override {
+			getEngine()->removeEntity(entity);
+		}
+	};
+	
+	TEST_CASE("Remove entity during entity removal") {
+		Engine engine;
+
+		Entity *e1 = engine.createEntity();
+		Entity *e2 = engine.createEntity();
+		engine.addEntity(e1);
+		engine.addEntity(e2);
+		
+		EntityRemoverSystem system(e1);
+		engine.addSystem(&system);
+
+		engine.entityRemoved.connect([&](Entity *entity) {
+			if(entity == e1)
+				engine.removeEntity(e2);
+		});
+		engine.update(0.16f);
+	}
 }
