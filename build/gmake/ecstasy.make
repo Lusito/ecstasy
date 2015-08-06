@@ -13,9 +13,9 @@ endif
 ifeq ($(config),debug)
   RESCOMP = windres
   TARGETDIR = ../../lib/gmake
-  TARGET = $(TARGETDIR)/ecstasy-s-d.lib
+  TARGET = $(TARGETDIR)/libecstasy-s-d.a
   OBJDIR = ../../temp/ecstasy/Debug
-  DEFINES += -DWIN32 -DDEBUG
+  DEFINES += -DDEBUG
   INCLUDES += -I../../include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
@@ -40,9 +40,9 @@ endif
 ifeq ($(config),release)
   RESCOMP = windres
   TARGETDIR = ../../lib/gmake
-  TARGET = $(TARGETDIR)/ecstasy-s.lib
+  TARGET = $(TARGETDIR)/libecstasy-s.a
   OBJDIR = ../../temp/ecstasy/Release
-  DEFINES += -DWIN32 -DNDEBUG
+  DEFINES += -DNDEBUG
   INCLUDES += -I../../include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)

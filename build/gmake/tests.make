@@ -13,9 +13,9 @@ endif
 ifeq ($(config),debug)
   RESCOMP = windres
   TARGETDIR = ../../binaries
-  TARGET = $(TARGETDIR)/tests.exe
+  TARGET = $(TARGETDIR)/tests
   OBJDIR = ../../temp/Test/Debug
-  DEFINES += -DWIN32 -DDEBUG -DUSING_ECSTASY -DUSING_SIGNAL11
+  DEFINES += -DDEBUG -DUSING_ECSTASY -DUSING_SIGNAL11
   INCLUDES += -I../../include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
@@ -40,9 +40,9 @@ endif
 ifeq ($(config),release)
   RESCOMP = windres
   TARGETDIR = ../../binaries
-  TARGET = $(TARGETDIR)/tests.exe
+  TARGET = $(TARGETDIR)/tests
   OBJDIR = ../../temp/Test/Release
-  DEFINES += -DWIN32 -DNDEBUG -DUSING_ECSTASY -DUSING_SIGNAL11
+  DEFINES += -DNDEBUG -DUSING_ECSTASY -DUSING_SIGNAL11
   INCLUDES += -I../../include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
