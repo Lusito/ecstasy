@@ -37,19 +37,21 @@ namespace ECS {
 
 	struct EntityOperation: public BaseOperation<EntityOperation> {
 
-		Entity *entity;
+		Entity *entity = nullptr;
 
 		void reset() override {
+			nextOperation = nullptr;
 			entity = nullptr;
 		}
 	};
 	
 	struct ComponentOperation: public BaseOperation<ComponentOperation> {
-		Entity *entity;
-		ComponentBase *component;
+		Entity *entity = nullptr;
+		ComponentBase *component = nullptr;
 		ComponentType componentType;
 		
 		void reset() override {
+			nextOperation = nullptr;
 			entity = nullptr;
 			component = nullptr;
 		}
