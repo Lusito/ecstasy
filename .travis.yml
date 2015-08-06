@@ -14,7 +14,7 @@ addons:
 
 script:
   - cd build
-  - premake/premake5 gmake
+  - ./premake5 gmake
   - cd gmake
   - make
   - cd ../..
