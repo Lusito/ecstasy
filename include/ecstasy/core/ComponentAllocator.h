@@ -19,11 +19,15 @@
 namespace ECS {
 	struct ComponentBase;
 	
-/// \cond HIDDEN_SYMBOLS
+	/**
+	 * Create and free Components. This exists to avoid circular dependencies between Engine and Entity.
+	 * 
+	 * @todo: placement new
+	 */
 	class ComponentAllocator {
 	public:
 		/**
-		 * Retrieves a new Component.
+		 * Creates a new Component by calling its constructor with the supplied parameters.
 		 * 
 		 * @tparam T The Component class
 		 * @param ... The constructor arguments
@@ -40,5 +44,4 @@ namespace ECS {
          */
 		void freeComponent(ComponentBase *component);
 	};
-/// \endcond
 }
