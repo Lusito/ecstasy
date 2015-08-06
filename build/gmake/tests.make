@@ -13,9 +13,9 @@ endif
 ifeq ($(config),debug)
   RESCOMP = windres
   TARGETDIR = ../../binaries
-  TARGET = $(TARGETDIR)/tests
+  TARGET = $(TARGETDIR)/tests.exe
   OBJDIR = ../../temp/Test/Debug
-  DEFINES += -DDEBUG
+  DEFINES += -DWIN32 -DDEBUG -DUSING_ECSTASY -DUSING_SIGNAL11
   INCLUDES += -I../../include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
@@ -25,7 +25,7 @@ ifeq ($(config),debug)
   LIBS += -lecstasy-s-d
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L../../lib/gmake
-  LINKCMD = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
+  LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
@@ -40,9 +40,9 @@ endif
 ifeq ($(config),release)
   RESCOMP = windres
   TARGETDIR = ../../binaries
-  TARGET = $(TARGETDIR)/tests
+  TARGET = $(TARGETDIR)/tests.exe
   OBJDIR = ../../temp/Test/Release
-  DEFINES += -DNDEBUG
+  DEFINES += -DWIN32 -DNDEBUG -DUSING_ECSTASY -DUSING_SIGNAL11
   INCLUDES += -I../../include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
@@ -52,7 +52,7 @@ ifeq ($(config),release)
   LIBS += -lecstasy-s
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L../../lib/gmake -s
-  LINKCMD = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
+  LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS

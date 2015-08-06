@@ -13,9 +13,9 @@ endif
 ifeq ($(config),debug)
   RESCOMP = windres
   TARGETDIR = ../../lib/gmake
-  TARGET = $(TARGETDIR)/libecstasy-s-d.a
+  TARGET = $(TARGETDIR)/ecstasy-s-d.lib
   OBJDIR = ../../temp/ecstasy/Debug
-  DEFINES += -DDEBUG
+  DEFINES += -DWIN32 -DDEBUG
   INCLUDES += -I../../include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
@@ -25,7 +25,7 @@ ifeq ($(config),debug)
   LIBS +=
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS)
-  LINKCMD = $(AR) -rcs $(TARGET) $(OBJECTS)
+  LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
@@ -40,9 +40,9 @@ endif
 ifeq ($(config),release)
   RESCOMP = windres
   TARGETDIR = ../../lib/gmake
-  TARGET = $(TARGETDIR)/libecstasy-s.a
+  TARGET = $(TARGETDIR)/ecstasy-s.lib
   OBJDIR = ../../temp/ecstasy/Release
-  DEFINES += -DNDEBUG
+  DEFINES += -DWIN32 -DNDEBUG
   INCLUDES += -I../../include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
@@ -52,7 +52,7 @@ ifeq ($(config),release)
   LIBS +=
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -s
-  LINKCMD = $(AR) -rcs $(TARGET) $(OBJECTS)
+  LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
@@ -65,9 +65,11 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/ComponentOperations.o \
+	$(OBJDIR)/ComponentAllocator.o \
 	$(OBJDIR)/Engine.o \
 	$(OBJDIR)/Entity.o \
+	$(OBJDIR)/EntityOperations.o \
+	$(OBJDIR)/EntitySystem.o \
 	$(OBJDIR)/Family.o \
 	$(OBJDIR)/Bits.o \
 
@@ -127,13 +129,19 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) -x c++-header $(ALL_CXXFLAGS) -o "$@" -MF "$(@:%.gch=%.d)" -c "$<"
 endif
 
-$(OBJDIR)/ComponentOperations.o: ../../source/core/ComponentOperations.cpp
+$(OBJDIR)/ComponentAllocator.o: ../../source/core/ComponentAllocator.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Engine.o: ../../source/core/Engine.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Entity.o: ../../source/core/Entity.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/EntityOperations.o: ../../source/core/EntityOperations.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/EntitySystem.o: ../../source/core/EntitySystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Family.o: ../../source/core/Family.cpp
