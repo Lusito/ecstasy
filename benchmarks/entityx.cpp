@@ -2,8 +2,7 @@
 #include "entityx/entityx.h"
 
 namespace entityx_benchmarks {
-	const int NUM_ENTITIES = 1 << 16;
-	
+	const int NUM_ENTITIES = 1 << 15;
 	using namespace entityx;
 
 	struct ComponentA { float a; float b; float c; };

@@ -3,7 +3,7 @@
 #include <ecstasy/systems/IteratingSystem.h>
 
 namespace ecstasy_benchmarks {
-	const int NUM_ENTITIES = 1 << 16;
+	const int NUM_ENTITIES = 1 << 15;
 
 	struct ComponentA : public Component<ComponentA> { float a; float b; float c; };
 	struct ComponentB : public Component<ComponentB> { float a; float b; float c; };
