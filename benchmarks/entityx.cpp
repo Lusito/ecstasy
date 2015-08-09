@@ -1,8 +1,10 @@
 #include "benchpress.hpp"
 #include "entityx/entityx.h"
+#include <random>
 
 namespace entityx_benchmarks {
 	const int NUM_ENTITIES = 1 << 15;
+
 	using namespace entityx;
 
 	struct ComponentA { float a; float b; float c; };
@@ -76,13 +78,22 @@ namespace entityx_benchmarks {
 			systems.add<IteratingSystemE>();
 			systems.configure();
 
+			std::vector<int> v;
+
+			for (int i = 0; i < NUM_ENTITIES; i++) {
+				v.push_back(i);
+			}
+
+			std::mt19937 g(0);
+			std::shuffle(v.begin(), v.end(), g);
+
 			for (int i = 0; i < NUM_ENTITIES; i++) {
 				Entity entity = entities.create();
-				if (i & 1)  entity.assign<ComponentA>();
-				if (i & 2)  entity.assign<ComponentB>();
-				if (i & 4)  entity.assign<ComponentC>();
-				if (i & 8)  entity.assign<ComponentD>();
-				if (i & 16) entity.assign<ComponentE>();
+				if (v[i] & 1)  entity.assign<ComponentA>();
+				if (v[i] & 2)  entity.assign<ComponentB>();
+				if (v[i] & 4)  entity.assign<ComponentC>();
+				if (v[i] & 8)  entity.assign<ComponentD>();
+				if (v[i] & 16) entity.assign<ComponentE>();
 			}
 		}
 

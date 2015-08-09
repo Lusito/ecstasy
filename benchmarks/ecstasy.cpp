@@ -1,6 +1,7 @@
 #include "benchpress.hpp"
 #include <ecstasy/core/Engine.h>
 #include <ecstasy/systems/IteratingSystem.h>
+#include <random>
 
 namespace ecstasy_benchmarks {
 	const int NUM_ENTITIES = 1 << 15;
@@ -87,13 +88,22 @@ namespace ecstasy_benchmarks {
 			engine.addSystem<IteratingSystemD>();
 			engine.addSystem<IteratingSystemE>();
 
+			std::vector<int> v;
+
+			for (int i = 0; i < NUM_ENTITIES; i++) {
+				v.push_back(i);
+			}
+
+			std::mt19937 g(0);
+			std::shuffle(v.begin(), v.end(), g);
+
 			for (int i = 0; i < NUM_ENTITIES; i++) {
 				Entity *entity = engine.createEntity();
-				if (i & 1)  entity->assign<ComponentA>();
-				if (i & 2)  entity->assign<ComponentB>();
-				if (i & 4)  entity->assign<ComponentC>();
-				if (i & 8)  entity->assign<ComponentD>();
-				if (i & 16) entity->assign<ComponentE>();
+				if (v[i] & 1)  entity->assign<ComponentA>();
+				if (v[i] & 2)  entity->assign<ComponentB>();
+				if (v[i] & 4)  entity->assign<ComponentC>();
+				if (v[i] & 8)  entity->assign<ComponentD>();
+				if (v[i] & 16) entity->assign<ComponentE>();
 				engine.addEntity(entity);
 			}
 		}
