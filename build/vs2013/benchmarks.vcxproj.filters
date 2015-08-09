@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="entityx">
+      <UniqueIdentifier>{7AB67F6B-E695-FE06-EFAD-89DD5B0C6568}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entityx\3rdparty">
+      <UniqueIdentifier>{229260E7-0E8B-7F39-37BD-64BE23155F45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entityx\deps">
+      <UniqueIdentifier>{D5E4E11D-C147-71C2-6ACD-A978560F3D45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entityx\help">
+      <UniqueIdentifier>{D215E41D-BE78-73C2-67FE-AB7853403F45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entityx\tags">
+      <UniqueIdentifier>{B898EA1D-A4FB-79C2-4D81-B27839C34545}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\benchmarks\benchpress.hpp" />
+    <ClInclude Include="..\..\benchmarks\entityx\3rdparty\catch.hpp">
+      <Filter>entityx\3rdparty</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\benchmarks\entityx\3rdparty\simplesignal.h">
+      <Filter>entityx\3rdparty</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\benchmarks\entityx\Entity.h">
+      <Filter>entityx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\benchmarks\entityx\Event.h">
+      <Filter>entityx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\benchmarks\entityx\System.h">
+      <Filter>entityx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\benchmarks\entityx\config.h">
+      <Filter>entityx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\benchmarks\entityx\deps\Dependencies.h">
+      <Filter>entityx\deps</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\benchmarks\entityx\entityx.h">
+      <Filter>entityx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\benchmarks\entityx\help\NonCopyable.h">
+      <Filter>entityx\help</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\benchmarks\entityx\help\Pool.h">
+      <Filter>entityx\help</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\benchmarks\entityx\help\Timer.h">
+      <Filter>entityx\help</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\benchmarks\entityx\quick.h">
+      <Filter>entityx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\benchmarks\entityx\tags\TagsComponent.h">
+      <Filter>entityx\tags</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\benchmarks\ecstasy.cpp" />
+    <ClCompile Include="..\..\benchmarks\entityx.cpp" />
+    <ClCompile Include="..\..\benchmarks\entityx\Entity.cc">
+      <Filter>entityx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\benchmarks\entityx\Event.cc">
+      <Filter>entityx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\benchmarks\entityx\System.cc">
+      <Filter>entityx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\benchmarks\entityx\help\Pool.cc">
+      <Filter>entityx\help</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\benchmarks\entityx\help\Timer.cc">
+      <Filter>entityx\help</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\benchmarks\main.cpp" />
+  </ItemGroup>
+</Project>

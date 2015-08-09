@@ -32,6 +32,7 @@ sourceDir		= rootDir .. "/source"
 includeDir		= rootDir .. "/include"
 binariesDir		= rootDir .. "/binaries"
 testsDir		= rootDir .. "/tests"
+benchmarksDir	= rootDir .. "/benchmarks"
 buildDir		= (_ACTION)
 
 -- [start] Settings that are true for all projects
@@ -103,10 +104,34 @@ solution "ECS-tasy"
 		targetdir( binariesDir )
 		
 		filter { "Debug" }
-			targetdir( testDir )
 			links { "ecstasy-s-d" }
 		filter { "Release" }
-			targetdir( gameDir )
+			links { "ecstasy-s" }
+
+	-- Test Project
+	project "benchmarks"
+		kind "ConsoleApp"
+		language "C++"
+		objdir( objectDir .. "/benchmarks" )
+		defines { "USING_ECSTASY", "USING_SIGNAL11"}
+		includedirs {
+			includeDir,
+			benchmarksDir
+		}
+		libdirs {
+			libDir
+		}
+		files {
+			benchmarksDir .."/**.h",
+			benchmarksDir .."/**.hpp",
+			benchmarksDir .."/**.cpp",
+			benchmarksDir .."/**.cc"
+		}
+		targetdir( binariesDir )
+		
+		filter { "Debug" }
+			links { "ecstasy-s-d" }
+		filter { "Release" }
 			links { "ecstasy-s" }
 
 			
