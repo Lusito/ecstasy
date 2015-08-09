@@ -87,11 +87,7 @@ namespace entityx_benchmarks {
 		}
 
 		void update(TimeDelta dt) {
-			systems.update<IteratingSystemA>(dt);
-			systems.update<IteratingSystemB>(dt);
-			systems.update<IteratingSystemC>(dt);
-			systems.update<IteratingSystemD>(dt);
-			systems.update<IteratingSystemE>(dt);
+			systems.update_all(dt);
 		}
 	};
 
