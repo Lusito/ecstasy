@@ -17,7 +17,6 @@
 #include <stdint.h>
 #include "../utils/Bits.h"
 
-
 namespace ECS {
     #define ECS_UUID_TYPE(T)\
     struct T {\

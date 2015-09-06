@@ -15,7 +15,6 @@
  * limitations under the License.
  ******************************************************************************/ 
 
-#include <map>
 #include "Types.h"
 #include "../utils/Bits.h"
 
