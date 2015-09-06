@@ -17,6 +17,7 @@
 #include <ecstasy/core/Entity.h>
 #include <memory>
 #include <sstream>
+#include <map>
 
 namespace ECS {
 	static std::map<std::string, std::shared_ptr<Family>> families;

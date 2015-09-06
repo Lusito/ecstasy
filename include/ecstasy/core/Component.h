@@ -15,7 +15,6 @@
  * limitations under the License.
  ******************************************************************************/
 #include "Types.h"
-#include "../utils/Pool.h"
 
 namespace ECS {
 	/// Non-Template base-class for Component. Extend Component instead.
