@@ -1,77 +1,119 @@
 #include "benchpress.hpp"
-#include<ecstasy/core/Engine.h>
-#include<ecstasy/systems/IteratingSystem.h>
+#include <ecstasy/core/Engine.h>
+#include <ecstasy/systems/IteratingSystem.h>
 #include <random>
 
 namespace ecstasy_benchmarks {
-	const int COMPONENT_VALUES = 8;
-	const int NUM_ENTITIES = 2 << 14;
-	
-	struct ComponentMock1 : public Component<ComponentMock1> { int values[COMPONENT_VALUES]; };
-	struct ComponentMock2 : public Component<ComponentMock2> { float values[COMPONENT_VALUES]; };
-	struct ComponentMock3 : public Component<ComponentMock3> { int values[COMPONENT_VALUES]; };
-	struct ComponentMock4 : public Component<ComponentMock4> { float values[COMPONENT_VALUES]; };
-	struct ComponentMock5 : public Component<ComponentMock5> { int values[COMPONENT_VALUES]; };
-	struct ComponentMock6 : public Component<ComponentMock6> { float values[COMPONENT_VALUES]; };
-	struct ComponentMock7 : public Component<ComponentMock7> { int values[COMPONENT_VALUES]; };
-	struct ComponentMock8 : public Component<ComponentMock8> { float values[COMPONENT_VALUES]; };
-	
-	template<typename T, int I>
-	class EntitySystemMock : public IteratingSystem<EntitySystemMock<T, I>> {
+	const int NUM_ENTITIES = 1 << 15;
+
+	struct ComponentA : public Component<ComponentA> { float a; float b; float c; };
+	struct ComponentB : public Component<ComponentB> { float a; float b; float c; };
+	struct ComponentC : public Component<ComponentC> { float a; float b; float c; };
+	struct ComponentD : public Component<ComponentD> { float a; float b; float c; };
+	struct ComponentE : public Component<ComponentE> { float a; float b; float c; };
+
+	struct IteratingSystemA : public IteratingSystem<IteratingSystemA> {
 	public:
-		float inc = I / 100.0f;
-		EntitySystemMock() : IteratingSystem<EntitySystemMock<T, I>>(Family::all<T>().get()) {}
-		
+		IteratingSystemA(): IteratingSystem<IteratingSystemA>(Family::all<ComponentA>().get()) {
+		}
+
 		void processEntity(Entity *entity, float deltaTime) override {
-			auto *c = entity->get<T>();
-			for(int i=0; i<COMPONENT_VALUES; i++) {
-				c->values[i] += inc;
-			}
+			ComponentA *c = entity->get<ComponentA>();
+			c->a++;
+			c->b++;
+			c->c++;
 		}
 	};
-	
+
+	struct IteratingSystemB : public IteratingSystem<IteratingSystemB> {
+	public:
+		IteratingSystemB(): IteratingSystem<IteratingSystemB>(Family::all<ComponentB>().get()) {
+		}
+
+		void processEntity(Entity *entity, float deltaTime) override {
+			ComponentB *c = entity->get<ComponentB>();
+			c->a++;
+			c->b++;
+			c->c++;
+		}
+	};
+
+	struct IteratingSystemC : public IteratingSystem<IteratingSystemC> {
+	public:
+		IteratingSystemC(): IteratingSystem<IteratingSystemC>(Family::all<ComponentC>().get()) {
+		}
+
+		void processEntity(Entity *entity, float deltaTime) override {
+			ComponentC *c = entity->get<ComponentC>();
+			c->a++;
+			c->b++;
+			c->c++;
+		}
+	};
+
+	struct IteratingSystemD : public IteratingSystem<IteratingSystemD> {
+	public:
+		IteratingSystemD(): IteratingSystem<IteratingSystemD>(Family::all<ComponentD>().get()) {
+		}
+
+		void processEntity(Entity *entity, float deltaTime) override {
+			ComponentD *c = entity->get<ComponentD>();
+			c->a++;
+			c->b++;
+			c->c++;
+		}
+	};
+
+	struct IteratingSystemE : public IteratingSystem<IteratingSystemE> {
+	public:
+		IteratingSystemE(): IteratingSystem<IteratingSystemE>(Family::all<ComponentE>().get()) {
+		}
+
+		void processEntity(Entity *entity, float deltaTime) override {
+			ComponentE *c = entity->get<ComponentE>();
+			c->a++;
+			c->b++;
+			c->c++;
+		}
+	};
+
 	class Benchmark  {
 	public:
 		Engine engine;
+
 		Benchmark() {
-			engine.addSystem<EntitySystemMock<ComponentMock1, 123>>();
-			engine.addSystem<EntitySystemMock<ComponentMock1, -123>>();
-			engine.addSystem<EntitySystemMock<ComponentMock2, 123>>();
-			engine.addSystem<EntitySystemMock<ComponentMock2, -123>>();
-			engine.addSystem<EntitySystemMock<ComponentMock3, 123>>();
-			engine.addSystem<EntitySystemMock<ComponentMock3, -123>>();
-			engine.addSystem<EntitySystemMock<ComponentMock4, 123>>();
-			engine.addSystem<EntitySystemMock<ComponentMock4, -123>>();
-			engine.addSystem<EntitySystemMock<ComponentMock5, 123>>();
-			engine.addSystem<EntitySystemMock<ComponentMock5, -123>>();
-			engine.addSystem<EntitySystemMock<ComponentMock6, 123>>();
-			engine.addSystem<EntitySystemMock<ComponentMock6, -123>>();
-			engine.addSystem<EntitySystemMock<ComponentMock7, 123>>();
-			engine.addSystem<EntitySystemMock<ComponentMock7, -123>>();
-			engine.addSystem<EntitySystemMock<ComponentMock8, 123>>();
-			engine.addSystem<EntitySystemMock<ComponentMock8, -123>>();
-			
-			std::default_random_engine generator;
-			std::uniform_int_distribution<int> distribution(0,8);
-			for(int i=0; i<NUM_ENTITIES; i++) {
-				auto *e = engine.createEntity();
-				if(distribution(generator) == 1) e->assign<ComponentMock1>();
-				if(distribution(generator) == 2) e->assign<ComponentMock2>();
-				if(distribution(generator) == 3) e->assign<ComponentMock3>();
-				if(distribution(generator) == 4) e->assign<ComponentMock4>();
-				if(distribution(generator) == 5) e->assign<ComponentMock5>();
-				if(distribution(generator) == 6) e->assign<ComponentMock6>();
-				if(distribution(generator) == 7) e->assign<ComponentMock7>();
-				if(distribution(generator) == 8) e->assign<ComponentMock8>();
-				engine.addEntity(e);
+			engine.addSystem<IteratingSystemA>();
+			engine.addSystem<IteratingSystemB>();
+			engine.addSystem<IteratingSystemC>();
+			engine.addSystem<IteratingSystemD>();
+			engine.addSystem<IteratingSystemE>();
+
+			std::vector<int> v;
+
+			for (int i = 0; i < NUM_ENTITIES; i++) {
+				v.push_back(i);
+			}
+
+			std::mt19937 g(0);
+			std::shuffle(v.begin(), v.end(), g);
+
+			for (int i = 0; i < NUM_ENTITIES; i++) {
+				Entity *entity = engine.createEntity();
+				if (v[i] & 1)  entity->assign<ComponentA>();
+				if (v[i] & 2)  entity->assign<ComponentB>();
+				if (v[i] & 4)  entity->assign<ComponentC>();
+				if (v[i] & 8)  entity->assign<ComponentD>();
+				if (v[i] & 16) entity->assign<ComponentE>();
+				engine.addEntity(entity);
 			}
 		}
+
 		void run(benchpress::context *ctx) {
 			for (size_t i = 0; i < ctx->num_iterations(); ++i) {
-				engine.update(0);
+				engine.update(42.0);
 			}
 		}
 	};
-	BENCHMARK(Benchmark, "ECStasy");
+	BENCHMARK(Benchmark, "ECS-Tasy");
 
 }
