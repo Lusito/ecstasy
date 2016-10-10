@@ -1,68 +1,80 @@
-backup*/
-temp*/
-lib/
+*.orig
+.vs/
+*.VC.*
+*vcxproj*
+*.sln
 
-binaries/**
+### C++ ###
+#Prerequisites
+*.d
 
-#Netbeans temp files
-build/netbeans*/*/build/
-build/netbeans*/*/nbproject/private/
-build/netbeans*/*/nbproject/Package-*.bash
-build/netbeans*/*/nbproject/Makefile-*.mk
-build/netbeans*/*/.dep.inc
-
-# User-specific files
-*.suo
-*.user
-*.sln.docstates
-
-# Visual C++ cache files
-ipch/
-*.aps
-*.ncb
-*.opensdf
-*.sdf
-*.cachefile
-
-# Visual Studio profiler
-*.psess
-*.vsp
-*.vspx
-
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
-
-# Folder config file
-Desktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# MSTest test Results
-[Tt]est[Rr]esult*/
-[Bb]uild[Ll]og.*
-
-*_i.c
-*_p.c
-*.ilk
-*.meta
+#Compiled Object files
+*.slo
+*.lo
+*.o
 *.obj
+
+#Precompiled Headers
+*.gch
 *.pch
-*.pdb
-*.pgc
-*.pgd
-*.rsp
-*.sbr
-*.tlb
-*.tli
-*.tlh
-*.tmp
-*.tmp_proj
+
+#Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+#Fortran module files
+*.mod
+*.smod
+
+#Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+#Executables
+*.exe
+*.out
+*.app
+bin/
+
+### CMake ###
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Makefile
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+
+### QT CREATOR ###
+*.config
+*.creator
+*.files
+*.includes
+*.user
+*.cbp
+*.autosave
+
+### Doxygen ###
+doc/
+
+
+### log ###
 *.log
-*.vspscc
-*.vssscc
-*.pidb
-*.idb
-*.log
-*.scc
+*.trace
+
+### clion ###
+.idea/
+
+### netbeans ###
+nbproject
+compile_commands.json
+
+#generated files
+generated/*.cpp
+generated/*.hpp
+
+#binaries
+tests

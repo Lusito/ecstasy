@@ -1,3 +1,0 @@
-@ECHO OFF
-premake5 vs2013
-PAUSE
