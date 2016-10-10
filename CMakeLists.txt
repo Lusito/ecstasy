@@ -12,8 +12,7 @@ file(GLOB_RECURSE SOURCE_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp
 )
 add_library(ecstasy STATIC ${SOURCE_FILES})
-set_property(TARGET ecstasy PROPERTY CXX_STANDARD 14)
-set_property(TARGET ecstasy PROPERTY CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
 #tests
 if(ECSTASY_BUILD_TESTS)
@@ -27,7 +26,4 @@ if(ECSTASY_BUILD_TESTS)
     add_executable(tests ${TESTS_SOURCE_FILES})
     target_compile_definitions(tests PUBLIC -DUSING_ECSTASY -DUSING_SIGNAL11)
     target_link_libraries(tests ecstasy)
-
-    set_property(TARGET tests PROPERTY CXX_STANDARD 14)
-    set_property(TARGET tests PROPERTY CXX_STANDARD_REQUIRED ON)
 endif()
