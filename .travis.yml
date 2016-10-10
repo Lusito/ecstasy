@@ -13,9 +13,6 @@ addons:
     - g++-4.8
 
 script:
-  - cd build
-  - ./premake5 gmake
-  - cd gmake
+  - cmake -G"Unix Makefiles"
   - make
-  - cd ../..
-  - binaries/tests
+  - ./tests
