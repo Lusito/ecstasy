@@ -64,12 +64,13 @@ namespace ECS {
 		/**
 		 * Assign a Component to an Entity, passing through Component constructor arguments.
 		 * 
-		 * @return The Entity for easy chaining
+		 * @return The added component
 		 */
 		template <typename T, typename ... Args>
-		Entity &assign(Args && ... args) {
-			add(allocator->createComponent<T>(std::forward<Args>(args) ...));
-			return *this;
+		T* assign(Args && ... args) {
+			auto component = allocator->createComponent<T>(std::forward<Args>(args) ...);
+			add(component);
+			return component;
 		}
 
 		/**
