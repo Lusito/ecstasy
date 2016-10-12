@@ -47,7 +47,7 @@ namespace ECS {
 	}
 	
 	/// Uniquely identifies a Component sub-class.
-	ECS_UUID_TYPE(ComponentType);
+	ECS_UUID_TYPE(ComponentType)
 	
 	/**
 	 * Get a unique index for a specified Component class.
@@ -62,7 +62,7 @@ namespace ECS {
 	}
 
 	/// Uniquely identifies an EntitySystem sub-class.
-	ECS_UUID_TYPE(SystemType);
+	ECS_UUID_TYPE(SystemType)
 	
 	/**
 	 * Get a unique index for a specified EntitySystem class.

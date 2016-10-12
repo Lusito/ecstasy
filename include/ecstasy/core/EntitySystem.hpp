@@ -35,7 +35,8 @@ namespace ECS {
 
 	private:
 		template<typename T> friend class EntitySystem;
-		EntitySystemBase(SystemType type, int priority) : type(type), priority(priority) {}
+		EntitySystemBase(SystemType type, int priority)
+			: priority(priority),  type(type) {}
 		
 	public:
 		virtual ~EntitySystemBase() {}

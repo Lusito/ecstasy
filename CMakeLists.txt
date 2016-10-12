@@ -3,6 +3,18 @@ cmake_minimum_required(VERSION 2.6)
 project(ecstasy)
 option(ECSTASY_BUILD_TESTS "Build the unit tests" ON)
 
+#warnings
+if(MSVC)
+  # Force to always compile with W4
+  if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+    string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+  else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+  endif()
+else()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -pedantic")
+endif()
+
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 #project files to compile

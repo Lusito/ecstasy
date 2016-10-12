@@ -21,7 +21,7 @@ namespace ECS {
 		return a->getPriority() < b->getPriority();
 	}
 	Engine:: Engine(int entityPoolInitialSize, int entityPoolMaxSize)
-		: componentOperationHandler(*this), entityOperationHandler(*this), entityPool(entityPoolInitialSize, entityPoolMaxSize) {
+		: entityOperationHandler(*this), componentOperationHandler(*this), entityPool(entityPoolInitialSize, entityPoolMaxSize) {
 		componentAdded.connect(this, &Engine::onComponentChange);
 		componentRemoved.connect(this, &Engine::onComponentChange);
 	}

@@ -21,7 +21,7 @@
 namespace ECS {
 	class Entity;
 	
-	ECS_UUID_TYPE(FamilyType);
+	ECS_UUID_TYPE(FamilyType)
 	
 	class Family;
 
