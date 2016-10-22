@@ -15,15 +15,27 @@
  ******************************************************************************/
 #include <ecstasy/core/Engine.hpp>
 #include <ecstasy/core/EntitySystem.hpp>
+#include <ecstasy/utils/EntityFactory.hpp>
 
 namespace ECS {
 	bool compareSystems(EntitySystemBase *a, EntitySystemBase *b) {
 		return a->getPriority() < b->getPriority();
 	}
-	Engine:: Engine(int entityPoolInitialSize, int entityPoolMaxSize)
+
+	Engine::Engine(int entityPoolInitialSize, int entityPoolMaxSize)
 		: entityOperationHandler(*this), componentOperationHandler(*this), entityPool(entityPoolInitialSize, entityPoolMaxSize) {
 		componentAdded.connect(this, &Engine::onComponentChange);
 		componentRemoved.connect(this, &Engine::onComponentChange);
+	}
+
+	Engine::~Engine(){
+		do {
+			removeAllEntities();
+			componentOperationHandler.process();
+			entityOperationHandler.process();
+		} while (!entities.empty());
+
+		removeAllSystems();
 	}
 
 	void Engine::onComponentChange(Entity *entity, ComponentBase *component) {
@@ -262,6 +274,18 @@ namespace ECS {
 		auto *entity = entityPool.obtain();
 		entity->engine = this;
 		entity->allocator = this;
+		return entity;
+	}
+
+	Entity *Engine::assembleEntity(const std::string& blueprintname) {
+		if(!entityFactory)
+			return nullptr;
+
+		auto entity = createEntity();
+		if(!entityFactory->assemble(entity, blueprintname)) {
+			entityPool.free(entity);
+			entity = nullptr;
+		}
 		return entity;
 	}
 

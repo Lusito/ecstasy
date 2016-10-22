@@ -24,10 +24,13 @@
 #include <ecstasy/core/Family.hpp>
 #include <stdint.h>
 #include <vector>
+#include <string>
 #include <unordered_map>
 #include <signal11/Signal.hpp>
 
 namespace ECS {
+	class EntityFactory;
+
 	/// Signal11::Signal for Component signals
 	typedef Signal11::Signal<void(Entity *, ComponentBase *)> ComponentSignal;
 	/// Signal11::Signal for Entity signals
@@ -68,6 +71,7 @@ namespace ECS {
 		std::unordered_map<const Family *, EntitySignal> entityAddedSignals;
 		std::unordered_map<const Family *, EntitySignal> entityRemovedSignals;
 
+		std::shared_ptr<EntityFactory> entityFactory;
 		bool updating = false;
 
 		bool notifying = false;
@@ -98,18 +102,29 @@ namespace ECS {
 		 */
 		Engine (int entityPoolInitialSize = 10, int entityPoolMaxSize = 100);
 
-		virtual ~Engine() {
-			do {
-				removeAllEntities();
-				componentOperationHandler.process();
-				entityOperationHandler.process();
-			} while (!entities.empty());
-
-			removeAllSystems();
-		}
+		virtual ~Engine();
 		
 		/// @return Clean Entity from the Engine pool. In order to add it to the Engine, use addEntity(Entity).
 		Entity *createEntity();
+		
+		/**
+		 * Creates and assembles an Entity using the EntityFactory.
+		 * In order to add it to the Engine, use addEntity(Entity).
+		 * setEntityFactory must be called before first use.
+		 * 
+         * @param blueprintname The name of the entity blueprint
+         * @return A fully assembled Entity or null if the assembly failed.
+         */
+		Entity *assembleEntity(const std::string& blueprintname);
+
+		/**
+		 * Set the EntityFactory to use with assembleEntity.
+		 * 
+         * @param entityFactory The new EntityFactory
+         */
+		void setEntityFactory(std::shared_ptr<EntityFactory> entityFactory) {
+			this->entityFactory = entityFactory;
+		}
 
 		/**
 		 * Removes all free entities and operations from the pools to free up memory.
