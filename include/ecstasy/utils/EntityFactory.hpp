@@ -31,37 +31,15 @@ namespace ECS {
 	public:
 		ComponentBlueprint(const std::string& name) : name(name) {}
 
-		void set(const std::string& key, const std::string& value) {
-			values[key] = value;
-		}
+		void set(const std::string& key, const std::string& value);
 
-		bool getBool(const std::string& key, bool defaultValue) const {
-			auto it = values.find(key);
-			if(it != values.end())
-				return it->second == "true";
-			return defaultValue;
-		}
+		bool getBool(const std::string& key, bool defaultValue) const;
 
-		int getInt(const std::string& key, int defaultValue) const {
-			auto it = values.find(key);
-			if(it != values.end())
-				return std::stoi(it->second);
-			return defaultValue;
-		}
+		int getInt(const std::string& key, int defaultValue) const;
 
-		float getFloat(const std::string& key, float defaultValue) const {
-			auto it = values.find(key);
-			if(it != values.end())
-				return std::stof(it->second);
-			return defaultValue;
-		}
+		float getFloat(const std::string& key, float defaultValue) const;
 
-		const std::string& getString(const std::string& key, const std::string& defaultValue) const {
-			auto it = values.find(key);
-			if(it != values.end())
-				return it->second;
-			return defaultValue;
-		}
+		const std::string& getString(const std::string& key, const std::string& defaultValue) const;
 	};
 	
 	class EntityBlueprint {
@@ -70,9 +48,7 @@ namespace ECS {
 		std::vector<std::shared_ptr<ComponentBlueprint>> components;
 
 	public:
-		void add(std::shared_ptr<ComponentBlueprint> value) {
-			components.push_back(value);
-		}
+		void add(std::shared_ptr<ComponentBlueprint> value);
 	};
 
 	class ComponentFactory {
@@ -99,26 +75,9 @@ namespace ECS {
 			componentFactories[key] = std::make_unique<T>();
 		}
 		
-		void addEntityBlueprint(const std::string& key, std::shared_ptr<EntityBlueprint> value) {
-			entities[key] = value;
-		}
+		void addEntityBlueprint(const std::string& key, std::shared_ptr<EntityBlueprint> value);
 		
-		bool assemble(Entity *entity, const std::string& blueprintname) {
-			auto it = entities.find(blueprintname);
-			bool success = false;
-			if(it != entities.end()) {
-				success = true;
-				auto blueprint = it->second;
-				for(auto& componentBlueprint: blueprint->components) {
-					auto factoryIt = componentFactories.find(componentBlueprint->name);
-					if(factoryIt == componentFactories.end()
-						|| !factoryIt->second->assemble(entity, *componentBlueprint)) {
-						success = false;
-					}
-				}
-			}
-			return success;
-		}
+		bool assemble(Entity *entity, const std::string& blueprintname);
 	};
 }
 
