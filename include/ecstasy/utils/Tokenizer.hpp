@@ -14,18 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-#include <memory>
 #include <string>
 #include <vector>
 
 namespace ECS {
-	class EntityBlueprint;
-	class BlueprintParser {
-	public:
-		std::string parse(const std::string& filename, std::shared_ptr<EntityBlueprint> &result);
-	};
+	//Fixme: documentation
+	// negative value means quote has not been closed.
+	int parseTokens(const std::string &line, std::vector<std::string> &tokens, char commentChar='#');
 }
-
-#ifdef USING_ECSTASY
-	using ECS::BlueprintParser;
-#endif

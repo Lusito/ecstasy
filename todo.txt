@@ -5,4 +5,4 @@ change code format from Type * to Type*, also for &.
 write tests for EntityFactory
 add code documentation for EntityFactory
 blueprint parser should support ifstream as an alternative
-split blueprint and component-factory classes from EntityFactory.hpp
+split component-factory classes from EntityFactory.hpp

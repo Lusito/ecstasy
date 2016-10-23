@@ -14,18 +14,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-#include <memory>
+
+#include <map>
 #include <string>
 #include <vector>
+#include <memory>
 
 namespace ECS {
-	class EntityBlueprint;
-	class BlueprintParser {
+	class ComponentBlueprint {
+	private:
+		friend class EntityFactory;
+		std::string name;
+		std::map<std::string, std::string> values;
+
 	public:
-		std::string parse(const std::string& filename, std::shared_ptr<EntityBlueprint> &result);
+		ComponentBlueprint(const std::string& name) : name(name) {}
+
+		void set(const std::string& key, const std::string& value);
+
+		bool getBool(const std::string& key, bool defaultValue) const;
+
+		int getInt(const std::string& key, int defaultValue) const;
+
+		float getFloat(const std::string& key, float defaultValue) const;
+
+		const std::string& getString(const std::string& key, const std::string& defaultValue) const;
+	};
+	
+	class EntityBlueprint {
+	private:
+		friend class EntityFactory;
+		std::vector<std::shared_ptr<ComponentBlueprint>> components;
+
+	public:
+		void add(std::shared_ptr<ComponentBlueprint> value);
 	};
 }
 
 #ifdef USING_ECSTASY
-	using ECS::BlueprintParser;
+	using ECS::ComponentBlueprint;
+	using ECS::EntityBlueprint;
 #endif

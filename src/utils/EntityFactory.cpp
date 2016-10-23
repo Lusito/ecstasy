@@ -14,44 +14,9 @@
  * limitations under the License.
  ******************************************************************************/
 #include <ecstasy/utils/EntityFactory.hpp>
+#include <ecstasy/utils/Blueprint.hpp>
 
 namespace ECS {
-	void ComponentBlueprint::set(const std::string& key, const std::string& value) {
-		values[key] = value;
-	}
-
-	bool ComponentBlueprint::getBool(const std::string& key, bool defaultValue) const {
-		auto it = values.find(key);
-		if(it != values.end())
-			return it->second == "true";
-		return defaultValue;
-	}
-
-	int ComponentBlueprint::getInt(const std::string& key, int defaultValue) const {
-		auto it = values.find(key);
-		if(it != values.end())
-			return std::stoi(it->second);
-		return defaultValue;
-	}
-
-	float ComponentBlueprint::getFloat(const std::string& key, float defaultValue) const {
-		auto it = values.find(key);
-		if(it != values.end())
-			return std::stof(it->second);
-		return defaultValue;
-	}
-
-	const std::string& ComponentBlueprint::getString(const std::string& key, const std::string& defaultValue) const {
-		auto it = values.find(key);
-		if(it != values.end())
-			return it->second;
-		return defaultValue;
-	}
-
-	void EntityBlueprint::add(std::shared_ptr<ComponentBlueprint> value) {
-		components.push_back(value);
-	}
-
 	void EntityFactory::addEntityBlueprint(const std::string& key, std::shared_ptr<EntityBlueprint> value) {
 		entities[key] = value;
 	}

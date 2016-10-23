@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+#include <ecstasy/utils/Blueprint.hpp>
 #include <ecstasy/utils/BlueprintParser.hpp>
 #include <ecstasy/utils/EntityFactory.hpp>
+#include <ecstasy/utils/Tokenizer.hpp>
 #include <fstream>
 
 namespace ECS {
-	//Fixme: make utf-8 safe
 	std::string BlueprintParser::parse(const std::string& filename, std::shared_ptr<EntityBlueprint> &result) {
 		std::ifstream file(filename);
 		if(!file.is_open())
@@ -31,20 +32,21 @@ namespace ECS {
 		std::string line;
 		for(int lineNum=0; std::getline(file, line); lineNum++) {
 			// parse tokens
-			auto error = parseLine(line, tokens);
-			if(!error.empty())
-				return "Line " + std::to_string(lineNum) + ": " + error;
-			if(!tokens.empty()) {
+			tokens.clear();
+			int numTokens = parseTokens(line, tokens);
+			if(numTokens < 0)
+				return "Line " + std::to_string(lineNum) + ": quote has not been closed";
+			if(numTokens > 0) {
 				std::string &command = tokens[0];
 				if(command == "add") {
-					if(tokens.size() != 2)
+					if(numTokens != 2)
 						return "Line " + std::to_string(lineNum) + ": expected exactly one argument to 'add'";
 					if(lastComponent)
 						result->add(lastComponent);
 					std::string &name = tokens[1];
 					lastComponent = std::make_shared<ComponentBlueprint>(name);
 				} else if(command == "set") {
-					if(tokens.size() != 3)
+					if(numTokens != 3)
 						return "Line " + std::to_string(lineNum) + ": expected exactly two arguments to 'set'";
 					if(!lastComponent)
 						return "Line " + std::to_string(lineNum) + ": 'add' must be called before 'set'";
@@ -56,61 +58,6 @@ namespace ECS {
 		if(lastComponent)
 			result->add(lastComponent);
 
-		return "";
-	}
-
-	std::string BlueprintParser::parseLine(const std::string &line, std::vector<std::string> &tokens) {
-		tokens.clear();
-		
-		bool charactersFound = false;
-		bool isEscape = false;
-		bool isQuote = false;
-		std::string token;
-		token.reserve(line.length());
-		for(char c: line) {
-			if(isEscape) {
-				isEscape = false;
-				continue;
-			}
-			if(isspace(c)) {
-				// skip whitespaces at the beginning
-				if(!charactersFound)
-					continue;
-				if(isQuote)
-					token += c;
-				else if(!token.empty()) {
-					tokens.push_back(token);
-					token.clear();
-				}
-			} else if(isQuote) {
-				if(c == '\\')
-					isEscape = true;
-				else if(c != '\"')
-					token += c;
-				else {
-					isQuote = false;
-					tokens.push_back(token);
-					token.clear();
-				}
-			} else if(c == '\"') {
-				if(!token.empty())
-					return "quote not prefixed by whitespace";
-				isQuote = true;
-			} else if(c == '#') { //comment
-				break;
-			} else {
-				charactersFound = true;
-				token += c;
-			}
-		}
-
-		if(isQuote)
-			return "quote has not been closed";
-
-		if(!token.empty()) {
-			tokens.push_back(token);
-			token.clear();
-		}
 		return "";
 	}
 }
