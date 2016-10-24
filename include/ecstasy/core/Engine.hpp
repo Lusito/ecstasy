@@ -111,16 +111,16 @@ namespace ECS {
 		 * In order to add it to the Engine, use {@link addEntity()}.
 		 * setEntityFactory must be called before first use.
 		 * 
-         * @param blueprintname The name of the entity blueprint
-         * @return A fully assembled {@link Entity} or null if the assembly failed.
-         */
+		 * @param blueprintname The name of the entity blueprint
+		 * @return A fully assembled {@link Entity} or null if the assembly failed.
+		 */
 		Entity* assembleEntity(const std::string& blueprintname);
 
 		/**
 		 * Set the {@link EntityFactory} to use with assembleEntity.
 		 * 
-         * @param entityFactory The new {@link EntityFactory}
-         */
+		 * @param entityFactory The new {@link EntityFactory}
+		 */
 		void setEntityFactory(std::shared_ptr<EntityFactory> entityFactory) {
 			this->entityFactory = entityFactory;
 		}
@@ -150,9 +150,9 @@ namespace ECS {
 		void removeAllEntities();
 
 		/**
-         * @param id The id of an Entity
-         * @return The entity associated with the specified id or null if no such entity exists.
-         */
+		 * @param id The id of an Entity
+		 * @return The entity associated with the specified id or null if no such entity exists.
+		 */
 		Entity* getEntity(uint64_t id) const;
 
 		/// @return a list of all entities

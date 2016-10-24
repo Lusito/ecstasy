@@ -18,21 +18,21 @@
 #include <ecstasy/utils/Bits.hpp>
 
 namespace ECS {
-    #define ECS_UUID_TYPE(T)\
-    struct T {\
-        explicit T(const uint32_t id) : id(id) {}\
-        T() : id(0) {}\
-        T(const T& other) : id(other.id) {}\
-        T& operator=(const T & other) { id = other.id; return *this;}\
-        T& operator=(const uint32_t & other) { id = other; return *this;}\
-        operator const uint32_t & () const {return id; }\
-        operator uint32_t & () { return id; }\
-        bool operator==(const T & other) const { return id == other.id; }\
-        bool operator<(const T & other) const { return id < other.id; }\
+	#define ECS_UUID_TYPE(T)\
+	struct T {\
+		explicit T(const uint32_t id) : id(id) {}\
+		T() : id(0) {}\
+		T(const T& other) : id(other.id) {}\
+		T& operator=(const T & other) { id = other.id; return *this;}\
+		T& operator=(const uint32_t & other) { id = other; return *this;}\
+		operator const uint32_t & () const {return id; }\
+		operator uint32_t & () { return id; }\
+		bool operator==(const T & other) const { return id == other.id; }\
+		bool operator<(const T & other) const { return id < other.id; }\
 		uint32_t getId() const { return id; }\
 	private:\
 		uint32_t id;\
-    };
+	};
 
 
 	/**
@@ -53,8 +53,8 @@ namespace ECS {
 	 * Get a unique index for a specified Component class.
 	 * 
 	 * @tparam T The Component class
-     * @return A unique identifier
-     */
+	 * @return A unique identifier
+	 */
 	template <typename T>
 	ComponentType getComponentType() {
 		static ComponentType type(getUniqueTypeId<ComponentType>());
@@ -68,8 +68,8 @@ namespace ECS {
 	 * Get a unique index for a specified EntitySystem class.
 	 * 
 	 * @tparam T The EntitySystem class
-     * @return A unique identifier
-     */
+	 * @return A unique identifier
+	 */
 	template <typename T>
 	SystemType getSystemType() {
 		static SystemType type(getUniqueTypeId<SystemType>());

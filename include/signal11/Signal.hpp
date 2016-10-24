@@ -432,7 +432,7 @@ namespace Signal11 {
 
 					for(; link != this; link = link->_next) {
 						if(id == link) {
-							link->unlink();     // deactivate and unlink sibling
+							link->unlink(); // deactivate and unlink sibling
 							return true;
 						}
 					}

@@ -2,10 +2,10 @@
 add Position
 #indentation doesn't matter, but can be easier on the eye
 set x 10.1 #key/value
-    set y 11.2
+	set y 11.2
 add Render
 	set layer 42
 	set color FF0000
 add Label
-    set message "a full blown message"
+	set message "a full blown message"
 add Marker
