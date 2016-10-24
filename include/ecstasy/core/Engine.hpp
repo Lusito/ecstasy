@@ -19,7 +19,6 @@
 #include <ecstasy/core/EntitySystem.hpp>
 #include <ecstasy/core/Entity.hpp>
 #include <ecstasy/core/Component.hpp>
-#include <ecstasy/core/ComponentAllocator.hpp>
 #include <ecstasy/core/EntityOperations.hpp>
 #include <ecstasy/core/Family.hpp>
 #include <stdint.h>
@@ -46,7 +45,6 @@ namespace ECS {
 	 *
 	 * <ul>
 	 * <li>Create entities using createEntity()</li>
-	 * <li>Create components using createComponent()</li>
 	 * <li>Add/Remove Entity objects</li>
 	 * <li>Add/Remove {@link EntitySystem}s</li>
 	 * <li>Obtain a list of entities for a specific Family</li>
@@ -54,7 +52,7 @@ namespace ECS {
 	 * <li>Connect to/Disconnect from EntitySignal</li>
 	 * </ul>
 	 */
-	class Engine : public ComponentAllocator {
+	class Engine {
 	private:
 		friend class ComponentOperationHandler;
 		friend class EntityOperationHandler;
@@ -164,13 +162,13 @@ namespace ECS {
 
 
 		/**
-		 * Adds a new system
+		 * Emplaces a new system
 		 *
 		 * @tparam T The System class
 		 * @param ... The constructor arguments
 		 */
 		template <typename T, typename ... Args>
-		T* addSystem(Args && ... args) {
+		T* emplaceSystem(Args && ... args) {
 			auto system = new T(std::forward<Args>(args) ...);
 			addSystemInternal(system);
 			return system;

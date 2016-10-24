@@ -47,7 +47,7 @@ namespace ECS {
 		SimpleComponentFactory(const SimpleComponentFactory&) = delete;
 
 		bool assemble(Entity* entity, ComponentBlueprint& blueprint) override {
-			return entity->add<T>();
+			return entity->emplace<T>();
 		};
 	};
 }

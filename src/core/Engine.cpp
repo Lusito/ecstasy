@@ -273,7 +273,6 @@ namespace ECS {
 	Entity* Engine::createEntity() {
 		auto entity = entityPool.obtain();
 		entity->engine = this;
-		entity->allocator = this;
 		return entity;
 	}
 

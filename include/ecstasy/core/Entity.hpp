@@ -16,7 +16,6 @@
  ******************************************************************************/
 
 #include <stdint.h>
-#include <ecstasy/core/ComponentAllocator.hpp>
 #include <ecstasy/core/EntityOperations.hpp>
 
 namespace ECS {
@@ -42,7 +41,6 @@ namespace ECS {
 		std::vector<ComponentBase*> components;
 		Bits componentBits;
 		Bits familyBits;
-		ComponentAllocator* allocator = nullptr;
 		Engine* engine = nullptr;
 
 		Entity() {}
@@ -63,13 +61,23 @@ namespace ECS {
 
 
 		/**
-		 * Assign a Component to an Entity, passing through Component constructor arguments.
+		 * Emplace a Component, passing through Component constructor arguments.
 		 * 
-		 * @return The added component
+		 * @return the added component
 		 */
 		template <typename T, typename ... Args>
-		T* add(Args && ... args) {
-			auto component = allocator->createComponent<T>(std::forward<Args>(args) ...);
+		T* emplace(Args && ... args) {
+			return add(new T(std::forward<Args>(args) ...));
+		}
+
+		/**
+		 * Add a component. This will be deleted on removal.
+		 * 
+		 * @param the component to add
+		 * @return the added component
+		 */
+		template <typename T>
+		T* add(T* component) {
 			if (componentOperationHandler != nullptr && componentOperationHandler->isActive())
 				componentOperationHandler->add(this, component);
 			else

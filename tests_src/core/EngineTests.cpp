@@ -159,8 +159,8 @@ namespace EngineTests {
 		REQUIRE(!engine.getSystem<EntitySystemMockA>());
 		REQUIRE(!engine.getSystem<EntitySystemMockB>());
 
-		engine.addSystem<EntitySystemMockA>(logA);
-		engine.addSystem<EntitySystemMockB>(logB);
+		engine.emplaceSystem<EntitySystemMockA>(logA);
+		engine.emplaceSystem<EntitySystemMockB>(logB);
 
 		REQUIRE(engine.getSystem<EntitySystemMockA>());
 		REQUIRE(engine.getSystem<EntitySystemMockB>());
@@ -183,8 +183,8 @@ namespace EngineTests {
 
 		REQUIRE(engine.getSystems().empty());
 
-		engine.addSystem<EntitySystemMockA>(logA);
-		engine.addSystem<EntitySystemMockB>(logB);
+		engine.emplaceSystem<EntitySystemMockA>(logA);
+		engine.emplaceSystem<EntitySystemMockB>(logB);
 
 		REQUIRE(2 == engine.getSystems().size());
 	}
@@ -194,8 +194,8 @@ namespace EngineTests {
 		MockLog logA;
 		MockLog logB;
 
-		engine.addSystem<EntitySystemMockA>(logA);
-		engine.addSystem<EntitySystemMockB>(logB);
+		engine.emplaceSystem<EntitySystemMockA>(logA);
+		engine.emplaceSystem<EntitySystemMockB>(logB);
 
 		int numUpdates = 10;
 
@@ -228,8 +228,8 @@ namespace EngineTests {
 		MockLog log1;
 		MockLog log2;
 
-		engine.addSystem<EntitySystemMockA>(log1, &updates)->setPriority(2);
-		engine.addSystem<EntitySystemMockB>(log2, &updates)->setPriority(1);
+		engine.emplaceSystem<EntitySystemMockA>(log1, &updates)->setPriority(2);
+		engine.emplaceSystem<EntitySystemMockB>(log2, &updates)->setPriority(1);
 
 		engine.sortSystems();
 
@@ -247,7 +247,7 @@ namespace EngineTests {
 		Engine engine;
 		MockLog log;
 
-		auto *system = engine.addSystem<EntitySystemMock>(log);
+		auto *system = engine.emplaceSystem<EntitySystemMock>(log);
 
 		int numUpdates = 10;
 
@@ -271,19 +271,19 @@ namespace EngineTests {
 		Entity *entity3 = engine.createEntity();
 		Entity *entity4 = engine.createEntity();
 		
-		entity1->add(engine.createComponent<ComponentA>());
-		entity1->add(engine.createComponent<ComponentB>());
+		entity1->emplace<ComponentA>();
+		entity1->emplace<ComponentB>();
 
-		entity2->add(engine.createComponent<ComponentA>());
-		entity2->add(engine.createComponent<ComponentC>());
+		entity2->emplace<ComponentA>();
+		entity2->emplace<ComponentC>();
 
-		entity3->add(engine.createComponent<ComponentA>());
-		entity3->add(engine.createComponent<ComponentB>());
-		entity3->add(engine.createComponent<ComponentC>());
+		entity3->emplace<ComponentA>();
+		entity3->emplace<ComponentB>();
+		entity3->emplace<ComponentC>();
 
-		entity4->add(engine.createComponent<ComponentA>());
-		entity4->add(engine.createComponent<ComponentB>());
-		entity4->add(engine.createComponent<ComponentC>());
+		entity4->emplace<ComponentA>();
+		entity4->emplace<ComponentB>();
+		entity4->emplace<ComponentC>();
 
 		engine.addEntity(entity1);
 		engine.addEntity(entity2);
@@ -302,8 +302,7 @@ namespace EngineTests {
 		Engine engine;
 
 		Entity *entity = engine.createEntity();
-		ComponentA *a = engine.createComponent<ComponentA>();
-		entity->add(a);
+		entity->emplace<ComponentA>();
 
 		engine.addEntity(entity);
 
@@ -336,19 +335,19 @@ namespace EngineTests {
 		engine.addEntity(entity3);
 		engine.addEntity(entity4);
 		
-		entity1->add(engine.createComponent<ComponentA>());
-		entity1->add(engine.createComponent<ComponentB>());
+		entity1->emplace<ComponentA>();
+		entity1->emplace<ComponentB>();
 
-		entity2->add(engine.createComponent<ComponentA>());
-		entity2->add(engine.createComponent<ComponentC>());
+		entity2->emplace<ComponentA>();
+		entity2->emplace<ComponentC>();
 
-		entity3->add(engine.createComponent<ComponentA>());
-		entity3->add(engine.createComponent<ComponentB>());
-		entity3->add(engine.createComponent<ComponentC>());
+		entity3->emplace<ComponentA>();
+		entity3->emplace<ComponentB>();
+		entity3->emplace<ComponentC>();
 
-		entity4->add(engine.createComponent<ComponentA>());
-		entity4->add(engine.createComponent<ComponentB>());
-		entity4->add(engine.createComponent<ComponentC>());
+		entity4->emplace<ComponentA>();
+		entity4->emplace<ComponentB>();
+		entity4->emplace<ComponentC>();
 
 		REQUIRE(3 == familyEntities->size());
 		REQUIRE(contains(*familyEntities, entity1));
@@ -373,19 +372,19 @@ namespace EngineTests {
 		engine.addEntity(entity3);
 		engine.addEntity(entity4);
 
-		entity1->add(engine.createComponent<ComponentA>());
-		entity1->add(engine.createComponent<ComponentB>());
+		entity1->emplace<ComponentA>();
+		entity1->emplace<ComponentB>();
 
-		entity2->add(engine.createComponent<ComponentA>());
-		entity2->add(engine.createComponent<ComponentC>());
+		entity2->emplace<ComponentA>();
+		entity2->emplace<ComponentC>();
 
-		entity3->add(engine.createComponent<ComponentA>());
-		entity3->add(engine.createComponent<ComponentB>());
-		entity3->add(engine.createComponent<ComponentC>());
+		entity3->emplace<ComponentA>();
+		entity3->emplace<ComponentB>();
+		entity3->emplace<ComponentC>();
 
-		entity4->add(engine.createComponent<ComponentA>());
-		entity4->add(engine.createComponent<ComponentB>());
-		entity4->add(engine.createComponent<ComponentC>());
+		entity4->emplace<ComponentA>();
+		entity4->emplace<ComponentB>();
+		entity4->emplace<ComponentC>();
 
 		REQUIRE(3 == familyEntities->size());
 		REQUIRE(contains(*familyEntities, entity1));
@@ -417,10 +416,10 @@ namespace EngineTests {
 		engine.addEntity(entity1);
 		engine.addEntity(entity2);
 
-		entity1->add(engine.createComponent<ComponentA>());
+		entity1->emplace<ComponentA>();
 
-		entity2->add(engine.createComponent<ComponentA>());
-		entity2->add(engine.createComponent<ComponentB>());
+		entity2->emplace<ComponentA>();
+		entity2->emplace<ComponentB>();
 
 		REQUIRE(1 == entitiesWithComponentAOnly->size());
 		REQUIRE(1 == entitiesWithComponentB->size());
@@ -434,11 +433,11 @@ namespace EngineTests {
 	TEST_CASE("entitySystemRemovalWhileIterating") {
 		Engine engine;
 
-		engine.addSystem<CounterSystem>();
+		engine.emplaceSystem<CounterSystem>();
 
 		for (int i = 0; i < 20; ++i) {
 			Entity *entity = engine.createEntity();
-			entity->add(engine.createComponent<CounterComponent>());
+			entity->emplace<CounterComponent>();
 			engine.addEntity(entity);
 		}
 
@@ -482,12 +481,12 @@ namespace EngineTests {
 		REQUIRE(0 == listenerA.addedCount);
 		REQUIRE(0 == listenerB.addedCount);
 		
-		entity1->add(engine.createComponent<ComponentA>());
+		entity1->emplace<ComponentA>();
 
 		REQUIRE(1 == listenerA.addedCount);
 		REQUIRE(0 == listenerB.addedCount);
 
-		entity2->add(engine.createComponent<ComponentB>());
+		entity2->emplace<ComponentB>();
 
 		REQUIRE(1 == listenerA.addedCount);
 		REQUIRE(1 == listenerB.addedCount);
@@ -506,14 +505,14 @@ namespace EngineTests {
 		refBRemoved.disable();
 
 		entity2 = engine.createEntity();
-		entity2->add(engine.createComponent<ComponentB>());
+		entity2->emplace<ComponentB>();
 		engine.addEntity(entity2);
 
 		REQUIRE(1 == listenerA.addedCount);
 		REQUIRE(1 == listenerB.addedCount);
 
-		entity1->add(engine.createComponent<ComponentB>());
-		entity1->add(engine.createComponent<ComponentA>());
+		entity1->emplace<ComponentB>();
+		entity1->emplace<ComponentA>();
 
 		REQUIRE(2 == listenerA.addedCount);
 		REQUIRE(1 == listenerB.addedCount);
@@ -529,11 +528,11 @@ namespace EngineTests {
 
 	TEST_CASE("createManyEntitiesNoStackOverflow") {
 		Engine engine;
-		engine.addSystem<CounterSystem>();
+		engine.emplaceSystem<CounterSystem>();
 
 		for (int i = 0; 15000 > i; i++) {
 			auto *e = engine.createEntity();
-			e->add(engine.createComponent<ComponentB>());
+			e->emplace<ComponentB>();
 			engine.addEntity(e);
 		}
 
@@ -602,12 +601,12 @@ namespace EngineTests {
 		MockLog log2;
 
 		REQUIRE(0 ==  engine.getSystems().size());
-		auto *system1 = engine.addSystem<EntitySystemMockA>(log1);
+		auto *system1 = engine.emplaceSystem<EntitySystemMockA>(log1);
 
 		REQUIRE(1 == engine.getSystems().size());
 		REQUIRE(system1 == engine.getSystem<EntitySystemMockA>());
 
-		auto *system2 = engine.addSystem<EntitySystemMockA>(log2);
+		auto *system2 = engine.emplaceSystem<EntitySystemMockA>(log2);
 
 		REQUIRE(1 == engine.getSystems().size());
 		REQUIRE(system2 == engine.getSystem<EntitySystemMockA>());

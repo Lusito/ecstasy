@@ -22,7 +22,7 @@ namespace EntityListenerTests {
 		Engine engine;
 
 		Entity *e = engine.createEntity();
-		e->add(engine.createComponent<PositionComponent>());
+		e->emplace<PositionComponent>();
 		engine.addEntity(e);
 
 		auto &signal = engine.getEntityRemovedSignal(Family::all<PositionComponent>().get());
@@ -37,8 +37,7 @@ namespace EntityListenerTests {
 		Engine engine;
 
 		Entity *e = engine.createEntity();
-		PositionComponent *component = engine.createComponent<PositionComponent>();
-		e->add(component);
+		e->emplace<PositionComponent>();
 
 		auto &signal = engine.getEntityAddedSignal(Family::all<PositionComponent>().get());
 		auto ref = signal.connect([&](Entity *entity) {
@@ -54,8 +53,7 @@ namespace EntityListenerTests {
 		Engine engine;
 
 		Entity *e = engine.createEntity();
-		PositionComponent *component = engine.createComponent<PositionComponent>();
-		e->add(component);
+		e->emplace<PositionComponent>();
 		engine.addEntity(e);
 		auto &family = Family::all<PositionComponent>().get();
 		auto &signal = engine.getEntityRemovedSignal(family);
@@ -72,8 +70,7 @@ namespace EntityListenerTests {
 		Engine engine;
 
 		Entity *e = engine.createEntity();
-		PositionComponent *component = engine.createComponent<PositionComponent>();
-		e->add(component);
+		e->emplace<PositionComponent>();
 
 		auto &family = Family::all<PositionComponent>().get();
 		auto &signal = engine.getEntityAddedSignal(family);
@@ -104,7 +101,7 @@ namespace EntityListenerTests {
 		engine.addEntity(e1);
 		engine.addEntity(e2);
 		
-		engine.addSystem<EntityRemoverSystem>(e1);
+		engine.emplaceSystem<EntityRemoverSystem>(e1);
 
 		engine.entityRemoved.connect([&](Entity *entity) {
 			if(entity == e1)

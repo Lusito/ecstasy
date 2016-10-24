@@ -39,11 +39,11 @@ namespace IntervalIteratingSystemTests {
 		Engine engine;
 		auto *entities = engine.getEntitiesFor(Family::all<IntervalComponentSpy>().get());
 
-		engine.addSystem<IntervalIteratingSystemSpy>();
+		engine.emplaceSystem<IntervalIteratingSystemSpy>();
 
 		for (int i = 0; i < 10; ++i) {
 			auto *entity = engine.createEntity();
-			entity->add(engine.createComponent<IntervalComponentSpy>());
+			entity->emplace<IntervalComponentSpy>();
 			engine.addEntity(entity);
 		}
 

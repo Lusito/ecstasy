@@ -39,7 +39,9 @@ namespace IteratingSystemTests {
 	};
 
 	struct IndexComponent : public Component<IndexComponent> {
-		int index = 0;
+		int index;
+
+		IndexComponent(int index=0) : index(index) {}
 	};
 
 	class IteratingComponentRemovalSystem : public IteratingSystem<IteratingComponentRemovalSystem> {
@@ -84,26 +86,26 @@ namespace IteratingSystemTests {
 		Engine engine;
 
 		auto &family = Family::all<ComponentA, ComponentB>().get();
-		auto *system = engine.addSystem<IteratingSystemMock>(family);
+		auto *system = engine.emplaceSystem<IteratingSystemMock>(family);
 		Entity *e = engine.createEntity();
 		engine.addEntity(e);
 
 		// When entity has ComponentA
-		e->add(engine.createComponent<ComponentA>());
+		e->emplace<ComponentA>();
 		engine.update(deltaTime);
 
 		REQUIRE(0 == system->numUpdates);
 
 		// When entity has ComponentA and ComponentB
 		system->numUpdates = 0;
-		e->add(engine.createComponent<ComponentB>());
+		e->emplace<ComponentB>();
 		engine.update(deltaTime);
 
 		REQUIRE(1 == system->numUpdates);
 
 		// When entity has ComponentA, ComponentB and ComponentC
 		system->numUpdates = 0;
-		e->add(engine.createComponent<ComponentC>());
+		e->emplace<ComponentC>();
 		engine.update(deltaTime);
 
 		REQUIRE(1 == system->numUpdates);
@@ -120,18 +122,14 @@ namespace IteratingSystemTests {
 		Engine engine;
 		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
-		engine.addSystem<IteratingRemovalSystem>();
+		engine.emplaceSystem<IteratingRemovalSystem>();
 
 		int numEntities = 10;
 
 		for (int i = 0; i < numEntities; ++i) {
 			auto *e = engine.createEntity();
-			e->add(engine.createComponent<SpyComponent>());
-
-			auto *in = engine.createComponent<IndexComponent>();
-			in->index = i + 1;
-
-			e->add(in);
+			e->emplace<SpyComponent>();
+			e->emplace<IndexComponent>(i + 1);
 
 			engine.addEntity(e);
 		}
@@ -149,18 +147,14 @@ namespace IteratingSystemTests {
 		Engine engine;
 		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
-		engine.addSystem<IteratingComponentRemovalSystem>();
+		engine.emplaceSystem<IteratingComponentRemovalSystem>();
 
 		int numEntities = 10;
 
 		for (int i = 0; i < numEntities; ++i) {
 			auto *e = engine.createEntity();
-			e->add(engine.createComponent<SpyComponent>());
-
-			auto *in = engine.createComponent<IndexComponent>();
-			in->index = i + 1;
-
-			e->add(in);
+			e->emplace<SpyComponent>();
+			e->emplace<IndexComponent>(i + 1);
 
 			engine.addEntity(e);
 		}

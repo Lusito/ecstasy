@@ -55,7 +55,7 @@ namespace ECS {
 
 			engine->componentRemoved.emit(this, component);
 			
-			allocator->freeComponent(component);
+			delete component;
 		}
 		return component;
 	}

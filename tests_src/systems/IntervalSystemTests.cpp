@@ -33,7 +33,7 @@ namespace IntervalSystemTests {
 
 	TEST_CASE("intervalSystem") {
 		Engine engine;
-		auto *intervalSystemSpy = engine.addSystem<IntervalSystemSpy>();
+		auto *intervalSystemSpy = engine.emplaceSystem<IntervalSystemSpy>();
 
 		for (int i = 1; i <= 10; ++i) {
 			engine.update(deltaTime);

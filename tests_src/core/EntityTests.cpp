@@ -52,7 +52,7 @@ namespace EntityTests {
 		Entity *entity = engine.createEntity();
 		engine.addEntity(entity);
 
-		entity->add(engine.createComponent<ComponentA>());
+		entity->emplace<ComponentA>();
 
 		REQUIRE(1 == entity->getAll().size());
 
@@ -87,8 +87,8 @@ namespace EntityTests {
 		Engine engine;
 		Entity *entity = engine.createEntity();
 		engine.addEntity(entity);
-		entity->add(engine.createComponent<ComponentA>());
-		entity->add(engine.createComponent<ComponentB>());
+		entity->emplace<ComponentA>();
+		entity->emplace<ComponentB>();
 
 		REQUIRE(2 == entity->getAll().size());
 
@@ -125,11 +125,8 @@ namespace EntityTests {
 		Entity *entity = engine.createEntity();
 		engine.addEntity(entity);
 
-		ComponentA *a1 = engine.createComponent<ComponentA>();
-		ComponentA *a2 = engine.createComponent<ComponentA>();
-
-		entity->add(a1);
-		entity->add(a2);
+		auto a1 = entity->emplace<ComponentA>();
+		auto a2 = entity->emplace<ComponentA>();
 
 		REQUIRE(1 == entity->getAll().size());
 		REQUIRE(entity->has<ComponentA>());
@@ -151,7 +148,7 @@ namespace EntityTests {
 		REQUIRE(0 == totalAdds);
 		REQUIRE(0 == totalRemoves);
 
-		entity->add(engine.createComponent<ComponentA>());
+		entity->emplace<ComponentA>();
 
 		REQUIRE(1 == totalAdds);
 		REQUIRE(0 == totalRemoves);
@@ -161,7 +158,7 @@ namespace EntityTests {
 		REQUIRE(1 == totalAdds);
 		REQUIRE(1 == totalRemoves);
 
-		entity->add(engine.createComponent<ComponentB>());
+		entity->emplace<ComponentB>();
 
 		REQUIRE(2 == totalAdds);
 
@@ -175,10 +172,9 @@ namespace EntityTests {
 		Engine engine;
 		Entity *entity = engine.createEntity();
 		engine.addEntity(entity);
-		ComponentA *compA = engine.createComponent<ComponentA>();
-		ComponentB *compB = engine.createComponent<ComponentB>();
 
-		entity->add(compA).add(compB);
+		auto compA = entity->emplace<ComponentA>();
+		auto compB = entity->emplace<ComponentB>();
 
 		ComponentA *retA = entity->get<ComponentA>();
 		ComponentB *retB = entity->get<ComponentB>();

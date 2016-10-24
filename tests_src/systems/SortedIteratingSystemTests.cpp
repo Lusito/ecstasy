@@ -26,6 +26,7 @@ namespace SortedIteratingSystemTests {
 	struct OrderComponent : public Component<OrderComponent> {
 		std::string name;
 		int zLayer;
+		OrderComponent(std::string name, int zLayer) : name(name), zLayer(zLayer) {}
 	};
 
 	struct SpyComponent : public Component<SpyComponent> {
@@ -33,7 +34,8 @@ namespace SortedIteratingSystemTests {
 	};
 
 	struct IndexComponent : public Component<IndexComponent> {
-		int index = 0;
+		int index;
+		IndexComponent(int index) : index(index) {}
 	};
 
 	bool comparator(Entity *a, Entity *b) {
@@ -113,25 +115,21 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		Engine engine;
 
 		auto &family = Family::all<OrderComponent, ComponentB>().get();
-		auto *system = engine.addSystem<SortedIteratingSystemMock>(family);
+		auto *system = engine.emplaceSystem<SortedIteratingSystemMock>(family);
 		Entity *e = engine.createEntity();
 		engine.addEntity(e);
 
 		// When entity has OrderComponent
-		OrderComponent *o = engine.createComponent<OrderComponent>();
-		o->name = "A";
-		o->zLayer = 0;
-	 	e->add(o);
+	 	e->emplace<OrderComponent>("A", 0);
 		engine.update(deltaTime);
 
 		// When entity has OrderComponent and ComponentB
-		e->add(engine.createComponent<ComponentB>());
+		e->emplace<ComponentB>();
 		system->expectedNames.push_back("A");
 		engine.update(deltaTime);
 
 		// When entity has OrderComponent, ComponentB and ComponentC
-		ComponentC *c = engine.createComponent<ComponentC>();
-		e->add(c);
+		e->emplace<ComponentC>();
 		system->expectedNames.push_back("A");
 		engine.update(deltaTime);
 
@@ -144,22 +142,15 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		Engine engine;
 		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
-		engine.addSystem<IteratingRemovalSystem>();
+		engine.emplaceSystem<IteratingRemovalSystem>();
 
 		int numEntities = 10;
 
 		for (int i = 0; i < numEntities; ++i) {
 			auto *e = engine.createEntity();
-			e->add(engine.createComponent<SpyComponent>());
-			auto o = engine.createComponent<OrderComponent>();
-			o->name = "" + i;
-			o->zLayer = i;
-			e->add(o);
-
-			auto *in = engine.createComponent<IndexComponent>();
-			in->index = i + 1;
-
-			e->add(in);
+			e->emplace<SpyComponent>();
+			e->emplace<OrderComponent>("" + i, i);
+			e->emplace<IndexComponent>(i + 1);
 
 			engine.addEntity(e);
 		}
@@ -177,22 +168,15 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		Engine engine;
 		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
-		engine.addSystem<IteratingComponentRemovalSystem>();
+		engine.emplaceSystem<IteratingComponentRemovalSystem>();
 
 		int numEntities = 10;
 
 		for (int i = 0; i < numEntities; ++i) {
 			auto *e = engine.createEntity();
-			e->add(engine.createComponent<SpyComponent>());
-			auto o = engine.createComponent<OrderComponent>();
-			o->name = "" + i;
-			o->zLayer = i;
-			e->add(o);
-
-			auto *in = engine.createComponent<IndexComponent>();
-			in->index = i + 1;
-
-			e->add(in);
+			e->emplace<SpyComponent>();
+			e->emplace<OrderComponent>("" + i, i);
+			e->emplace<IndexComponent>(i + 1);
 
 			engine.addEntity(e);
 		}
@@ -208,10 +192,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 
 	Entity *createOrderEntity(std::string name, int zLayer, Engine &engine) {
 		auto e = engine.createEntity();
-		auto o = engine.createComponent<OrderComponent>();
-		o->name = name;
-		o->zLayer = zLayer;
-		e->add(o);
+		e->emplace<OrderComponent>(name, zLayer);
 		return e;
 	}
 
@@ -219,7 +200,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		Engine engine;
 
 		auto &family = Family::all<OrderComponent>().get();
-		auto *system = engine.addSystem<SortedIteratingSystemMock>(family);
+		auto *system = engine.emplaceSystem<SortedIteratingSystemMock>(family);
 
 		auto *a = createOrderEntity("A", 0, engine);
 		auto *b = createOrderEntity("B", 1, engine);

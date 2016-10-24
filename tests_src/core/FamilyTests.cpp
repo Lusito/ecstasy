@@ -146,12 +146,12 @@ namespace FamilyTests {
 		Engine engine;
 		Entity *entity = engine.createEntity();
 		engine.addEntity(entity);
-		entity->add(engine.createComponent<ComponentA>());
-		entity->add(engine.createComponent<ComponentB>());
+		entity->emplace<ComponentA>();
+		entity->emplace<ComponentB>();
 
 		REQUIRE(family.matches(entity));
 
-		entity->add(engine.createComponent<ComponentC>());
+		entity->emplace<ComponentC>();
 
 		REQUIRE(family.matches(entity));
 	}
@@ -162,10 +162,8 @@ namespace FamilyTests {
 		Engine engine;
 		Entity *entity = engine.createEntity();
 		engine.addEntity(entity);
-		ComponentA *a = engine.createComponent<ComponentA>();
-		ComponentB *b = engine.createComponent<ComponentB>();
-		entity->add(a);
-		entity->add(b);
+		entity->emplace<ComponentA>();
+		entity->emplace<ComponentB>();
 
 		REQUIRE(!family.matches(entity));
 
@@ -180,8 +178,8 @@ namespace FamilyTests {
 		Engine engine;
 		Entity *entity = engine.createEntity();
 		engine.addEntity(entity);
-		entity->add(engine.createComponent<ComponentA>());
-		entity->add(engine.createComponent<ComponentB>());
+		entity->emplace<ComponentA>();
+		entity->emplace<ComponentB>();
 
 		REQUIRE(family.matches(entity));
 
@@ -196,12 +194,12 @@ namespace FamilyTests {
 		Engine engine;
 		Entity *entity = engine.createEntity();
 		engine.addEntity(entity);
-		entity->add(engine.createComponent<ComponentA>());
-		entity->add(engine.createComponent<ComponentC>());
+		entity->emplace<ComponentA>();
+		entity->emplace<ComponentC>();
 
 		REQUIRE(!family.matches(entity));
 
-		entity->add(engine.createComponent<ComponentB>());
+		entity->emplace<ComponentB>();
 
 		REQUIRE(family.matches(entity));
 	}
@@ -228,23 +226,23 @@ namespace FamilyTests {
 		REQUIRE(!family1.matches(entity));
 		REQUIRE(!family2.matches(entity));
 
-		entity->add(engine.createComponent<ComponentA>());
-		entity->add(engine.createComponent<ComponentB>());
+		entity->emplace<ComponentA>();
+		entity->emplace<ComponentB>();
 
 		REQUIRE(!family1.matches(entity));
 		REQUIRE(!family2.matches(entity));
 
-		entity->add(engine.createComponent<ComponentC>());
+		entity->emplace<ComponentC>();
 
 		REQUIRE(family1.matches(entity));
 		REQUIRE(!family2.matches(entity));
 
-		entity->add(engine.createComponent<ComponentD>());
+		entity->emplace<ComponentD>();
 
 		REQUIRE(family1.matches(entity));
 		REQUIRE(family2.matches(entity));
 
-		entity->add(engine.createComponent<ComponentE>());
+		entity->emplace<ComponentE>();
 
 		REQUIRE(!family1.matches(entity));
 		REQUIRE(!family2.matches(entity));
@@ -262,12 +260,12 @@ namespace FamilyTests {
 
 	TEST_CASE("matchWithEngine") {
 		Engine engine;
-		engine.addSystem<TestSystemA>("A");
-		engine.addSystem<TestSystemA>("B");
+		engine.emplaceSystem<TestSystemA>("A");
+		engine.emplaceSystem<TestSystemA>("B");
 
 		auto *e = engine.createEntity();
-		e->add(engine.createComponent<ComponentB>());
-		e->add(engine.createComponent<ComponentA>());
+		e->emplace<ComponentB>();
+		e->emplace<ComponentA>();
 		engine.addEntity(e);
 
 		auto &f = Family::all<ComponentB>().exclude<ComponentA>().get();
@@ -278,12 +276,12 @@ namespace FamilyTests {
 	TEST_CASE("matchWithEngineInverse") {
 		Engine engine;
 
-		engine.addSystem<TestSystemA>("A");
-		engine.addSystem<TestSystemA>("B");
+		engine.emplaceSystem<TestSystemA>("A");
+		engine.emplaceSystem<TestSystemA>("B");
 
 		auto *e = engine.createEntity();
-		e->add(engine.createComponent<ComponentB>());
-		e->add(engine.createComponent<ComponentA>());
+		e->emplace<ComponentB>();
+		e->emplace<ComponentA>();
 		engine.addEntity(e);
 
 		auto &f = Family::all<ComponentA>().exclude<ComponentB>().get();
@@ -295,8 +293,8 @@ namespace FamilyTests {
 		Engine engine;
 
 		auto *e = engine.createEntity();
-		e->add(engine.createComponent<ComponentB>());
-		e->add(engine.createComponent<ComponentA>());
+		e->emplace<ComponentB>();
+		e->emplace<ComponentA>();
 		engine.addEntity(e);
 
 		auto &f = Family::all<ComponentB>().exclude<ComponentA>().get();
@@ -309,11 +307,11 @@ namespace FamilyTests {
 		Engine engine;
 		Entity *entity = engine.createEntity();
 		engine.addEntity(entity);
-		entity->add(engine.createComponent<ComponentA>());
+		entity->emplace<ComponentA>();
 		REQUIRE(!family.matches(entity));
-		entity->add(engine.createComponent<ComponentB>());
+		entity->emplace<ComponentB>();
 		REQUIRE(family.matches(entity));
-		entity->add(engine.createComponent<ComponentC>());
+		entity->emplace<ComponentC>();
 		REQUIRE(!family.matches(entity));
 	}
 }

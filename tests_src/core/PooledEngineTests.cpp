@@ -59,7 +59,7 @@ namespace PooledEngineTests {
 				auto *entity = engine->createEntity();
 				REQUIRE(0 == entity->flags);
 				entity->flags = 1;
-				entity->add(engine->createComponent<PositionComponent>());
+				entity->emplace<PositionComponent>();
 				engine->addEntity(entity);
 			}
 			for (auto * entity : *entities) {
@@ -72,7 +72,7 @@ namespace PooledEngineTests {
 	TEST_CASE("entityRemovalListenerOrder") {
 		Engine engine;
 
-		auto *combinedSystem = engine.addSystem<CombinedSystem>(&engine);
+		auto *combinedSystem = engine.emplaceSystem<CombinedSystem>(&engine);
 
 		auto &signal = engine.getEntityRemovedSignal(Family::all<PositionComponent>().get());
 		signal.connect([](Entity *entity) {
@@ -81,7 +81,7 @@ namespace PooledEngineTests {
 
 		for (int i = 0; i < 10; i++) {
 			auto *entity = engine.createEntity();
-			entity->add(engine.createComponent<PositionComponent>());
+			entity->emplace<PositionComponent>();
 			engine.addEntity(entity);
 		}
 
@@ -115,7 +115,7 @@ namespace PooledEngineTests {
 			entities[i]->flags = 5;
 
 			engine.addEntity(entities[i]);
-			entities[i]->add(engine.createComponent<PositionComponent>());
+			entities[i]->emplace<PositionComponent>();
 
 			REQUIRE(1 == entities[i]->getAll().size());
 			REQUIRE(!entities[i]->getFamilyBits().isEmpty());
@@ -173,7 +173,7 @@ namespace PooledEngineTests {
 
 	TEST_CASE("removeEntityTwice") {
 		Engine engine;
-		engine.addSystem<RemoveEntityTwiceSystem>();
+		engine.emplaceSystem<RemoveEntityTwiceSystem>();
 
 		for (int j = 0; j < 2; j++)
 			engine.update(0);
