@@ -48,6 +48,7 @@ namespace ECS {
 		Entity() {}
 		
 	public:
+		Entity(const Entity&) = delete;
 		~Entity() { removeAll(); }
 		void reset() override;
 

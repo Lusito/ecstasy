@@ -67,6 +67,9 @@ namespace ECS {
 		explicit Pool (int initialCapacity, int max) : max(max) {
 			freeObjects.reserve(initialCapacity);
 		}
+
+		Pool(const Pool&) = delete;
+
 		virtual ~Pool() {
 			clear();
 		}

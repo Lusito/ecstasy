@@ -42,6 +42,10 @@ namespace ECS {
 	template<typename T>
 	class SimpleComponentFactory : public ComponentFactory {
 	public:
+		/// Default constructor
+		SimpleComponentFactory() {}
+		SimpleComponentFactory(const SimpleComponentFactory&) = delete;
+
 		bool assemble(Entity* entity, ComponentBlueprint& blueprint) override {
 			return entity->assign<T>();
 		};

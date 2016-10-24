@@ -33,6 +33,10 @@ namespace ECS {
 		std::unordered_map<std::string, std::shared_ptr<EntityBlueprint>> entities;
 
 	public:
+		/// Default constructor
+		EntityFactory();
+		EntityFactory(const EntityFactory&) = delete;
+
 		/**
 		 * Add a component factory
 		 * 

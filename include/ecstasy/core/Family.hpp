@@ -59,6 +59,7 @@ namespace ECS {
 		FamilyBuilder() {}
 
 	public:
+		FamilyBuilder(const FamilyBuilder&) = delete;
 		~FamilyBuilder();
 
 		/**
@@ -125,10 +126,8 @@ namespace ECS {
 		// Private constructor
 		Family(Bits* all, Bits* one, Bits* exclude) : m_all(all), m_one(one), m_exclude(exclude), index(getUniqueTypeId<FamilyType>()) {}
 
-		// Do not copy
-		Family(const Family& other) : index(0) {}
-		
 	public:
+		Family(const Family&) = delete;
 		~Family();
 		
 		/**

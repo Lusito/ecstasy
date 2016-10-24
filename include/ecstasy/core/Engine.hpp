@@ -101,6 +101,7 @@ namespace ECS {
 		 * @param entityPoolMaxSize maximum number of pooled entities.
 		 */
 		Engine (int entityPoolInitialSize = 10, int entityPoolMaxSize = 100);
+		Engine(const Engine&) = delete;
 
 		virtual ~Engine();
 		

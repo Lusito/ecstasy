@@ -38,6 +38,7 @@ namespace ECS {
 		 * @param name the name of the component.
 		 */
 		ComponentBlueprint(const std::string& name) : name(name) {}
+		ComponentBlueprint(const ComponentBlueprint&) = delete;
 
 		/**
 		 * Set a key/value pair
@@ -94,6 +95,8 @@ namespace ECS {
 		std::vector<std::shared_ptr<ComponentBlueprint>> components;
 
 	public:
+		EntityBlueprint() {}
+		EntityBlueprint(const EntityBlueprint&) = delete;
 		/// @param a shared_ptr to a {@link ComponentBlueprint}.
 		void add(std::shared_ptr<ComponentBlueprint> value);
 	};

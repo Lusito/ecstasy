@@ -36,6 +36,7 @@ namespace ECS {
 		 * Creates a bit set whose initial size is large enough to explicitly represent bits with indices in the range 0 through 63.
 		 */
 		Bits();
+		Bits(const Bits&) = delete;
 
 		/**
 		 * Creates a bit set whose initial size is large enough to explicitly represent bits with indices in the range 0 through nbits-1.

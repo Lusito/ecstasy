@@ -1,7 +1,7 @@
 delete copy constructors if appropriate
-wiki cleanup
 write tests for EntityFactory
-use @link more in documentation
 assign vs add clarity.
 namespace change to 'ecstasy' instead of 'ECS'?
+use @link more in documentation
 build documentation
+wiki cleanup
