@@ -1,18 +1,18 @@
 /*******************************************************************************
-* Copyright 2015 See AUTHORS file.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-******************************************************************************/
+ * Copyright 2015 See AUTHORS file.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 #include "../TestBase.hpp"
 #include <ecstasy/systems/IteratingSystem.hpp>
 
@@ -29,7 +29,7 @@ namespace IteratingSystemTests {
 
 		IteratingSystemMock(const Family &family) : IteratingSystem(family){}
 
-		void processEntity (Entity *entity, float deltaTime) override {
+		void processEntity (Entity* entity, float deltaTime) override {
 			++numUpdates;
 		}
 	};
@@ -49,7 +49,7 @@ namespace IteratingSystemTests {
 		IteratingComponentRemovalSystem ()
 			:IteratingSystem(Family::all<SpyComponent, IndexComponent>().get()) {}
 
-		void processEntity (Entity *entity, float deltaTime) override {
+		void processEntity (Entity* entity, float deltaTime) override {
 			int index = entity->get<IndexComponent>()->index;
 			if (index % 2 == 0) {
 				entity->remove<SpyComponent>();
@@ -63,17 +63,17 @@ namespace IteratingSystemTests {
 
 	class IteratingRemovalSystem : public IteratingSystem<IteratingRemovalSystem> {
 	public:
-		Engine *engine;
+		Engine* engine;
 
 		IteratingRemovalSystem ()
 			:IteratingSystem(Family::all<SpyComponent, IndexComponent>().get()) {}
 
-		void addedToEngine(Engine *engine) override {
+		void addedToEngine(Engine* engine) override {
 			IteratingSystem::addedToEngine(engine);
 			this->engine = engine;
 		}
 
-		void processEntity(Entity *entity, float deltaTime) override {
+		void processEntity(Entity* entity, float deltaTime) override {
 			int index = entity->get<IndexComponent>()->index;
 			if (index % 2 == 0)
 				engine->removeEntity(entity);
@@ -86,8 +86,8 @@ namespace IteratingSystemTests {
 		Engine engine;
 
 		auto &family = Family::all<ComponentA, ComponentB>().get();
-		auto *system = engine.emplaceSystem<IteratingSystemMock>(family);
-		Entity *e = engine.createEntity();
+		auto system = engine.emplaceSystem<IteratingSystemMock>(family);
+		Entity* e = engine.createEntity();
 		engine.addEntity(e);
 
 		// When entity has ComponentA
@@ -120,14 +120,14 @@ namespace IteratingSystemTests {
 
 	TEST_CASE("entityRemovalWhileIterating") {
 		Engine engine;
-		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
+		auto entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
 		engine.emplaceSystem<IteratingRemovalSystem>();
 
 		int numEntities = 10;
 
 		for (int i = 0; i < numEntities; ++i) {
-			auto *e = engine.createEntity();
+			auto e = engine.createEntity();
 			e->emplace<SpyComponent>();
 			e->emplace<IndexComponent>(i + 1);
 
@@ -145,14 +145,14 @@ namespace IteratingSystemTests {
 
 	TEST_CASE("componentRemovalWhileIterating") {
 		Engine engine;
-		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
+		auto entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
 		engine.emplaceSystem<IteratingComponentRemovalSystem>();
 
 		int numEntities = 10;
 
 		for (int i = 0; i < numEntities; ++i) {
-			auto *e = engine.createEntity();
+			auto e = engine.createEntity();
 			e->emplace<SpyComponent>();
 			e->emplace<IndexComponent>(i + 1);
 

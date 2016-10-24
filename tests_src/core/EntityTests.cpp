@@ -35,7 +35,7 @@ namespace EntityTests {
 
 	TEST_CASE("noComponents") {
 		Engine engine;
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 
 		REQUIRE(entity->getAll().empty());
@@ -49,7 +49,7 @@ namespace EntityTests {
 
 	TEST_CASE("addAndRemoveComponent") {
 		Engine engine;
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 
 		entity->emplace<ComponentA>();
@@ -85,7 +85,7 @@ namespace EntityTests {
 
 	TEST_CASE("addAndRemoveAllComponents") {
 		Engine engine;
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 		entity->emplace<ComponentA>();
 		entity->emplace<ComponentB>();
@@ -122,7 +122,7 @@ namespace EntityTests {
 
 	TEST_CASE("addSameComponent") {
 		Engine engine;
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 
 		auto a1 = entity->emplace<ComponentA>();
@@ -137,13 +137,13 @@ namespace EntityTests {
 
 	TEST_CASE("componentListener") {
 		Engine engine;
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 
 		int totalAdds = 0;
 		int totalRemoves = 0;
-		engine.componentAdded.connect([&totalAdds](Entity *e, ComponentBase *c) { totalAdds++; });
-		engine.componentRemoved.connect([&totalRemoves](Entity *e, ComponentBase *c) { totalRemoves++; });
+		engine.componentAdded.connect([&totalAdds](Entity* e, ComponentBase* c) { totalAdds++; });
+		engine.componentRemoved.connect([&totalRemoves](Entity* e, ComponentBase* c) { totalRemoves++; });
 
 		REQUIRE(0 == totalAdds);
 		REQUIRE(0 == totalRemoves);
@@ -170,14 +170,14 @@ namespace EntityTests {
 
 	TEST_CASE("getComponentByClass") {
 		Engine engine;
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 
 		auto compA = entity->emplace<ComponentA>();
 		auto compB = entity->emplace<ComponentB>();
 
-		ComponentA *retA = entity->get<ComponentA>();
-		ComponentB *retB = entity->get<ComponentB>();
+		ComponentA* retA = entity->get<ComponentA>();
+		ComponentB* retB = entity->get<ComponentB>();
 
 		REQUIRE(retA);
 		REQUIRE(retB);

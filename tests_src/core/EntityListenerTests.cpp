@@ -21,12 +21,12 @@ namespace EntityListenerTests {
 	TEST_CASE("Add EntityListener Family Remove") {
 		Engine engine;
 
-		Entity *e = engine.createEntity();
+		Entity* e = engine.createEntity();
 		e->emplace<PositionComponent>();
 		engine.addEntity(e);
 
 		auto &signal = engine.getEntityRemovedSignal(Family::all<PositionComponent>().get());
-		signal.connect([&](Entity *entity) {
+		signal.connect([&](Entity* entity) {
 			engine.addEntity(engine.createEntity());
 		});
 
@@ -36,11 +36,11 @@ namespace EntityListenerTests {
 	TEST_CASE("addEntityListenerFamilyAdd") {
 		Engine engine;
 
-		Entity *e = engine.createEntity();
+		Entity* e = engine.createEntity();
 		e->emplace<PositionComponent>();
 
 		auto &signal = engine.getEntityAddedSignal(Family::all<PositionComponent>().get());
-		auto ref = signal.connect([&](Entity *entity) {
+		auto ref = signal.connect([&](Entity* entity) {
 			engine.addEntity(engine.createEntity());
 		});
 
@@ -52,12 +52,12 @@ namespace EntityListenerTests {
 	TEST_CASE("addEntityListenerNoFamilyRemove") {
 		Engine engine;
 
-		Entity *e = engine.createEntity();
+		Entity* e = engine.createEntity();
 		e->emplace<PositionComponent>();
 		engine.addEntity(e);
 		auto &family = Family::all<PositionComponent>().get();
 		auto &signal = engine.getEntityRemovedSignal(family);
-		auto ref = signal.connect([&](Entity *entity) {
+		auto ref = signal.connect([&](Entity* entity) {
 			if (family.matches(entity))
 				engine.addEntity(engine.createEntity());
 		});
@@ -69,12 +69,12 @@ namespace EntityListenerTests {
 	TEST_CASE("addEntityListenerNoFamilyAdd") {
 		Engine engine;
 
-		Entity *e = engine.createEntity();
+		Entity* e = engine.createEntity();
 		e->emplace<PositionComponent>();
 
 		auto &family = Family::all<PositionComponent>().get();
 		auto &signal = engine.getEntityAddedSignal(family);
-		signal.connect([&](Entity *entity) {
+		signal.connect([&](Entity* entity) {
 			if (family.matches(entity))
 				engine.addEntity(engine.createEntity());
 		});
@@ -84,9 +84,9 @@ namespace EntityListenerTests {
 
 	class EntityRemoverSystem : public EntitySystem<EntityRemoverSystem> {
 	public:
-		EntityRemoverSystem(Entity *entity) : entity(entity) {}
+		EntityRemoverSystem(Entity* entity) : entity(entity) {}
 		
-		Entity *entity;
+		Entity* entity;
 		
 		void update(float deltaTime) override {
 			getEngine()->removeEntity(entity);
@@ -96,14 +96,14 @@ namespace EntityListenerTests {
 	TEST_CASE("Remove entity during entity removal") {
 		Engine engine;
 
-		Entity *e1 = engine.createEntity();
-		Entity *e2 = engine.createEntity();
+		Entity* e1 = engine.createEntity();
+		Entity* e2 = engine.createEntity();
 		engine.addEntity(e1);
 		engine.addEntity(e2);
 		
 		engine.emplaceSystem<EntityRemoverSystem>(e1);
 
-		engine.entityRemoved.connect([&](Entity *entity) {
+		engine.entityRemoved.connect([&](Entity* entity) {
 			if(entity == e1)
 				engine.removeEntity(e2);
 		});

@@ -26,7 +26,7 @@ namespace SignalTests {
 	struct ListenerMock {
 		int count = 0;
 
-		void callback(Dummy *object) {
+		void callback(Dummy* object) {
 			++count;
 
 			REQUIRE(object != nullptr);
@@ -45,7 +45,7 @@ namespace SignalTests {
 
 	TEST_CASE("Add listener and emit") {
 		Dummy dummy;
-		Signal<void (Dummy *)> signal;
+		Signal<void (Dummy*)> signal;
 		ListenerMock listener;
 		signal.connect(&listener, &ListenerMock::callback);
 
@@ -58,7 +58,7 @@ namespace SignalTests {
 
 	TEST_CASE("Add listeners and emit") {
 		Dummy dummy;
-		Signal<void (Dummy *)> signal;
+		Signal<void (Dummy*)> signal;
 		Allocator<ListenerMock> listeners;
 
 		int numListeners = 10;
@@ -84,7 +84,7 @@ namespace SignalTests {
 
 	TEST_CASE("Add listener, emit and disconnect") {
 		Dummy dummy;
-		Signal<void (Dummy *)> signal;
+		Signal<void (Dummy*)> signal;
 		ListenerMock listenerA;
 		ListenerMock listenerB;
 
@@ -118,15 +118,15 @@ namespace SignalTests {
 
 	TEST_CASE("Add listener during emit") {
 		Dummy dummy;
-		Signal<void(Dummy *)> signal;
+		Signal<void(Dummy*)> signal;
 		ListenerMock listenerB;
 
 		int count = 0;
 		int countB = 0;
 
-		ConnectionRef ref = signal.connect([&](Dummy *object) {
+		ConnectionRef ref = signal.connect([&](Dummy* object) {
 			++count;
-			signal.connect([&](Dummy *object) {
+			signal.connect([&](Dummy* object) {
 				++countB;
 			});
 		});
@@ -146,12 +146,12 @@ namespace SignalTests {
 
 	TEST_CASE("Disconnect during emit") {
 		Dummy dummy;
-		Signal<void(Dummy *)> signal;
+		Signal<void(Dummy*)> signal;
 		ListenerMock listenerB;
 
 		int count = 0;
 
-		ConnectionRef ref = signal.connect([&](Dummy *object) {
+		ConnectionRef ref = signal.connect([&](Dummy* object) {
 			++count;
 			ref.disconnect();
 		});
@@ -165,7 +165,7 @@ namespace SignalTests {
 
 	TEST_CASE("Connection scope") {
 		Dummy dummy;
-		Signal<void (Dummy *)> signal;
+		Signal<void (Dummy*)> signal;
 
 		ListenerMock listenerA;
 		ListenerMock listenerB;
@@ -212,7 +212,7 @@ namespace SignalTests {
 	}
 
 	// Below are the original tests from Tim Janik (modified for catch).
-	static const char *string_printf(const char *format, ...) {
+	static const char* string_printf(const char* format, ...) {
 		static char buffer[100];
 		va_list args;
 		va_start (args, format);
@@ -257,7 +257,7 @@ namespace SignalTests {
 
 		accu += "DONE";
 
-		const char *expected =
+		const char* expected =
 			"float: 0.30\n"
 			"int: 4\n"
 			"string: huhu\n"

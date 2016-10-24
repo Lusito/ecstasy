@@ -29,14 +29,14 @@ namespace FamilyTests {
 		TestSystemA(std::string name) : IteratingSystem(Family::all<ComponentA>().get()) {}
 
 	protected:
-		void processEntity(Entity *e, float d) override {}
+		void processEntity(Entity* e, float d) override {}
 	};
 
 	class TestSystemB : public IteratingSystem<TestSystemB> {
 	public:
 		TestSystemB (std::string name) : IteratingSystem(Family::all<ComponentB>().get()) {}
 
-		void processEntity (Entity *e, float d) override {}
+		void processEntity (Entity* e, float d) override {}
 	};
 
 	TEST_CASE("sameFamily") {
@@ -144,7 +144,7 @@ namespace FamilyTests {
 		auto &family = Family::all<ComponentA, ComponentB>().get();
 
 		Engine engine;
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 		entity->emplace<ComponentA>();
 		entity->emplace<ComponentB>();
@@ -160,7 +160,7 @@ namespace FamilyTests {
 		auto &family = Family::all<ComponentA, ComponentC>().get();
 
 		Engine engine;
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 		entity->emplace<ComponentA>();
 		entity->emplace<ComponentB>();
@@ -176,7 +176,7 @@ namespace FamilyTests {
 		auto &family = Family::all<ComponentA, ComponentB>().get();
 
 		Engine engine;
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 		entity->emplace<ComponentA>();
 		entity->emplace<ComponentB>();
@@ -192,7 +192,7 @@ namespace FamilyTests {
 		auto &family = Family::all<ComponentA, ComponentB>().get();
 
 		Engine engine;
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 		entity->emplace<ComponentA>();
 		entity->emplace<ComponentC>();
@@ -207,7 +207,7 @@ namespace FamilyTests {
 	TEST_CASE("testEmptyFamily") {
 		auto &family = Family::all().get();
 		Engine engine;
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 		REQUIRE(family.matches(entity));
 	}
@@ -220,7 +220,7 @@ namespace FamilyTests {
 			.exclude<ComponentE, ComponentF>().get();
 
 		Engine engine;
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 
 		REQUIRE(!family1.matches(entity));
@@ -263,7 +263,7 @@ namespace FamilyTests {
 		engine.emplaceSystem<TestSystemA>("A");
 		engine.emplaceSystem<TestSystemA>("B");
 
-		auto *e = engine.createEntity();
+		auto e = engine.createEntity();
 		e->emplace<ComponentB>();
 		e->emplace<ComponentA>();
 		engine.addEntity(e);
@@ -279,7 +279,7 @@ namespace FamilyTests {
 		engine.emplaceSystem<TestSystemA>("A");
 		engine.emplaceSystem<TestSystemA>("B");
 
-		auto *e = engine.createEntity();
+		auto e = engine.createEntity();
 		e->emplace<ComponentB>();
 		e->emplace<ComponentA>();
 		engine.addEntity(e);
@@ -292,7 +292,7 @@ namespace FamilyTests {
 	TEST_CASE("matchWithoutSystems") {
 		Engine engine;
 
-		auto *e = engine.createEntity();
+		auto e = engine.createEntity();
 		e->emplace<ComponentB>();
 		e->emplace<ComponentA>();
 		engine.addEntity(e);
@@ -305,7 +305,7 @@ namespace FamilyTests {
 	TEST_CASE("matchWithComplexBuilding") {
 		auto &family = Family::all<ComponentB>().one<ComponentA>().exclude<ComponentC>().get();
 		Engine engine;
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 		entity->emplace<ComponentA>();
 		REQUIRE(!family.matches(entity));

@@ -1,18 +1,18 @@
 /*******************************************************************************
-* Copyright 2015 See AUTHORS file.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-******************************************************************************/
+ * Copyright 2015 See AUTHORS file.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 #include "../TestBase.hpp"
 #include<limits>
 
@@ -27,12 +27,12 @@ namespace EngineTests {
 		int addedCount = 0;
 		int removedCount = 0;
 
-		void entityAdded (Entity *entity) {
+		void entityAdded (Entity* entity) {
 			++addedCount;
 			REQUIRE(entity);
 		}
 
-		void entityRemoved (Entity *entity) {
+		void entityRemoved (Entity* entity) {
 			++removedCount;
 			REQUIRE(entity);
 		}
@@ -48,11 +48,11 @@ namespace EngineTests {
 	class EntitySystemMockBase: public EntitySystem<T> {
 	public:
 		MockLog &log;
-		std::vector<int> *updates = nullptr;
+		std::vector<int>* updates = nullptr;
 
 		EntitySystemMockBase(MockLog &log) : log(log) {}
 		
-		EntitySystemMockBase(MockLog &log, std::vector<int> *updates) : log(log), updates(updates) {}
+		EntitySystemMockBase(MockLog &log, std::vector<int>* updates) : log(log), updates(updates) {}
 
 		void update (float deltaTime) override {
 			++log.updateCalls;
@@ -61,13 +61,13 @@ namespace EngineTests {
 				updates->push_back(this->getPriority());
 		}
 
-		void addedToEngine (Engine *engine) override {
+		void addedToEngine (Engine* engine) override {
 			++log.addedCalls;
 
 			REQUIRE(engine);
 		}
 
-		void removedFromEngine (Engine *engine) override {
+		void removedFromEngine (Engine* engine) override {
 			++log.removedCalls;
 
 			REQUIRE(engine);
@@ -82,14 +82,14 @@ namespace EngineTests {
 	public:
 		EntitySystemMockA(MockLog &log) : EntitySystemMockBase(log) {}
 
-		EntitySystemMockA(MockLog &log, std::vector<int> *updates) : EntitySystemMockBase(log, updates){}
+		EntitySystemMockA(MockLog &log, std::vector<int>* updates) : EntitySystemMockBase(log, updates){}
 	};
 
 	class EntitySystemMockB : public EntitySystemMockBase<EntitySystemMockB> {
 	public:
 		EntitySystemMockB(MockLog &log) : EntitySystemMockBase(log) {}
 
-		EntitySystemMockB(MockLog &log, std::vector<int> *updates) : EntitySystemMockBase(log, updates) {}
+		EntitySystemMockB(MockLog &log, std::vector<int>* updates) : EntitySystemMockBase(log, updates) {}
 	};
 
 	struct CounterComponent : public Component<CounterComponent> {
@@ -98,10 +98,10 @@ namespace EngineTests {
 
 	class CounterSystem: public EntitySystem<CounterSystem> {
 	public:
-		const std::vector<Entity * > *entities;
-		Engine *engine;
+		const std::vector<Entity*  >* entities;
+		Engine* engine;
 
-		void addedToEngine (Engine *engine) override {
+		void addedToEngine (Engine* engine) override {
 			this->engine = engine;
 			entities = engine->getEntitiesFor(Family::all<CounterComponent>().get());
 		}
@@ -127,7 +127,7 @@ namespace EngineTests {
 		auto refBAdded = engine.entityAdded.connect(&listenerB, &EntityListenerMock::entityAdded);
 		auto refBRemoved = engine.entityRemoved.connect(&listenerB, &EntityListenerMock::entityRemoved);
 
-		Entity *entity1 = engine.createEntity();
+		Entity* entity1 = engine.createEntity();
 		engine.addEntity(entity1);
 
 		REQUIRE(1 == listenerA.addedCount);
@@ -136,7 +136,7 @@ namespace EngineTests {
 		refBAdded.disable();
 		refBRemoved.disable();
 
-		Entity *entity2 = engine.createEntity();
+		Entity* entity2 = engine.createEntity();
 		engine.addEntity(entity2);
 
 		REQUIRE(2 == listenerA.addedCount);
@@ -247,7 +247,7 @@ namespace EngineTests {
 		Engine engine;
 		MockLog log;
 
-		auto *system = engine.emplaceSystem<EntitySystemMock>(log);
+		auto system = engine.emplaceSystem<EntitySystemMock>(log);
 
 		int numUpdates = 10;
 
@@ -262,14 +262,14 @@ namespace EngineTests {
 		Engine engine;
 
 		auto &family = Family::all<ComponentA, ComponentB>().get();
-		auto *familyEntities = engine.getEntitiesFor(family);
+		auto familyEntities = engine.getEntitiesFor(family);
 
 		REQUIRE(familyEntities->empty());
 
-		Entity *entity1 = engine.createEntity();
-		Entity *entity2 = engine.createEntity();
-		Entity *entity3 = engine.createEntity();
-		Entity *entity4 = engine.createEntity();
+		Entity* entity1 = engine.createEntity();
+		Entity* entity2 = engine.createEntity();
+		Entity* entity3 = engine.createEntity();
+		Entity* entity4 = engine.createEntity();
 		
 		entity1->emplace<ComponentA>();
 		entity1->emplace<ComponentB>();
@@ -301,12 +301,12 @@ namespace EngineTests {
 		// Test for issue #13
 		Engine engine;
 
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		entity->emplace<ComponentA>();
 
 		engine.addEntity(entity);
 
-		auto *entities = engine.getEntitiesFor(Family::all<ComponentA>().get());
+		auto entities = engine.getEntitiesFor(Family::all<ComponentA>().get());
 
 		REQUIRE(1 == entities->size());
 		REQUIRE(contains(*entities, entity));
@@ -321,14 +321,14 @@ namespace EngineTests {
 		Engine engine;
 
 		auto &family = Family::all<ComponentA, ComponentB>().get();
-		auto *familyEntities = engine.getEntitiesFor(family);
+		auto familyEntities = engine.getEntitiesFor(family);
 
 		REQUIRE(familyEntities->empty());
 
-		Entity *entity1 = engine.createEntity();
-		Entity *entity2 = engine.createEntity();
-		Entity *entity3 = engine.createEntity();
-		Entity *entity4 = engine.createEntity();
+		Entity* entity1 = engine.createEntity();
+		Entity* entity2 = engine.createEntity();
+		Entity* entity3 = engine.createEntity();
+		Entity* entity4 = engine.createEntity();
 
 		engine.addEntity(entity1);
 		engine.addEntity(entity2);
@@ -360,12 +360,12 @@ namespace EngineTests {
 		Engine engine;
 
 		auto &family = Family::all<ComponentA, ComponentB>().get();
-		auto *familyEntities = engine.getEntitiesFor(family);
+		auto familyEntities = engine.getEntitiesFor(family);
 
-		Entity *entity1 = engine.createEntity();
-		Entity *entity2 = engine.createEntity();
-		Entity *entity3 = engine.createEntity();
-		Entity *entity4 = engine.createEntity();
+		Entity* entity1 = engine.createEntity();
+		Entity* entity2 = engine.createEntity();
+		Entity* entity3 = engine.createEntity();
+		Entity* entity4 = engine.createEntity();
 
 		engine.addEntity(entity1);
 		engine.addEntity(entity2);
@@ -405,13 +405,13 @@ namespace EngineTests {
 	TEST_CASE("entitiesForFamilyWithRemovalAndFiltering") {
 		Engine engine;
 
-		auto *entitiesWithComponentAOnly = engine.getEntitiesFor(Family::all<ComponentA>()
+		auto entitiesWithComponentAOnly = engine.getEntitiesFor(Family::all<ComponentA>()
 			.exclude<ComponentB>().get());
 
-		auto *entitiesWithComponentB = engine.getEntitiesFor(Family::all<ComponentB>().get());
+		auto entitiesWithComponentB = engine.getEntitiesFor(Family::all<ComponentB>().get());
 
-		Entity *entity1 = engine.createEntity();
-		Entity *entity2 = engine.createEntity();
+		Entity* entity1 = engine.createEntity();
+		Entity* entity2 = engine.createEntity();
 
 		engine.addEntity(entity1);
 		engine.addEntity(entity2);
@@ -436,12 +436,12 @@ namespace EngineTests {
 		engine.emplaceSystem<CounterSystem>();
 
 		for (int i = 0; i < 20; ++i) {
-			Entity *entity = engine.createEntity();
+			Entity* entity = engine.createEntity();
 			entity->emplace<CounterComponent>();
 			engine.addEntity(entity);
 		}
 
-		auto *entities = engine.getEntitiesFor(Family::all<CounterComponent>().get());
+		auto entities = engine.getEntitiesFor(Family::all<CounterComponent>().get());
 
 		for (auto e: *entities) {
 			REQUIRE(0 == e->get<CounterComponent>()->counter);
@@ -469,13 +469,13 @@ namespace EngineTests {
 		auto refBAdded = engine.getEntityAddedSignal(familyB).connect(&listenerB, &EntityListenerMock::entityAdded);
 		auto refBRemoved = engine.getEntityRemovedSignal(familyB).connect(&listenerB, &EntityListenerMock::entityRemoved);
 
-		Entity *entity1 = engine.createEntity();
+		Entity* entity1 = engine.createEntity();
 		engine.addEntity(entity1);
 
 		REQUIRE(0 == listenerA.addedCount);
 		REQUIRE(0 == listenerB.addedCount);
 
-		Entity *entity2 = engine.createEntity();
+		Entity* entity2 = engine.createEntity();
 		engine.addEntity(entity2);
 
 		REQUIRE(0 == listenerA.addedCount);
@@ -531,7 +531,7 @@ namespace EngineTests {
 		engine.emplaceSystem<CounterSystem>();
 
 		for (int i = 0; 15000 > i; i++) {
-			auto *e = engine.createEntity();
+			auto e = engine.createEntity();
 			e->emplace<ComponentB>();
 			engine.addEntity(e);
 		}
@@ -541,7 +541,7 @@ namespace EngineTests {
 	
 	TEST_CASE("getEntityById") {
 		Engine engine;
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		
 		REQUIRE(0 == entity->getId());
 		REQUIRE(!entity->isValid());
@@ -566,14 +566,14 @@ namespace EngineTests {
 		
 		Engine engine;
 		
-		std::vector<Entity *> entities;
+		std::vector<Entity*> entities;
 		for (int i = 0; i < numEntities; ++i) {
-			auto *entity = engine.createEntity();
+			auto entity = engine.createEntity();
 			entities.push_back(entity);
 			engine.addEntity(entity);
 		}
 		
-		const std::vector<Entity*> *engineEntities = engine.getEntities();
+		const std::vector<Entity*>* engineEntities = engine.getEntities();
 		
 		REQUIRE(entities.size() == engineEntities->size());
 		
@@ -588,7 +588,7 @@ namespace EngineTests {
 	
 	TEST_CASE("addEntityTwice") {
 		Engine engine;
-		Entity *entity = engine.createEntity();
+		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 
 		REQUIRE_THROWS_AS( engine.addEntity(entity), std::invalid_argument );
@@ -601,12 +601,12 @@ namespace EngineTests {
 		MockLog log2;
 
 		REQUIRE(0 ==  engine.getSystems().size());
-		auto *system1 = engine.emplaceSystem<EntitySystemMockA>(log1);
+		auto system1 = engine.emplaceSystem<EntitySystemMockA>(log1);
 
 		REQUIRE(1 == engine.getSystems().size());
 		REQUIRE(system1 == engine.getSystem<EntitySystemMockA>());
 
-		auto *system2 = engine.emplaceSystem<EntitySystemMockA>(log2);
+		auto system2 = engine.emplaceSystem<EntitySystemMockA>(log2);
 
 		REQUIRE(1 == engine.getSystems().size());
 		REQUIRE(system2 == engine.getSystem<EntitySystemMockA>());

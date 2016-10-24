@@ -13,7 +13,7 @@ class Allocator {
 public:
 	std::vector<std::shared_ptr<T>> values;
 	
-	T *create() {
+	T* create() {
 		auto instance = std::shared_ptr<T>(new T());
 		values.push_back(instance);
 		return instance.get();

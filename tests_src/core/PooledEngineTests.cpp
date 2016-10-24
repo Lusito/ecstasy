@@ -23,14 +23,14 @@ namespace PooledEngineTests {
 
 	class CombinedSystem : public EntitySystem<CombinedSystem> {
 	public:
-		Engine *engine;
-		const std::vector<Entity *> *entities;
+		Engine* engine;
+		const std::vector<Entity*>* entities;
 		int counter = 0;
 
 	public:
-		CombinedSystem(Engine *engine) : engine(engine) {}
+		CombinedSystem(Engine* engine) : engine(engine) {}
 
-		void addedToEngine(Engine *engine) override {
+		void addedToEngine(Engine* engine) override {
 			entities = engine->getEntitiesFor(Family::all<PositionComponent>().get());
 		}
 
@@ -43,26 +43,26 @@ namespace PooledEngineTests {
 
 	class RemoveEntityTwiceSystem : public EntitySystem<RemoveEntityTwiceSystem> {
 	private:
-		const std::vector<Entity *> *entities;
-		Engine *engine;
+		const std::vector<Entity*>* entities;
+		Engine* engine;
 
 	public:
 		RemoveEntityTwiceSystem() {}
 
-		void addedToEngine(Engine *engine) override {
+		void addedToEngine(Engine* engine) override {
 			entities = engine->getEntitiesFor(Family::all<PositionComponent>().get());
 			this->engine = engine;
 		}
 
 		void update(float deltaTime) override {
 			for (int i = 0; i < 10; i++) {
-				auto *entity = engine->createEntity();
+				auto entity = engine->createEntity();
 				REQUIRE(0 == entity->flags);
 				entity->flags = 1;
 				entity->emplace<PositionComponent>();
 				engine->addEntity(entity);
 			}
-			for (auto * entity : *entities) {
+			for (auto entity : *entities) {
 				engine->removeEntity(entity);
 				engine->removeEntity(entity);
 			}
@@ -72,15 +72,15 @@ namespace PooledEngineTests {
 	TEST_CASE("entityRemovalListenerOrder") {
 		Engine engine;
 
-		auto *combinedSystem = engine.emplaceSystem<CombinedSystem>(&engine);
+		auto combinedSystem = engine.emplaceSystem<CombinedSystem>(&engine);
 
 		auto &signal = engine.getEntityRemovedSignal(Family::all<PositionComponent>().get());
-		signal.connect([](Entity *entity) {
+		signal.connect([](Entity* entity) {
 			REQUIRE(entity->get<PositionComponent>());
 		});
 
 		for (int i = 0; i < 10; i++) {
-			auto *entity = engine.createEntity();
+			auto entity = engine.createEntity();
 			entity->emplace<PositionComponent>();
 			engine.addEntity(entity);
 		}
@@ -99,15 +99,15 @@ namespace PooledEngineTests {
 		Engine engine;
 
 		// force the engine to create a Family so family bits get set
-		auto *familyEntities = engine.getEntitiesFor(Family::all<PositionComponent>().get());
+		auto familyEntities = engine.getEntitiesFor(Family::all<PositionComponent>().get());
 
 		const int totalEntities = 10;
-		Entity *entities[totalEntities];
+		Entity* entities[totalEntities];
 
 		int totalAdds = 0;
 		int totalRemoves = 0;
-		engine.componentAdded.connect([&totalAdds](Entity *entity, ComponentBase *c) { totalAdds++; });
-		engine.componentRemoved.connect([&totalRemoves](Entity *entity, ComponentBase *c) { totalRemoves++; });
+		engine.componentAdded.connect([&totalAdds](Entity* entity, ComponentBase* c) { totalAdds++; });
+		engine.componentRemoved.connect([&totalRemoves](Entity* entity, ComponentBase* c) { totalRemoves++; });
 
 		for (int i = 0; i < totalEntities; i++) {
 			entities[i] = engine.createEntity();
@@ -144,10 +144,10 @@ namespace PooledEngineTests {
 		Engine engine(10, 200);
 
 		int numEntities = 200;
-		std::vector<Entity *> entities;
+		std::vector<Entity*> entities;
 
 		for (int i = 0; i < numEntities; ++i) {
-			auto *entity = engine.createEntity();
+			auto entity = engine.createEntity();
 			engine.addEntity(entity);
 			entities.push_back(entity);
 
@@ -155,14 +155,14 @@ namespace PooledEngineTests {
 		}
 
 		int j = 0;
-		for (auto *entity : entities) {
+		for (auto entity : entities) {
 			engine.removeEntity(entity);
 			REQUIRE(!entity->isValid());
 			j++;
 		}
 
 		for (int i = 0; i < numEntities; ++i) {
-			auto *entity = engine.createEntity();
+			auto entity = engine.createEntity();
 			engine.addEntity(entity);
 			entities.push_back(entity);
 

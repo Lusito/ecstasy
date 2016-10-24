@@ -1,18 +1,18 @@
 /*******************************************************************************
-* Copyright 2015 See AUTHORS file.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-******************************************************************************/
+ * Copyright 2015 See AUTHORS file.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 #include "../TestBase.hpp"
 #include <ecstasy/systems/SortedIteratingSystem.hpp>
 #include <deque>
@@ -38,14 +38,14 @@ namespace SortedIteratingSystemTests {
 		IndexComponent(int index) : index(index) {}
 	};
 
-	bool comparator(Entity *a, Entity *b) {
+	bool comparator(Entity* a, Entity* b) {
 		auto ac = a->get<OrderComponent>();
 		auto bc = b->get<OrderComponent>();
 		return ac->zLayer < bc->zLayer;
 	}
 
 	struct Less {
-		bool operator () (Entity *a, Entity *b) {
+		bool operator () (Entity* a, Entity* b) {
 			auto ac = a->get<OrderComponent>();
 			auto bc = b->get<OrderComponent>();
 			return ac->zLayer < bc->zLayer;
@@ -63,8 +63,8 @@ namespace SortedIteratingSystemTests {
 			REQUIRE(expectedNames.empty());
 		}
 
-		void processEntity(Entity *entity, float deltaTime) override {
-			auto *component = entity->get<OrderComponent>();
+		void processEntity(Entity* entity, float deltaTime) override {
+			auto component = entity->get<OrderComponent>();
 			REQUIRE(component);
 			REQUIRE(!expectedNames.empty());
 			REQUIRE(expectedNames.front() == component->name);
@@ -78,7 +78,7 @@ namespace SortedIteratingSystemTests {
 			:SortedIteratingSystem(Family::all<SpyComponent, IndexComponent>().get(), Less()) {
 		}
 
-		void processEntity (Entity *entity, float deltaTime) override {
+		void processEntity (Entity* entity, float deltaTime) override {
 			int index = entity->get<IndexComponent>()->index;
 			if (index % 2 == 0) {
 				entity->remove<SpyComponent>();
@@ -93,16 +93,16 @@ namespace SortedIteratingSystemTests {
 class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSystem, Less> {
 
 	public:
-		Engine *engine;
+		Engine* engine;
 		IteratingRemovalSystem()
 			: SortedIteratingSystem(Family::all<SpyComponent, IndexComponent>().get(), Less()) {}
 
-		void addedToEngine(Engine *engine) override {
+		void addedToEngine(Engine* engine) override {
 			SortedIteratingSystem::addedToEngine(engine);
 			this->engine = engine;
 		}
 
-		void processEntity(Entity *entity, float deltaTime) override {
+		void processEntity(Entity* entity, float deltaTime) override {
 			int index = entity->get<IndexComponent>()->index;
 			if (index % 2 == 0)
 				engine->removeEntity(entity);
@@ -115,8 +115,8 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		Engine engine;
 
 		auto &family = Family::all<OrderComponent, ComponentB>().get();
-		auto *system = engine.emplaceSystem<SortedIteratingSystemMock>(family);
-		Entity *e = engine.createEntity();
+		auto system = engine.emplaceSystem<SortedIteratingSystemMock>(family);
+		Entity* e = engine.createEntity();
 		engine.addEntity(e);
 
 		// When entity has OrderComponent
@@ -140,14 +140,14 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 
 	TEST_CASE("entityRemovalWhileSortedIterating") {
 		Engine engine;
-		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
+		auto entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
 		engine.emplaceSystem<IteratingRemovalSystem>();
 
 		int numEntities = 10;
 
 		for (int i = 0; i < numEntities; ++i) {
-			auto *e = engine.createEntity();
+			auto e = engine.createEntity();
 			e->emplace<SpyComponent>();
 			e->emplace<OrderComponent>("" + i, i);
 			e->emplace<IndexComponent>(i + 1);
@@ -166,14 +166,14 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 
 	TEST_CASE("componentRemovalWhileSortedIterating") {
 		Engine engine;
-		auto *entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
+		auto entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
 		engine.emplaceSystem<IteratingComponentRemovalSystem>();
 
 		int numEntities = 10;
 
 		for (int i = 0; i < numEntities; ++i) {
-			auto *e = engine.createEntity();
+			auto e = engine.createEntity();
 			e->emplace<SpyComponent>();
 			e->emplace<OrderComponent>("" + i, i);
 			e->emplace<IndexComponent>(i + 1);
@@ -190,7 +190,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		}
 	}
 
-	Entity *createOrderEntity(std::string name, int zLayer, Engine &engine) {
+	Entity* createOrderEntity(std::string name, int zLayer, Engine &engine) {
 		auto e = engine.createEntity();
 		e->emplace<OrderComponent>(name, zLayer);
 		return e;
@@ -200,12 +200,12 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		Engine engine;
 
 		auto &family = Family::all<OrderComponent>().get();
-		auto *system = engine.emplaceSystem<SortedIteratingSystemMock>(family);
+		auto system = engine.emplaceSystem<SortedIteratingSystemMock>(family);
 
-		auto *a = createOrderEntity("A", 0, engine);
-		auto *b = createOrderEntity("B", 1, engine);
-		auto *c = createOrderEntity("C", 3, engine);
-		auto *d = createOrderEntity("D", 2, engine);
+		auto a = createOrderEntity("A", 0, engine);
+		auto b = createOrderEntity("B", 1, engine);
+		auto c = createOrderEntity("C", 3, engine);
+		auto d = createOrderEntity("D", 2, engine);
 
 		engine.addEntity(a);
 		engine.addEntity(b);
