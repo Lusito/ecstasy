@@ -108,19 +108,19 @@ namespace ECS {
 		Entity *createEntity();
 		
 		/**
-		 * Creates and assembles an Entity using the EntityFactory.
-		 * In order to add it to the Engine, use addEntity(Entity).
+		 * Creates and assembles an {@link Entity} using the {@link EntityFactory}.
+		 * In order to add it to the Engine, use {@link addEntity()}.
 		 * setEntityFactory must be called before first use.
 		 * 
          * @param blueprintname The name of the entity blueprint
-         * @return A fully assembled Entity or null if the assembly failed.
+         * @return A fully assembled {@link Entity} or null if the assembly failed.
          */
 		Entity *assembleEntity(const std::string& blueprintname);
 
 		/**
-		 * Set the EntityFactory to use with assembleEntity.
+		 * Set the {@link EntityFactory} to use with assembleEntity.
 		 * 
-         * @param entityFactory The new EntityFactory
+         * @param entityFactory The new {@link EntityFactory}
          */
 		void setEntityFactory(std::shared_ptr<EntityFactory> entityFactory) {
 			this->entityFactory = entityFactory;

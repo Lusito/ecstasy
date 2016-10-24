@@ -1,8 +1,9 @@
+change code format from Type * to Type*, also for &.
+delete copy constructors if appropriate
 code cleanup
 wiki cleanup
-delete copy constructors if appropriate
-change code format from Type * to Type*, also for &.
 write tests for EntityFactory
-add code documentation for EntityFactory
-blueprint parser should support ifstream as an alternative
-split component-factory classes from EntityFactory.hpp
+use @link more in documentation
+assign vs add clarity.
+namespace change to 'ecstasy' instead of 'ECS'?
+build documentation

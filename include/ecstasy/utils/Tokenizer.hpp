@@ -18,7 +18,14 @@
 #include <vector>
 
 namespace ECS {
-	//Fixme: documentation
-	// negative value means quote has not been closed.
+	/**
+	 * Parse text into tokens. Whitespace is used to separate the tokens and double-quotes can be used
+	 * to ignore white-spaces until another double-quote is found. Supports single-line comments.
+	 * 
+	 * @param line the text to parse (usually a line in a text file)
+	 * @param tokens the result vector to store the tokens in.
+	 * @param commentChar the character starting a single-line comment. Use '\0' to disable comment support.
+	 * @return the number of tokens added. the value is negative, if a double-quote has not been closed.
+	 */
 	int parseTokens(const std::string &line, std::vector<std::string> &tokens, char commentChar='#');
 }

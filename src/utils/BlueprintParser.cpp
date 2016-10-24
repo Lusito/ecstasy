@@ -15,22 +15,24 @@
  ******************************************************************************/
 #include <ecstasy/utils/Blueprint.hpp>
 #include <ecstasy/utils/BlueprintParser.hpp>
-#include <ecstasy/utils/EntityFactory.hpp>
 #include <ecstasy/utils/Tokenizer.hpp>
 #include <fstream>
 
 namespace ECS {
-	std::string BlueprintParser::parse(const std::string& filename, std::shared_ptr<EntityBlueprint> &result) {
+	std::string parseBlueprint(const std::string& filename, std::shared_ptr<EntityBlueprint> &result) {
 		std::ifstream file(filename);
 		if(!file.is_open())
 			return "Can't open file " + filename;
+		return parseBlueprint(file, result);
+	}
 
+	std::string parseBlueprint(std::istream& stream, std::shared_ptr<EntityBlueprint> &result) {
 		result = std::make_shared<EntityBlueprint>();
 
 		std::shared_ptr<ComponentBlueprint> lastComponent;
 		std::vector<std::string> tokens;
 		std::string line;
-		for(int lineNum=0; std::getline(file, line); lineNum++) {
+		for(int lineNum=0; std::getline(stream, line); lineNum++) {
 			// parse tokens
 			tokens.clear();
 			int numTokens = parseTokens(line, tokens);

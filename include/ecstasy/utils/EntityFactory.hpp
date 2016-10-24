@@ -15,47 +15,55 @@
  * limitations under the License.
  ******************************************************************************/
 
-#include <ecstasy/core/Entity.hpp>
 #include <unordered_map>
 #include <string>
 #include <memory>
 
 namespace ECS {
-	class ComponentBlueprint;
+	class Entity;
 	class EntityBlueprint;
+	class ComponentFactory;
 
-	class ComponentFactory {
-	public:
-		virtual bool assemble(Entity *entity, ComponentBlueprint &blueprint) = 0;
-	};
-
-	template<typename T>
-	class SimpleComponentFactory : public ComponentFactory {
-	public:
-		bool assemble(Entity *entity, ComponentBlueprint &blueprint) override {
-			return entity->assign<T>();
-		};
-	};
-
+	/**
+	 * A factory to create {@Entity entities} from blueprints.
+	 */
 	class EntityFactory {
 	private:
 		std::unordered_map<std::string, std::unique_ptr<ComponentFactory>> componentFactories;
 		std::unordered_map<std::string, std::shared_ptr<EntityBlueprint>> entities;
 
 	public:
+		/**
+		 * Add a component factory
+		 * 
+		 * @param T the {@link ComponentFactory} class
+		 * @param name the name used to identify a {@link Component}
+		 * @param args the arguments to pass to the {@link ComponentFactory} constructor
+		 */
 		template <typename T, typename ... Args>//fixme: make sure it extends ComponentFactory
-		void addComponentFactory(const std::string& key, Args && ... args) {
-			componentFactories[key] = std::make_unique<T>();
+		void addComponentFactory(const std::string& name, Args && ... args) {
+			componentFactories[name] = std::make_unique<T>();
 		}
 
-		void addEntityBlueprint(const std::string& key, std::shared_ptr<EntityBlueprint> value);
+		/**
+		 * @param name the name used to identify the {@link EntityBlueprint}
+		 * @param blueprint the blueprint
+		 */
+		void addEntityBlueprint(const std::string& name, std::shared_ptr<EntityBlueprint> blueprint){
+			entities[name] = blueprint;
+		}
 
+		/**
+		 * Add all {@link Component}s found in a blueprint to the supplied entity.
+		 * 
+		 * @param entity the entity to add the {@link Component}s to.
+		 * @param blueprintname the name used to identify the {@link EntityBlueprint}
+		 * @return true on success.
+		 */
 		bool assemble(Entity *entity, const std::string& blueprintname);
 	};
 }
 
 #ifdef USING_ECSTASY
-	using ECS::ComponentFactory;
-	using ECS::SimpleComponentFactory;
 	using ECS::EntityFactory;
 #endif

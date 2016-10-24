@@ -13,14 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+#include <ecstasy/utils/ComponentFactory.hpp>
 #include <ecstasy/utils/EntityFactory.hpp>
 #include <ecstasy/utils/Blueprint.hpp>
 
 namespace ECS {
-	void EntityFactory::addEntityBlueprint(const std::string& key, std::shared_ptr<EntityBlueprint> value) {
-		entities[key] = value;
-	}
-
 	bool EntityFactory::assemble(Entity *entity, const std::string& blueprintname) {
 		auto it = entities.find(blueprintname);
 		bool success = false;

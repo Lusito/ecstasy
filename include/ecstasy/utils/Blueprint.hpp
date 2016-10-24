@@ -21,6 +21,10 @@
 #include <memory>
 
 namespace ECS {
+	/**
+	 * Stores the name of a component and key/value pairs to construct the component.
+	 * See {@link EntityFactory}.
+	 */
 	class ComponentBlueprint {
 	private:
 		friend class EntityFactory;
@@ -28,25 +32,69 @@ namespace ECS {
 		std::map<std::string, std::string> values;
 
 	public:
+		/**
+		 * Creates a new blueprint with the specified component name
+		 * 
+		 * @param name the name of the component.
+		 */
 		ComponentBlueprint(const std::string& name) : name(name) {}
 
+		/**
+		 * Set a key/value pair
+		 * 
+		 * @param key the key
+		 * @param value the value
+		 */
 		void set(const std::string& key, const std::string& value);
 
+		/**
+		 * Get a boolean value
+		 * 
+		 * @param key the key
+		 * @param defaultValue the value to return if no value exists for key.
+		 * @return the corresponding value or defaultValue if none exists.
+		 */
 		bool getBool(const std::string& key, bool defaultValue) const;
 
+		/**
+		 * Get an integer value
+		 * 
+		 * @param key the key
+		 * @param defaultValue the value to return if no value exists for key.
+		 * @return the corresponding value or defaultValue if none exists.
+		 */
 		int getInt(const std::string& key, int defaultValue) const;
 
+		/**
+		 * Get a float value
+		 * 
+		 * @param key the key
+		 * @param defaultValue the value to return if no value exists for key.
+		 * @return the corresponding value or defaultValue if none exists.
+		 */
 		float getFloat(const std::string& key, float defaultValue) const;
 
+		/**
+		 * Get a string value
+		 * 
+		 * @param key the key
+		 * @param defaultValue the value to return if no value exists for key.
+		 * @return the corresponding value or defaultValue if none exists.
+		 */
 		const std::string& getString(const std::string& key, const std::string& defaultValue) const;
 	};
 	
+	/**
+	 * Stores a list of {@link ComponentBlueprint}s needed to construct an {@link Entity}.
+	 * See {@link EntityFactory}.
+	 */
 	class EntityBlueprint {
 	private:
 		friend class EntityFactory;
 		std::vector<std::shared_ptr<ComponentBlueprint>> components;
 
 	public:
+		/// @param a shared_ptr to a {@link ComponentBlueprint}.
 		void add(std::shared_ptr<ComponentBlueprint> value);
 	};
 }
