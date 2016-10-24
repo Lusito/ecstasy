@@ -1,0 +1,2 @@
+add Position
+    set x # should fail here

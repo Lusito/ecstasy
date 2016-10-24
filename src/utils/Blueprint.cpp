@@ -22,22 +22,37 @@ namespace ECS {
 
 	bool ComponentBlueprint::getBool(const std::string& key, bool defaultValue) const {
 		auto it = values.find(key);
-		if(it != values.end())
-			return it->second == "true";
+		if(it != values.end()) {
+			if(it->second == "true")
+				return true;
+			if(it->second == "false")
+				return false;
+			return defaultValue;
+		}
 		return defaultValue;
 	}
 
 	int ComponentBlueprint::getInt(const std::string& key, int defaultValue) const {
 		auto it = values.find(key);
-		if(it != values.end())
-			return std::stoi(it->second);
+		if(it != values.end()) {
+			try {
+				return std::stoi(it->second);
+			} catch(...) {
+				return defaultValue;
+			}
+		}
 		return defaultValue;
 	}
 
 	float ComponentBlueprint::getFloat(const std::string& key, float defaultValue) const {
 		auto it = values.find(key);
-		if(it != values.end())
-			return std::stof(it->second);
+		if(it != values.end()) {
+			try {
+				return std::stof(it->second);
+			} catch(...) {
+				return defaultValue;
+			}
+		}
 		return defaultValue;
 	}
 

@@ -32,7 +32,7 @@ namespace ECS {
 		std::shared_ptr<ComponentBlueprint> lastComponent;
 		std::vector<std::string> tokens;
 		std::string line;
-		for(int lineNum=0; std::getline(stream, line); lineNum++) {
+		for(int lineNum=1; std::getline(stream, line); lineNum++) {
 			// parse tokens
 			tokens.clear();
 			int numTokens = parseTokens(line, tokens);
@@ -53,6 +53,8 @@ namespace ECS {
 					if(!lastComponent)
 						return "Line " + std::to_string(lineNum) + ": 'add' must be called before 'set'";
 					lastComponent->set(tokens[1], tokens[2]);
+				} else {
+					return "Line " + std::to_string(lineNum) + ": unknown command '" + command + "'";
 				}
 			}
 		}
