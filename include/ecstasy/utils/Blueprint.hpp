@@ -97,8 +97,8 @@ namespace ECS {
 	public:
 		EntityBlueprint() {}
 		EntityBlueprint(const EntityBlueprint&) = delete;
-		/// @param a shared_ptr to a {@link ComponentBlueprint}.
-		void add(std::shared_ptr<ComponentBlueprint> value);
+		/// @param blueprint shared_ptr to a {@link ComponentBlueprint}.
+		void add(std::shared_ptr<ComponentBlueprint> blueprint);
 	};
 }
 

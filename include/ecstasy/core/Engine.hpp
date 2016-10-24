@@ -165,7 +165,7 @@ namespace ECS {
 		 * Emplaces a new system
 		 *
 		 * @tparam T The System class
-		 * @param ... The constructor arguments
+		 * @param args The constructor arguments
 		 */
 		template <typename T, typename ... Args>
 		T* emplaceSystem(Args && ... args) {

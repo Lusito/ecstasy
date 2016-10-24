@@ -74,6 +74,7 @@ namespace ECS {
 		 */
 		virtual void setPriority(int priority);
 		
+		/// @return the engine
 		Engine* getEngine() { return engine; }
 
 	protected:

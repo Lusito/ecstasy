@@ -48,7 +48,7 @@ namespace ECS {
 		return defaultValue;
 	}
 
-	void EntityBlueprint::add(std::shared_ptr<ComponentBlueprint> value) {
-		components.push_back(value);
+	void EntityBlueprint::add(std::shared_ptr<ComponentBlueprint> blueprint) {
+		components.push_back(blueprint);
 	}
 }

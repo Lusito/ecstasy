@@ -25,7 +25,7 @@ namespace ECS {
 	class ComponentFactory;
 
 	/**
-	 * A factory to create {@Entity entities} from blueprints.
+	 * A factory to create {@link Entity entities} from blueprints.
 	 */
 	class EntityFactory {
 	private:
@@ -40,7 +40,7 @@ namespace ECS {
 		/**
 		 * Add a component factory
 		 * 
-		 * @param T the {@link ComponentFactory} class
+		 * @tparam T the {@link ComponentFactory} class
 		 * @param name the name used to identify a {@link Component}
 		 * @param args the arguments to pass to the {@link ComponentFactory} constructor
 		 */

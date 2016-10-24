@@ -73,7 +73,7 @@ namespace ECS {
 		/**
 		 * Add a component. This will be deleted on removal.
 		 * 
-		 * @param the component to add
+		 * @param component the component to add
 		 * @return the added component
 		 */
 		template <typename T>

@@ -21,7 +21,7 @@ namespace ECS {
 	class ComponentBlueprint;
 
 	/**
-	 * Component factory interface. Used to construct {@link Component}s from {@ComponentBlueprint}s.
+	 * Component factory interface. Used to construct {@link Component}s from {@link ComponentBlueprint}s.
 	 */
 	class ComponentFactory {
 	public:
