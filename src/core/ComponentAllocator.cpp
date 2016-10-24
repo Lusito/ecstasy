@@ -17,7 +17,7 @@
 #include <ecstasy/core/Component.hpp>
 
 namespace ECS {
-	void ComponentAllocator::freeComponent(ComponentBase *component) {
+	void ComponentAllocator::freeComponent(ComponentBase* component) {
 		delete component;
 	}
 }

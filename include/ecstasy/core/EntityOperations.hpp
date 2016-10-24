@@ -31,13 +31,13 @@ namespace ECS {
 	
 	template<typename T>
 	struct BaseOperation: public Poolable {
-		T *nextOperation = nullptr;
+		T* nextOperation = nullptr;
 		OperationType type;
 	};
 
 	struct EntityOperation: public BaseOperation<EntityOperation> {
 
-		Entity *entity = nullptr;
+		Entity* entity = nullptr;
 
 		void reset() override {
 			nextOperation = nullptr;
@@ -46,8 +46,8 @@ namespace ECS {
 	};
 	
 	struct ComponentOperation: public BaseOperation<ComponentOperation> {
-		Entity *entity = nullptr;
-		ComponentBase *component = nullptr;
+		Entity* entity = nullptr;
+		ComponentBase* component = nullptr;
 		ComponentType componentType;
 		
 		void reset() override {
@@ -56,26 +56,26 @@ namespace ECS {
 			component = nullptr;
 		}
 
-		void makeAdd(Entity *entity, ComponentBase *component);
-		void makeRemove(Entity *entity, ComponentType componentType);
+		void makeAdd(Entity* entity, ComponentBase* component);
+		void makeRemove(Entity* entity, ComponentType componentType);
 		void makeRemoveAll(Entity* entity);
 	};
 	
 	template<typename T>
 	class BaseOperationHandler {
 	protected:
-		Engine &engine;
+		Engine& engine;
 		Pool<T> pool;
-		T *nextOperation = nullptr;
-		T *lastOperation = nullptr;
+		T* nextOperation = nullptr;
+		T* lastOperation = nullptr;
 
 	public:
-		explicit BaseOperationHandler(Engine &engine) : engine(engine) {}
+		explicit BaseOperationHandler(Engine& engine) : engine(engine) {}
 
 		virtual bool isActive() = 0;
 		void process() {
 			while(nextOperation) {
-				auto *operation = nextOperation;
+				auto operation = nextOperation;
 				switch(operation->type) {
 				case OperationType::Add: onAdd(operation); break;
 				case OperationType::Remove: onRemove(operation); break;
@@ -99,7 +99,7 @@ namespace ECS {
 		}
 		
 	protected:
-		void schedule(T *operation) {
+		void schedule(T* operation) {
 			if(nextOperation)
 				lastOperation->nextOperation = operation;
 			else
@@ -107,52 +107,52 @@ namespace ECS {
 			lastOperation = operation;
 		}
 		
-		virtual void onAdd(T *operation) = 0;
-		virtual void onRemove(T *operation) = 0;
-		virtual void onRemoveAll(T *operation) = 0;
+		virtual void onAdd(T* operation) = 0;
+		virtual void onRemove(T* operation) = 0;
+		virtual void onRemoveAll(T* operation) = 0;
 	};
 	
 	class EntityOperationHandler : public BaseOperationHandler<EntityOperation> {
 	public:
-		explicit EntityOperationHandler(Engine &engine) : BaseOperationHandler(engine) {}
+		explicit EntityOperationHandler(Engine& engine) : BaseOperationHandler(engine) {}
 
 		bool isActive() override;
 		
-		void add(Entity *entity) {
-			auto *operation = pool.obtain();
+		void add(Entity* entity) {
+			auto operation = pool.obtain();
 			operation->type = OperationType::Add;
 			operation->entity = entity;
 		
 			schedule(operation);
 		}
 
-		void remove(Entity *entity) {
-			auto *operation = pool.obtain();
+		void remove(Entity* entity) {
+			auto operation = pool.obtain();
 			operation->type = OperationType::Remove;
 			operation->entity = entity;
 			schedule(operation);
 		}
 
 		void removeAll() {
-			auto *operation = pool.obtain();
+			auto operation = pool.obtain();
 			operation->type = OperationType::RemoveAll;
 			schedule(operation);
 		}
 		
 	protected:
-		void onAdd(EntityOperation *operation) override;
-		void onRemove(EntityOperation *operation) override;
-		void onRemoveAll(EntityOperation *operation) override;
+		void onAdd(EntityOperation* operation) override;
+		void onRemove(EntityOperation* operation) override;
+		void onRemoveAll(EntityOperation* operation) override;
 	};
 	
 	class ComponentOperationHandler : public BaseOperationHandler<ComponentOperation> {
 	public:
-		explicit ComponentOperationHandler(Engine &engine) : BaseOperationHandler(engine) {}
+		explicit ComponentOperationHandler(Engine& engine) : BaseOperationHandler(engine) {}
 
 		bool isActive() override;
 		
-		void add(Entity *entity, ComponentBase *component) {
-			auto *operation = pool.obtain();
+		void add(Entity* entity, ComponentBase* component) {
+			auto operation = pool.obtain();
 			operation->type = OperationType::Add;
 			operation->entity = entity;
 			operation->component = component;
@@ -161,25 +161,25 @@ namespace ECS {
 			schedule(operation);
 		}
 
-		void remove(Entity *entity, ComponentType componentType) {
-			auto *operation = pool.obtain();
+		void remove(Entity* entity, ComponentType componentType) {
+			auto operation = pool.obtain();
 			operation->type = OperationType::Remove;
 			operation->entity = entity;
 			operation->componentType = componentType;
 			schedule(operation);
 		}
 
-		void removeAll(Entity *entity) {
-			auto *operation = pool.obtain();
+		void removeAll(Entity* entity) {
+			auto operation = pool.obtain();
 			operation->type = OperationType::RemoveAll;
 			operation->entity = entity;
 			schedule(operation);
 		}
 		
 	protected:
-		void onAdd(ComponentOperation *operation) override;
-		void onRemove(ComponentOperation *operation) override;
-		void onRemoveAll(ComponentOperation *operation) override;
+		void onAdd(ComponentOperation* operation) override;
+		void onRemove(ComponentOperation* operation) override;
+		void onRemoveAll(ComponentOperation* operation) override;
 	};
 
 /// \endcond

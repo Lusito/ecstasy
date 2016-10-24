@@ -33,7 +33,7 @@ namespace ECS {
 		 * @param ... The constructor arguments
 		 */
 		template <typename T, typename ... Args>
-		T *createComponent(Args && ... args) {
+		T* createComponent(Args && ... args) {
 			return new T(std::forward<Args>(args) ...);
 		}
 		
@@ -42,6 +42,6 @@ namespace ECS {
 		 * 
          * @param component The component to free
          */
-		void freeComponent(ComponentBase *component);
+		void freeComponent(ComponentBase* component);
 	};
 }

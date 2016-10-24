@@ -27,7 +27,7 @@ namespace ECS {
 	 * @param result an empty shared_ptr to store the result.
 	 * @return empty string on success, otherwise an error message containing line information.
 	 */
-	std::string parseBlueprint(const std::string& filename, std::shared_ptr<EntityBlueprint> &result);
+	std::string parseBlueprint(const std::string& filename, std::shared_ptr<EntityBlueprint>& result);
 
 	/**
 	 * Parse a blueprint file from a stream.
@@ -36,5 +36,5 @@ namespace ECS {
 	 * @param result an empty shared_ptr to store the result.
 	 * @return empty string on success, otherwise an error message containing line information.
 	 */
-	std::string parseBlueprint(std::istream& stream, std::shared_ptr<EntityBlueprint> &result);
+	std::string parseBlueprint(std::istream& stream, std::shared_ptr<EntityBlueprint>& result);
 }

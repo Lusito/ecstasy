@@ -22,11 +22,11 @@
 namespace ECS {
 	static std::map<std::string, std::shared_ptr<Family>> families;
 
-	static void addBitsString(std::ostringstream &ss, const std::string &prefix, Bits *bits) {
+	static void addBitsString(std::ostringstream& ss, const std::string& prefix, Bits* bits) {
 		ss << prefix << bits->getStringId() << ";";
 	}
 
-	static std::string getFamilyHash(Bits *all, Bits *one, Bits *exclude) {
+	static std::string getFamilyHash(Bits* all, Bits* one, Bits* exclude) {
 		std::ostringstream ss;
 		if (!all->isEmpty())
 			addBitsString(ss, "a:", all);
@@ -43,19 +43,19 @@ namespace ECS {
 		delete m_exclude;
 	}
 	
-	FamilyBuilder &FamilyBuilder::reset () {
+	FamilyBuilder& FamilyBuilder::reset () {
 		m_all->clear();
 		m_one->clear();
 		m_exclude->clear();
-		return *this;
+		return* this;
 	}
 
-	const Family &FamilyBuilder::get () {
+	const Family& FamilyBuilder::get () {
 		auto hash = getFamilyHash(m_all, m_one, m_exclude);
 		auto it = families.find(hash);
 		if(it != families.end())
 			return *it->second.get();
-		auto *family = new Family(m_all, m_one, m_exclude);
+		auto family = new Family(m_all, m_one, m_exclude);
 		families.emplace(hash, std::shared_ptr<Family>(family));
 		m_all = new Bits();
 		m_one = new Bits();
@@ -71,8 +71,8 @@ namespace ECS {
 		delete m_exclude;
 	}
 
-	bool Family::matches(Entity *entity) const {
-		auto &entityComponentBits = entity->getComponentBits();
+	bool Family::matches(Entity* entity) const {
+		auto& entityComponentBits = entity->getComponentBits();
 
 		if (!entityComponentBits.containsAll(*m_all))
 			return false;

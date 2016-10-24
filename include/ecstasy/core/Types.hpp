@@ -22,9 +22,9 @@ namespace ECS {
     struct T {\
         explicit T(const uint32_t id) : id(id) {}\
         T() : id(0) {}\
-        T(const T &other) : id(other.id) {}\
-        T &operator=(const T & other) { id = other.id; return *this;}\
-        T &operator=(const uint32_t & other) { id = other; return *this;}\
+        T(const T& other) : id(other.id) {}\
+        T& operator=(const T & other) { id = other.id; return *this;}\
+        T& operator=(const uint32_t & other) { id = other; return *this;}\
         operator const uint32_t & () const {return id; }\
         operator uint32_t & () { return id; }\
         bool operator==(const T & other) const { return id == other.id; }\

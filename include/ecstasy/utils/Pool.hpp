@@ -43,7 +43,7 @@ namespace ECS {
 		uint32_t peak;
 
 	private:
-		std::vector<T *> freeObjects;
+		std::vector<T*> freeObjects;
 
 	public:
 		/**
@@ -85,7 +85,7 @@ namespace ECS {
 		 * Puts the specified object in the pool, making it eligible to be returned by obtain(). If the pool already contains
 		 * <b>max</b> free objects, the specified object is reset but not added to the pool.
 		 */
-		void free (T *object) {
+		void free (T* object) {
 			if (object == nullptr) throw std::invalid_argument("object cannot be null.");
 			if (freeObjects.size() < max) {
 				object->reset();

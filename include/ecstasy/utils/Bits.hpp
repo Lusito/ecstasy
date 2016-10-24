@@ -24,7 +24,7 @@ namespace ECS {
 	 */
 	class Bits {
 	private:
-		uint64_t *data;
+		uint64_t* data;
 		int32_t dataLength;
 
 	public:
@@ -78,7 +78,7 @@ namespace ECS {
 	private:
 		void checkCapacity(int32_t len);
 
-		bool equals(const Bits &other) const;
+		bool equals(const Bits& other) const;
 
 	public:
 		/// @param index the index of the bit to clear
@@ -128,14 +128,14 @@ namespace ECS {
 		 * @param other The other instance
 		 * @return *this
 		 */
-		Bits& operator &=(const Bits &other);
+		Bits& operator &=(const Bits& other);
 
 		/**
 		 * Clears all of the bits in this instance whose corresponding bit is set in the other instance.
 		 * 
 		 * @param other The other instance
 		 */
-		void andNot(const Bits &other);
+		void andNot(const Bits& other);
 
 		/**
 		 * Performs a logical <b>OR</b> of this instance with the other instance. This instance is modified so that a
@@ -145,7 +145,7 @@ namespace ECS {
 		 * @param other a bit set
 		 * @return *this
 		 */
-		Bits& operator |=(const Bits &other);
+		Bits& operator |=(const Bits& other);
 
 		/**
 		 * Performs a logical <b>XOR</b> of this bit set with the bit set argument. This bit set is modified so that a
@@ -158,7 +158,7 @@ namespace ECS {
 		 * @param other The other instance
 		 * @return *this
 		 */
-		Bits& operator ^=(const Bits &other);
+		Bits& operator ^=(const Bits& other);
 
 		/**
 		 * Returns true if the other instance has any bits set to true that are also set to true in this instance.
@@ -166,7 +166,7 @@ namespace ECS {
 		 * @param other The other instance
 		 * @return boolean indicating whether this bit set intersects the specified bit set
 		 */
-		bool intersects (const Bits &other) const;
+		bool intersects (const Bits& other) const;
 
 		/**
 		 * Returns true if this instance is a super set of the other instance, i.e. it has all bits set to true that are
@@ -175,13 +175,13 @@ namespace ECS {
 		 * @param other The other instance
 		 * @return boolean indicating whether this bit set is a super set of the specified set
 		 */
-		bool containsAll(const Bits &other) const;
+		bool containsAll(const Bits& other) const;
 		
 		/**
 		 * @param other The other instance
 		 * @return true if all truthy bits equal the truthy bits in the other instance
 		 */
-		bool operator ==(const Bits &other) const {
+		bool operator ==(const Bits& other) const {
 			return equals(other);
 		}
 		
@@ -189,7 +189,7 @@ namespace ECS {
 		 * @param other The other instance
 		 * @return true if at least one truthy bit is unequal a truthy bit in the other instance
 		 */
-		bool operator !=(const Bits &other) const {
+		bool operator !=(const Bits& other) const {
 			return !equals(other);
 		}
 	};

@@ -81,7 +81,7 @@ namespace ECS {
 	void Bits::checkCapacity(int32_t len) {
 		if (len >= dataLength) {
 			len++;
-			uint64_t *newData = new uint64_t[len];
+			uint64_t* newData = new uint64_t[len];
 			memcpy(newData, data, dataLength*sizeof(uint64_t));
 			memset(newData + dataLength, 0, (len - dataLength)*sizeof(uint64_t));
 			delete[] data;
@@ -186,7 +186,7 @@ namespace ECS {
 		return -1;
 	}
 
-	Bits& Bits::operator &=(const Bits &other) {
+	Bits& Bits::operator &=(const Bits& other) {
 		int32_t commonWords = std::min(dataLength, other.dataLength);
 		for (int32_t i = 0; commonWords > i; i++) {
 			data[i] &= other.data[i];
@@ -200,13 +200,13 @@ namespace ECS {
 		return *this;
 	}
 
-	void Bits::andNot(const Bits &other) {
+	void Bits::andNot(const Bits& other) {
 		for (int32_t i = 0, j = dataLength, k = other.dataLength; i < j && i < k; i++) {
 			data[i] &= ~other.data[i];
 		}
 	}
 
-	Bits& Bits::operator |=(const Bits &other) {
+	Bits& Bits::operator |=(const Bits& other) {
 		int32_t commonWords = std::min(dataLength, other.dataLength);
 		for (int32_t i = 0; commonWords > i; i++) {
 			data[i] |= other.data[i];
@@ -221,7 +221,7 @@ namespace ECS {
 		return *this;
 	}
 
-	Bits& Bits::operator ^=(const Bits &other) {
+	Bits& Bits::operator ^=(const Bits& other) {
 		int32_t commonWords = std::min(dataLength, other.dataLength);
 
 		for (int32_t i = 0; commonWords > i; i++) {
@@ -241,7 +241,7 @@ namespace ECS {
 		return *this;
 	}
 
-	bool Bits::intersects(const Bits &other) const {
+	bool Bits::intersects(const Bits& other) const {
 		for (int32_t i = std::min(dataLength, other.dataLength) - 1; i >= 0; i--) {
 			if ((data[i] & other.data[i]) != 0) {
 				return true;
@@ -250,7 +250,7 @@ namespace ECS {
 		return false;
 	}
 
-	bool Bits::containsAll(const Bits &other) const {
+	bool Bits::containsAll(const Bits& other) const {
 		for (int32_t i = dataLength; i < other.dataLength; i++) {
 			if (other.data[i] != 0) {
 				return false;
@@ -264,7 +264,7 @@ namespace ECS {
 		return true;
 	}
 
-	bool Bits::equals(const Bits &other) const {
+	bool Bits::equals(const Bits& other) const {
 		if (this == &other)
 			return true;
 		int32_t commonWords = std::min(dataLength, other.dataLength);

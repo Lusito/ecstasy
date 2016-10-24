@@ -27,5 +27,5 @@ namespace ECS {
 	 * @param commentChar the character starting a single-line comment. Use '\0' to disable comment support.
 	 * @return the number of tokens added. the value is negative, if a double-quote has not been closed.
 	 */
-	int parseTokens(const std::string &line, std::vector<std::string> &tokens, char commentChar='#');
+	int parseTokens(const std::string& line, std::vector<std::string>& tokens, char commentChar='#');
 }

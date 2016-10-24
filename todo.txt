@@ -1,6 +1,4 @@
-change code format from Type * to Type*, also for &.
 delete copy constructors if appropriate
-code cleanup
 wiki cleanup
 write tests for EntityFactory
 use @link more in documentation

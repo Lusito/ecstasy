@@ -18,7 +18,7 @@
 #include <ecstasy/utils/EntityFactory.hpp>
 
 namespace ECS {
-	bool compareSystems(EntitySystemBase *a, EntitySystemBase *b) {
+	bool compareSystems(EntitySystemBase* a, EntitySystemBase* b) {
 		return a->getPriority() < b->getPriority();
 	}
 
@@ -38,12 +38,12 @@ namespace ECS {
 		removeAllSystems();
 	}
 
-	void Engine::onComponentChange(Entity *entity, ComponentBase *component) {
+	void Engine::onComponentChange(Entity* entity, ComponentBase* component) {
 		if(!entity->scheduledForRemoval && entity->isValid())
 			updateFamilyMembership(entity);
 	}
 
-	void Engine::addEntity(Entity *entity) {
+	void Engine::addEntity(Entity* entity) {
 		if (entity->uuid != 0) throw std::invalid_argument("Entity already added to an engine");
 		entity->uuid = obtainEntityId();
 		if (updating || notifying)
@@ -52,7 +52,7 @@ namespace ECS {
 			addEntityInternal(entity);
 	}
 
-	void Engine::removeEntity(Entity *entity) {
+	void Engine::removeEntity(Entity* entity) {
 		if (updating || notifying) {
 			if(entity->scheduledForRemoval)
 				return;
@@ -68,7 +68,7 @@ namespace ECS {
 
 	void Engine::removeAllEntities() {
 		if (updating || notifying) {
-			for(auto *entity: entities)
+			for(auto entity: entities)
 				entity->scheduledForRemoval = true;
 			
 			entityOperationHandler.removeAll();
@@ -80,14 +80,14 @@ namespace ECS {
 		}
 	}
 
-	Entity *Engine::getEntity(uint64_t id) const {
+	Entity* Engine::getEntity(uint64_t id) const {
 		auto it = entitiesById.find(id);
 		if(it == entitiesById.end())
 			return nullptr;
 		return it->second;
 	}
 
-	void Engine::addSystemInternal(EntitySystemBase *system) {
+	void Engine::addSystemInternal(EntitySystemBase* system) {
 		auto systemType = system->type;
 
 		if (systemType >= systemsByType.size())
@@ -103,9 +103,9 @@ namespace ECS {
 		sortSystems();
 	}
 
-	void Engine::removeSystemInternal(const SystemType &type) {
+	void Engine::removeSystemInternal(const SystemType& type) {
 		if (type < systemsByType.size()) {
-			auto *system = systemsByType[type];
+			auto system = systemsByType[type];
 			if(system) {
 				systemsByType[type] = nullptr;
 
@@ -133,19 +133,19 @@ namespace ECS {
 		std::sort(systems.begin(), systems.end(), compareSystems);
 	}
 
-	EntitySignal &Engine::getEntityAddedSignal(const Family &family) {
+	EntitySignal& Engine::getEntityAddedSignal(const Family& family) {
 		registerFamily(family);
 		return entityAddedSignals[&family];
 	}
 
-	EntitySignal &Engine::getEntityRemovedSignal(const Family &family) {
+	EntitySignal& Engine::getEntityRemovedSignal(const Family& family) {
 		registerFamily(family);
 		return entityRemovedSignals[&family];
 	}
 
 	void Engine::update(float deltaTime){
 		updating = true;
-		for(auto *system: systems){
+		for(auto system: systems){
 			if (system->checkProcessing())
 				system->update(deltaTime);
 
@@ -156,10 +156,10 @@ namespace ECS {
 		updating = false;
 	}
 
-	void Engine::updateFamilyMembership(Entity *entity){
+	void Engine::updateFamilyMembership(Entity* entity){
 		for (auto it = entitiesByFamily.begin(); it != entitiesByFamily.end(); it++) {
-			auto *family = it->first;
-			auto &familyEntities = it->second;
+			auto family = it->first;
+			auto& familyEntities = it->second;
 			
 			auto familyIndex = family->index;
 
@@ -183,7 +183,7 @@ namespace ECS {
 		}
 	}
 
-	void Engine::removeEntityInternal(Entity *entity) {
+	void Engine::removeEntityInternal(Entity* entity) {
 		// Check if entity is able to be removed (id == 0 means either entity is not used by engine, or already removed/in pool)
 		if (entity->getId() == 0) {
 			if (entity->engine == this)
@@ -199,8 +199,8 @@ namespace ECS {
 
 		if(!entity->getFamilyBits().isEmpty()){
 			for (auto it = entitiesByFamily.begin(); it != entitiesByFamily.end(); it++) {
-				auto *family = it->first;
-				auto &familyEntities = it->second;
+				auto family = it->first;
+				auto& familyEntities = it->second;
 
 				if(family->matches(entity)){
 					auto it2 = std::find(familyEntities.begin(), familyEntities.end(), entity);
@@ -222,7 +222,7 @@ namespace ECS {
 		entityPool.free(entity);
 	}
 
-	void Engine::addEntityInternal(Entity *entity) {
+	void Engine::addEntityInternal(Entity* entity) {
 		entities.push_back(entity);
 		entitiesById.emplace(entity->getId(), entity);
 
@@ -235,49 +235,49 @@ namespace ECS {
 		notifying = false;
 	}
 
-	void Engine::notifyFamilyListenersAdd(const Family &family, Entity *entity) {
+	void Engine::notifyFamilyListenersAdd(const Family& family, Entity* entity) {
 		auto it = entityAddedSignals.find(&family);
 		if (it != entityAddedSignals.end()) {
-			auto &signal = it->second;
+			auto& signal = it->second;
 			notifying = true;
 			signal.emit(entity);
 			notifying = false;
 		}
 	}
 
-	void Engine::notifyFamilyListenersRemove(const Family &family, Entity *entity) {
+	void Engine::notifyFamilyListenersRemove(const Family& family, Entity* entity) {
 		auto it = entityRemovedSignals.find(&family);
 		if (it != entityRemovedSignals.end()) {
-			auto &signal = it->second;
+			auto& signal = it->second;
 			notifying = true;
 			signal.emit(entity);
 			notifying = false;
 		}
 	}
 
-	const std::vector<Entity *> *Engine::registerFamily(const Family &family) {
+	const std::vector<Entity*>* Engine::registerFamily(const Family& family) {
 		auto it = entitiesByFamily.find(&family);
 		if (it != entitiesByFamily.end())
 			return &it->second;
 
-		auto &familyEntities = entitiesByFamily[&family];
-		for(auto *e : entities){
+		auto& familyEntities = entitiesByFamily[&family];
+		for(auto e : entities){
 			if(family.matches(e)) {
 				familyEntities.push_back(e);
 				e->familyBits.set(family.index);
 			}
 		}
-		return &familyEntities;
+		return& familyEntities;
 	}
 
-	Entity *Engine::createEntity() {
-		auto *entity = entityPool.obtain();
+	Entity* Engine::createEntity() {
+		auto entity = entityPool.obtain();
 		entity->engine = this;
 		entity->allocator = this;
 		return entity;
 	}
 
-	Entity *Engine::assembleEntity(const std::string& blueprintname) {
+	Entity* Engine::assembleEntity(const std::string& blueprintname) {
 		if(!entityFactory)
 			return nullptr;
 

@@ -32,7 +32,7 @@ namespace ECS {
 		 * @param blueprint the blueprint
 		 * @return true on success.
 		 */
-		virtual bool assemble(Entity *entity, ComponentBlueprint &blueprint) = 0;
+		virtual bool assemble(Entity* entity, ComponentBlueprint& blueprint) = 0;
 	};
 
 	/**
@@ -42,7 +42,7 @@ namespace ECS {
 	template<typename T>
 	class SimpleComponentFactory : public ComponentFactory {
 	public:
-		bool assemble(Entity *entity, ComponentBlueprint &blueprint) override {
+		bool assemble(Entity* entity, ComponentBlueprint& blueprint) override {
 			return entity->assign<T>();
 		};
 	};

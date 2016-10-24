@@ -60,7 +60,7 @@ namespace ECS {
 		 * @param blueprintname the name used to identify the {@link EntityBlueprint}
 		 * @return true on success.
 		 */
-		bool assemble(Entity *entity, const std::string& blueprintname);
+		bool assemble(Entity* entity, const std::string& blueprintname);
 	};
 }
 

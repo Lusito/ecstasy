@@ -60,13 +60,13 @@ namespace ECS {
 		friend class EntityOperationHandler;
 		friend class Entity;
 
-		std::vector<Entity *> entities;
-		std::unordered_map<uint64_t, Entity *> entitiesById;
+		std::vector<Entity*> entities;
+		std::unordered_map<uint64_t, Entity*> entitiesById;
 
-		std::vector<EntitySystemBase *> systems;
-		std::vector<EntitySystemBase *> systemsByType;
+		std::vector<EntitySystemBase*> systems;
+		std::vector<EntitySystemBase*> systemsByType;
 
-		std::unordered_map<const Family *, std::vector<Entity *>> entitiesByFamily;
+		std::unordered_map<const Family *, std::vector<Entity*>> entitiesByFamily;
 
 		std::unordered_map<const Family *, EntitySignal> entityAddedSignals;
 		std::unordered_map<const Family *, EntitySignal> entityRemovedSignals;
@@ -105,7 +105,7 @@ namespace ECS {
 		virtual ~Engine();
 		
 		/// @return Clean Entity from the Engine pool. In order to add it to the Engine, use addEntity(Entity).
-		Entity *createEntity();
+		Entity* createEntity();
 		
 		/**
 		 * Creates and assembles an {@link Entity} using the {@link EntityFactory}.
@@ -115,7 +115,7 @@ namespace ECS {
          * @param blueprintname The name of the entity blueprint
          * @return A fully assembled {@link Entity} or null if the assembly failed.
          */
-		Entity *assembleEntity(const std::string& blueprintname);
+		Entity* assembleEntity(const std::string& blueprintname);
 
 		/**
 		 * Set the {@link EntityFactory} to use with assembleEntity.
@@ -136,14 +136,14 @@ namespace ECS {
 		 * 
 		 * @param entity the entity to add
 		 */
-		void addEntity(Entity *entity);
+		void addEntity(Entity* entity);
 
 		/**
 		 * Removes an entity from this Engine.
 		 * 
 		 * @param entity the entity to remove
 		 */
-		void removeEntity(Entity *entity);
+		void removeEntity(Entity* entity);
 
 		/**
 		 * Removes all entities registered with this Engine.
@@ -154,10 +154,10 @@ namespace ECS {
          * @param id The id of an Entity
          * @return The entity associated with the specified id or null if no such entity exists.
          */
-		Entity *getEntity(uint64_t id) const;
+		Entity* getEntity(uint64_t id) const;
 
 		/// @return a list of all entities
-		const std::vector<Entity *> *getEntities() const {
+		const std::vector<Entity*>* getEntities() const {
 			return &entities;
 		}
 
@@ -169,7 +169,7 @@ namespace ECS {
 		 * @param ... The constructor arguments
 		 */
 		template <typename T, typename ... Args>
-		T *addSystem(Args && ... args) {
+		T* addSystem(Args && ... args) {
 			auto system = new T(std::forward<Args>(args) ...);
 			addSystemInternal(system);
 			return system;
@@ -201,7 +201,7 @@ namespace ECS {
 		 * 
 		 * @param system The EntitySystem to add
 		 */
-		void addSystemInternal(EntitySystemBase *system);
+		void addSystemInternal(EntitySystemBase* system);
 
 		/**
 		 * Removes the EntitySystem from this Engine.
@@ -218,7 +218,7 @@ namespace ECS {
 		 * @return The EntitySystem of the specified class, or null if no such system exists.
 		 */
 		template<typename T>
-		T *getSystem() const {
+		T* getSystem() const {
 			auto type = getSystemType<T>();
 			if (type >= systemsByType.size())
 				return nullptr;
@@ -228,7 +228,7 @@ namespace ECS {
 		/**
 		 * @return A list of all entity systems managed by the Engine.
 		 */
-		const std::vector<EntitySystemBase *> &getSystems() const {
+		const std::vector<EntitySystemBase*>& getSystems() const {
 			return systems;
 		}
 
@@ -236,7 +236,7 @@ namespace ECS {
 		 * @param family A Family instance
 		 * @return A list of entities for the specified Family. Will return the same instance every time.
 		 */
-		const std::vector<Entity *> *getEntitiesFor(const Family &family) {
+		const std::vector<Entity*>* getEntitiesFor(const Family& family) {
 			return registerFamily(family);
 		}
 
@@ -244,13 +244,13 @@ namespace ECS {
 		 * @param family A Family instance
 		 * @return The EntitySignal which emits when an entity is added to the specified Family
 		 */
-		EntitySignal &getEntityAddedSignal(const Family &family);
+		EntitySignal& getEntityAddedSignal(const Family& family);
 
 		/**
 		 * @param family A Family instance
 		 * @return The EntitySignal which emits when an entity is removed from the specified Family
 		 */
-		EntitySignal &getEntityRemovedSignal(const Family &family);
+		EntitySignal& getEntityRemovedSignal(const Family& family);
 
 		/**
 		 * Updates all the systems in this Engine.
@@ -266,17 +266,17 @@ namespace ECS {
 			return nextEntityId++;
 		}
 		
-		void updateFamilyMembership(Entity *entity);
+		void updateFamilyMembership(Entity* entity);
 
-		void removeEntityInternal(Entity *entity);
+		void removeEntityInternal(Entity* entity);
 
-		void addEntityInternal(Entity *entity);
+		void addEntityInternal(Entity* entity);
 
-		void notifyFamilyListenersAdd(const Family &family, Entity *entity);
+		void notifyFamilyListenersAdd(const Family& family, Entity* entity);
 
-		void notifyFamilyListenersRemove(const Family &family, Entity *entity);
+		void notifyFamilyListenersRemove(const Family& family, Entity* entity);
 
-		const std::vector<Entity *> *registerFamily(const Family &family);
+		const std::vector<Entity*>* registerFamily(const Family& family);
 	};
 }
 

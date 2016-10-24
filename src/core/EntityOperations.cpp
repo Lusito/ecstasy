@@ -24,15 +24,15 @@ namespace ECS {
 		return engine.updating;
 	}
 
-	void EntityOperationHandler::onAdd(EntityOperation *operation) {
+	void EntityOperationHandler::onAdd(EntityOperation* operation) {
 		engine.addEntityInternal(operation->entity);
 	}
 	
-	void EntityOperationHandler::onRemove(EntityOperation *operation) {
+	void EntityOperationHandler::onRemove(EntityOperation* operation) {
 		engine.removeEntityInternal(operation->entity);
 	}
 	
-	void EntityOperationHandler::onRemoveAll(EntityOperation *operation) {
+	void EntityOperationHandler::onRemoveAll(EntityOperation* operation) {
 		while(!engine.entities.empty()) {
 			engine.removeEntityInternal(engine.entities.back());
 		}
@@ -42,15 +42,15 @@ namespace ECS {
 		return engine.updating;
 	}
 	
-	void ComponentOperationHandler::onAdd(ComponentOperation *operation) {
+	void ComponentOperationHandler::onAdd(ComponentOperation* operation) {
 		operation->entity->addInternal(operation->component);
 	}
 	
-	void ComponentOperationHandler::onRemove(ComponentOperation *operation) {
+	void ComponentOperationHandler::onRemove(ComponentOperation* operation) {
 		operation->entity->removeInternal(operation->componentType);
 	}
 	
-	void ComponentOperationHandler::onRemoveAll(ComponentOperation *operation) {
+	void ComponentOperationHandler::onRemoveAll(ComponentOperation* operation) {
 		operation->entity->removeAllInternal();
 	}
 }

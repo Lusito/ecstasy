@@ -18,7 +18,7 @@
 #include <ecstasy/core/Engine.hpp>
 
 namespace ECS {
-	Entity &Entity::add (ComponentBase *component) {
+	Entity& Entity::add (ComponentBase* component) {
 		if (componentOperationHandler != nullptr && componentOperationHandler->isActive())
 			componentOperationHandler->add(this, component);
 		else
@@ -33,9 +33,9 @@ namespace ECS {
 			removeAllInternal();
 	}
 
-	void Entity::addInternal (ComponentBase *component) {
+	void Entity::addInternal (ComponentBase* component) {
 		auto type = component->type;
-		auto *oldComponent = getComponent(type);
+		auto oldComponent = getComponent(type);
 		if (component == oldComponent)
 			return;
 
@@ -53,7 +53,7 @@ namespace ECS {
 		engine->componentAdded.emit(this, component);
 	}
 
-	ComponentBase *Entity::removeInternal(ComponentType type) {
+	ComponentBase* Entity::removeInternal(ComponentType type) {
 		auto component = componentsByType[type];
 		if (component) {
 			componentsByType[type] = nullptr;

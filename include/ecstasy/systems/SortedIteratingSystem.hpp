@@ -31,8 +31,8 @@ namespace ECS {
 	template<typename T, typename C>
 	class SortedIteratingSystem : public EntitySystem<T> {
 	private:
-		const Family &family;
-		std::vector<Entity *> sortedEntities;
+		const Family& family;
+		std::vector<Entity*> sortedEntities;
 		bool shouldSort;
 		C comparator;
 		Signal11::ConnectionScope scope;
@@ -45,7 +45,7 @@ namespace ECS {
 		 * @param comparator The comparator to sort the entities
 		 * @copydetails EntitySystem::EntitySystem()
 		 */
-		SortedIteratingSystem(const Family &family, C comparator, int priority=0)
+		SortedIteratingSystem(const Family& family, C comparator, int priority=0)
 			: EntitySystem<T>(priority) , family(family), comparator(comparator) {}
 
 		/**
@@ -64,12 +64,12 @@ namespace ECS {
 			}
 		}
 
-		void entityAdded(Entity *entity) {
+		void entityAdded(Entity* entity) {
 			sortedEntities.push_back(entity);
 			shouldSort = true;
 		}
 
-		void entityRemoved(Entity *entity) {
+		void entityRemoved(Entity* entity) {
 			auto it = std::find(sortedEntities.begin(), sortedEntities.end(), entity);
 			if (it != sortedEntities.end()) {
 				sortedEntities.erase(it);
@@ -78,8 +78,8 @@ namespace ECS {
 		}
 
 	protected:
-		void addedToEngine(Engine *engine) override {
-			auto *newEntities = engine->getEntitiesFor(family);
+		void addedToEngine(Engine* engine) override {
+			auto newEntities = engine->getEntitiesFor(family);
 			sortedEntities.clear();
 			if (!newEntities->empty()) {
 				for (auto entity : *newEntities) {
@@ -92,7 +92,7 @@ namespace ECS {
 			scope += engine->getEntityRemovedSignal(family).connect(this, &SortedIteratingSystem::entityRemoved);
 		}
 
-		void removedFromEngine(Engine *engine) override {
+		void removedFromEngine(Engine* engine) override {
 			scope.removeAll();
 			sortedEntities.clear();
 			shouldSort = false;
@@ -109,13 +109,13 @@ namespace ECS {
 		/**
 		 * @return set of entities processed by the system
 		 */
-		const std::vector<Entity *> *getEntities() const {
+		const std::vector<Entity*>* getEntities() const {
 			sort();
 			return &sortedEntities;
 		}
 
 		/// @return The Family used when the system was created
-		const Family &getFamily() const {
+		const Family& getFamily() const {
 			return family;
 		}
 
@@ -127,7 +127,7 @@ namespace ECS {
 		 * @param entity The current Entity being processed
 		 * @param deltaTime The delta time between the last and current frame
 		 */
-		virtual void processEntity(Entity *entity, float deltaTime) = 0;
+		virtual void processEntity(Entity* entity, float deltaTime) = 0;
 	};
 }
 

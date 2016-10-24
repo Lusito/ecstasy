@@ -28,8 +28,8 @@ namespace ECS {
 	template<typename T>
 	class IteratingSystem : public EntitySystem<T> {
 	private:
-		const Family &family;
-		const std::vector<Entity *> *entities;
+		const Family& family;
+		const std::vector<Entity*>* entities;
 
 	public:
 		/**
@@ -38,7 +38,7 @@ namespace ECS {
 		 * @param family The family of entities iterated over in this System
 		 * @copydetails EntitySystem::EntitySystem()
 		 */
-		IteratingSystem(const Family &family, int priority = 0) : EntitySystem<T>(priority), family(family) {}
+		IteratingSystem(const Family& family, int priority = 0) : EntitySystem<T>(priority), family(family) {}
 
 		void update(float deltaTime) override {
 			for (auto entity : *entities)
@@ -46,18 +46,18 @@ namespace ECS {
 		}
 
 	protected:
-		void addedToEngine(Engine *engine) override {
+		void addedToEngine(Engine* engine) override {
 			entities = engine->getEntitiesFor(family);
 		}
 
 	public:
 		/// @return A list of entities processed by the system
-		const std::vector<Entity *> *getEntities() const {
+		const std::vector<Entity*>* getEntities() const {
 			return entities;
 		}
 
 		/// @return The Family used when the system was created
-		const Family &getFamily() const {
+		const Family& getFamily() const {
 			return family;
 		}
 
@@ -69,7 +69,7 @@ namespace ECS {
 		 * @param entity The current Entity being processed
 		 * @param deltaTime The delta time between the last and current frame
 		 */
-		virtual void processEntity(Entity *entity, float deltaTime) = 0;
+		virtual void processEntity(Entity* entity, float deltaTime) = 0;
 	};
 }
 

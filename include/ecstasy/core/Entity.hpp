@@ -36,14 +36,14 @@ namespace ECS {
 	private:
 		uint64_t uuid = 0;
 		bool scheduledForRemoval = false;
-		ComponentOperationHandler *componentOperationHandler = nullptr;
+		ComponentOperationHandler* componentOperationHandler = nullptr;
 
-		std::vector<ComponentBase *> componentsByType;
-		std::vector<ComponentBase *> components;
+		std::vector<ComponentBase*> componentsByType;
+		std::vector<ComponentBase*> components;
 		Bits componentBits;
 		Bits familyBits;
-		ComponentAllocator *allocator = nullptr;
-		Engine *engine = nullptr;
+		ComponentAllocator* allocator = nullptr;
+		Engine* engine = nullptr;
 
 		Entity() {}
 		
@@ -79,7 +79,7 @@ namespace ECS {
 		 * @param component The Component to add
 		 * @return The Entity for easy chaining
 		 */
-		Entity &add(ComponentBase *component);
+		Entity& add(ComponentBase* component);
 
 		/**
 		 * Removes the Component of the specified type. Since there is only ever one Component of one type, we don't
@@ -100,7 +100,7 @@ namespace ECS {
 		void removeAll();
 
 		/// @return A list with all the {@link Component}s of this Entity.
-		const std::vector<ComponentBase *> &getAll () const {
+		const std::vector<ComponentBase*>& getAll () const {
 			return components;
 		}
 
@@ -111,7 +111,7 @@ namespace ECS {
 		 * @return The instance of the specified Component attached to this Entity, or null if no such Component exists.
 		 */
 		template<typename T>
-		T *get() const {
+		T* get() const {
 			return (T *)getComponent(getComponentType<T>());
 		}
 
@@ -125,35 +125,35 @@ namespace ECS {
 		}
 	private:
 		/// @return The Component object for the specified class, null if the Entity does not have any components for that class.
-		ComponentBase *getComponent(ComponentType componentType) const {
+		ComponentBase* getComponent(ComponentType componentType) const {
 			if (componentType >= componentsByType.size())
 				return nullptr;
 			return componentsByType[componentType];
 		}
 		
-		void addInternal (ComponentBase *component);
-		ComponentBase *removeInternal(ComponentType type);
+		void addInternal (ComponentBase* component);
+		ComponentBase* removeInternal(ComponentType type);
 		void removeAllInternal();
 
 	public:
 		/// @return This Entity's Component bits, describing all the {@link Component}s it contains.
-		const Bits &getComponentBits() const {
+		const Bits& getComponentBits() const {
 			return componentBits;
 		}
 
 		/// @return This Entity's Family bits, describing all the {@link EntitySystem}s it currently is being processed by.
-		const Bits &getFamilyBits() const {
+		const Bits& getFamilyBits() const {
 			return familyBits;
 		}
 
 	public:
 		/// @return true if the entities are equal
-		bool operator ==(const Entity &other) const {
+		bool operator ==(const Entity& other) const {
 			return this == &other;
 		}
 
 		/// @return true if the entities are unequal
-		bool operator !=(const Entity &other) const {
+		bool operator !=(const Entity& other) const {
 			return this != &other;
 		}
 	};

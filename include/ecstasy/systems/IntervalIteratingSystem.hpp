@@ -29,19 +29,19 @@ namespace ECS {
 	template<typename T>
 	class IntervalIteratingSystem: public IntervalSystem<T> {
 	private:
-		const Family &family;
-		const std::vector<Entity *> *entities;
+		const Family& family;
+		const std::vector<Entity*>* entities;
 
 	public:
 		/**
 		 * @param family Represents the collection of family the system should process
 		 * @copydetails IntervalSystem::IntervalSystem()
 		 */
-		IntervalIteratingSystem(const Family &family, float interval, int priority = 0)
+		IntervalIteratingSystem(const Family& family, float interval, int priority = 0)
 			: IntervalSystem<T>(interval, priority), family(family) {}
 
 	protected:
-		void addedToEngine(Engine *engine) override {
+		void addedToEngine(Engine* engine) override {
 			entities = engine->getEntitiesFor(family);
 		}
 
@@ -53,12 +53,12 @@ namespace ECS {
 
 	public:
 		/// @return A list of entities processed by the system
-		const std::vector<Entity *> *getEntities() const {
+		const std::vector<Entity*>* getEntities() const {
 			return entities;
 		}
 
 		/// @return The Family used when the system was created
-		const Family &getFamily() const {
+		const Family& getFamily() const {
 			return family;
 		}
 
@@ -68,7 +68,7 @@ namespace ECS {
 		 * 
 		 * @param entity The entity to be processed
 		 */
-		virtual void processEntity(Entity *entity) = 0;
+		virtual void processEntity(Entity* entity) = 0;
 	};
 }
 

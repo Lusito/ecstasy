@@ -17,7 +17,7 @@
 #include <vector>
 
 namespace ECS {
-	int parseTokens(const std::string &line, std::vector<std::string> &tokens, char commentChar) {
+	int parseTokens(const std::string& line, std::vector<std::string>& tokens, char commentChar) {
 		int numTokens = 0;
 		bool charactersFound = false;
 		bool isEscape = false;

@@ -26,7 +26,7 @@ namespace ECS {
 	private:
 		friend class Engine;
 		bool processing = true;
-		Engine *engine = nullptr;
+		Engine* engine = nullptr;
 		int priority;
 
 	public:
@@ -74,7 +74,7 @@ namespace ECS {
 		 */
 		virtual void setPriority(int priority);
 		
-		Engine *getEngine() { return engine; }
+		Engine* getEngine() { return engine; }
 
 	protected:
 		
@@ -83,14 +83,14 @@ namespace ECS {
 		 * 
 		 * @param engine The Engine this system was added to.
 		 */
-		virtual void addedToEngine(Engine *engine) {}
+		virtual void addedToEngine(Engine* engine) {}
 
 		/**
 		 * Called when this EntitySystem is removed from an Engine.
 		 * 
 		 * @param engine The Engine the system was removed from.
 		 */
-		virtual void removedFromEngine(Engine *engine) {}
+		virtual void removedFromEngine(Engine* engine) {}
 
 	};
 

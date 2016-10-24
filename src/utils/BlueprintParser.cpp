@@ -19,14 +19,14 @@
 #include <fstream>
 
 namespace ECS {
-	std::string parseBlueprint(const std::string& filename, std::shared_ptr<EntityBlueprint> &result) {
+	std::string parseBlueprint(const std::string& filename, std::shared_ptr<EntityBlueprint>& result) {
 		std::ifstream file(filename);
 		if(!file.is_open())
 			return "Can't open file " + filename;
 		return parseBlueprint(file, result);
 	}
 
-	std::string parseBlueprint(std::istream& stream, std::shared_ptr<EntityBlueprint> &result) {
+	std::string parseBlueprint(std::istream& stream, std::shared_ptr<EntityBlueprint>& result) {
 		result = std::make_shared<EntityBlueprint>();
 
 		std::shared_ptr<ComponentBlueprint> lastComponent;
@@ -39,13 +39,13 @@ namespace ECS {
 			if(numTokens < 0)
 				return "Line " + std::to_string(lineNum) + ": quote has not been closed";
 			if(numTokens > 0) {
-				std::string &command = tokens[0];
+				std::string& command = tokens[0];
 				if(command == "add") {
 					if(numTokens != 2)
 						return "Line " + std::to_string(lineNum) + ": expected exactly one argument to 'add'";
 					if(lastComponent)
 						result->add(lastComponent);
-					std::string &name = tokens[1];
+					std::string& name = tokens[1];
 					lastComponent = std::make_shared<ComponentBlueprint>(name);
 				} else if(command == "set") {
 					if(numTokens != 3)

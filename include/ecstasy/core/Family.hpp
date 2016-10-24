@@ -34,12 +34,12 @@ namespace ECS {
 	}
 
 	template <typename T>
-	void getComponentTypeBits(Bits &bits) {
+	void getComponentTypeBits(Bits& bits) {
 		bits.set((int32_t)getComponentType<T>());
 	}
 
 	template<typename T1, typename T2, typename... Args>
-	void getComponentTypeBits(Bits &bits) {
+	void getComponentTypeBits(Bits& bits) {
 		getComponentTypeBits<T1>(bits);
 		getComponentTypeBits<T2, Args...>(bits);
 	}
@@ -52,9 +52,9 @@ namespace ECS {
 	class FamilyBuilder {
 		friend class Family;
 	private:
-		Bits *m_all = new Bits();
-		Bits *m_one = new Bits();
-		Bits *m_exclude = new Bits();
+		Bits* m_all = new Bits();
+		Bits* m_one = new Bits();
+		Bits* m_exclude = new Bits();
 
 		FamilyBuilder() {}
 
@@ -66,14 +66,14 @@ namespace ECS {
 		 * 
 		 * @return *this for chaining
 		 */
-		FamilyBuilder &reset ();
+		FamilyBuilder& reset ();
 
 		/**
 		 * @tparam Args Entities will have to contain all of the specified components.
 		 * @return *this for chaining
 		 */
 		template<typename... Args>
-		FamilyBuilder &all() {
+		FamilyBuilder& all() {
 			getComponentTypeBits<Args...>(*m_all);
 			return *this;
 		}
@@ -83,7 +83,7 @@ namespace ECS {
 		 * @return *this for chaining
 		 */
 		template<typename... Args>
-		FamilyBuilder &one() {
+		FamilyBuilder& one() {
 			getComponentTypeBits<Args...>(*m_one);
 			return *this;
 		}
@@ -93,13 +93,13 @@ namespace ECS {
 		 * @return *this for chaining
 		 */
 		template<typename... Args>
-		FamilyBuilder &exclude() {
+		FamilyBuilder& exclude() {
 			getComponentTypeBits<Args...>(*m_exclude);
 			return *this;
 		}
 
 		/// @return A Family for the configured component types
-		const Family &get ();
+		const Family& get ();
 	};
 	
 	/**
@@ -108,14 +108,13 @@ namespace ECS {
 	 * This is to avoid duplicate families that describe the same components
 	 * Start with Family::all(), Family::one() or Family::exclude().
 	 */
-	class Family
-	{
+	class Family {
 	private:
 		static FamilyBuilder builder;
 
-		Bits *m_all;
-		Bits *m_one;
-		Bits *m_exclude;
+		Bits* m_all;
+		Bits* m_one;
+		Bits* m_exclude;
 		
 	public:
 		/// The unique identifier of this Family
@@ -124,10 +123,10 @@ namespace ECS {
 	private:
 		friend class FamilyBuilder;
 		// Private constructor
-		Family(Bits *all, Bits *one, Bits *exclude) : m_all(all), m_one(one), m_exclude(exclude), index(getUniqueTypeId<FamilyType>()) {}
+		Family(Bits* all, Bits* one, Bits* exclude) : m_all(all), m_one(one), m_exclude(exclude), index(getUniqueTypeId<FamilyType>()) {}
 
 		// Do not copy
-		Family(const Family &other) : index(0) {}
+		Family(const Family& other) : index(0) {}
 		
 	public:
 		~Family();
@@ -136,10 +135,10 @@ namespace ECS {
 		 * @param entity An entity
 		 * @return Whether the entity matches the family requirements or not
 		 */
-		bool matches (Entity *entity) const;
+		bool matches (Entity* entity) const;
 
 		/// @return A builder singleton instance to get a Family
-		static FamilyBuilder &all() {
+		static FamilyBuilder& all() {
 			return builder.reset();
 		}
 		
@@ -148,7 +147,7 @@ namespace ECS {
 		 * @return A builder singleton instance to get a Family
 		 */
 		template<typename... Args>
-		static FamilyBuilder &all() {
+		static FamilyBuilder& all() {
 			return builder.reset().all<Args...>();
 		}
 
@@ -157,7 +156,7 @@ namespace ECS {
 		 * @return A builder singleton instance to get a Family
 		 */
 		template<typename... Args>
-		static FamilyBuilder &one() {
+		static FamilyBuilder& one() {
 			return builder.reset().one<Args...>();
 		}
 
@@ -166,17 +165,17 @@ namespace ECS {
 		 * @return A builder singleton instance to get a Family
 		 */
 		template<typename... Args>
-		static FamilyBuilder &exclude() {
+		static FamilyBuilder& exclude() {
 			return builder.reset().exclude<Args...>();
 		}
 
 		/// @return true if the families are equal
-		bool operator == (const Family &other) const {
+		bool operator == (const Family& other) const {
 			return this == &other;
 		}
 
 		/// @return true if the families are unequal
-		bool operator != (const Family &other) const {
+		bool operator != (const Family& other) const {
 			return this != &other;
 		}
 	};

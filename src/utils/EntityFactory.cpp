@@ -18,7 +18,7 @@
 #include <ecstasy/utils/Blueprint.hpp>
 
 namespace ECS {
-	bool EntityFactory::assemble(Entity *entity, const std::string& blueprintname) {
+	bool EntityFactory::assemble(Entity* entity, const std::string& blueprintname) {
 		auto it = entities.find(blueprintname);
 		bool success = false;
 		if(it != entities.end()) {
