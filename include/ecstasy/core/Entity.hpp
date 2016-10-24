@@ -68,19 +68,14 @@ namespace ECS {
 		 * @return The added component
 		 */
 		template <typename T, typename ... Args>
-		T* assign(Args && ... args) {
+		T* add(Args && ... args) {
 			auto component = allocator->createComponent<T>(std::forward<Args>(args) ...);
-			add(component);
+			if (componentOperationHandler != nullptr && componentOperationHandler->isActive())
+				componentOperationHandler->add(this, component);
+			else
+				addInternal(component);
 			return component;
 		}
-
-		/**
-		 * Adds a Component to this Entity. If a Component of the same type already exists, it'll be replaced.
-		 * 
-		 * @param component The Component to add
-		 * @return The Entity for easy chaining
-		 */
-		Entity& add(ComponentBase* component);
 
 		/**
 		 * Removes the Component of the specified type. Since there is only ever one Component of one type, we don't

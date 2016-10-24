@@ -18,14 +18,6 @@
 #include <ecstasy/core/Engine.hpp>
 
 namespace ECS {
-	Entity& Entity::add (ComponentBase* component) {
-		if (componentOperationHandler != nullptr && componentOperationHandler->isActive())
-			componentOperationHandler->add(this, component);
-		else
-			addInternal(component);
-		return *this;
-	}
-
 	void Entity::removeAll() {
 		if (componentOperationHandler != nullptr && componentOperationHandler->isActive())
 			componentOperationHandler->removeAll(this);

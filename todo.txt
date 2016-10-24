@@ -1,6 +1,4 @@
-delete copy constructors if appropriate
 write tests for EntityFactory
-assign vs add clarity.
 namespace change to 'ecstasy' instead of 'ECS'?
 use @link more in documentation
 build documentation
