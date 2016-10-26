@@ -1,4 +1,3 @@
-token parser support for \t,\r,\n?
 namespace change to 'ecstasy' instead of 'ECS'?
 use @link more in documentation
 build documentation

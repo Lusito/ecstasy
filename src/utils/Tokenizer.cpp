@@ -17,6 +17,16 @@
 #include <vector>
 
 namespace ECS {
+	char parseEscapeToken(char c) {
+		if(c == 't')
+			return '\t';
+		else if(c == 'r')
+			return '\r';
+		else if(c == 'n')
+			return '\n';
+		return c;
+	}
+
 	int parseTokens(const std::string& line, std::vector<std::string>& tokens, char commentChar) {
 		int numTokens = 0;
 		bool charactersFound = false;
@@ -26,21 +36,8 @@ namespace ECS {
 		token.reserve(line.length());
 		for(char c: line) {
 			if(isEscape) {
-				token += c;
+				token += parseEscapeToken(c);
 				isEscape = false;
-				continue;
-			}
-			if(isspace(c)) {
-				// Skip white-spaces at the beginning
-				if(!charactersFound)
-					continue;
-				if(isQuote)
-					token += c;
-				else if(!token.empty()) {
-					numTokens++;
-					tokens.push_back(token);
-					token.clear();
-				}
 			} else if(isQuote) {
 				if(c == '\\')
 					isEscape = true;
@@ -48,6 +45,17 @@ namespace ECS {
 					token += c;
 				else {
 					isQuote = false;
+					numTokens++;
+					tokens.push_back(token);
+					token.clear();
+				}
+			} else if(isspace(c)) {
+				// Skip white-spaces at the beginning
+				if(!charactersFound)
+					continue;
+				if(isQuote)
+					token += c;
+				else if(!token.empty()) {
 					numTokens++;
 					tokens.push_back(token);
 					token.clear();

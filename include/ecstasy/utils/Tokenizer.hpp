@@ -19,10 +19,10 @@
 
 namespace ECS {
 	/**
-	 * Parse text into tokens. Whitespace is used to separate the tokens and double-quotes can be used
-	 * to ignore white-spaces until another double-quote is found. Supports single-line comments.
+	 * Parse a text line into tokens. Whitespace is used to separate the tokens and double-quotes can be used
+	 * to ignore white-spaces until another double-quote is found. Supports comments until the end of the line.
 	 * 
-	 * @param line the text to parse (usually a line in a text file)
+	 * @param line the text to parse (multiline is not supported right now)
 	 * @param tokens the result vector to store the tokens in.
 	 * @param commentChar the character starting a single-line comment. Use '\0' to disable comment support.
 	 * @return the number of tokens added. the value is negative, if a double-quote has not been closed.
