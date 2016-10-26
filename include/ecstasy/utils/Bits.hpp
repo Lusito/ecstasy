@@ -29,7 +29,8 @@ namespace ECS {
 
 	public:
 		~Bits() {
-			delete[] data;
+			if(data)
+				delete[] data;
 		}
 		
 		/**
@@ -37,6 +38,18 @@ namespace ECS {
 		 */
 		Bits();
 		Bits(const Bits&) = delete;
+
+		/**
+		 * Move constructor
+		 * 
+		 * @param other
+		 */
+		Bits(Bits&& other) {
+			data = other.data;
+			dataLength = other.dataLength;
+			other.data = nullptr;
+			other.dataLength = 0;
+		}
 
 		/**
 		 * Creates a bit set whose initial size is large enough to explicitly represent bits with indices in the range 0 through nbits-1.
