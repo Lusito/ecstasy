@@ -75,6 +75,7 @@ compile_commands.json
 #generated files
 generated/*.cpp
 generated/*.hpp
+docs/generated
 
 #binaries
 tests
