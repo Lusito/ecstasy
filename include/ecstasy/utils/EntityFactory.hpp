@@ -19,7 +19,7 @@
 #include <string>
 #include <memory>
 
-namespace ECS {
+namespace ecstasy {
 	class Entity;
 	class EntityBlueprint;
 	class ComponentFactory;
@@ -69,5 +69,5 @@ namespace ECS {
 }
 
 #ifdef USING_ECSTASY
-	using ECS::EntityFactory;
+	using ecstasy::EntityFactory;
 #endif

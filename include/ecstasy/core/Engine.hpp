@@ -27,7 +27,7 @@
 #include <unordered_map>
 #include <signal11/Signal.hpp>
 
-namespace ECS {
+namespace ecstasy {
 	class EntityFactory;
 
 	/// Signal11::Signal for Component signals
@@ -280,5 +280,5 @@ namespace ECS {
 }
 
 #ifdef USING_ECSTASY
-	using ECS::Engine;
+	using ecstasy::Engine;
 #endif

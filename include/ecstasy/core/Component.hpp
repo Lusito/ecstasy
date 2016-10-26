@@ -16,7 +16,7 @@
  ******************************************************************************/
 #include <ecstasy/core/Types.hpp>
 
-namespace ECS {
+namespace ecstasy {
 	/// Non-Template base-class for Component. Extend Component instead.
 	struct ComponentBase {
 		/// The unique identifier of this Component's class
@@ -42,6 +42,6 @@ namespace ECS {
 }
 
 #ifdef USING_ECSTASY
-	using ECS::ComponentBase;
-	using ECS::Component;
+	using ecstasy::ComponentBase;
+	using ecstasy::Component;
 #endif

@@ -18,7 +18,7 @@
 #include <stdint.h>
 #include <ecstasy/core/EntityOperations.hpp>
 
-namespace ECS {
+namespace ecstasy {
 	/**
 	 * Simple containers of {@link Component}s that give them "data".
 	 * The component's data is then processed by {@link EntitySystem}s.
@@ -164,5 +164,5 @@ namespace ECS {
 }
 
 #ifdef USING_ECSTASY
-	using ECS::Entity;
+	using ecstasy::Entity;
 #endif

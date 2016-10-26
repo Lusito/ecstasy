@@ -20,7 +20,7 @@
 #include <vector>
 #include <memory>
 
-namespace ECS {
+namespace ecstasy {
 	/**
 	 * Stores the name of a component and key/value pairs to construct the component.
 	 * See {@link EntityFactory}.
@@ -103,6 +103,6 @@ namespace ECS {
 }
 
 #ifdef USING_ECSTASY
-	using ECS::ComponentBlueprint;
-	using ECS::EntityBlueprint;
+	using ecstasy::ComponentBlueprint;
+	using ecstasy::EntityBlueprint;
 #endif

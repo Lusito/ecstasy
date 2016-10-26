@@ -18,7 +18,7 @@
 #include <ecstasy/core/Engine.hpp>
 #include <ecstasy/core/Component.hpp>
 
-namespace ECS {
+namespace ecstasy {
 
 	bool EntityOperationHandler::isActive() {
 		return engine.updating;

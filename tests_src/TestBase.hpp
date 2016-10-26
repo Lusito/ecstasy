@@ -5,8 +5,8 @@
 #include <ecstasy/core/Engine.hpp>
 #include <ecstasy/core/Component.hpp>
 
-using ECS::Bits;
-using ECS::getComponentType;
+using ecstasy::Bits;
+using ecstasy::getComponentType;
 
 template<typename T>
 class Allocator {

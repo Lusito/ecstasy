@@ -19,7 +19,7 @@
 #include <sstream>
 #include <map>
 
-namespace ECS {
+namespace ecstasy {
 	static std::map<std::string, std::shared_ptr<Family>> families;
 
 	static void addBitsString(std::ostringstream& ss, const std::string& prefix, Bits* bits) {

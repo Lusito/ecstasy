@@ -16,7 +16,7 @@
  ******************************************************************************/
 #include <ecstasy/core/Types.hpp>
 
-namespace ECS {
+namespace ecstasy {
 	class Engine;
 	
 	/**
@@ -112,6 +112,6 @@ namespace ECS {
 }
 
 #ifdef USING_ECSTASY
-	using ECS::EntitySystemBase;
-	using ECS::EntitySystem;
+	using ecstasy::EntitySystemBase;
+	using ecstasy::EntitySystem;
 #endif

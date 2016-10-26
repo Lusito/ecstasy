@@ -16,7 +16,7 @@
 ******************************************************************************/
 #include <ecstasy/core/EntitySystem.hpp>
 
-namespace ECS {
+namespace ecstasy {
 	class Entity;
 
 	/**
@@ -56,5 +56,5 @@ namespace ECS {
 }
 
 #ifdef USING_ECSTASY
-	using ECS::IntervalSystem;
+	using ecstasy::IntervalSystem;
 #endif

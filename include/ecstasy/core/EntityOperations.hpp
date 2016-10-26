@@ -17,7 +17,7 @@
 #include <ecstasy/utils/Pool.hpp>
 #include <ecstasy/core/Types.hpp>
 
-namespace ECS {
+namespace ecstasy {
 	class Entity;
 	class Engine;
 	struct ComponentBase;

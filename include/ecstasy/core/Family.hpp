@@ -18,7 +18,7 @@
 #include <ecstasy/core/Types.hpp>
 #include <ecstasy/utils/Bits.hpp>
 
-namespace ECS {
+namespace ecstasy {
 	class Entity;
 	
 	ECS_UUID_TYPE(FamilyType)
@@ -181,5 +181,5 @@ namespace ECS {
 }
 
 #ifdef USING_ECSTASY
-	using ECS::Family;
+	using ecstasy::Family;
 #endif

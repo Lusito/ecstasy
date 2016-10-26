@@ -16,7 +16,7 @@
 #include "../TestBase.hpp"
 #include <ecstasy/utils/Tokenizer.hpp>
 
-using ECS::parseTokens;
+using ecstasy::parseTokens;
 namespace TokenizerTests {
 
 	TEST_CASE("test_empty") {

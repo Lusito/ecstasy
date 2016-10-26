@@ -17,7 +17,7 @@
 #include <ecstasy/core/EntitySystem.hpp>
 #include <ecstasy/utils/EntityFactory.hpp>
 
-namespace ECS {
+namespace ecstasy {
 	bool compareSystems(EntitySystemBase* a, EntitySystemBase* b) {
 		return a->getPriority() < b->getPriority();
 	}

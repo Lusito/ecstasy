@@ -18,7 +18,7 @@
 #include <string>
 #include <istream>
 
-namespace ECS {
+namespace ecstasy {
 	class EntityBlueprint;
 	/**
 	 * Parse a blueprint file.

@@ -18,7 +18,7 @@
 #include <ecstasy/utils/Tokenizer.hpp>
 #include <fstream>
 
-namespace ECS {
+namespace ecstasy {
 	std::string parseBlueprint(const std::string& filename, std::shared_ptr<EntityBlueprint>& result) {
 		std::ifstream file(filename);
 		if(!file.is_open())

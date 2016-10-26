@@ -18,7 +18,7 @@
 #include <stdint.h>
 #include <string>
 
-namespace ECS {
+namespace ecstasy {
 	/**
 	 *  A bitset, without size limitation, allows comparison via bitwise operators to other bitfields.
 	 */

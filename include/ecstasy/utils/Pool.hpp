@@ -20,7 +20,7 @@
 #include <stdexcept>
 #include <vector>
 
-namespace ECS {
+namespace ecstasy {
 	/** Objects implementing this interface will have reset() called when passed to {@link Pool::free()}. */
 	class Poolable {
 	public:

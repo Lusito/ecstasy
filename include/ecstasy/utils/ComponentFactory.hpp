@@ -17,7 +17,7 @@
 
 #include <ecstasy/core/Entity.hpp>
 
-namespace ECS {
+namespace ecstasy {
 	class ComponentBlueprint;
 
 	/**
@@ -53,6 +53,6 @@ namespace ECS {
 }
 
 #ifdef USING_ECSTASY
-	using ECS::ComponentFactory;
-	using ECS::SimpleComponentFactory;
+	using ecstasy::ComponentFactory;
+	using ecstasy::SimpleComponentFactory;
 #endif

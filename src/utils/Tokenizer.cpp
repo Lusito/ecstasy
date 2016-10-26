@@ -16,7 +16,7 @@
 #include <string>
 #include <vector>
 
-namespace ECS {
+namespace ecstasy {
 	char parseEscapeToken(char c) {
 		if(c == 't')
 			return '\t';

@@ -17,7 +17,7 @@
 #include <string>
 #include <vector>
 
-namespace ECS {
+namespace ecstasy {
 	/**
 	 * Parse a text line into tokens. Whitespace is used to separate the tokens and double-quotes can be used
 	 * to ignore white-spaces until another double-quote is found. Supports comments until the end of the line.

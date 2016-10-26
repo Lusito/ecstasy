@@ -16,7 +16,7 @@
 ******************************************************************************/
 #include <ecstasy/core/Engine.hpp>
 
-namespace ECS {
+namespace ecstasy {
 	class Entity;
 
 	/**
@@ -74,5 +74,5 @@ namespace ECS {
 }
 
 #ifdef USING_ECSTASY
-	using ECS::IteratingSystem;
+	using ecstasy::IteratingSystem;
 #endif

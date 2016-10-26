@@ -17,7 +17,7 @@
 #include <stdint.h>
 #include <ecstasy/utils/Bits.hpp>
 
-namespace ECS {
+namespace ecstasy {
 	#define ECS_UUID_TYPE(T)\
 	struct T {\
 		explicit T(const uint32_t id) : id(id) {}\

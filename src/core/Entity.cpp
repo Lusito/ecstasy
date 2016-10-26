@@ -17,7 +17,7 @@
 #include <ecstasy/core/Component.hpp>
 #include <ecstasy/core/Engine.hpp>
 
-namespace ECS {
+namespace ecstasy {
 	void Entity::removeAll() {
 		if (componentOperationHandler != nullptr && componentOperationHandler->isActive())
 			componentOperationHandler->removeAll(this);

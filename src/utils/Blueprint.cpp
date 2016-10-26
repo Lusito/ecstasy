@@ -15,7 +15,7 @@
  ******************************************************************************/
 #include <ecstasy/utils/Blueprint.hpp>
 
-namespace ECS {
+namespace ecstasy {
 	void ComponentBlueprint::set(const std::string& key, const std::string& value) {
 		values[key] = value;
 	}

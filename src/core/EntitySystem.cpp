@@ -16,7 +16,7 @@
 #include <ecstasy/core/EntitySystem.hpp>
 #include <ecstasy/core/Engine.hpp>
 
-namespace ECS {
+namespace ecstasy {
 	void EntitySystemBase::setPriority(int priority) {
 		this->priority = priority;
 		if(engine)
