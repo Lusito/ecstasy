@@ -540,7 +540,7 @@ namespace Signal11 {
 			}
 
 			bool disconnect(ProtoSignalLink *link) {
-				return disconnect((SignalLink*)link);
+				return disconnect(static_cast<SignalLink*>(link));
 			}
 
 			/// Emit a signal, i.e. invoke all its callbacks and collect return types with the Collector.

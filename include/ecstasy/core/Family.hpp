@@ -35,7 +35,7 @@ namespace ecstasy {
 
 	template <typename T>
 	void getComponentTypeBits(Bits& bits) {
-		bits.set((int32_t)getComponentType<T>());
+		bits.set(static_cast<int32_t>(getComponentType<T>()));
 	}
 
 	template<typename T1, typename T2, typename... Args>

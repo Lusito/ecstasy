@@ -116,7 +116,7 @@ namespace ecstasy {
 		 */
 		template<typename T>
 		T* get() const {
-			return (T *)getComponent(getComponentType<T>());
+			return static_cast<T*>(getComponent(getComponentType<T>()));
 		}
 
 		/**

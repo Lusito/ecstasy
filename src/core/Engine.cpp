@@ -18,7 +18,7 @@
 #include <ecstasy/utils/EntityFactory.hpp>
 
 namespace ecstasy {
-	bool compareSystems(EntitySystemBase* a, EntitySystemBase* b) {
+	bool compareSystems(std::shared_ptr<EntitySystemBase>& a, std::shared_ptr<EntitySystemBase>& b) {
 		return a->getPriority() < b->getPriority();
 	}
 
@@ -87,7 +87,7 @@ namespace ecstasy {
 		return it->second;
 	}
 
-	void Engine::addSystemInternal(EntitySystemBase* system) {
+	void Engine::addSystem(std::shared_ptr<EntitySystemBase> system) {
 		auto systemType = system->type;
 
 		if (systemType >= systemsByType.size())
@@ -107,14 +107,13 @@ namespace ecstasy {
 		if (type < systemsByType.size()) {
 			auto system = systemsByType[type];
 			if(system) {
-				systemsByType[type] = nullptr;
+				systemsByType[type].reset();
 
 				auto it = std::find(systems.begin(), systems.end(), system);
 				if(it != systems.end())
 					systems.erase(it);
 				system->removedFromEngine(this);
 				system->engine = nullptr;
-				delete system;
 			}
 		}
 	}
@@ -123,7 +122,6 @@ namespace ecstasy {
 		for (auto system : systems) {
 			system->removedFromEngine(this);
 			system->engine = nullptr;
-			delete system;
 		}
 		systems.clear();
 		systemsByType.clear();

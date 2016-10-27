@@ -31,9 +31,9 @@ namespace ecstasy {
 	class EntityFactory;
 
 	/// Signal11::Signal for Component signals
-	typedef Signal11::Signal<void(Entity *, ComponentBase *)> ComponentSignal;
+	typedef Signal11::Signal<void(Entity*, ComponentBase*)> ComponentSignal;
 	/// Signal11::Signal for Entity signals
-	typedef Signal11::Signal<void(Entity *)> EntitySignal;
+	typedef Signal11::Signal<void(Entity*)> EntitySignal;
 
 	/**
 	 * The heart of the Entity framework. It is responsible for keeping track of Entity and
@@ -61,13 +61,13 @@ namespace ecstasy {
 		std::vector<Entity*> entities;
 		std::unordered_map<uint64_t, Entity*> entitiesById;
 
-		std::vector<EntitySystemBase*> systems;
-		std::vector<EntitySystemBase*> systemsByType;
+		std::vector<std::shared_ptr<EntitySystemBase>> systems;
+		std::vector<std::shared_ptr<EntitySystemBase>> systemsByType;
 
-		std::unordered_map<const Family *, std::vector<Entity*>> entitiesByFamily;
+		std::unordered_map<const Family*, std::vector<Entity*>> entitiesByFamily;
 
-		std::unordered_map<const Family *, EntitySignal> entityAddedSignals;
-		std::unordered_map<const Family *, EntitySignal> entityRemovedSignals;
+		std::unordered_map<const Family*, EntitySignal> entityAddedSignals;
+		std::unordered_map<const Family*, EntitySignal> entityRemovedSignals;
 
 		std::shared_ptr<EntityFactory> entityFactory;
 		bool updating = false;
@@ -160,19 +160,25 @@ namespace ecstasy {
 			return &entities;
 		}
 
-
 		/**
 		 * Emplaces a new system
 		 *
-		 * @tparam T The System class
+		 * @tparam T The system class
 		 * @param args The constructor arguments
 		 */
 		template <typename T, typename ... Args>
-		T* emplaceSystem(Args && ... args) {
-			auto system = new T(std::forward<Args>(args) ...);
-			addSystemInternal(system);
+		std::shared_ptr<T> emplaceSystem(Args && ... args) {
+			auto system = std::make_shared<T>(std::forward<Args>(args) ...);
+			addSystem(system);
 			return system;
 		}
+
+		/**
+		 * Adds the EntitySystem to this Engine.
+		 * 
+		 * @param system The EntitySystem to add
+		 */
+		void addSystem(std::shared_ptr<EntitySystemBase> system);
 
 		/**
 		 * Removes the EntitySystem from this Engine.
@@ -196,13 +202,6 @@ namespace ecstasy {
 
 	private:
 		/**
-		 * Adds the EntitySystem to this Engine.
-		 * 
-		 * @param system The EntitySystem to add
-		 */
-		void addSystemInternal(EntitySystemBase* system);
-
-		/**
 		 * Removes the EntitySystem from this Engine.
 		 * 
 		 * @param type The EntitySystem type to remove
@@ -217,17 +216,17 @@ namespace ecstasy {
 		 * @return The EntitySystem of the specified class, or null if no such system exists.
 		 */
 		template<typename T>
-		T* getSystem() const {
+		std::shared_ptr<T> getSystem() const {
 			auto type = getSystemType<T>();
 			if (type >= systemsByType.size())
 				return nullptr;
-			return (T *)systemsByType[type];
+			return std::dynamic_pointer_cast<T>(systemsByType[type]);
 		}
 
 		/**
 		 * @return A list of all entity systems managed by the Engine.
 		 */
-		const std::vector<EntitySystemBase*>& getSystems() const {
+		const std::vector<std::shared_ptr<EntitySystemBase>>& getSystems() const {
 			return systems;
 		}
 

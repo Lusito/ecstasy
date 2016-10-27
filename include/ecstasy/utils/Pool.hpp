@@ -93,7 +93,7 @@ namespace ecstasy {
 			if (freeObjects.size() < max) {
 				object->reset();
 				freeObjects.push_back(object);
-				peak = std::max(peak, (uint32_t)freeObjects.size());
+				peak = std::max(peak, static_cast<uint32_t>(freeObjects.size()));
 			} else {
 				delete object;
 			}
