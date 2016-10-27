@@ -16,11 +16,8 @@
  ******************************************************************************/
 
 #include <ecstasy/core/Types.hpp>
-#include <ecstasy/core/EntitySystem.hpp>
 #include <ecstasy/core/Entity.hpp>
-#include <ecstasy/core/Component.hpp>
 #include <ecstasy/core/EntityOperations.hpp>
-#include <ecstasy/core/Family.hpp>
 #include <stdint.h>
 #include <vector>
 #include <string>
@@ -29,6 +26,9 @@
 
 namespace ecstasy {
 	class EntityFactory;
+	class EntitySystemBase;
+	class ComponentBase;
+	class Family;
 
 	/// Signal11::Signal for Component signals
 	typedef Signal11::Signal<void(Entity*, ComponentBase*)> ComponentSignal;

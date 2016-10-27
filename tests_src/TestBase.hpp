@@ -3,6 +3,8 @@
 #include <vector>
 #include <memory>
 #include <ecstasy/core/Engine.hpp>
+#include <ecstasy/core/EntitySystem.hpp>
+#include <ecstasy/core/Family.hpp>
 #include <ecstasy/core/Component.hpp>
 
 using ecstasy::Bits;

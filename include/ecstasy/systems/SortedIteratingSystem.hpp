@@ -14,7 +14,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 ******************************************************************************/
-#include <ecstasy/core/Engine.hpp>
+#include <ecstasy/core/EntitySystem.hpp>
 
 namespace ecstasy {
 	class Entity;

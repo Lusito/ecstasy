@@ -14,6 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 #include <ecstasy/core/Engine.hpp>
+#include <ecstasy/core/Family.hpp>
 #include <ecstasy/core/EntitySystem.hpp>
 #include <ecstasy/utils/EntityFactory.hpp>
 
