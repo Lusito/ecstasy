@@ -59,6 +59,8 @@ namespace ecstasy {
 		/// @return true if the entity is scheduled to be removed
 		bool isScheduledForRemoval () const { return scheduledForRemoval; }
 
+		/// Remove this entity from its engine
+		void destroy();
 
 		/**
 		 * Emplace a Component, passing through Component constructor arguments.

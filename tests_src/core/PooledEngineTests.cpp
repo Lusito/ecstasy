@@ -178,4 +178,14 @@ namespace PooledEngineTests {
 		for (int j = 0; j < 2; j++)
 			engine.update(0);
 	}
+
+
+	TEST_CASE("destroyEntity") {
+		Engine engine;
+		auto entity = engine.createEntity();
+		engine.addEntity(entity);
+		REQUIRE(entity->isValid());
+		entity->destroy();
+		REQUIRE(!entity->isValid());
+	}
 }

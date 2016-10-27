@@ -72,4 +72,9 @@ namespace ecstasy {
 		scheduledForRemoval = false;
 		engine = nullptr;
 	}
+
+	void Entity::destroy() {
+		if(engine)
+			engine->removeEntity(this);
+	}
 }
