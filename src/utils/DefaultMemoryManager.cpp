@@ -1,4 +1,5 @@
 #include <ecstasy/utils/DefaultMemoryManager.hpp>
+#include <algorithm>
 
 namespace ecstasy {
 	int getFirstSetBit(uint64_t bits) {
@@ -11,6 +12,7 @@ namespace ecstasy {
 		return multiplyDeBruijnBitPosition[((uint64_t) ((bits & -bits) * 0x26752B916FC7B0DULL)) >> 58];
 	}
 
+	bool MemoryPage::memoryLeakDetected;
 	MemoryPage::MemoryPage(uint32_t unitSize)
 		: unitSize(unitSize) {
 		uint32_t memorySize = unitSize*64;
@@ -22,15 +24,17 @@ namespace ecstasy {
 
 	MemoryPage::~MemoryPage() {
 		delete[] memory;
+		if(freeUnits != 64)
+			memoryLeakDetected = true;
 	}
 
 	void* MemoryPage::allocate() {
 		if (!bitflags)
-			throw std::invalid_argument("Trying to allocate memory on a full MemoryPage");
+			throw std::bad_alloc();
 		int index = getFirstSetBit(bitflags);
 
 		if(((bitflags >> index) & 1ull) == 0)
-			throw std::invalid_argument("Trying to allocate memory which is already allocated");
+			throw std::bad_alloc();
 
 		void* data = memory + dataOffset + index*unitSize;
 		bitflags ^= 1ull << index;
@@ -82,12 +86,14 @@ namespace ecstasy {
 	void MemoryPageManager::reduceMemory() {
 		for (auto it = pages.cbegin(); it != pages.cend();) {
 			if((*it)->freeUnits == 64) {
+				auto freeIt = std::find(freePages.begin(), freePages.end(), (*it).get());
+				if (freeIt != freePages.end())
+					freePages.erase(freeIt);
 				it = pages.erase(it);
 			} else {
 				++it;
 			}
 		}
-		freePages.clear();
 	}
 
 	void* DefaultMemoryManager::allocate(uint32_t size) {
@@ -127,5 +133,23 @@ namespace ecstasy {
 		for(auto& kv: managers)
 			count += kv.second->getAllocationCount();
 		return count;
+	}
+
+	uint32_t DefaultMemoryManager::getPageManagerCount() const {
+		return managers.size();
+	}
+
+	uint32_t DefaultMemoryManager::getAllocationCount(uint32_t size) const {
+		auto it = managers.find(size);
+		if(it == managers.end())
+			return 0;
+		return it->second.get()->getAllocationCount();
+	}
+
+	uint32_t DefaultMemoryManager::getPageCount(uint32_t size) const {
+		auto it = managers.find(size);
+		if(it == managers.end())
+			return 0;
+		return it->second.get()->getPageCount();
 	}
 }

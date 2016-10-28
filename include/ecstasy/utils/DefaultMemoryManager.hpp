@@ -8,6 +8,7 @@
 namespace ecstasy {
 	//Fixme: in debug, mark bytes on creation, allocation, free?
 	struct MemoryPage {
+		static bool memoryLeakDetected;
 		uint32_t unitSize;
 		uint8_t freeUnits = 64;
 		char* memory;
@@ -43,6 +44,10 @@ namespace ecstasy {
 			return allocationCount;
 		}
 
+		uint32_t getPageCount() const {
+			return pages.size();
+		}
+
 		void* allocate();
 		void free(void* memory);
 
@@ -64,5 +69,9 @@ namespace ecstasy {
 		void reduceMemory() override;
 
 		uint32_t getAllocationCount() const override;
+
+		uint32_t getPageManagerCount() const;
+		uint32_t getAllocationCount(uint32_t size) const;
+		uint32_t getPageCount(uint32_t size) const;
 	};
 }

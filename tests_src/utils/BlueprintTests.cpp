@@ -16,9 +16,10 @@
 #include "../TestBase.hpp"
 #include <ecstasy/utils/Blueprint.hpp>
 
+#define NS_TEST_CASE(name) TEST_CASE("Blueprint: " name)
 namespace BlueprintTests {
 
-	TEST_CASE("test_component_blueprint_getters_default") {
+	NS_TEST_CASE("test_component_blueprint_getters_default") {
 		ComponentBlueprint blueprint("test");
 		REQUIRE(blueprint.getBool("undefined", false) == false);
 		REQUIRE(blueprint.getBool("undefined", true) == true);
@@ -27,7 +28,7 @@ namespace BlueprintTests {
 		REQUIRE(blueprint.getString("undefined", "paranoid android") == "paranoid android");
 	}
 
-	TEST_CASE("test_component_blueprint_getters_invalid") {
+	NS_TEST_CASE("test_component_blueprint_getters_invalid") {
 		ComponentBlueprint blueprint("test");
 		blueprint.set("bool", "");
 		REQUIRE(blueprint.getBool("bool", true) == true);
@@ -47,7 +48,7 @@ namespace BlueprintTests {
 		REQUIRE(blueprint.getFloat("float", 42) == 42);
 	}
 
-	TEST_CASE("test_component_blueprint_getters") {
+	NS_TEST_CASE("test_component_blueprint_getters") {
 		ComponentBlueprint blueprint("test");
 		blueprint.set("bool", "true");
 		REQUIRE(blueprint.getBool("bool", false) == true);

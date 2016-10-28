@@ -16,6 +16,7 @@
 #include "../TestBase.hpp"
 #include<limits>
 
+#define NS_TEST_CASE(name) TEST_CASE("Engine: " name)
 namespace EngineTests {
 	const float deltaTime = 0.16f;
 	struct ComponentA : public Component<ComponentA> {};
@@ -169,7 +170,7 @@ namespace EngineTests {
 		}
 	};
 
-	TEST_CASE("addAndRemoveEntity") {
+	NS_TEST_CASE("addAndRemoveEntity") {
 		Engine engine;
 
 		EntityListenerMock listenerA;
@@ -204,7 +205,7 @@ namespace EngineTests {
 		REQUIRE(2 == listenerB.removedCount);
 	}
 
-	TEST_CASE("addAndRemoveSystem") {
+	NS_TEST_CASE("addAndRemoveSystem") {
 		Engine engine;
 		MockLog logA;
 		MockLog logB;
@@ -229,7 +230,7 @@ namespace EngineTests {
 		REQUIRE(1 == logB.removedCalls);
 	}
 
-	TEST_CASE("getSystems") {
+	NS_TEST_CASE("getSystems") {
 		Engine engine;
 		MockLog logA;
 		MockLog logB;
@@ -242,7 +243,7 @@ namespace EngineTests {
 		REQUIRE(2 == engine.getSystems().size());
 	}
 
-	TEST_CASE("systemUpdate") {
+	NS_TEST_CASE("systemUpdate") {
 		Engine engine;
 		MockLog logA;
 		MockLog logB;
@@ -274,7 +275,7 @@ namespace EngineTests {
 			REQUIRE(numUpdates == logB.updateCalls);
 		}
 	}
-	TEST_CASE("systemUpdateOrder") {
+	NS_TEST_CASE("systemUpdateOrder") {
 		std::vector<int> updates;
 
 		Engine engine;
@@ -296,7 +297,7 @@ namespace EngineTests {
 		}
 	}
 
-	TEST_CASE("ignoreSystem") {
+	NS_TEST_CASE("ignoreSystem") {
 		Engine engine;
 		MockLog log;
 
@@ -311,7 +312,7 @@ namespace EngineTests {
 		}
 	}
 
-	TEST_CASE("entitiesForFamily") {
+	NS_TEST_CASE("entitiesForFamily") {
 		Engine engine;
 
 		auto &family = Family::all<ComponentA, ComponentB>().get();
@@ -350,7 +351,7 @@ namespace EngineTests {
 		REQUIRE(!contains(*familyEntities, entity2));
 	}
 
-	TEST_CASE("entityForFamilyWithRemoval") {
+	NS_TEST_CASE("entityForFamilyWithRemoval") {
 		// Test for issue #13
 		Engine engine;
 
@@ -370,7 +371,7 @@ namespace EngineTests {
 		REQUIRE(!contains(*entities, entity));
 	}
 
-	TEST_CASE("entitiesForFamilyAfter") {
+	NS_TEST_CASE("entitiesForFamilyAfter") {
 		Engine engine;
 
 		auto &family = Family::all<ComponentA, ComponentB>().get();
@@ -409,7 +410,7 @@ namespace EngineTests {
 		REQUIRE(!contains(*familyEntities, entity2));
 	}
 
-	TEST_CASE("entitiesForFamilyWithRemoval") {
+	NS_TEST_CASE("entitiesForFamilyWithRemoval") {
 		Engine engine;
 
 		auto &family = Family::all<ComponentA, ComponentB>().get();
@@ -455,7 +456,7 @@ namespace EngineTests {
 		REQUIRE(!contains(*familyEntities, entity2));
 	}
 
-	TEST_CASE("entitiesForFamilyWithRemovalAndFiltering") {
+	NS_TEST_CASE("entitiesForFamilyWithRemovalAndFiltering") {
 		Engine engine;
 
 		auto entitiesWithComponentAOnly = engine.getEntitiesFor(Family::all<ComponentA>()
@@ -483,7 +484,7 @@ namespace EngineTests {
 		REQUIRE(entitiesWithComponentB->empty());
 	}
 
-	TEST_CASE("entitySystemRemovalWhileIterating") {
+	NS_TEST_CASE("entitySystemRemovalWhileIterating") {
 		Engine engine;
 
 		engine.emplaceSystem<CounterSystem>();
@@ -507,7 +508,7 @@ namespace EngineTests {
 		}
 	}
 
-	TEST_CASE("familyListener") {
+	NS_TEST_CASE("familyListener") {
 		Engine engine;
 
 		EntityListenerMock listenerA;
@@ -579,7 +580,7 @@ namespace EngineTests {
 		refBRemoved.enable();
 	}
 
-	TEST_CASE("createManyEntitiesNoStackOverflow") {
+	NS_TEST_CASE("createManyEntitiesNoStackOverflow") {
 		Engine engine;
 		engine.emplaceSystem<CounterSystem>();
 
@@ -592,7 +593,7 @@ namespace EngineTests {
 		engine.update(0);
 	}
 
-	TEST_CASE("getEntityById") {
+	NS_TEST_CASE("getEntityById") {
 		Engine engine;
 		Entity* entity = engine.createEntity();
 
@@ -614,7 +615,7 @@ namespace EngineTests {
 		REQUIRE(!engine.getEntity(entityId));
 	}
 
-	TEST_CASE("getEntities") {
+	NS_TEST_CASE("getEntities") {
 		int numEntities = 10;
 
 		Engine engine;
@@ -639,7 +640,7 @@ namespace EngineTests {
 		REQUIRE(engineEntities->empty());
 	}
 
-	TEST_CASE("addEntityTwice") {
+	NS_TEST_CASE("addEntityTwice") {
 		Engine engine;
 		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
@@ -647,7 +648,7 @@ namespace EngineTests {
 		REQUIRE_THROWS_AS( engine.addEntity(entity), std::invalid_argument );
 	}
 
-	TEST_CASE("addTwoSystemsOfSameClass") {
+	NS_TEST_CASE("addTwoSystemsOfSameClass") {
 		Engine engine;
 		MockLog log1;
 		MockLog log2;
@@ -664,7 +665,7 @@ namespace EngineTests {
 		REQUIRE(system2 == engine.getSystem<EntitySystemMockA>());
 	}
 
-	TEST_CASE("entityRemovalListenerOrder") {
+	NS_TEST_CASE("entityRemovalListenerOrder") {
 		Engine engine;
 
 		auto combinedSystem = engine.emplaceSystem<CombinedSystem>(&engine);
@@ -689,7 +690,7 @@ namespace EngineTests {
 		engine.removeAllEntities();
 	}
 
-	TEST_CASE("removeEntityTwice") {
+	NS_TEST_CASE("removeEntityTwice") {
 		Engine engine;
 		engine.emplaceSystem<RemoveEntityTwiceSystem>();
 
@@ -697,7 +698,7 @@ namespace EngineTests {
 			engine.update(0);
 	}
 
-	TEST_CASE("destroyEntity") {
+	NS_TEST_CASE("destroyEntity") {
 		Engine engine;
 		auto entity = engine.createEntity();
 		engine.addEntity(entity);
@@ -708,7 +709,7 @@ namespace EngineTests {
 		REQUIRE(memoryManager->getAllocationCount() == 0);
 	}
 
-	TEST_CASE("removeEntities") {
+	NS_TEST_CASE("removeEntities") {
 		Engine engine;
 
 		int numEntities = 200;

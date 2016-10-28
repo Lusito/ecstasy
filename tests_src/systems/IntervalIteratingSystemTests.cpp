@@ -16,6 +16,7 @@
 #include "../TestBase.hpp"
 #include <ecstasy/systems/IntervalIteratingSystem.hpp>
 
+#define NS_TEST_CASE(name) TEST_CASE("IntervalIteratingSystem: " name)
 namespace IntervalIteratingSystemTests {
 	const float deltaTime = 0.1f;
 
@@ -35,7 +36,7 @@ namespace IntervalIteratingSystemTests {
 		}
 	};
 
-	TEST_CASE("intervalIteratingSystem") {
+	NS_TEST_CASE("intervalIteratingSystem") {
 		Engine engine;
 		auto entities = engine.getEntitiesFor(Family::all<IntervalComponentSpy>().get());
 

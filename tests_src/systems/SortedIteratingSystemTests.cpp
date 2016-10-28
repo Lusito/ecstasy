@@ -17,6 +17,7 @@
 #include <ecstasy/systems/SortedIteratingSystem.hpp>
 #include <deque>
 
+#define NS_TEST_CASE(name) TEST_CASE("SortedIteratingSystem: " name)
 namespace SortedIteratingSystemTests {
 	float deltaTime = 0.16f;
 
@@ -111,7 +112,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		}
 	};
 
-	TEST_CASE("shouldIterateSortedEntitiesWithCorrectFamily") {
+	NS_TEST_CASE("shouldIterateSortedEntitiesWithCorrectFamily") {
 		Engine engine;
 
 		auto &family = Family::all<OrderComponent, ComponentB>().get();
@@ -138,7 +139,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		engine.update(deltaTime);
 	}
 
-	TEST_CASE("entityRemovalWhileSortedIterating") {
+	NS_TEST_CASE("entityRemovalWhileSortedIterating") {
 		Engine engine;
 		auto entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
@@ -164,7 +165,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		}
 	}
 
-	TEST_CASE("componentRemovalWhileSortedIterating") {
+	NS_TEST_CASE("componentRemovalWhileSortedIterating") {
 		Engine engine;
 		auto entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
@@ -196,7 +197,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		return e;
 	}
 
-	TEST_CASE("entityOrder") {
+	NS_TEST_CASE("entityOrder") {
 		Engine engine;
 
 		auto &family = Family::all<OrderComponent>().get();

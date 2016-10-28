@@ -16,6 +16,7 @@
 #include "../TestBase.hpp"
 #include <ecstasy/systems/IteratingSystem.hpp>
 
+#define NS_TEST_CASE(name) TEST_CASE("Family: " name)
 namespace FamilyTests {
 	struct ComponentA : public Component<ComponentA> {};
 	struct ComponentB : public Component<ComponentB> {};
@@ -39,7 +40,7 @@ namespace FamilyTests {
 		void processEntity (Entity* e, float d) override {}
 	};
 
-	TEST_CASE("sameFamily") {
+	NS_TEST_CASE("sameFamily") {
 		auto &family1 = Family::all<ComponentA>().get();
 		auto &family2 = Family::all<ComponentA>().get();
 		auto &family3 = Family::all<ComponentA, ComponentB>().get();
@@ -70,7 +71,7 @@ namespace FamilyTests {
 		REQUIRE(family9.index == family10.index);
 	}
 
-	TEST_CASE("differentFamily") {
+	NS_TEST_CASE("differentFamily") {
 		auto &family1 = Family::all<ComponentA>().get();
 		auto &family2 = Family::all<ComponentB>().get();
 		auto &family3 = Family::all<ComponentC>().get();
@@ -125,7 +126,7 @@ namespace FamilyTests {
 		REQUIRE(family1.index != family13.index);
 	}
 
-	TEST_CASE("familyEqualityFiltering") {
+	NS_TEST_CASE("familyEqualityFiltering") {
 		auto &family1 = Family::all<ComponentA>().one<ComponentB>().exclude<ComponentC>().get();
 		auto &family2 = Family::all<ComponentB>().one<ComponentC>().exclude<ComponentA>().get();
 		auto &family3 = Family::all<ComponentC>().one<ComponentA>().exclude<ComponentB>().get();
@@ -140,7 +141,7 @@ namespace FamilyTests {
 		REQUIRE(family1 != family3);
 	}
 
-	TEST_CASE("entityMatch") {
+	NS_TEST_CASE("entityMatch") {
 		auto &family = Family::all<ComponentA, ComponentB>().get();
 
 		Engine engine;
@@ -156,7 +157,7 @@ namespace FamilyTests {
 		REQUIRE(family.matches(entity));
 	}
 
-	TEST_CASE("entityMismatch") {
+	NS_TEST_CASE("entityMismatch") {
 		auto &family = Family::all<ComponentA, ComponentC>().get();
 
 		Engine engine;
@@ -172,7 +173,7 @@ namespace FamilyTests {
 		REQUIRE(!family.matches(entity));
 	}
 
-	TEST_CASE("entityMatchThenMismatch") {
+	NS_TEST_CASE("entityMatchThenMismatch") {
 		auto &family = Family::all<ComponentA, ComponentB>().get();
 
 		Engine engine;
@@ -188,7 +189,7 @@ namespace FamilyTests {
 		REQUIRE(!family.matches(entity));
 	}
 
-	TEST_CASE("entityMismatchThenMatch") {
+	NS_TEST_CASE("entityMismatchThenMatch") {
 		auto &family = Family::all<ComponentA, ComponentB>().get();
 
 		Engine engine;
@@ -204,7 +205,7 @@ namespace FamilyTests {
 		REQUIRE(family.matches(entity));
 	}
 
-	TEST_CASE("testEmptyFamily") {
+	NS_TEST_CASE("testEmptyFamily") {
 		auto &family = Family::all().get();
 		Engine engine;
 		Entity* entity = engine.createEntity();
@@ -212,7 +213,7 @@ namespace FamilyTests {
 		REQUIRE(family.matches(entity));
 	}
 
-	TEST_CASE("familyFiltering") {
+	NS_TEST_CASE("familyFiltering") {
 		auto &family1 = Family::all<ComponentA, ComponentB>().one<ComponentC, ComponentD>()
 			.exclude<ComponentE, ComponentF>().get();
 
@@ -258,7 +259,7 @@ namespace FamilyTests {
 		REQUIRE(family2.matches(entity));
 	}
 
-	TEST_CASE("matchWithEngine") {
+	NS_TEST_CASE("matchWithEngine") {
 		Engine engine;
 		engine.emplaceSystem<TestSystemA>("A");
 		engine.emplaceSystem<TestSystemA>("B");
@@ -273,7 +274,7 @@ namespace FamilyTests {
 		REQUIRE(!f.matches(e));
 	}
 
-	TEST_CASE("matchWithEngineInverse") {
+	NS_TEST_CASE("matchWithEngineInverse") {
 		Engine engine;
 
 		engine.emplaceSystem<TestSystemA>("A");
@@ -289,7 +290,7 @@ namespace FamilyTests {
 		REQUIRE(!f.matches(e));
 	}
 
-	TEST_CASE("matchWithoutSystems") {
+	NS_TEST_CASE("matchWithoutSystems") {
 		Engine engine;
 
 		auto e = engine.createEntity();
@@ -302,7 +303,7 @@ namespace FamilyTests {
 		REQUIRE(!f.matches(e));
 	}
 
-	TEST_CASE("matchWithComplexBuilding") {
+	NS_TEST_CASE("matchWithComplexBuilding") {
 		auto &family = Family::all<ComponentB>().one<ComponentA>().exclude<ComponentC>().get();
 		Engine engine;
 		Entity* entity = engine.createEntity();

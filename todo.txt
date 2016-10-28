@@ -1,4 +1,4 @@
-unit tests for memory manager
+documentation for memory manager
 use @link more in documentation
 build documentation
 wiki cleanup

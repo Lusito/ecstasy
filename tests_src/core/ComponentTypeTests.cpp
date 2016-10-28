@@ -15,18 +15,19 @@
  ******************************************************************************/
 #include "../TestBase.hpp"
 
+#define NS_TEST_CASE(name) TEST_CASE("ComponentType: " name)
 namespace ComponentTypeTests {
 	struct ComponentA : public Component<ComponentA> {};
 	struct ComponentB : public Component<ComponentB> {};
 
-	TEST_CASE("sameComponentType") {
+	NS_TEST_CASE("sameComponentType") {
 		auto componentType1 = getComponentType<ComponentA>();
 		auto componentType2 = getComponentType<ComponentA>();
 
 		REQUIRE(componentType1 == componentType2);
 	}
 
-	TEST_CASE("differentComponentType") {
+	NS_TEST_CASE("differentComponentType") {
 		auto componentType1 = getComponentType<ComponentA>();
 		auto componentType2 = getComponentType<ComponentB>();
 

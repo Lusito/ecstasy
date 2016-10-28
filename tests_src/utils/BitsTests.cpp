@@ -15,9 +15,10 @@
  ******************************************************************************/
 #include "../TestBase.hpp"
 
+#define NS_TEST_CASE(name) TEST_CASE("Bits: " name)
 namespace BitsTests {
 
-	TEST_CASE("test_most_significant_bits_hashcode_and_equals") {
+	NS_TEST_CASE("test_most_significant_bits_hashcode_and_equals") {
 		Bits b1;
 		Bits b2;
 
@@ -42,7 +43,7 @@ namespace BitsTests {
 		REQUIRE(b1 == b2);
 	}
 
-	TEST_CASE("test_xor") {
+	NS_TEST_CASE("test_xor") {
 		Bits b1;
 		Bits b2;
 
@@ -59,7 +60,7 @@ namespace BitsTests {
 		REQUIRE(b2.get(1024));
 	}
 
-	TEST_CASE("test_or") {
+	NS_TEST_CASE("test_or") {
 		Bits b1;
 		Bits b2;
 
@@ -76,7 +77,7 @@ namespace BitsTests {
 		REQUIRE(b2.get(1024));
 	}
 
-	TEST_CASE("test_and") {
+	NS_TEST_CASE("test_and") {
 		Bits b1;
 		Bits b2;
 

@@ -16,11 +16,12 @@
 #include "../TestBase.hpp"
 #include<set>
 
+#define NS_TEST_CASE(name) TEST_CASE("Entity: " name)
 namespace EntityTests {
 	struct ComponentA : public Component<ComponentA> {};
 	struct ComponentB : public Component<ComponentB> {};
 
-	TEST_CASE("uniqueIndex") {
+	NS_TEST_CASE("uniqueIndex") {
 		int numEntities = 10000;
 		std::set<uint64_t> ids;
 		Engine engine;
@@ -32,7 +33,7 @@ namespace EntityTests {
 		}
 	}
 
-	TEST_CASE("noComponents") {
+	NS_TEST_CASE("noComponents") {
 		Engine engine;
 		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
@@ -45,7 +46,7 @@ namespace EntityTests {
 		REQUIRE(!entity->has<ComponentB>());
 	}
 
-	TEST_CASE("addAndRemoveComponent") {
+	NS_TEST_CASE("addAndRemoveComponent") {
 		Engine engine;
 		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
@@ -80,7 +81,7 @@ namespace EntityTests {
 		REQUIRE(!entity->has<ComponentB>());
 	}
 
-	TEST_CASE("addAndRemoveAllComponents") {
+	NS_TEST_CASE("addAndRemoveAllComponents") {
 		Engine engine;
 		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
@@ -116,7 +117,7 @@ namespace EntityTests {
 		REQUIRE(!entity->has<ComponentB>());
 	}
 
-	TEST_CASE("addSameComponent") {
+	NS_TEST_CASE("addSameComponent") {
 		Engine engine;
 		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
@@ -130,7 +131,7 @@ namespace EntityTests {
 		REQUIRE(a2 == entity->get<ComponentA>());
 	}
 
-	TEST_CASE("componentListener") {
+	NS_TEST_CASE("componentListener") {
 		Engine engine;
 		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
@@ -162,7 +163,7 @@ namespace EntityTests {
 		REQUIRE(2 == totalRemoves);
 	}
 
-	TEST_CASE("getComponentByClass") {
+	NS_TEST_CASE("getComponentByClass") {
 		Engine engine;
 		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);

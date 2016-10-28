@@ -16,6 +16,7 @@
 #include "../TestBase.hpp"
 #include <ecstasy/systems/IteratingSystem.hpp>
 
+#define NS_TEST_CASE(name) TEST_CASE("IteratingSystem: " name)
 namespace IteratingSystemTests {
 	const float deltaTime = 0.16f;
 
@@ -82,7 +83,7 @@ namespace IteratingSystemTests {
 		}
 	};
 
-	TEST_CASE("shouldIterateEntitiesWithCorrectFamily") {
+	NS_TEST_CASE("shouldIterateEntitiesWithCorrectFamily") {
 		Engine engine;
 
 		auto &family = Family::all<ComponentA, ComponentB>().get();
@@ -118,7 +119,7 @@ namespace IteratingSystemTests {
 		REQUIRE(0 == system->numUpdates);
 	}
 
-	TEST_CASE("entityRemovalWhileIterating") {
+	NS_TEST_CASE("entityRemovalWhileIterating") {
 		Engine engine;
 		auto entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
@@ -143,7 +144,7 @@ namespace IteratingSystemTests {
 		}
 	}
 
-	TEST_CASE("componentRemovalWhileIterating") {
+	NS_TEST_CASE("componentRemovalWhileIterating") {
 		Engine engine;
 		auto entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 

@@ -17,9 +17,11 @@
 #include <ecstasy/utils/Tokenizer.hpp>
 
 using ecstasy::parseTokens;
+
+#define NS_TEST_CASE(name) TEST_CASE("Tokenizer: " name)
 namespace TokenizerTests {
 
-	TEST_CASE("test_empty") {
+	NS_TEST_CASE("test_empty") {
 		std::string data = "";
 		std::vector<std::string> tokens;
 		int numTokens = parseTokens(data, tokens);
@@ -27,7 +29,7 @@ namespace TokenizerTests {
 		REQUIRE(tokens.size() == 0);
 	}
 
-	TEST_CASE("test_only_white") {
+	NS_TEST_CASE("test_only_white") {
 		std::string data = "	  ";
 		std::vector<std::string> tokens;
 		int numTokens = parseTokens(data, tokens);
@@ -35,7 +37,7 @@ namespace TokenizerTests {
 		REQUIRE(tokens.size() == 0);
 	}
 
-	TEST_CASE("test_simple_tokens") {
+	NS_TEST_CASE("test_simple_tokens") {
 		std::string data = "hello world foo bar";
 		std::vector<std::string> tokens;
 		int numTokens = parseTokens(data, tokens);
@@ -47,7 +49,7 @@ namespace TokenizerTests {
 		REQUIRE(tokens[3] == "bar");
 	}
 
-	TEST_CASE("test_number_tokens") {
+	NS_TEST_CASE("test_number_tokens") {
 		std::string data = "1.2345 7.890";
 		std::vector<std::string> tokens;
 		int numTokens = parseTokens(data, tokens);
@@ -57,7 +59,7 @@ namespace TokenizerTests {
 		REQUIRE(tokens[1] == "7.890");
 	}
 
-	TEST_CASE("test_quotes") {
+	NS_TEST_CASE("test_quotes") {
 		std::string data = "first \"and second\" and third";
 		std::vector<std::string> tokens;
 		int numTokens = parseTokens(data, tokens);
@@ -69,7 +71,7 @@ namespace TokenizerTests {
 		REQUIRE(tokens[3] == "third");
 	}
 
-	TEST_CASE("test_multi_quotes") {
+	NS_TEST_CASE("test_multi_quotes") {
 		std::string data = "first \"and second\" \"and third\"";
 		std::vector<std::string> tokens;
 		int numTokens = parseTokens(data, tokens);
@@ -80,7 +82,7 @@ namespace TokenizerTests {
 		REQUIRE(tokens[2] == "and third");
 	}
 
-	TEST_CASE("test_open_quotes") {
+	NS_TEST_CASE("test_open_quotes") {
 		std::string data = "first \"and second and third";
 		std::vector<std::string> tokens;
 		int numTokens = parseTokens(data, tokens);
@@ -90,7 +92,7 @@ namespace TokenizerTests {
 		REQUIRE(tokens[1] == "and second and third");
 	}
 
-	TEST_CASE("test_quotes_without_whitespace") {
+	NS_TEST_CASE("test_quotes_without_whitespace") {
 		std::string data = "hello\"foo bar\"world";
 		std::vector<std::string> tokens;
 		int numTokens = parseTokens(data, tokens);
@@ -101,7 +103,7 @@ namespace TokenizerTests {
 		REQUIRE(tokens[2] == "world");
 	}
 
-	TEST_CASE("test_trim") {
+	NS_TEST_CASE("test_trim") {
 		std::string data = "	 one two		";
 		std::vector<std::string> tokens;
 		int numTokens = parseTokens(data, tokens);
@@ -111,7 +113,7 @@ namespace TokenizerTests {
 		REQUIRE(tokens[1] == "two");
 	}
 
-	TEST_CASE("test_comment_end") {
+	NS_TEST_CASE("test_comment_end") {
 		std::string data = "one two #comment";
 		std::vector<std::string> tokens;
 		int numTokens = parseTokens(data, tokens);
@@ -121,7 +123,7 @@ namespace TokenizerTests {
 		REQUIRE(tokens[1] == "two");
 	}
 
-	TEST_CASE("test_comment_start") {
+	NS_TEST_CASE("test_comment_start") {
 		std::string data = "#one two comment";
 		std::vector<std::string> tokens;
 		int numTokens = parseTokens(data, tokens);
@@ -129,7 +131,7 @@ namespace TokenizerTests {
 		REQUIRE(tokens.size() == 0);
 	}
 
-	TEST_CASE("test_comment_without_white") {
+	NS_TEST_CASE("test_comment_without_white") {
 		std::string data = "first#comment";
 		std::vector<std::string> tokens;
 		int numTokens = parseTokens(data, tokens);
@@ -138,7 +140,7 @@ namespace TokenizerTests {
 		REQUIRE(tokens[0] == "first");
 	}
 
-	TEST_CASE("test_comment_start_trim") {
+	NS_TEST_CASE("test_comment_start_trim") {
 		std::string data = "	#one two comment";
 		std::vector<std::string> tokens;
 		int numTokens = parseTokens(data, tokens);
@@ -146,7 +148,7 @@ namespace TokenizerTests {
 		REQUIRE(tokens.size() == 0);
 	}
 
-	TEST_CASE("test_custom_comment_char") {
+	NS_TEST_CASE("test_custom_comment_char") {
 		std::string data = "	@comment";
 		std::vector<std::string> tokens;
 		int numTokens = parseTokens(data, tokens, '@');
@@ -154,7 +156,7 @@ namespace TokenizerTests {
 		REQUIRE(tokens.size() == 0);
 	}
 
-	TEST_CASE("test_no_comment_char") {
+	NS_TEST_CASE("test_no_comment_char") {
 		std::string data = "	#comment";
 		std::vector<std::string> tokens;
 		int numTokens = parseTokens(data, tokens, '\0');
@@ -163,7 +165,7 @@ namespace TokenizerTests {
 		REQUIRE(tokens[0] == "#comment");
 	}
 
-	TEST_CASE("test_add") {
+	NS_TEST_CASE("test_add") {
 		std::string data = "one";
 		std::vector<std::string> tokens;
 		tokens.push_back("zero");

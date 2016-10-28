@@ -15,10 +15,11 @@
  ******************************************************************************/
 #include "../TestBase.hpp"
 
+#define NS_TEST_CASE(name) TEST_CASE("EntityListener: " name)
 namespace EntityListenerTests {
 	struct PositionComponent : public Component<PositionComponent> {};
 
-	TEST_CASE("Add EntityListener Family Remove") {
+	NS_TEST_CASE("Add EntityListener Family Remove") {
 		Engine engine;
 
 		Entity* e = engine.createEntity();
@@ -33,7 +34,7 @@ namespace EntityListenerTests {
 		engine.removeEntity(e);
 	}
 
-	TEST_CASE("addEntityListenerFamilyAdd") {
+	NS_TEST_CASE("addEntityListenerFamilyAdd") {
 		Engine engine;
 
 		Entity* e = engine.createEntity();
@@ -49,7 +50,7 @@ namespace EntityListenerTests {
 		engine.removeAllEntities();
 	}
 
-	TEST_CASE("addEntityListenerNoFamilyRemove") {
+	NS_TEST_CASE("addEntityListenerNoFamilyRemove") {
 		Engine engine;
 
 		Entity* e = engine.createEntity();
@@ -66,7 +67,7 @@ namespace EntityListenerTests {
 		ref.disconnect();
 	}
 
-	TEST_CASE("addEntityListenerNoFamilyAdd") {
+	NS_TEST_CASE("addEntityListenerNoFamilyAdd") {
 		Engine engine;
 
 		Entity* e = engine.createEntity();
@@ -93,7 +94,7 @@ namespace EntityListenerTests {
 		}
 	};
 
-	TEST_CASE("Remove entity during entity removal") {
+	NS_TEST_CASE("Remove entity during entity removal") {
 		Engine engine;
 
 		Entity* e1 = engine.createEntity();

@@ -17,51 +17,52 @@
 #include <ecstasy/utils/Blueprint.hpp>
 #include <ecstasy/utils/BlueprintParser.hpp>
 
+#define NS_TEST_CASE(name) TEST_CASE("BlueprintParser: " name)
 namespace BlueprintParserTests {
 
-	TEST_CASE("test_good_file") {
+	NS_TEST_CASE("test_good_file") {
 		std::shared_ptr<EntityBlueprint> blueprint;
 		auto error = parseBlueprint("tests_assets/good.def", blueprint);
 		REQUIRE(error.empty());
 	}
 
-	TEST_CASE("test_bad_command") {
+	NS_TEST_CASE("test_bad_command") {
 		std::shared_ptr<EntityBlueprint> blueprint;
 		auto error = parseBlueprint("tests_assets/bad_command.def", blueprint);
 		REQUIRE(error == "Line 1: unknown command 'whoops'");
 	}
 
-	TEST_CASE("test_bad_insufficient_parameters") {
+	NS_TEST_CASE("test_bad_insufficient_parameters") {
 		std::shared_ptr<EntityBlueprint> blueprint;
 		auto error = parseBlueprint("tests_assets/bad_insufficient_parameters.def", blueprint);
 		REQUIRE(error == "Line 1: expected exactly one argument to 'add'");
 	}
 
-	TEST_CASE("test_bad_too_many_parameters") {
+	NS_TEST_CASE("test_bad_too_many_parameters") {
 		std::shared_ptr<EntityBlueprint> blueprint;
 		auto error = parseBlueprint("tests_assets/bad_too_many_parameters.def", blueprint);
 		REQUIRE(error == "Line 1: expected exactly one argument to 'add'");
 	}
 
-	TEST_CASE("test_bad_insufficient_parameters2") {
+	NS_TEST_CASE("test_bad_insufficient_parameters2") {
 		std::shared_ptr<EntityBlueprint> blueprint;
 		auto error = parseBlueprint("tests_assets/bad_insufficient_parameters2.def", blueprint);
 		REQUIRE(error == "Line 2: expected exactly two arguments to 'set'");
 	}
 
-	TEST_CASE("test_bad_too_many_parameters2") {
+	NS_TEST_CASE("test_bad_too_many_parameters2") {
 		std::shared_ptr<EntityBlueprint> blueprint;
 		auto error = parseBlueprint("tests_assets/bad_too_many_parameters2.def", blueprint);
 		REQUIRE(error == "Line 2: expected exactly two arguments to 'set'");
 	}
 
-	TEST_CASE("test_bad_open_quote") {
+	NS_TEST_CASE("test_bad_open_quote") {
 		std::shared_ptr<EntityBlueprint> blueprint;
 		auto error = parseBlueprint("tests_assets/bad_open_quote.def", blueprint);
 		REQUIRE(error == "Line 2: quote has not been closed");
 	}
 
-	TEST_CASE("test_bad_wrong_order") {
+	NS_TEST_CASE("test_bad_wrong_order") {
 		std::shared_ptr<EntityBlueprint> blueprint;
 		auto error = parseBlueprint("tests_assets/bad_wrong_order.def", blueprint);
 		REQUIRE(error == "Line 1: 'add' must be called before 'set'");

@@ -18,6 +18,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+#define NS_TEST_CASE(name) TEST_CASE("Signal: " name)
 namespace SignalTests {
 	class Dummy {
 
@@ -43,7 +44,7 @@ namespace SignalTests {
 		}
 	};
 
-	TEST_CASE("Add listener and emit") {
+	NS_TEST_CASE("Add listener and emit") {
 		Dummy dummy;
 		Signal<void (Dummy*)> signal;
 		ListenerMock listener;
@@ -56,7 +57,7 @@ namespace SignalTests {
 		}
 	}
 
-	TEST_CASE("Add listeners and emit") {
+	NS_TEST_CASE("Add listeners and emit") {
 		Dummy dummy;
 		Signal<void (Dummy*)> signal;
 		Allocator<ListenerMock> listeners;
@@ -82,7 +83,7 @@ namespace SignalTests {
 		}
 	}
 
-	TEST_CASE("Add listener, emit and disconnect") {
+	NS_TEST_CASE("Add listener, emit and disconnect") {
 		Dummy dummy;
 		Signal<void (Dummy*)> signal;
 		ListenerMock listenerA;
@@ -116,7 +117,7 @@ namespace SignalTests {
 		}
 	}
 
-	TEST_CASE("Add listener during emit") {
+	NS_TEST_CASE("Add listener during emit") {
 		Dummy dummy;
 		Signal<void(Dummy*)> signal;
 		ListenerMock listenerB;
@@ -144,7 +145,7 @@ namespace SignalTests {
 		REQUIRE(1 == countB);
 	}
 
-	TEST_CASE("Disconnect during emit") {
+	NS_TEST_CASE("Disconnect during emit") {
 		Dummy dummy;
 		Signal<void(Dummy*)> signal;
 		ListenerMock listenerB;
@@ -163,7 +164,7 @@ namespace SignalTests {
 		REQUIRE(1 == listenerB.count);
 	}
 
-	TEST_CASE("Connection scope") {
+	NS_TEST_CASE("Connection scope") {
 		Dummy dummy;
 		Signal<void (Dummy*)> signal;
 
@@ -186,7 +187,7 @@ namespace SignalTests {
 		REQUIRE(1 == listenerB.count);
 	}
 
-	TEST_CASE("Signal priority") {
+	NS_TEST_CASE("Signal priority") {
 		ListenerPriorityMock a(0);
 		ListenerPriorityMock b(1);
 		ListenerPriorityMock c(2);
@@ -232,7 +233,7 @@ namespace SignalTests {
 		return 0;
 	}
 
-	TEST_CASE("Basic signal test") {
+	NS_TEST_CASE("Basic signal test") {
 		std::string accu = "";
 		Signal11::Signal<char(std::string &result, float, int, std::string)> sig1;
 		auto id1 = sig1.connect(float_callback);
@@ -274,7 +275,7 @@ namespace SignalTests {
 		static int handler777()  { return 777; }
 	};
 
-	TEST_CASE("Return the result of the all signal handlers from a signal emission in a std::vector") {
+	NS_TEST_CASE("Return the result of the all signal handlers from a signal emission in a std::vector") {
 		Signal11::Signal<int(), Signal11::CollectorVector<int>> sig_vector;
 		sig_vector.connect(TestCollectorVector::handler777);
 		sig_vector.connect(TestCollectorVector::handler42);
@@ -293,7 +294,7 @@ namespace SignalTests {
 		bool handler_fail()  { FAIL("Abort"); return false; }
 	};
 
-	TEST_CASE("Keep signal emissions going while all handlers return !0 (true)") {
+	NS_TEST_CASE("Keep signal emissions going while all handlers return !0 (true)") {
 		TestCollector self;
 		Signal11::Signal<bool(), Signal11::CollectorUntil0<bool>> sig;
 		sig.connect(self, &TestCollector::handler_true);
@@ -306,7 +307,7 @@ namespace SignalTests {
 		REQUIRE(self.check2);
 	}
 
-	TEST_CASE("Keep signal emissions going while all handlers return 0 (false)") {
+	NS_TEST_CASE("Keep signal emissions going while all handlers return 0 (false)") {
 		TestCollector self;
 		Signal11::Signal<bool(), Signal11::CollectorWhile0<bool>> sig;
 		sig.connect(self, &TestCollector::handler_false);

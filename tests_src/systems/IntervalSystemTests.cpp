@@ -16,6 +16,7 @@
 #include "../TestBase.hpp"
 #include <ecstasy/systems/IntervalSystem.hpp>
 
+#define NS_TEST_CASE(name) TEST_CASE("IntervalSystem: " name)
 namespace IntervalSystemTests {
 	const float deltaTime = 0.1f;
 
@@ -31,7 +32,7 @@ namespace IntervalSystemTests {
 		}
 	};
 
-	TEST_CASE("intervalSystem") {
+	NS_TEST_CASE("intervalSystem") {
 		Engine engine;
 		auto intervalSystemSpy = engine.emplaceSystem<IntervalSystemSpy>();
 

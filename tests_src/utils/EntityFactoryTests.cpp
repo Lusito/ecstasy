@@ -19,6 +19,7 @@
 #include <ecstasy/utils/ComponentFactory.hpp>
 #include <ecstasy/utils/EntityFactory.hpp>
 
+#define NS_TEST_CASE(name) TEST_CASE("EntityFactory: " name)
 namespace EntityFactoryTests {
 
 #define DECLARE_COMPONENT_FACTORY(ComponentFactoryName)\
@@ -90,7 +91,7 @@ namespace EntityFactoryTests {
 		return entity;
 	}
 
-	TEST_CASE("test_entity_factory_good") {
+	NS_TEST_CASE("test_entity_factory_good") {
 		Engine engine;
 		auto entity = testFactoryInit("tests_assets/good.def", engine);
 
@@ -104,7 +105,7 @@ namespace EntityFactoryTests {
 		REQUIRE(label->message == "a full blown message");
 	}
 
-	TEST_CASE("test_entity_factory_good_defaults") {
+	NS_TEST_CASE("test_entity_factory_good_defaults") {
 		Engine engine;
 		auto entity = testFactoryInit("tests_assets/good_defaults.def", engine);
 
