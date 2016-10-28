@@ -16,18 +16,19 @@
  ******************************************************************************/
 
 #include <stdint.h>
+#include <vector>
 #include <ecstasy/core/EntityOperations.hpp>
+#include <ecstasy/utils/MemoryManager.hpp>
 
 namespace ecstasy {
 	/**
 	 * Simple containers of {@link Component}s that give them "data".
 	 * The component's data is then processed by {@link EntitySystem}s.
 	 */
-	class Entity: public Poolable {
+	class Entity {
 		friend class Family;
 		friend class ComponentOperationHandler;
 		friend class Engine;
-		friend class Pool<Entity>;
 	public:
 		/// A flag that can be used to bit mask this entity. Up to the user to manage.
 		uint32_t flags = 0;
@@ -42,13 +43,13 @@ namespace ecstasy {
 		Bits componentBits;
 		Bits familyBits;
 		Engine* engine = nullptr;
+		MemoryManager *memoryManager = nullptr;
 
 		Entity() {}
 		
 	public:
 		Entity(const Entity&) = delete;
 		~Entity() { removeAll(); }
-		void reset() override;
 
 		/// @return The Entity's unique id.
 		uint64_t getId () const { return uuid; }
@@ -69,7 +70,8 @@ namespace ecstasy {
 		 */
 		template <typename T, typename ... Args>
 		T* emplace(Args && ... args) {
-			return add(new T(std::forward<Args>(args) ...));
+			auto memory = memoryManager->allocate(sizeof(T));
+			return add(new(memory) T(std::forward<Args>(args) ...));
 		}
 
 		/**

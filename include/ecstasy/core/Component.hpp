@@ -21,12 +21,14 @@ namespace ecstasy {
 	struct ComponentBase {
 		/// The unique identifier of this Component's class
 		const ComponentType type;
+		const uint32_t memorySize;
 		virtual ~ComponentBase() {}
 
 	private:
 		template<typename T> friend struct Component;
 		// Private Constructor so nobody derives from this
-		explicit ComponentBase(ComponentType type) :type(type) {}
+		explicit ComponentBase(ComponentType type, uint32_t memorySize)
+			: type(type), memorySize(memorySize) {}
 	};
 	
 	/**
@@ -37,7 +39,7 @@ namespace ecstasy {
 	 */
 	template<typename T>
 	struct Component : public ComponentBase {
-		Component() :ComponentBase(getComponentType<T>()) {}
+		Component() : ComponentBase(getComponentType<T>(), sizeof(T)) {}
 	};
 }
 

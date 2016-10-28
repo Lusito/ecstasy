@@ -17,14 +17,20 @@
 #include <ecstasy/core/Family.hpp>
 #include <ecstasy/core/EntitySystem.hpp>
 #include <ecstasy/utils/EntityFactory.hpp>
+#include <ecstasy/utils/DefaultMemoryManager.hpp>
 
 namespace ecstasy {
 	bool compareSystems(std::shared_ptr<EntitySystemBase>& a, std::shared_ptr<EntitySystemBase>& b) {
 		return a->getPriority() < b->getPriority();
 	}
 
-	Engine::Engine(int entityPoolInitialSize, int entityPoolMaxSize)
-		: entityOperationHandler(*this), componentOperationHandler(*this), entityPool(entityPoolInitialSize, entityPoolMaxSize) {
+	Engine::Engine()
+		: Engine(std::make_shared<DefaultMemoryManager>()) {
+	}
+
+	Engine::Engine(std::shared_ptr<MemoryManager> memoryManager)
+		: memoryManager(memoryManager), entityOperationHandler(*this, memoryManager.get()),
+		componentOperationHandler(*this, memoryManager.get()) {
 		componentAdded.connect(this, &Engine::onComponentChange);
 		componentRemoved.connect(this, &Engine::onComponentChange);
 	}
@@ -183,10 +189,12 @@ namespace ecstasy {
 	}
 
 	void Engine::removeEntityInternal(Entity* entity) {
-		// Check if entity is able to be removed (id == 0 means either entity is not used by engine, or already removed/in pool)
+		// Check if entity is able to be removed (id == 0 means the entity has not been added to the engine yet)
 		if (entity->getId() == 0) {
-			if (entity->engine == this)
-				entityPool.free(entity);
+			if (entity->engine == this) {
+				entity->~Entity();
+				memoryManager->free(sizeof(Entity), entity);
+			}
 			return;
 		}
 		
@@ -218,7 +226,8 @@ namespace ecstasy {
 		entityRemoved.emit(entity);
 		notifying = false;
 
-		entityPool.free(entity);
+		entity->~Entity();
+		memoryManager->free(sizeof(Entity), entity);
 	}
 
 	void Engine::addEntityInternal(Entity* entity) {
@@ -270,8 +279,10 @@ namespace ecstasy {
 	}
 
 	Entity* Engine::createEntity() {
-		auto entity = entityPool.obtain();
+		auto memory = memoryManager->allocate(sizeof(Entity));
+		auto entity = new(memory)Entity();
 		entity->engine = this;
+		entity->memoryManager = memoryManager.get();
 		return entity;
 	}
 
@@ -281,15 +292,14 @@ namespace ecstasy {
 
 		auto entity = createEntity();
 		if(!entityFactory->assemble(entity, blueprintname)) {
-			entityPool.free(entity);
+			entity->~Entity();
+			memoryManager->free(sizeof(Entity), entity);
 			entity = nullptr;
 		}
 		return entity;
 	}
 
-	void Engine::clearPools() {
-		entityPool.clear();
-		entityOperationHandler.clearPools();
-		componentOperationHandler.clearPools();
+	void Engine::reduceMemory() {
+		memoryManager->reduceMemory();
 	}
 }

@@ -14,8 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-#include <ecstasy/utils/Pool.hpp>
+#include <stdexcept>
 #include <ecstasy/core/Types.hpp>
+#include <ecstasy/utils/MemoryManager.hpp>
 
 namespace ecstasy {
 	class Entity;
@@ -30,31 +31,19 @@ namespace ecstasy {
 	};
 	
 	template<typename T>
-	struct BaseOperation: public Poolable {
+	struct BaseOperation {
 		T* nextOperation = nullptr;
 		OperationType type;
 	};
 
 	struct EntityOperation: public BaseOperation<EntityOperation> {
-
 		Entity* entity = nullptr;
-
-		void reset() override {
-			nextOperation = nullptr;
-			entity = nullptr;
-		}
 	};
 	
 	struct ComponentOperation: public BaseOperation<ComponentOperation> {
 		Entity* entity = nullptr;
 		ComponentBase* component = nullptr;
 		ComponentType componentType;
-		
-		void reset() override {
-			nextOperation = nullptr;
-			entity = nullptr;
-			component = nullptr;
-		}
 
 		void makeAdd(Entity* entity, ComponentBase* component);
 		void makeRemove(Entity* entity, ComponentType componentType);
@@ -65,12 +54,17 @@ namespace ecstasy {
 	class BaseOperationHandler {
 	protected:
 		Engine& engine;
-		Pool<T> pool;
+		MemoryManager* memoryManager;
 		T* nextOperation = nullptr;
 		T* lastOperation = nullptr;
 
 	public:
-		explicit BaseOperationHandler(Engine& engine) : engine(engine) {}
+		explicit BaseOperationHandler(Engine& engine, MemoryManager* memoryManager) : engine(engine), memoryManager(memoryManager) {}
+
+		T *createOperation() {
+			auto memory = memoryManager->allocate(sizeof(T));
+			return new(memory) T();
+		}
 
 		virtual bool isActive() = 0;
 		void process() {
@@ -85,19 +79,13 @@ namespace ecstasy {
 				}
 
 				nextOperation = operation->nextOperation;
-				pool.free(operation);
+				operation->~T();
+				memoryManager->free(sizeof(T), operation);
 			}
 			nextOperation = nullptr;
 			lastOperation = nullptr;
 		}
-		
-		/**
-		 * Removes all free operations from the pool to free up memory.
-		 */
-		void clearPools() {
-			pool.clear();
-		}
-		
+
 	protected:
 		void schedule(T* operation) {
 			if(nextOperation)
@@ -106,7 +94,7 @@ namespace ecstasy {
 				nextOperation = operation;
 			lastOperation = operation;
 		}
-		
+
 		virtual void onAdd(T* operation) = 0;
 		virtual void onRemove(T* operation) = 0;
 		virtual void onRemoveAll(T* operation) = 0;
@@ -114,12 +102,13 @@ namespace ecstasy {
 	
 	class EntityOperationHandler : public BaseOperationHandler<EntityOperation> {
 	public:
-		explicit EntityOperationHandler(Engine& engine) : BaseOperationHandler(engine) {}
+		explicit EntityOperationHandler(Engine& engine, MemoryManager* memoryManager)
+			: BaseOperationHandler(engine, memoryManager) {}
 
 		bool isActive() override;
-		
+
 		void add(Entity* entity) {
-			auto operation = pool.obtain();
+			auto operation = createOperation();
 			operation->type = OperationType::Add;
 			operation->entity = entity;
 		
@@ -127,18 +116,18 @@ namespace ecstasy {
 		}
 
 		void remove(Entity* entity) {
-			auto operation = pool.obtain();
+			auto operation = createOperation();
 			operation->type = OperationType::Remove;
 			operation->entity = entity;
 			schedule(operation);
 		}
 
 		void removeAll() {
-			auto operation = pool.obtain();
+			auto operation = createOperation();
 			operation->type = OperationType::RemoveAll;
 			schedule(operation);
 		}
-		
+
 	protected:
 		void onAdd(EntityOperation* operation) override;
 		void onRemove(EntityOperation* operation) override;
@@ -147,12 +136,13 @@ namespace ecstasy {
 	
 	class ComponentOperationHandler : public BaseOperationHandler<ComponentOperation> {
 	public:
-		explicit ComponentOperationHandler(Engine& engine) : BaseOperationHandler(engine) {}
+		explicit ComponentOperationHandler(Engine& engine, MemoryManager* memoryManager)
+			: BaseOperationHandler(engine, memoryManager) {}
 
 		bool isActive() override;
-		
+
 		void add(Entity* entity, ComponentBase* component) {
-			auto operation = pool.obtain();
+			auto operation = createOperation();
 			operation->type = OperationType::Add;
 			operation->entity = entity;
 			operation->component = component;
@@ -162,7 +152,7 @@ namespace ecstasy {
 		}
 
 		void remove(Entity* entity, ComponentType componentType) {
-			auto operation = pool.obtain();
+			auto operation = createOperation();
 			operation->type = OperationType::Remove;
 			operation->entity = entity;
 			operation->componentType = componentType;
@@ -170,7 +160,7 @@ namespace ecstasy {
 		}
 
 		void removeAll(Entity* entity) {
-			auto operation = pool.obtain();
+			auto operation = createOperation();
 			operation->type = OperationType::RemoveAll;
 			operation->entity = entity;
 			schedule(operation);

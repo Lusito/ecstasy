@@ -116,6 +116,59 @@ namespace EngineTests {
 		}
 	};
 
+	struct PositionComponent : public Component<PositionComponent> {
+		float x = 0.0f;
+		float y = 0.0f;
+	};
+
+	class CombinedSystem : public EntitySystem<CombinedSystem> {
+	public:
+		Engine* engine;
+		const std::vector<Entity*>* entities;
+		int counter = 0;
+
+	public:
+		CombinedSystem(Engine* engine) : engine(engine) {}
+
+		void addedToEngine(Engine* engine) override {
+			entities = engine->getEntitiesFor(Family::all<PositionComponent>().get());
+		}
+
+		void update(float deltaTime) override {
+			if (counter >= 6 && counter <= 8)
+				engine->removeEntity(entities->at(2));
+			counter++;
+		}
+	};
+
+	class RemoveEntityTwiceSystem : public EntitySystem<RemoveEntityTwiceSystem> {
+	private:
+		const std::vector<Entity*>* entities;
+		Engine* engine;
+
+	public:
+		RemoveEntityTwiceSystem() {}
+
+		void addedToEngine(Engine* engine) override {
+			entities = engine->getEntitiesFor(Family::all<PositionComponent>().get());
+			this->engine = engine;
+		}
+
+		void update(float deltaTime) override {
+			for (int i = 0; i < 10; i++) {
+				auto entity = engine->createEntity();
+				REQUIRE(0 == entity->flags);
+				entity->flags = 1;
+				entity->emplace<PositionComponent>();
+				engine->addEntity(entity);
+			}
+			for (auto entity : *entities) {
+				engine->removeEntity(entity);
+				engine->removeEntity(entity);
+			}
+		}
+	};
+
 	TEST_CASE("addAndRemoveEntity") {
 		Engine engine;
 
@@ -610,5 +663,72 @@ namespace EngineTests {
 
 		REQUIRE(1 == engine.getSystems().size());
 		REQUIRE(system2 == engine.getSystem<EntitySystemMockA>());
+	}
+
+	TEST_CASE("entityRemovalListenerOrder") {
+		Engine engine;
+
+		auto combinedSystem = engine.emplaceSystem<CombinedSystem>(&engine);
+
+		auto &signal = engine.getEntityRemovedSignal(Family::all<PositionComponent>().get());
+		signal.connect([](Entity* entity) {
+			REQUIRE(entity->get<PositionComponent>());
+		});
+
+		for (int i = 0; i < 10; i++) {
+			auto entity = engine.createEntity();
+			entity->emplace<PositionComponent>();
+			engine.addEntity(entity);
+		}
+
+		REQUIRE(10 == combinedSystem->entities->size());
+
+		float deltaTime = 0.16f;
+		for (int i = 0; i < 10; i++)
+			engine.update(deltaTime);
+
+		engine.removeAllEntities();
+	}
+
+	TEST_CASE("removeEntityTwice") {
+		Engine engine;
+		engine.emplaceSystem<RemoveEntityTwiceSystem>();
+
+		for (int j = 0; j < 2; j++)
+			engine.update(0);
+	}
+
+	TEST_CASE("destroyEntity") {
+		Engine engine;
+		auto entity = engine.createEntity();
+		engine.addEntity(entity);
+		REQUIRE(entity->isValid());
+		auto memoryManager = engine.getMemoryManager();
+		REQUIRE(memoryManager->getAllocationCount() == 1);
+		entity->destroy();
+		REQUIRE(memoryManager->getAllocationCount() == 0);
+	}
+
+	TEST_CASE("removeEntities") {
+		Engine engine;
+
+		int numEntities = 200;
+		std::vector<Entity*> entities;
+
+		for (int i = 0; i < numEntities; ++i) {
+			auto entity = engine.createEntity();
+			engine.addEntity(entity);
+			entities.push_back(entity);
+
+			REQUIRE(entity->isValid());
+		}
+		
+		auto memoryManager = engine.getMemoryManager();
+		REQUIRE(memoryManager->getAllocationCount() == numEntities);
+
+		for (auto entity : entities) {
+			engine.removeEntity(entity);
+		}
+		REQUIRE(memoryManager->getAllocationCount() == 0);
 	}
 }

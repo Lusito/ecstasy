@@ -18,6 +18,7 @@
 #include <ecstasy/core/Types.hpp>
 #include <ecstasy/core/Entity.hpp>
 #include <ecstasy/core/EntityOperations.hpp>
+#include <ecstasy/utils/MemoryManager.hpp>
 #include <stdint.h>
 #include <vector>
 #include <string>
@@ -38,8 +39,7 @@ namespace ecstasy {
 	/**
 	 * The heart of the Entity framework. It is responsible for keeping track of Entity and
 	 * managing EntitySystem objects. The Engine should be updated every tick via the update(float) method.
-	 * Supports Entity pooling. This improves performance in environments where creating/deleting
-	 * entities is frequent as it greatly reduces memory allocation.
+	 * Supports custom MemoryManager.
 	 *
 	 * With the Engine you can:
 	 *
@@ -70,16 +70,15 @@ namespace ecstasy {
 		std::unordered_map<const Family*, EntitySignal> entityRemovedSignals;
 
 		std::shared_ptr<EntityFactory> entityFactory;
-		bool updating = false;
+		std::shared_ptr<MemoryManager> memoryManager;
 
+		bool updating = false;
 		bool notifying = false;
 		uint64_t nextEntityId = 1;
 
 		// Mechanism to delay component addition/removal to avoid affecting system processing
 		EntityOperationHandler entityOperationHandler;
 		ComponentOperationHandler componentOperationHandler;
-
-		Pool<Entity> entityPool;
 
 	public:
 		/// Will dispatch an event when a component is added.
@@ -93,17 +92,25 @@ namespace ecstasy {
 		
 	public:
 		/**
-		 * Creates a new Engine with the specified pool size configuration.
-		 * 
-		 * @param entityPoolInitialSize initial number of pre-allocated entities.
-		 * @param entityPoolMaxSize maximum number of pooled entities.
+		 * Creates a new Engine with the default MemoryManager.
 		 */
-		Engine (int entityPoolInitialSize = 10, int entityPoolMaxSize = 100);
+		Engine();
+
+		/**
+		 * Creates a new Engine with the specified MemoryManager.
+		 * 
+		 * @param memoryManager an implementation of MemoryManager.
+		 */
+		Engine(std::shared_ptr<MemoryManager> memoryManager);
 		Engine(const Engine&) = delete;
 
 		virtual ~Engine();
-		
-		/// @return Clean Entity from the Engine pool. In order to add it to the Engine, use addEntity(Entity).
+
+		std::shared_ptr<MemoryManager> getMemoryManager() {
+			return memoryManager;
+		};
+
+		/// @return A new Entity. In order to add it to the Engine, use addEntity(Entity).
 		Entity* createEntity();
 		
 		/**
@@ -126,9 +133,9 @@ namespace ecstasy {
 		}
 
 		/**
-		 * Removes all free entities and operations from the pools to free up memory.
+		 * Reduce memory footprint by removing objects currently not in use.
 		 */
-		void clearPools();
+		void reduceMemory();
 
 		/**
 		 * Adds an entity to this Engine.

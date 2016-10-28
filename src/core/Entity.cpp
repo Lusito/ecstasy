@@ -55,7 +55,7 @@ namespace ecstasy {
 
 			engine->componentRemoved.emit(this, component);
 			
-			delete component;
+			memoryManager->free(component->memorySize, component);
 		}
 		return component;
 	}
@@ -63,14 +63,6 @@ namespace ecstasy {
 	void Entity::removeAllInternal() {
 		while (!components.empty())
 			removeInternal(components.front()->type);
-	}
-
-	void Entity::reset() {
-		removeAll();
-		uuid = 0;
-		flags = 0;
-		scheduledForRemoval = false;
-		engine = nullptr;
 	}
 
 	void Entity::destroy() {
