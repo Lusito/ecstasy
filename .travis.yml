@@ -20,14 +20,14 @@ addons:
       - g++-5
       - gcc-5
 
-env:
-  global:
-  - ENCRYPTION_LABEL: "41727c432bd7"
-  - COMMIT_AUTHOR_EMAIL: "travis-ci@lusito.info"
+# env:
+#  global:
+#  - ENCRYPTION_LABEL: "41727c432bd7"
+#  - COMMIT_AUTHOR_EMAIL: "travis-ci@lusito.info"
 
 script:
   - cmake -G"Unix Makefiles"
   - make
   - ./tests
-  - cd docs
-  - ./deploy.sh
+#  - cd docs
+#  - ./deploy.sh

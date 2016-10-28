@@ -149,7 +149,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		for (int i = 0; i < numEntities; ++i) {
 			auto e = engine.createEntity();
 			e->emplace<SpyComponent>();
-			e->emplace<OrderComponent>("" + i, i);
+			e->emplace<OrderComponent>(std::to_string(i), i);
 			e->emplace<IndexComponent>(i + 1);
 
 			engine.addEntity(e);
@@ -175,7 +175,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		for (int i = 0; i < numEntities; ++i) {
 			auto e = engine.createEntity();
 			e->emplace<SpyComponent>();
-			e->emplace<OrderComponent>("" + i, i);
+			e->emplace<OrderComponent>(std::to_string(i), i);
 			e->emplace<IndexComponent>(i + 1);
 
 			engine.addEntity(e);
