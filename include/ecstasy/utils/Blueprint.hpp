@@ -53,7 +53,7 @@ namespace ecstasy {
 		 *
 		 * @param key the key
 		 * @param defaultValue the value to return if no value exists for key.
-		 * @return the corresponding value or defaultValue if none exists.
+		 * @return The corresponding value or @a defaultValue if none exists.
 		 */
 		bool getBool(const std::string& key, bool defaultValue) const;
 
@@ -62,7 +62,7 @@ namespace ecstasy {
 		 *
 		 * @param key the key
 		 * @param defaultValue the value to return if no value exists for key.
-		 * @return the corresponding value or defaultValue if none exists.
+		 * @return The corresponding value or @a defaultValue if none exists.
 		 */
 		int getInt(const std::string& key, int defaultValue) const;
 
@@ -71,7 +71,7 @@ namespace ecstasy {
 		 *
 		 * @param key the key
 		 * @param defaultValue the value to return if no value exists for key.
-		 * @return the corresponding value or defaultValue if none exists.
+		 * @return The corresponding value or @a defaultValue if none exists.
 		 */
 		float getFloat(const std::string& key, float defaultValue) const;
 
@@ -80,7 +80,7 @@ namespace ecstasy {
 		 *
 		 * @param key the key
 		 * @param defaultValue the value to return if no value exists for key.
-		 * @return the corresponding value or defaultValue if none exists.
+		 * @return The corresponding value or @a defaultValue if none exists.
 		 */
 		const std::string& getString(const std::string& key, const std::string& defaultValue) const;
 	};

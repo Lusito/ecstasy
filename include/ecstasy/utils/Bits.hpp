@@ -60,7 +60,7 @@ namespace ecstasy {
 
 		/**
 		 * @param index the index of the bit
-		 * @return whether the bit is set
+		 * @return Whether the bit is set
 		 */
 		bool get(int32_t index) const;
 
@@ -68,7 +68,7 @@ namespace ecstasy {
 		 * Returns the bit at the given index and clears it in one go.
 		 *
 		 * @param index the index of the bit
-		 * @return whether the bit was set before invocation
+		 * @return Whether the bit was set before invocation
 		 */
 		bool getAndClear(int32_t index);
 
@@ -76,7 +76,7 @@ namespace ecstasy {
 		 * Returns the bit at the given index and sets it in one go.
 		 *
 		 * @param index the index of the bit
-		 * @return whether the bit was set before invocation
+		 * @return Whether the bit was set before invocation
 		 */
 		bool getAndSet(int32_t index);
 
@@ -86,7 +86,7 @@ namespace ecstasy {
 		/// @param index the index of the bit to flip
 		void flip(int32_t index);
 
-		/// @return all longs as string, comma separated
+		/// @return All uint64_t's as string, comma separated
 		std::string getStringId() const;
 
 	private:
@@ -101,28 +101,28 @@ namespace ecstasy {
 		/// Clears the entire bitset
 		void clear();
 
-		/// @return the number of bits currently stored, <b>not</b> the highset set bit!
+		/// @return The number of bits currently stored, <b>not</b> the highset set bit!
 		int32_t numBits() const;
 
-		/// @return the minimal number of words to store all the bits
+		/// @return The minimal number of words to store all the bits
 		int32_t usedWords() const;
 
 		/**
 		 * Returns the "logical size" of this bitset: The index of the highest set bit in the bitset plus one.
 		 * Returns zero if the bitset contains no set bits.
 		 *
-		 * @return the logical size of this bitset
+		 * @return The logical size of this bitset
 		 */
 		int32_t length() const;
 
-		/// @return true if this bitset contains no bits that are set to true
+		/// @return @a true if this bitset contains no bits that are set to true
 		bool isEmpty() const;
 
 		/**
 		 * Returns the index of the first bit that is set to true that occurs on or after the specified starting index.
 		 *
 		 * @param fromIndex the index to start looking
-		 * @return >= 0 if a truthy bit was found, -1 otherwise.
+		 * @return <tt>>= 0</tt> if a truthy bit was found, <tt>-1</tt> otherwise.
 		 */
 		int32_t nextSetBit(int32_t fromIndex);
 
@@ -130,7 +130,7 @@ namespace ecstasy {
 		 * Returns the index of the first bit that is set to false that occurs on or after the specified starting index.
 		 *
 		 * @param fromIndex the index to start looking
-		 * @return >= 0 if a falsy bit was found, -1 otherwise.
+		 * @return <tt>>= 0</tt> if a falsy bit was found, <tt>-1</tt> otherwise.
 		 */
 		int32_t nextClearBit(int32_t fromIndex) const;
 
@@ -178,7 +178,7 @@ namespace ecstasy {
 		 * Returns true if the other instance has any bits set to true that are also set to true in this instance.
 		 *
 		 * @param other The other instance
-		 * @return boolean indicating whether this bit set intersects the specified bit set
+		 * @return @a true if this bit set intersects the specified bit set
 		 */
 		bool intersects (const Bits& other) const;
 
@@ -187,13 +187,13 @@ namespace ecstasy {
 		 *  also set to true in the other instance.
 		 *
 		 * @param other The other instance
-		 * @return boolean indicating whether this bit set is a super set of the specified set
+		 * @return @a true if this bit set is a super set of the specified set
 		 */
 		bool containsAll(const Bits& other) const;
 
 		/**
 		 * @param other The other instance
-		 * @return true if all truthy bits equal the truthy bits in the other instance
+		 * @return @a true if all truthy bits equal the truthy bits in the other instance
 		 */
 		bool operator ==(const Bits& other) const {
 			return equals(other);
@@ -201,7 +201,7 @@ namespace ecstasy {
 
 		/**
 		 * @param other The other instance
-		 * @return true if at least one truthy bit is unequal a truthy bit in the other instance
+		 * @return @a true if at least one truthy bit is unequal a truthy bit in the other instance
 		 */
 		bool operator !=(const Bits& other) const {
 			return !equals(other);

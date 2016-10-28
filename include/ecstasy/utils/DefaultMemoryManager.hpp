@@ -20,11 +20,11 @@ namespace ecstasy {
 		MemoryPage(uint32_t unitSize);
 		~MemoryPage();
 
-		/// @return memory with enough size, or nullptr if no free memory is available
+		/// @return New memory with enough size
 		void* allocate();
-		/// @return true if memory belongs to this page
+		/// @return @a true if memory belongs to this page
 		bool owns(void* memory);
-		/// @return false if memory already free
+		/// @return @a false if memory already free
 		void free(void* memory);
 	};
 

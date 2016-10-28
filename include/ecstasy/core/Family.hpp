@@ -168,12 +168,12 @@ namespace ecstasy {
 			return builder.reset().exclude<Args...>();
 		}
 
-		/// @return true if the families are equal
+		/// @return @a true if the families are equal
 		bool operator == (const Family& other) const {
 			return this == &other;
 		}
 
-		/// @return true if the families are unequal
+		/// @return @a true if the families are unequal
 		bool operator != (const Family& other) const {
 			return this != &other;
 		}

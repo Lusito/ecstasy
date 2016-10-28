@@ -62,7 +62,7 @@ namespace ecstasy {
 		 *
 		 * @param entity the entity to add the {@link Component}s to.
 		 * @param blueprintname the name used to identify the {@link EntityBlueprint}
-		 * @return true on success.
+		 * @return @a true on success.
 		 */
 		bool assemble(Entity* entity, const std::string& blueprintname);
 	};

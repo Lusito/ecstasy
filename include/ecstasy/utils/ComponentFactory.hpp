@@ -30,7 +30,7 @@ namespace ecstasy {
 		 *
 		 * @param entity the {@link Entity} to add the {@link Component} to.
 		 * @param blueprint the blueprint
-		 * @return true on success.
+		 * @return @a true on success.
 		 */
 		virtual bool assemble(Entity* entity, ComponentBlueprint& blueprint) = 0;
 	};

@@ -107,7 +107,7 @@ namespace ecstasy {
 		}
 
 		/**
-		 * @return set of entities processed by the system
+		 * @return The set of entities processed by the system
 		 */
 		const std::vector<Entity*>* getEntities() const {
 			sort();

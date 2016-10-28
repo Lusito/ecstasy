@@ -74,7 +74,7 @@ namespace ecstasy {
 		 */
 		virtual void setPriority(int priority);
 
-		/// @return the engine
+		/// @return The engine
 		Engine* getEngine() { return engine; }
 
 	protected:

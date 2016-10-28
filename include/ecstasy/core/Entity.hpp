@@ -54,10 +54,10 @@ namespace ecstasy {
 		/// @return The Entity's unique id.
 		uint64_t getId () const { return uuid; }
 
-		/// @return true if the entity is valid (added to the engine).
+		/// @return @a true if the entity is valid (added to the engine).
 		bool isValid () const { return uuid > 0; }
 
-		/// @return true if the entity is scheduled to be removed
+		/// @return @a true if the entity is scheduled to be removed
 		bool isScheduledForRemoval () const { return scheduledForRemoval; }
 
 		/// Remove this entity from its engine
@@ -66,7 +66,7 @@ namespace ecstasy {
 		/**
 		 * Emplace a Component, passing through Component constructor arguments.
 		 *
-		 * @return the added component
+		 * @return The added component
 		 */
 		template <typename T, typename ... Args>
 		T* emplace(Args && ... args) {
@@ -75,10 +75,11 @@ namespace ecstasy {
 		}
 
 		/**
-		 * Add a component. This will be deleted on removal.
+		 * Add a component. This will be freed on removal. Prefer {@link emplace()} instead
 		 *
+		 * @warning The component must be created using the engines memory manager!
 		 * @param component the component to add
-		 * @return the added component
+		 * @return The added component
 		 */
 		template <typename T>
 		T* add(T* component) {
@@ -116,7 +117,7 @@ namespace ecstasy {
 		 * Retrieve a Component from this Entity by class.
 		 *
 		 * @tparam T The Component class
-		 * @return The instance of the specified Component attached to this Entity, or null if no such Component exists.
+		 * @return The instance of the specified Component attached to this Entity, or @a nullptr if no such Component exists.
 		 */
 		template<typename T>
 		T* get() const {
@@ -132,7 +133,7 @@ namespace ecstasy {
 			return componentBits.get(getComponentType<T>());
 		}
 	private:
-		/// @return The Component object for the specified class, null if the Entity does not have any components for that class.
+		/// @return The Component object for the specified class, @a nullptr if the Entity does not have any components for that class.
 		ComponentBase* getComponent(ComponentType componentType) const {
 			if (componentType >= componentsByType.size())
 				return nullptr;
@@ -155,12 +156,12 @@ namespace ecstasy {
 		}
 
 	public:
-		/// @return true if the entities are equal
+		/// @return @a true if the entities are equal
 		bool operator ==(const Entity& other) const {
 			return this == &other;
 		}
 
-		/// @return true if the entities are unequal
+		/// @return @a true if the entities are unequal
 		bool operator !=(const Entity& other) const {
 			return this != &other;
 		}

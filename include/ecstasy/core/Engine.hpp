@@ -106,7 +106,8 @@ namespace ecstasy {
 
 		virtual ~Engine();
 
-		std::shared_ptr<MemoryManager> getMemoryManager() {
+		/// @return The MemoryManager instance
+		const std::shared_ptr<MemoryManager> getMemoryManager() const {
 			return memoryManager;
 		};
 
@@ -119,7 +120,7 @@ namespace ecstasy {
 		 * setEntityFactory must be called before first use.
 		 *
 		 * @param blueprintname The name of the entity blueprint
-		 * @return A fully assembled {@link Entity} or null if the assembly failed.
+		 * @return A fully assembled {@link Entity} or @a nullptr if the assembly failed.
 		 */
 		Entity* assembleEntity(const std::string& blueprintname);
 
@@ -158,11 +159,11 @@ namespace ecstasy {
 
 		/**
 		 * @param id The id of an Entity
-		 * @return The entity associated with the specified id or null if no such entity exists.
+		 * @return The entity associated with the specified id or @a nullptr if no such entity exists.
 		 */
 		Entity* getEntity(uint64_t id) const;
 
-		/// @return a list of all entities
+		/// @return A list of all entities
 		const std::vector<Entity*>* getEntities() const {
 			return &entities;
 		}
@@ -220,7 +221,7 @@ namespace ecstasy {
 		 * Quick EntitySystem retrieval.
 		 *
 		 * @tparam T The EntitySystem class
-		 * @return The EntitySystem of the specified class, or null if no such system exists.
+		 * @return The EntitySystem of the specified class, or @a nullptr if no such system exists.
 		 */
 		template<typename T>
 		std::shared_ptr<T> getSystem() const {

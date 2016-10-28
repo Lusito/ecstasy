@@ -21,6 +21,7 @@ namespace ecstasy {
 	struct ComponentBase {
 		/// The unique identifier of this Component's class
 		const ComponentType type;
+		/// sizeof(the topmost class)
 		const uint32_t memorySize;
 		virtual ~ComponentBase() {}
 
