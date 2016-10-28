@@ -37,7 +37,7 @@ namespace EngineTests {
 			REQUIRE(entity);
 		}
 	};
-	
+
 	struct MockLog {
 		int updateCalls = 0;
 		int addedCalls = 0;
@@ -51,7 +51,7 @@ namespace EngineTests {
 		std::vector<int>* updates = nullptr;
 
 		EntitySystemMockBase(MockLog &log) : log(log) {}
-		
+
 		EntitySystemMockBase(MockLog &log, std::vector<int>* updates) : log(log), updates(updates) {}
 
 		void update (float deltaTime) override {
@@ -323,7 +323,7 @@ namespace EngineTests {
 		Entity* entity2 = engine.createEntity();
 		Entity* entity3 = engine.createEntity();
 		Entity* entity4 = engine.createEntity();
-		
+
 		entity1->emplace<ComponentA>();
 		entity1->emplace<ComponentB>();
 
@@ -387,7 +387,7 @@ namespace EngineTests {
 		engine.addEntity(entity2);
 		engine.addEntity(entity3);
 		engine.addEntity(entity4);
-		
+
 		entity1->emplace<ComponentA>();
 		entity1->emplace<ComponentB>();
 
@@ -533,7 +533,7 @@ namespace EngineTests {
 
 		REQUIRE(0 == listenerA.addedCount);
 		REQUIRE(0 == listenerB.addedCount);
-		
+
 		entity1->emplace<ComponentA>();
 
 		REQUIRE(1 == listenerA.addedCount);
@@ -591,54 +591,54 @@ namespace EngineTests {
 
 		engine.update(0);
 	}
-	
+
 	TEST_CASE("getEntityById") {
 		Engine engine;
 		Entity* entity = engine.createEntity();
-		
+
 		REQUIRE(0 == entity->getId());
 		REQUIRE(!entity->isValid());
-		
+
 		engine.addEntity(entity);
-		
+
 		REQUIRE(entity->isValid());
-		
+
 		uint64_t entityId = entity->getId();
-		
+
 		REQUIRE(0 != entityId);
-		
+
 		REQUIRE(entity == engine.getEntity(entityId));
-		
+
 		engine.removeEntity(entity);
-		
+
 		REQUIRE(!engine.getEntity(entityId));
 	}
-	
+
 	TEST_CASE("getEntities") {
 		int numEntities = 10;
-		
+
 		Engine engine;
-		
+
 		std::vector<Entity*> entities;
 		for (int i = 0; i < numEntities; ++i) {
 			auto entity = engine.createEntity();
 			entities.push_back(entity);
 			engine.addEntity(entity);
 		}
-		
+
 		const std::vector<Entity*>* engineEntities = engine.getEntities();
-		
+
 		REQUIRE(entities.size() == engineEntities->size());
-		
+
 		for (int i = 0; i < numEntities; ++i) {
 			REQUIRE(entities.at(i) == engineEntities->at(i));
 		}
-		
+
 		engine.removeAllEntities();
-		
+
 		REQUIRE(engineEntities->empty());
 	}
-	
+
 	TEST_CASE("addEntityTwice") {
 		Engine engine;
 		Entity* entity = engine.createEntity();
@@ -646,8 +646,7 @@ namespace EngineTests {
 
 		REQUIRE_THROWS_AS( engine.addEntity(entity), std::invalid_argument );
 	}
-	
-	
+
 	TEST_CASE("addTwoSystemsOfSameClass") {
 		Engine engine;
 		MockLog log1;
@@ -722,7 +721,7 @@ namespace EngineTests {
 
 			REQUIRE(entity->isValid());
 		}
-		
+
 		auto memoryManager = engine.getMemoryManager();
 		REQUIRE(memoryManager->getAllocationCount() == numEntities);
 

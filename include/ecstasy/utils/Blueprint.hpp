@@ -1,13 +1,13 @@
 #pragma once
 /*******************************************************************************
  * Copyright 2011 See AUTHORS file.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,7 +34,7 @@ namespace ecstasy {
 	public:
 		/**
 		 * Creates a new blueprint with the specified component name
-		 * 
+		 *
 		 * @param name the name of the component.
 		 */
 		ComponentBlueprint(const std::string& name) : name(name) {}
@@ -42,7 +42,7 @@ namespace ecstasy {
 
 		/**
 		 * Set a key/value pair
-		 * 
+		 *
 		 * @param key the key
 		 * @param value the value
 		 */
@@ -50,7 +50,7 @@ namespace ecstasy {
 
 		/**
 		 * Get a boolean value
-		 * 
+		 *
 		 * @param key the key
 		 * @param defaultValue the value to return if no value exists for key.
 		 * @return the corresponding value or defaultValue if none exists.
@@ -59,7 +59,7 @@ namespace ecstasy {
 
 		/**
 		 * Get an integer value
-		 * 
+		 *
 		 * @param key the key
 		 * @param defaultValue the value to return if no value exists for key.
 		 * @return the corresponding value or defaultValue if none exists.
@@ -68,7 +68,7 @@ namespace ecstasy {
 
 		/**
 		 * Get a float value
-		 * 
+		 *
 		 * @param key the key
 		 * @param defaultValue the value to return if no value exists for key.
 		 * @return the corresponding value or defaultValue if none exists.
@@ -77,14 +77,14 @@ namespace ecstasy {
 
 		/**
 		 * Get a string value
-		 * 
+		 *
 		 * @param key the key
 		 * @param defaultValue the value to return if no value exists for key.
 		 * @return the corresponding value or defaultValue if none exists.
 		 */
 		const std::string& getString(const std::string& key, const std::string& defaultValue) const;
 	};
-	
+
 	/**
 	 * Stores a list of {@link ComponentBlueprint}s needed to construct an {@link Entity}.
 	 * See {@link EntityFactory}.

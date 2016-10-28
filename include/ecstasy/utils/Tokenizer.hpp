@@ -1,13 +1,13 @@
 #pragma once
 /*******************************************************************************
  * Copyright 2011 See AUTHORS file.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,7 @@ namespace ecstasy {
 	/**
 	 * Parse a text line into tokens. Whitespace is used to separate the tokens and double-quotes can be used
 	 * to ignore white-spaces until another double-quote is found. Supports comments until the end of the line.
-	 * 
+	 *
 	 * @param line the text to parse (multiline is not supported right now)
 	 * @param tokens the result vector to store the tokens in.
 	 * @param commentChar the character starting a single-line comment. Use '\0' to disable comment support.

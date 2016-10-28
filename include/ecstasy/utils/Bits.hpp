@@ -1,13 +1,13 @@
 #pragma once
 /*******************************************************************************
  * Copyright 2011 See AUTHORS file.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,7 +32,7 @@ namespace ecstasy {
 			if(data)
 				delete[] data;
 		}
-		
+
 		/**
 		 * Creates a bit set whose initial size is large enough to explicitly represent bits with indices in the range 0 through 63.
 		 */
@@ -41,7 +41,7 @@ namespace ecstasy {
 
 		/**
 		 * Move constructor
-		 * 
+		 *
 		 * @param other
 		 */
 		Bits(Bits&& other) {
@@ -53,7 +53,7 @@ namespace ecstasy {
 
 		/**
 		 * Creates a bit set whose initial size is large enough to explicitly represent bits with indices in the range 0 through nbits-1.
-		 * 
+		 *
 		 * @param nbits the initial size of the bit set
 		 */
 		explicit Bits(int32_t nbits);
@@ -66,7 +66,7 @@ namespace ecstasy {
 
 		/**
 		 * Returns the bit at the given index and clears it in one go.
-		 * 
+		 *
 		 * @param index the index of the bit
 		 * @return whether the bit was set before invocation
 		 */
@@ -74,7 +74,7 @@ namespace ecstasy {
 
 		/**
 		 * Returns the bit at the given index and sets it in one go.
-		 * 
+		 *
 		 * @param index the index of the bit
 		 * @return whether the bit was set before invocation
 		 */
@@ -110,7 +110,7 @@ namespace ecstasy {
 		/**
 		 * Returns the "logical size" of this bitset: The index of the highest set bit in the bitset plus one.
 		 * Returns zero if the bitset contains no set bits.
-		 * 
+		 *
 		 * @return the logical size of this bitset
 		 */
 		int32_t length() const;
@@ -120,7 +120,7 @@ namespace ecstasy {
 
 		/**
 		 * Returns the index of the first bit that is set to true that occurs on or after the specified starting index.
-		 * 
+		 *
 		 * @param fromIndex the index to start looking
 		 * @return >= 0 if a truthy bit was found, -1 otherwise.
 		 */
@@ -128,7 +128,7 @@ namespace ecstasy {
 
 		/**
 		 * Returns the index of the first bit that is set to false that occurs on or after the specified starting index.
-		 * 
+		 *
 		 * @param fromIndex the index to start looking
 		 * @return >= 0 if a falsy bit was found, -1 otherwise.
 		 */
@@ -138,7 +138,7 @@ namespace ecstasy {
 		 * Performs a logical <b>AND</b> of this target bit set with the argument bit set. This bit set is modified so
 		 * that each bit in  it has the value true if and only if it both initially had the value true and the
 		 * corresponding bit in the bit set argument also had the value true.
-		 * 
+		 *
 		 * @param other The other instance
 		 * @return *this
 		 */
@@ -146,7 +146,7 @@ namespace ecstasy {
 
 		/**
 		 * Clears all of the bits in this instance whose corresponding bit is set in the other instance.
-		 * 
+		 *
 		 * @param other The other instance
 		 */
 		void andNot(const Bits& other);
@@ -155,7 +155,7 @@ namespace ecstasy {
 		 * Performs a logical <b>OR</b> of this instance with the other instance. This instance is modified so that a
 		 * bit in it has the value true if and only if it either already had the value true or the corresponding bit in
 		 * the other instance has the value true.
-		 * 
+		 *
 		 * @param other a bit set
 		 * @return *this
 		 */
@@ -168,7 +168,7 @@ namespace ecstasy {
 		 * <li>The bit initially has the value true, and the corresponding bit in the argument has the value false.</li>
 		 * <li>The bit initially has the value false, and the corresponding bit in the argument has the value true.</li>
 		 * </ul>
-		 * 
+		 *
 		 * @param other The other instance
 		 * @return *this
 		 */
@@ -176,7 +176,7 @@ namespace ecstasy {
 
 		/**
 		 * Returns true if the other instance has any bits set to true that are also set to true in this instance.
-		 * 
+		 *
 		 * @param other The other instance
 		 * @return boolean indicating whether this bit set intersects the specified bit set
 		 */
@@ -185,12 +185,12 @@ namespace ecstasy {
 		/**
 		 * Returns true if this instance is a super set of the other instance, i.e. it has all bits set to true that are
 		 *  also set to true in the other instance.
-		 * 
+		 *
 		 * @param other The other instance
 		 * @return boolean indicating whether this bit set is a super set of the specified set
 		 */
 		bool containsAll(const Bits& other) const;
-		
+
 		/**
 		 * @param other The other instance
 		 * @return true if all truthy bits equal the truthy bits in the other instance
@@ -198,7 +198,7 @@ namespace ecstasy {
 		bool operator ==(const Bits& other) const {
 			return equals(other);
 		}
-		
+
 		/**
 		 * @param other The other instance
 		 * @return true if at least one truthy bit is unequal a truthy bit in the other instance

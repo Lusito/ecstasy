@@ -31,7 +31,7 @@ namespace Signal11 {
 				_last = r;
 				return true;
 			}
-			
+
 			CollectorResult result() {
 				return _last;
 			}
@@ -174,7 +174,7 @@ namespace Signal11 {
 
 	private:
 		std::weak_ptr<Lib::ProtoSignalLink> _head;
-		
+
 	};
 
 	class ScopedConnectionRef : public ConnectionRef {
@@ -222,7 +222,7 @@ namespace Signal11 {
 			:ConnectionRef(nullptr, nullptr) {}
 		ScopedConnectionRef& operator=(const ScopedConnectionRef &other) { return *this; }
 	};
-	
+
 	class ConnectionScope {
 	public:
 		ScopedConnectionRef& operator+=(ConnectionRef &&ref) {
@@ -386,7 +386,7 @@ namespace Signal11 {
 
 				void decref(bool performDelete = true) {
 					_refCount -= 1;
-					
+
 					if(_refCount == 0) {
 						if(performDelete)
 							delete this;
@@ -397,7 +397,7 @@ namespace Signal11 {
 
 				void unlink() {
 					_callbackFunc = nullptr;
-					
+
 					if(_next)
 						_next->_prev = _prev;
 
@@ -436,7 +436,7 @@ namespace Signal11 {
 							return true;
 						}
 					}
-					
+
 					return false;
 				}
 			};
@@ -444,7 +444,7 @@ namespace Signal11 {
 			std::shared_ptr<SignalLink> _callbackRing; // linked ring of callback nodes
 			bool _hasNewLinks = false;
 			int _emitDepth = 0;
-			
+
 			void ensureRing() {
 				if(!_callbackRing) {
 					_callbackRing = std::make_shared<SignalLink>(CallbackFunction()); // refCount = 1
@@ -568,7 +568,7 @@ namespace Signal11 {
 					old->decref();
 				}
 				while (link != _callbackRing.get());
-				
+
 				link->decref();
 				_emitDepth--;
 				if (_hasNewLinks && _emitDepth == 0) {

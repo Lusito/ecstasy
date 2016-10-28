@@ -1,28 +1,28 @@
 #pragma once
 /*******************************************************************************
  * Copyright 2015 See AUTHORS file.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- ******************************************************************************/ 
+ ******************************************************************************/
 
 #include <ecstasy/core/Types.hpp>
 #include <ecstasy/utils/Bits.hpp>
 
 namespace ecstasy {
 	class Entity;
-	
+
 	ECS_UUID_TYPE(FamilyType)
-	
+
 	class Family;
 
 /// \cond HIDDEN_SYMBOLS
@@ -64,7 +64,7 @@ namespace ecstasy {
 
 		/**
 		 * Resets the builder instance
-		 * 
+		 *
 		 * @return *this for chaining
 		 */
 		FamilyBuilder& reset ();
@@ -102,7 +102,7 @@ namespace ecstasy {
 		/// @return A Family for the configured component types
 		const Family& get ();
 	};
-	
+
 	/**
 	 * Represents a group of {@link Component}s. It is used to describe what Entity objects an EntitySystem should
 	 * process. Families can't be instantiated directly but must be accessed via a builder.
@@ -116,7 +116,7 @@ namespace ecstasy {
 		Bits* m_all;
 		Bits* m_one;
 		Bits* m_exclude;
-		
+
 	public:
 		/// The unique identifier of this Family
 		const FamilyType index;
@@ -129,7 +129,7 @@ namespace ecstasy {
 	public:
 		Family(const Family&) = delete;
 		~Family();
-		
+
 		/**
 		 * @param entity An entity
 		 * @return Whether the entity matches the family requirements or not
@@ -140,7 +140,7 @@ namespace ecstasy {
 		static FamilyBuilder& all() {
 			return builder.reset();
 		}
-		
+
 		/**
 		 * @tparam Args Entities will have to contain all of the specified components.
 		 * @return A builder singleton instance to get a Family

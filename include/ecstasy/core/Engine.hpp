@@ -89,7 +89,7 @@ namespace ecstasy {
 		EntitySignal entityAdded;
 		/// Will dispatch an event when an entity is removed.
 		EntitySignal entityRemoved;
-		
+
 	public:
 		/**
 		 * Creates a new Engine with the default MemoryManager.
@@ -98,7 +98,7 @@ namespace ecstasy {
 
 		/**
 		 * Creates a new Engine with the specified MemoryManager.
-		 * 
+		 *
 		 * @param memoryManager an implementation of MemoryManager.
 		 */
 		Engine(std::shared_ptr<MemoryManager> memoryManager);
@@ -112,12 +112,12 @@ namespace ecstasy {
 
 		/// @return A new Entity. In order to add it to the Engine, use addEntity(Entity).
 		Entity* createEntity();
-		
+
 		/**
 		 * Creates and assembles an {@link Entity} using the {@link EntityFactory}.
 		 * In order to add it to the Engine, use {@link addEntity()}.
 		 * setEntityFactory must be called before first use.
-		 * 
+		 *
 		 * @param blueprintname The name of the entity blueprint
 		 * @return A fully assembled {@link Entity} or null if the assembly failed.
 		 */
@@ -125,7 +125,7 @@ namespace ecstasy {
 
 		/**
 		 * Set the {@link EntityFactory} to use with assembleEntity.
-		 * 
+		 *
 		 * @param entityFactory The new {@link EntityFactory}
 		 */
 		void setEntityFactory(std::shared_ptr<EntityFactory> entityFactory) {
@@ -139,14 +139,14 @@ namespace ecstasy {
 
 		/**
 		 * Adds an entity to this Engine.
-		 * 
+		 *
 		 * @param entity the entity to add
 		 */
 		void addEntity(Entity* entity);
 
 		/**
 		 * Removes an entity from this Engine.
-		 * 
+		 *
 		 * @param entity the entity to remove
 		 */
 		void removeEntity(Entity* entity);
@@ -182,7 +182,7 @@ namespace ecstasy {
 
 		/**
 		 * Adds the EntitySystem to this Engine.
-		 * 
+		 *
 		 * @param system The EntitySystem to add
 		 */
 		void addSystem(std::shared_ptr<EntitySystemBase> system);
@@ -201,7 +201,7 @@ namespace ecstasy {
 		 * Removes all systems registered with this Engine.
 		 */
 		void removeAllSystems();
-		
+
 		/**
 		 * Sort all systems (usually done automatically, except if you override EntitySystem::getPriority())
 		 */
@@ -210,7 +210,7 @@ namespace ecstasy {
 	private:
 		/**
 		 * Removes the EntitySystem from this Engine.
-		 * 
+		 *
 		 * @param type The EntitySystem type to remove
 		 */
 		void removeSystemInternal(const SystemType &type);
@@ -218,7 +218,7 @@ namespace ecstasy {
 	public:
 		/**
 		 * Quick EntitySystem retrieval.
-		 * 
+		 *
 		 * @tparam T The EntitySystem class
 		 * @return The EntitySystem of the specified class, or null if no such system exists.
 		 */
@@ -259,18 +259,18 @@ namespace ecstasy {
 
 		/**
 		 * Updates all the systems in this Engine.
-		 * 
+		 *
 		 * @param deltaTime The time passed since the last frame.
 		 */
 		void update(float deltaTime);
 
-	private:		
+	private:
 		void onComponentChange(Entity* entity, ComponentBase* component);
 
 		uint64_t obtainEntityId() {
 			return nextEntityId++;
 		}
-		
+
 		void updateFamilyMembership(Entity* entity);
 
 		void removeEntityInternal(Entity* entity);

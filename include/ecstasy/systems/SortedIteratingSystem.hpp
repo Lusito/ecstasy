@@ -24,7 +24,7 @@ namespace ecstasy {
 	 * calls processEntity() for each Entity every time the EntitySystem is updated. This is really just a convenience
 	 * class as rendering systems tend to iterate over a list of entities in a sorted manner. Adding entities will cause
 	 * the entity list to be resorted. Call forceSort() if you changed your sorting criteria.
-	 * 
+	 *
 	 * @tparam T The EntitySystem class used to create the type.
 	 * @tparam C The comparator type
 	 */
@@ -40,7 +40,7 @@ namespace ecstasy {
 	public:
 		/**
 		 * Instantiates a system that will iterate over the entities described by the Family, with a specific priority.
-		 * 
+		 *
 		 * @param family The family of entities iterated over in this System
 		 * @param comparator The comparator to sort the entities
 		 * @copydetails EntitySystem::EntitySystem()
@@ -123,7 +123,7 @@ namespace ecstasy {
 		/**
 		 * This method is called on every entity on every update call of the EntitySystem.
 		 * Override this to implement your system's specific processing.
-		 * 
+		 *
 		 * @param entity The current Entity being processed
 		 * @param deltaTime The delta time between the last and current frame
 		 */

@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2015 See AUTHORS file.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -85,14 +85,14 @@ namespace EntityListenerTests {
 	class EntityRemoverSystem : public EntitySystem<EntityRemoverSystem> {
 	public:
 		EntityRemoverSystem(Entity* entity) : entity(entity) {}
-		
+
 		Entity* entity;
-		
+
 		void update(float deltaTime) override {
 			getEngine()->removeEntity(entity);
 		}
 	};
-	
+
 	TEST_CASE("Remove entity during entity removal") {
 		Engine engine;
 
@@ -100,7 +100,7 @@ namespace EntityListenerTests {
 		Entity* e2 = engine.createEntity();
 		engine.addEntity(e1);
 		engine.addEntity(e2);
-		
+
 		engine.emplaceSystem<EntityRemoverSystem>(e1);
 
 		engine.entityRemoved.connect([&](Entity* entity) {

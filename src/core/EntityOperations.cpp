@@ -27,11 +27,11 @@ namespace ecstasy {
 	void EntityOperationHandler::onAdd(EntityOperation* operation) {
 		engine.addEntityInternal(operation->entity);
 	}
-	
+
 	void EntityOperationHandler::onRemove(EntityOperation* operation) {
 		engine.removeEntityInternal(operation->entity);
 	}
-	
+
 	void EntityOperationHandler::onRemoveAll(EntityOperation* operation) {
 		while(!engine.entities.empty()) {
 			engine.removeEntityInternal(engine.entities.back());
@@ -41,15 +41,15 @@ namespace ecstasy {
 	bool ComponentOperationHandler::isActive() {
 		return engine.updating;
 	}
-	
+
 	void ComponentOperationHandler::onAdd(ComponentOperation* operation) {
 		operation->entity->addInternal(operation->component);
 	}
-	
+
 	void ComponentOperationHandler::onRemove(ComponentOperation* operation) {
 		operation->entity->removeInternal(operation->componentType);
 	}
-	
+
 	void ComponentOperationHandler::onRemoveAll(ComponentOperation* operation) {
 		operation->entity->removeAllInternal();
 	}

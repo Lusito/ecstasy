@@ -22,14 +22,14 @@ namespace ecstasy {
 	class Entity;
 	class Engine;
 	struct ComponentBase;
-	
+
 /// \cond HIDDEN_SYMBOLS
 	enum class OperationType {
 		Add,
 		Remove,
 		RemoveAll
 	};
-	
+
 	template<typename T>
 	struct BaseOperation {
 		T* nextOperation = nullptr;
@@ -39,7 +39,7 @@ namespace ecstasy {
 	struct EntityOperation: public BaseOperation<EntityOperation> {
 		Entity* entity = nullptr;
 	};
-	
+
 	struct ComponentOperation: public BaseOperation<ComponentOperation> {
 		Entity* entity = nullptr;
 		ComponentBase* component = nullptr;
@@ -49,7 +49,7 @@ namespace ecstasy {
 		void makeRemove(Entity* entity, ComponentType componentType);
 		void makeRemoveAll(Entity* entity);
 	};
-	
+
 	template<typename T>
 	class BaseOperationHandler {
 	protected:
@@ -99,7 +99,7 @@ namespace ecstasy {
 		virtual void onRemove(T* operation) = 0;
 		virtual void onRemoveAll(T* operation) = 0;
 	};
-	
+
 	class EntityOperationHandler : public BaseOperationHandler<EntityOperation> {
 	public:
 		explicit EntityOperationHandler(Engine& engine, MemoryManager* memoryManager)
@@ -111,7 +111,7 @@ namespace ecstasy {
 			auto operation = createOperation();
 			operation->type = OperationType::Add;
 			operation->entity = entity;
-		
+
 			schedule(operation);
 		}
 
@@ -133,7 +133,7 @@ namespace ecstasy {
 		void onRemove(EntityOperation* operation) override;
 		void onRemoveAll(EntityOperation* operation) override;
 	};
-	
+
 	class ComponentOperationHandler : public BaseOperationHandler<ComponentOperation> {
 	public:
 		explicit ComponentOperationHandler(Engine& engine, MemoryManager* memoryManager)
@@ -147,7 +147,7 @@ namespace ecstasy {
 			operation->entity = entity;
 			operation->component = component;
 			operation->componentType = 0;
-		
+
 			schedule(operation);
 		}
 
@@ -165,7 +165,7 @@ namespace ecstasy {
 			operation->entity = entity;
 			schedule(operation);
 		}
-		
+
 	protected:
 		void onAdd(ComponentOperation* operation) override;
 		void onRemove(ComponentOperation* operation) override;

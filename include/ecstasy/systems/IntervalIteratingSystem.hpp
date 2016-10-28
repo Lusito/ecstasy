@@ -22,7 +22,7 @@ namespace ecstasy {
 	/**
 	 * A simple EntitySystem that processes a Family of entities not once per frame, but after a given interval.
 	 * Entity processing logic should be placed in processEntity().
-	 * 
+	 *
 	 * @tparam T: The EntitySystem class used to create the type.
 	 */
 	template<typename T>
@@ -64,7 +64,7 @@ namespace ecstasy {
 	protected:
 		/**
 		 * The user should place the entity processing logic here.
-		 * 
+		 *
 		 * @param entity The entity to be processed
 		 */
 		virtual void processEntity(Entity* entity) = 0;

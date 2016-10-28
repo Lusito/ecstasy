@@ -1,13 +1,13 @@
 #pragma once
 /*******************************************************************************
  * Copyright 2015 See AUTHORS file.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,10 +34,9 @@ namespace ecstasy {
 		uint32_t id;\
 	};
 
-
 	/**
 	 * Gets a unique id for a typed integral
-	 * 
+	 *
 	 * @tparam T The type to get an id for.
 	 */
 	template <typename T>
@@ -45,13 +44,13 @@ namespace ecstasy {
 		static uint32_t type = 0;
 		return type++;
 	}
-	
+
 	/// Uniquely identifies a Component sub-class.
 	ECS_UUID_TYPE(ComponentType)
-	
+
 	/**
 	 * Get a unique index for a specified Component class.
-	 * 
+	 *
 	 * @tparam T The Component class
 	 * @return A unique identifier
 	 */
@@ -63,10 +62,10 @@ namespace ecstasy {
 
 	/// Uniquely identifies an EntitySystem sub-class.
 	ECS_UUID_TYPE(SystemType)
-	
+
 	/**
 	 * Get a unique index for a specified EntitySystem class.
-	 * 
+	 *
 	 * @tparam T The EntitySystem class
 	 * @return A unique identifier
 	 */

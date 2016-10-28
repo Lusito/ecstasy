@@ -63,7 +63,7 @@ namespace ecstasy {
 		if (updating || notifying) {
 			if(entity->scheduledForRemoval)
 				return;
-			
+
 			entity->scheduledForRemoval = true;
 			entityOperationHandler.remove(entity);
 		}
@@ -77,7 +77,7 @@ namespace ecstasy {
 		if (updating || notifying) {
 			for(auto entity: entities)
 				entity->scheduledForRemoval = true;
-			
+
 			entityOperationHandler.removeAll();
 		}
 		else {
@@ -133,7 +133,7 @@ namespace ecstasy {
 		systems.clear();
 		systemsByType.clear();
 	}
-	
+
 	void Engine::sortSystems() {
 		std::sort(systems.begin(), systems.end(), compareSystems);
 	}
@@ -165,7 +165,7 @@ namespace ecstasy {
 		for (auto it = entitiesByFamily.begin(); it != entitiesByFamily.end(); it++) {
 			auto family = it->first;
 			auto& familyEntities = it->second;
-			
+
 			auto familyIndex = family->index;
 
 			bool belongsToFamily = entity->getFamilyBits().get(familyIndex);
@@ -197,7 +197,7 @@ namespace ecstasy {
 			}
 			return;
 		}
-		
+
 		auto it = std::find(entities.begin(), entities.end(), entity);
 		if(it == entities.end())
 			throw std::invalid_argument("Entity does not belong to this engine");

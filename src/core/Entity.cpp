@@ -49,12 +49,12 @@ namespace ecstasy {
 		auto component = componentsByType[type];
 		if (component) {
 			componentsByType[type] = nullptr;
-			
+
 			components.erase(std::remove(components.begin(), components.end(), component), components.end());
 			componentBits.clear(type);
 
 			engine->componentRemoved.emit(this, component);
-			
+
 			memoryManager->free(component->memorySize, component);
 		}
 		return component;

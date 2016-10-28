@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2015 See AUTHORS file.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,7 +32,6 @@ namespace EntityTests {
 		}
 	}
 
-
 	TEST_CASE("noComponents") {
 		Engine engine;
 		Entity* entity = engine.createEntity();
@@ -46,7 +45,6 @@ namespace EntityTests {
 		REQUIRE(!entity->has<ComponentB>());
 	}
 
-
 	TEST_CASE("addAndRemoveComponent") {
 		Engine engine;
 		Entity* entity = engine.createEntity();
@@ -58,7 +56,7 @@ namespace EntityTests {
 
 		const Bits &componentBits = entity->getComponentBits();
 		auto componentAIndex = static_cast<int32_t>(getComponentType<ComponentA>());
-		
+
 		for (auto i = 0; i < componentBits.length(); ++i) {
 			REQUIRE((i == componentAIndex) == componentBits.get(i));
 		}
@@ -82,7 +80,6 @@ namespace EntityTests {
 		REQUIRE(!entity->has<ComponentB>());
 	}
 
-
 	TEST_CASE("addAndRemoveAllComponents") {
 		Engine engine;
 		Entity* entity = engine.createEntity();
@@ -95,7 +92,7 @@ namespace EntityTests {
 		auto &componentBits = entity->getComponentBits();
 		auto componentAIndex = static_cast<int32_t>(getComponentType<ComponentA>());
 		auto componentBIndex = static_cast<int32_t>(getComponentType<ComponentB>());
-		
+
 		for (auto i = 0; i < componentBits.length(); ++i) {
 			REQUIRE((i == componentAIndex || i == componentBIndex) == componentBits.get(i));
 		}
@@ -119,7 +116,6 @@ namespace EntityTests {
 		REQUIRE(!entity->has<ComponentB>());
 	}
 
-
 	TEST_CASE("addSameComponent") {
 		Engine engine;
 		Entity* entity = engine.createEntity();
@@ -133,7 +129,6 @@ namespace EntityTests {
 		REQUIRE(a1 != entity->get<ComponentA>());
 		REQUIRE(a2 == entity->get<ComponentA>());
 	}
-
 
 	TEST_CASE("componentListener") {
 		Engine engine;
@@ -166,7 +161,6 @@ namespace EntityTests {
 
 		REQUIRE(2 == totalRemoves);
 	}
-
 
 	TEST_CASE("getComponentByClass") {
 		Engine engine;

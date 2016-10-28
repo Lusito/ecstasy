@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2015 See AUTHORS file.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,7 @@
 #include <ecstasy/utils/EntityFactory.hpp>
 
 namespace EntityFactoryTests {
-	
+
 #define DECLARE_COMPONENT_FACTORY(ComponentFactoryName)\
 	class ComponentFactoryName : public ComponentFactory {\
 	public:\
@@ -79,7 +79,7 @@ namespace EntityFactoryTests {
 		std::string error = parseBlueprint(filename, entityBlueprint);
 		REQUIRE(error.empty());
 		factory->addEntityBlueprint("good", entityBlueprint);
-		
+
 		engine.setEntityFactory(factory);
 		auto entity = engine.assembleEntity("good");
 		REQUIRE(entity != nullptr);
@@ -93,7 +93,7 @@ namespace EntityFactoryTests {
 	TEST_CASE("test_entity_factory_good") {
 		Engine engine;
 		auto entity = testFactoryInit("tests_assets/good.def", engine);
-		
+
 		auto pos = entity->get<PositionComponent>();
 		REQUIRE(pos->x == 10.1f);
 		REQUIRE(pos->y == 11.2f);
@@ -107,7 +107,7 @@ namespace EntityFactoryTests {
 	TEST_CASE("test_entity_factory_good_defaults") {
 		Engine engine;
 		auto entity = testFactoryInit("tests_assets/good_defaults.def", engine);
-		
+
 		auto pos = entity->get<PositionComponent>();
 		REQUIRE(pos->x == 1);
 		REQUIRE(pos->y == 2);

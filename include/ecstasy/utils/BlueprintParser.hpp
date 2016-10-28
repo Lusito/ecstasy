@@ -1,13 +1,13 @@
 #pragma once
 /*******************************************************************************
  * Copyright 2011 See AUTHORS file.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@ namespace ecstasy {
 	class EntityBlueprint;
 	/**
 	 * Parse a blueprint file.
-	 * 
+	 *
 	 * @param filename the file to parse
 	 * @param result an empty shared_ptr to store the result.
 	 * @return empty string on success, otherwise an error message containing line information.
@@ -31,7 +31,7 @@ namespace ecstasy {
 
 	/**
 	 * Parse a blueprint file from a stream.
-	 * 
+	 *
 	 * @param stream the stream to read from
 	 * @param result an empty shared_ptr to store the result.
 	 * @return empty string on success, otherwise an error message containing line information.

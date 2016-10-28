@@ -28,14 +28,14 @@ namespace ecstasy {
 		if (!bitflags)
 			throw std::invalid_argument("Trying to allocate memory on a full MemoryPage");
 		int index = getFirstSetBit(bitflags);
-		
+
 		if(((bitflags >> index) & 1ull) == 0)
 			throw std::invalid_argument("Trying to allocate memory which is already allocated");
-		
+
 		void* data = memory + dataOffset + index*unitSize;
 		bitflags ^= 1ull << index;
 		freeUnits--;
-		
+
 		return data;
 	}
 

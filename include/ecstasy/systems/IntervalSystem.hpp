@@ -22,7 +22,7 @@ namespace ecstasy {
 	/**
 	 * A simple EntitySystem that does not run its update logic every call to update(float), but after a
 	 * given interval. The actual logic should be placed in updateInterval().
-	 * 
+	 *
 	 * @tparam T: The EntitySystem class used to create the type.
 	 */
 	template<typename T>

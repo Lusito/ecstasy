@@ -46,14 +46,14 @@ namespace ecstasy {
 		MemoryManager *memoryManager = nullptr;
 
 		Entity() {}
-		
+
 	public:
 		Entity(const Entity&) = delete;
 		~Entity() { removeAll(); }
 
 		/// @return The Entity's unique id.
 		uint64_t getId () const { return uuid; }
-		
+
 		/// @return true if the entity is valid (added to the engine).
 		bool isValid () const { return uuid > 0; }
 
@@ -65,7 +65,7 @@ namespace ecstasy {
 
 		/**
 		 * Emplace a Component, passing through Component constructor arguments.
-		 * 
+		 *
 		 * @return the added component
 		 */
 		template <typename T, typename ... Args>
@@ -76,7 +76,7 @@ namespace ecstasy {
 
 		/**
 		 * Add a component. This will be deleted on removal.
-		 * 
+		 *
 		 * @param component the component to add
 		 * @return the added component
 		 */
@@ -92,7 +92,7 @@ namespace ecstasy {
 		/**
 		 * Removes the Component of the specified type. Since there is only ever one Component of one type, we don't
 		 * need an instance reference.
-		 * 
+		 *
 		 * @tparam T The Component class
 		 */
 		template<typename T>
@@ -114,7 +114,7 @@ namespace ecstasy {
 
 		/**
 		 * Retrieve a Component from this Entity by class.
-		 * 
+		 *
 		 * @tparam T The Component class
 		 * @return The instance of the specified Component attached to this Entity, or null if no such Component exists.
 		 */
@@ -138,7 +138,7 @@ namespace ecstasy {
 				return nullptr;
 			return componentsByType[componentType];
 		}
-		
+
 		void addInternal (ComponentBase* component);
 		ComponentBase* removeInternal(ComponentType type);
 		void removeAllInternal();
