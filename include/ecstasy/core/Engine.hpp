@@ -115,19 +115,19 @@ namespace ecstasy {
 		Entity* createEntity();
 
 		/**
-		 * Creates and assembles an {@link Entity} using the {@link EntityFactory}.
-		 * In order to add it to the Engine, use {@link addEntity()}.
+		 * Creates and assembles an Entity using the EntityFactory.
+		 * In order to add it to the Engine, use addEntity().
 		 * setEntityFactory must be called before first use.
 		 *
 		 * @param blueprintname The name of the entity blueprint
-		 * @return A fully assembled {@link Entity} or @a nullptr if the assembly failed.
+		 * @return A fully assembled Entity or @a nullptr if the assembly failed.
 		 */
 		Entity* assembleEntity(const std::string& blueprintname);
 
 		/**
-		 * Set the {@link EntityFactory} to use with assembleEntity.
+		 * Set the EntityFactory to use with assembleEntity.
 		 *
-		 * @param entityFactory The new {@link EntityFactory}
+		 * @param entityFactory The new EntityFactory
 		 */
 		void setEntityFactory(std::shared_ptr<EntityFactory> entityFactory) {
 			this->entityFactory = entityFactory;

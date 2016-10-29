@@ -40,17 +40,18 @@ namespace ecstasy {
 		/**
 		 * Add a component factory
 		 *
-		 * @tparam T the {@link ComponentFactory} class
-		 * @param name the name used to identify a {@link Component}
-		 * @param args the arguments to pass to the {@link ComponentFactory} constructor
+		 * @tparam T the ComponentFactory class
+		 * @param name the name used to identify a Component
+		 * @param args the arguments to pass to the ComponentFactory constructor
+		 * @todo Make sure T extends ComponentFactory
 		 */
-		template <typename T, typename ... Args>//fixme: make sure it extends ComponentFactory
+		template <typename T, typename ... Args>
 		void addComponentFactory(const std::string& name, Args && ... args) {
 			componentFactories[name] = std::make_unique<T>();
 		}
 
 		/**
-		 * @param name the name used to identify the {@link EntityBlueprint}
+		 * @param name the name used to identify the EntityBlueprint
 		 * @param blueprint the blueprint
 		 */
 		void addEntityBlueprint(const std::string& name, std::shared_ptr<EntityBlueprint> blueprint){
@@ -61,7 +62,7 @@ namespace ecstasy {
 		 * Add all {@link Component}s found in a blueprint to the supplied entity.
 		 *
 		 * @param entity the entity to add the {@link Component}s to.
-		 * @param blueprintname the name used to identify the {@link EntityBlueprint}
+		 * @param blueprintname the name used to identify the EntityBlueprint
 		 * @return @a true on success.
 		 */
 		bool assemble(Entity* entity, const std::string& blueprintname);

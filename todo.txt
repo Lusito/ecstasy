@@ -1,4 +1,3 @@
-documentation for memory manager
-use @link more in documentation
 build documentation
-wiki cleanup
+more wiki pages
+separate Signal11 into separate repository, add more documentation.

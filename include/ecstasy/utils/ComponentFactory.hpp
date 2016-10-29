@@ -26,9 +26,9 @@ namespace ecstasy {
 	class ComponentFactory {
 	public:
 		/**
-		 * Create a {@link Component} based on the blueprint and add it to the {@link Entity}.
+		 * Create a Component based on the blueprint and add it to the Entity.
 		 *
-		 * @param entity the {@link Entity} to add the {@link Component} to.
+		 * @param entity the Entity to add the Component to.
 		 * @param blueprint the blueprint
 		 * @return @a true on success.
 		 */
@@ -36,8 +36,8 @@ namespace ecstasy {
 	};
 
 	/**
-	 * A template {@link ComponentFactory} implementation for simple components which don't need to read
-	 * data from the blueprint.
+	 * A template ComponentFactory implementation for simple components
+	 * which don't need to read data from the blueprint.
 	 */
 	template<typename T>
 	class SimpleComponentFactory : public ComponentFactory {

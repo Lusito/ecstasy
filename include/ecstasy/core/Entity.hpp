@@ -22,7 +22,7 @@
 
 namespace ecstasy {
 	/**
-	 * Simple containers of {@link Component}s that give them "data".
+	 * Simple containers of {@link Component Components} that give them "data".
 	 * The component's data is then processed by {@link EntitySystem}s.
 	 */
 	class Entity {
@@ -75,7 +75,7 @@ namespace ecstasy {
 		}
 
 		/**
-		 * Add a component. This will be freed on removal. Prefer {@link emplace()} instead
+		 * Add a component. This will be freed on removal. Prefer emplace() instead
 		 *
 		 * @warning The component must be created using the engines memory manager!
 		 * @param component the component to add

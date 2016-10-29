@@ -23,7 +23,7 @@
 namespace ecstasy {
 	/**
 	 * Stores the name of a component and key/value pairs to construct the component.
-	 * See {@link EntityFactory}.
+	 * See EntityFactory.
 	 */
 	class ComponentBlueprint {
 	private:
@@ -86,8 +86,8 @@ namespace ecstasy {
 	};
 
 	/**
-	 * Stores a list of {@link ComponentBlueprint}s needed to construct an {@link Entity}.
-	 * See {@link EntityFactory}.
+	 * Stores a list of {@link ComponentBlueprint}s needed to construct an Entity.
+	 * See EntityFactory.
 	 */
 	class EntityBlueprint {
 	private:
@@ -97,7 +97,7 @@ namespace ecstasy {
 	public:
 		EntityBlueprint() {}
 		EntityBlueprint(const EntityBlueprint&) = delete;
-		/// @param blueprint shared_ptr to a {@link ComponentBlueprint}.
+		/// @param blueprint shared_ptr to a ComponentBlueprint.
 		void add(std::shared_ptr<ComponentBlueprint> blueprint);
 	};
 }

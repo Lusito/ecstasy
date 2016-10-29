@@ -20,7 +20,8 @@ namespace ecstasy {
 	class Entity;
 
 	/**
-	 * A simple EntitySystem that processes each Entity of a given Family in the order specified by a comparator and
+	 * Like IteratingSystem, but sorted using a comparator.
+	 * It processes each Entity of a given Family in the order specified by a comparator and
 	 * calls processEntity() for each Entity every time the EntitySystem is updated. This is really just a convenience
 	 * class as rendering systems tend to iterate over a list of entities in a sorted manner. Adding entities will cause
 	 * the entity list to be resorted. Call forceSort() if you changed your sorting criteria.
