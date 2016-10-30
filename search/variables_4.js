@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['type',['type',['../struct_e_c_s_1_1_component_base.html#a853f772768c10e52b7c8368abc21876f',1,'ECS::ComponentBase::type()'],['../class_e_c_s_1_1_entity_system_base.html#aae2e6f5c57b0fe237cc1d96ee9addb3b',1,'ECS::EntitySystemBase::type()']]]
+  ['memoryalign',['memoryAlign',['../structecstasy_1_1_component_base.html#a6c222dcccd8645ef5cab93a89ab07718',1,'ecstasy::ComponentBase']]],
+  ['memoryleakdetected',['memoryLeakDetected',['../classecstasy_1_1_memory_page.html#ad6366ac8b060ca8c92a3622c58914145',1,'ecstasy::MemoryPage']]],
+  ['memorysize',['memorySize',['../structecstasy_1_1_component_base.html#a96c02c3c38c8779d426753607bbf4c8d',1,'ecstasy::ComponentBase']]]
 ];

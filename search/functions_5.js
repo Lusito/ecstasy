@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['flip',['flip',['../class_e_c_s_1_1_bits.html#ae133d64bb9f14abeb44bb62fd64505fd',1,'ECS::Bits']]],
-  ['forcesort',['forceSort',['../class_e_c_s_1_1_sorted_iterating_system.html#a4fe87421353dbb5d6ddc2b3422fb51b9',1,'ECS::SortedIteratingSystem']]],
-  ['free',['free',['../class_e_c_s_1_1_pool.html#ab103790322a2559c807778735d710d09',1,'ECS::Pool']]],
-  ['freecomponent',['freeComponent',['../class_e_c_s_1_1_component_allocator.html#a56265390721406b0eca11c74a700f803',1,'ECS::ComponentAllocator']]]
+  ['flip',['flip',['../classecstasy_1_1_bits.html#a63e6d2271981022920b00db3268b20f4',1,'ecstasy::Bits']]],
+  ['forcesort',['forceSort',['../classecstasy_1_1_sorted_iterating_system.html#a233d23a4a0720b5f5a92651a0fc1817d',1,'ecstasy::SortedIteratingSystem']]],
+  ['free',['free',['../classecstasy_1_1_memory_page.html#a0a190682b48fa51506bcdb6abf6d1037',1,'ecstasy::MemoryPage::free()'],['../classecstasy_1_1_memory_page_manager.html#aea711b93c068969c94c17595e1e87fe0',1,'ecstasy::MemoryPageManager::free()'],['../classecstasy_1_1_default_memory_manager.html#aac98647f4122a59d45606fd666e862df',1,'ecstasy::DefaultMemoryManager::free()'],['../classecstasy_1_1_memory_manager.html#afc825dd43b22ba97622e6d9c73355e21',1,'ecstasy::MemoryManager::free()']]]
 ];

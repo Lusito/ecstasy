@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['nextclearbit',['nextClearBit',['../class_e_c_s_1_1_bits.html#ac863e23458c3caa00bf23fb94306c2d3',1,'ECS::Bits']]],
-  ['nextsetbit',['nextSetBit',['../class_e_c_s_1_1_bits.html#af851d8c859666f1112037e4e92ca9ace',1,'ECS::Bits']]],
-  ['numbits',['numBits',['../class_e_c_s_1_1_bits.html#a6368d05679395113bb17afd705d5cded',1,'ECS::Bits']]]
+  ['nextclearbit',['nextClearBit',['../classecstasy_1_1_bits.html#a427c6c152bbfaaba3aff88656c240f48',1,'ecstasy::Bits']]],
+  ['nextsetbit',['nextSetBit',['../classecstasy_1_1_bits.html#a3494d0af9356b6924fcd8cf6638de7b5',1,'ecstasy::Bits']]],
+  ['numbits',['numBits',['../classecstasy_1_1_bits.html#adc67264fc1d1a4e61001bbece42f6691',1,'ecstasy::Bits']]]
 ];

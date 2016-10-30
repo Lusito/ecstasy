@@ -1,5 +1,5 @@
 var searchData=
 [
   ['todo_20list',['Todo List',['../todo.html',1,'']]],
-  ['type',['type',['../struct_e_c_s_1_1_component_base.html#a853f772768c10e52b7c8368abc21876f',1,'ECS::ComponentBase::type()'],['../class_e_c_s_1_1_entity_system_base.html#aae2e6f5c57b0fe237cc1d96ee9addb3b',1,'ECS::EntitySystemBase::type()']]]
+  ['type',['type',['../structecstasy_1_1_component_base.html#a6ea706fca0b793bfd621a93c0307122b',1,'ecstasy::ComponentBase::type()'],['../classecstasy_1_1_entity_system_base.html#a54202a90df18db6b9c7e31e4a9ce4d6f',1,'ecstasy::EntitySystemBase::type()']]]
 ];

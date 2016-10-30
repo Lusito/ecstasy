@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['length',['length',['../class_e_c_s_1_1_bits.html#ac6b6687fb260c99d271eade83854f15c',1,'ECS::Bits']]]
+  ['length',['length',['../classecstasy_1_1_bits.html#addb59cd3f354e6f1a68172b3c25f55df',1,'ecstasy::Bits']]]
 ];

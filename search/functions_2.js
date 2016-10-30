@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['checkprocessing',['checkProcessing',['../class_e_c_s_1_1_entity_system_base.html#a87b50c8e937b81aa00aa995f58271e0e',1,'ECS::EntitySystemBase']]],
-  ['clear',['clear',['../class_e_c_s_1_1_bits.html#a8bde8c28f61b6daeb68b2131069049ad',1,'ECS::Bits::clear(int32_t index)'],['../class_e_c_s_1_1_bits.html#a8b6abd0de981755d65eb29db6b56ce8a',1,'ECS::Bits::clear()'],['../class_e_c_s_1_1_pool.html#af50db847c5efcbd5978e14dca372979b',1,'ECS::Pool::clear()']]],
-  ['clearpools',['clearPools',['../class_e_c_s_1_1_engine.html#a4b59dc09da24d84e122545788f5cd4b6',1,'ECS::Engine']]],
+  ['checkprocessing',['checkProcessing',['../classecstasy_1_1_entity_system_base.html#a41c97c9ff876c6fb6f3bba676aa74cad',1,'ecstasy::EntitySystemBase']]],
+  ['clear',['clear',['../classecstasy_1_1_bits.html#a8e059f27439014df822fc7b240da7c43',1,'ecstasy::Bits::clear(int32_t index)'],['../classecstasy_1_1_bits.html#a559d347d68818839027e5ccea4e4312e',1,'ecstasy::Bits::clear()']]],
+  ['componentblueprint',['ComponentBlueprint',['../classecstasy_1_1_component_blueprint.html#ac1a22877db957e757c544d40c34be731',1,'ecstasy::ComponentBlueprint']]],
   ['connect',['connect',['../class_signal11_1_1_lib_1_1_proto_signal_3_01_r_07_args_8_8_8_08_00_01_collector_01_4.html#a0b46aaad8e3d4e3948732bac2ed6920c',1,'Signal11::Lib::ProtoSignal&lt; R(Args...), Collector &gt;']]],
-  ['containsall',['containsAll',['../class_e_c_s_1_1_bits.html#a757edb22bdd80450849510364da2479e',1,'ECS::Bits']]],
-  ['createcomponent',['createComponent',['../class_e_c_s_1_1_component_allocator.html#a7dac95ee313414550a54bbbef2171222',1,'ECS::ComponentAllocator']]],
-  ['createentity',['createEntity',['../class_e_c_s_1_1_engine.html#af98c25ea23b91bba762b287c219756b1',1,'ECS::Engine']]]
+  ['containsall',['containsAll',['../classecstasy_1_1_bits.html#a73be4136862252dbdc0545c5cc363219',1,'ecstasy::Bits']]],
+  ['create',['create',['../classecstasy_1_1_entity.html#aa6844cb388f2e5f5d260a902e0adf542',1,'ecstasy::Entity']]],
+  ['createentity',['createEntity',['../classecstasy_1_1_engine.html#a328361026957ae5a9db6859d85b9135e',1,'ecstasy::Engine']]]
 ];

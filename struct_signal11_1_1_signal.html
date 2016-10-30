@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.10"/>
-<title>ECS-tasy: Signal11::Signal&lt; SignalSignature, Collector &gt; Struct Template Reference</title>
+<title>ecstasy: Signal11::Signal&lt; SignalSignature, Collector &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,7 +24,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">ECS-tasy
+   <div id="projectname">ecstasy
    &#160;<span id="projectnumber">(beta)</span>
    </div>
    <div id="projectbrief">An Entity Component System for C++</div>
@@ -99,7 +99,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="_signal_8h_source.html">signal11/Signal.h</a>&gt;</code></p>
+<p><a class="el" href="struct_signal11_1_1_signal.html" title="Signal is a template type providing an interface for arbitrary callback lists. ">Signal</a> is a template type providing an interface for arbitrary callback lists.  
+ <a href="struct_signal11_1_1_signal.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_signal_8hpp_source.html">signal11/Signal.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -114,7 +117,7 @@ typedef ProtoSignal::CallbackFunction&#160;</td><td class="memItemRight" valign=
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a3c68caec691ac7dfd10f76ef01d67c46"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3c68caec691ac7dfd10f76ef01d67c46"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_signal11_1_1_signal.html#a3c68caec691ac7dfd10f76ef01d67c46">Signal</a> (const CallbackFunction &amp;method=CallbackFunction())</td></tr>
-<tr class="memdesc:a3c68caec691ac7dfd10f76ef01d67c46"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="struct_signal11_1_1_signal.html">Signal</a> constructor, supports a default callback as argument. <br /></td></tr>
+<tr class="memdesc:a3c68caec691ac7dfd10f76ef01d67c46"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="struct_signal11_1_1_signal.html" title="Signal is a template type providing an interface for arbitrary callback lists. ">Signal</a> constructor, supports a default callback as argument. <br /></td></tr>
 <tr class="separator:a3c68caec691ac7dfd10f76ef01d67c46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e69406deb095e4f7b3d6a624fad3c10"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3e69406deb095e4f7b3d6a624fad3c10"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Signal</b> (<a class="el" href="struct_signal11_1_1_signal.html">Signal</a> &amp;&amp;other)</td></tr>
@@ -127,7 +130,8 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><h3>template&lt;typename SignalSignature, class Collector = Lib::CollectorDefault&lt;typename std::function&lt;SignalSignature&gt;::result_type&gt;&gt;<br />
 struct Signal11::Signal&lt; SignalSignature, Collector &gt;</h3>
 
-<p><a class="el" href="struct_signal11_1_1_signal.html">Signal</a> is a template type providing an interface for arbitrary callback lists. A signal type needs to be declared with the function signature of its callbacks, and optionally a return result collector class type. <a class="el" href="struct_signal11_1_1_signal.html">Signal</a> callbacks can be added with operator+= to a signal and removed with operator-=, using a callback connection ID return by operator+= as argument. The callbacks of a signal are invoked with the emit() method and arguments according to the signature. The result returned by emit() depends on the signal collector class. By default, the result of the last callback is returned from emit(). Collectors can be implemented to accumulate callback results or to halt a running emissions in correspondance to callback results. The signal implementation is safe against recursion, so callbacks may be removed and added during a signal emission and recursive emit() calls are also safe. The overhead of an unused signal is intentionally kept very low, around the size of a single pointer. Note that the <a class="el" href="struct_signal11_1_1_signal.html">Signal</a> template types is non-copyable. </p>
+<p><a class="el" href="struct_signal11_1_1_signal.html" title="Signal is a template type providing an interface for arbitrary callback lists. ">Signal</a> is a template type providing an interface for arbitrary callback lists. </p>
+<p>A signal type needs to be declared with the function signature of its callbacks, and optionally a return result collector class type. <a class="el" href="struct_signal11_1_1_signal.html" title="Signal is a template type providing an interface for arbitrary callback lists. ">Signal</a> callbacks can be added with operator+= to a signal and removed with operator-=, using a callback connection ID return by operator+= as argument. The callbacks of a signal are invoked with the emit() method and arguments according to the signature. The result returned by emit() depends on the signal collector class. By default, the result of the last callback is returned from emit(). Collectors can be implemented to accumulate callback results or to halt a running emissions in correspondance to callback results. The signal implementation is safe against recursion, so callbacks may be removed and added during a signal emission and recursive emit() calls are also safe. The overhead of an unused signal is intentionally kept very low, around the size of a single pointer. Note that the <a class="el" href="struct_signal11_1_1_signal.html" title="Signal is a template type providing an interface for arbitrary callback lists. ">Signal</a> template types is non-copyable. </p>
 </div><div class="dynheader">
 Inheritance diagram for Signal11::Signal&lt; SignalSignature, Collector &gt;:</div>
 <div class="dyncontent">
@@ -138,7 +142,7 @@ Inheritance diagram for Signal11::Signal&lt; SignalSignature, Collector &gt;:</d
 </map>
  </div></div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>E:/coding/studium/ECS-tasy/project/include/signal11/<a class="el" href="_signal_8h_source.html">Signal.h</a></li>
+<li>E:/coding/studium/ECS-tasy/project/include/signal11/<a class="el" href="_signal_8hpp_source.html">Signal.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

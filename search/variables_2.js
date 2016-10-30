@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['flags',['flags',['../class_e_c_s_1_1_entity.html#a108fc608114f9b0b8d82baa2dbe227d3',1,'ECS::Entity']]]
+  ['flags',['flags',['../classecstasy_1_1_entity.html#a62a40d58dfd0b70ca82ec60142b5ab5a',1,'ecstasy::Entity']]]
 ];

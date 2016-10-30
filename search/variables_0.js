@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['componentadded',['componentAdded',['../class_e_c_s_1_1_engine.html#a09a02a8baee15ab6223051857f233f16',1,'ECS::Engine']]],
-  ['componentremoved',['componentRemoved',['../class_e_c_s_1_1_engine.html#a7ae4c3fe4c447fa04cb58bbf22c1621a',1,'ECS::Engine']]]
+  ['componentadded',['componentAdded',['../classecstasy_1_1_engine.html#af185ae29f986a7b1a7a3a608a1d6f5c1',1,'ecstasy::Engine']]],
+  ['componentremoved',['componentRemoved',['../classecstasy_1_1_engine.html#a3e9d83e3e222bb6d021a01ec370767b8',1,'ecstasy::Engine']]]
 ];
