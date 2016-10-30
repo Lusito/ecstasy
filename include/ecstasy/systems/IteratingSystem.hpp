@@ -15,6 +15,7 @@
 * limitations under the License.
 ******************************************************************************/
 #include <ecstasy/core/EntitySystem.hpp>
+#include <ecstasy/core/Engine.hpp>
 
 namespace ecstasy {
 	class Entity;
