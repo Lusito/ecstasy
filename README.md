@@ -1,6 +1,6 @@
 ![](http://lusito.github.io/ecstasy/ecstasy.png)
 
-[![Build Status](https://travis-ci.org/Lusito/ecstasy.svg?branch=develop)](https://travis-ci.org/Lusito/ecstasy)
+[![Build Status](https://travis-ci.org/Lusito/ecstasy.svg?branch=master)](https://travis-ci.org/Lusito/ecstasy)
 
 A tiny entity framework written in C++. It started as a port of the [Entity Component System](http://www.gamedev.net/page/resources/_/technical/game-programming/understanding-component-entity-systems-r3013) [Ashley](http://github.com/libgdx/ashley/)
 from LibGDX but is not from the same Authors. ecstasy is a high-performance
@@ -14,7 +14,7 @@ We're now running automated unit tests on [Travis-CI](https://travis-ci.org/)
 * [Find out how an ECS works](http://www.gamedev.net/page/resources/_/technical/game-programming/understanding-component-entity-systems-r3013)
 * [Read the wiki](https://github.com/Lusito/ecstasy/wiki)
 * [Refer to the doxygen documentation](http://lusito.github.io/ecstasy/annotated.html)
-* [Read the examples](https://github.com/Lusito/ecstasy/tree/develop/tests)
+* [Read the examples](https://github.com/Lusito/ecstasy/tree/master/tests)
 
 ### Report isssues
 
