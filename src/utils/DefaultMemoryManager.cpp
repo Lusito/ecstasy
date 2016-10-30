@@ -147,18 +147,20 @@ namespace ecstasy {
 
 	void* DefaultMemoryManager::allocate(uint32_t size, uint32_t align) {
 		size = getMemoryUnitSize(size, align);
-		auto it = managers.find(size);
+		uint64_t key = static_cast<uint64_t>(size) << 32 | align;
+		auto it = managers.find(key);
 		MemoryPageManager *manager;
 		if(it != managers.end())
 			manager = it->second.get();
 		else
-			manager = managers.emplace(size, std::make_unique<MemoryPageManager>(size, align)).first->second.get();
+			manager = managers.emplace(key, std::make_unique<MemoryPageManager>(size, align)).first->second.get();
 		return manager->allocate();
 	}
 
 	void DefaultMemoryManager::free(uint32_t size, uint32_t align, void* memory) {
 		size = getMemoryUnitSize(size, align);
-		auto it = managers.find(size);
+		uint64_t key = static_cast<uint64_t>(size) << 32 | align;
+		auto it = managers.find(key);
 		if(it == managers.end())
 			throw std::invalid_argument("Trying to free memory which does not belong to this memory manager");
 		else {
@@ -192,7 +194,8 @@ namespace ecstasy {
 
 	uint32_t DefaultMemoryManager::getAllocationCount(uint32_t size, uint32_t align) const {
 		size = getMemoryUnitSize(size, align);
-		auto it = managers.find(size);
+		uint64_t key = static_cast<uint64_t>(size) << 32 | align;
+		auto it = managers.find(key);
 		if(it == managers.end())
 			return 0;
 		return it->second.get()->getAllocationCount();
@@ -200,7 +203,8 @@ namespace ecstasy {
 
 	uint32_t DefaultMemoryManager::getPageCount(uint32_t size, uint32_t align) const {
 		size = getMemoryUnitSize(size, align);
-		auto it = managers.find(size);
+		uint64_t key = static_cast<uint64_t>(size) << 32 | align;
+		auto it = managers.find(key);
 		if(it == managers.end())
 			return 0;
 		return it->second.get()->getPageCount();

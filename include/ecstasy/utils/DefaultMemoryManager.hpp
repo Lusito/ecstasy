@@ -158,7 +158,7 @@ namespace ecstasy {
 	 */
 	class DefaultMemoryManager : public MemoryManager {
 	private:
-		std::map<uint32_t, std::unique_ptr<MemoryPageManager>> managers;
+		std::map<uint64_t, std::unique_ptr<MemoryPageManager>> managers;
 
 	public:
 		DefaultMemoryManager() {}
