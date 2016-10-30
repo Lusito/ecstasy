@@ -55,7 +55,8 @@ namespace ecstasy {
 
 			engine->componentRemoved.emit(this, component);
 
-			memoryManager->free(component->memorySize, component);
+			component->~ComponentBase();
+			memoryManager->free(component->memorySize, component->memoryAlign, component);
 		}
 		return component;
 	}

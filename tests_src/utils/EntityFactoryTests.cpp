@@ -92,6 +92,7 @@ namespace EntityFactoryTests {
 	}
 
 	NS_TEST_CASE("test_entity_factory_good") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		auto entity = testFactoryInit("tests_assets/good.def", engine);
 
@@ -103,9 +104,12 @@ namespace EntityFactoryTests {
 		REQUIRE(render->color == "FF0000");
 		auto label = entity->get<LabelComponent>();
 		REQUIRE(label->message == "a full blown message");
+		engine.addEntity(entity);
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("test_entity_factory_good_defaults") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		auto entity = testFactoryInit("tests_assets/good_defaults.def", engine);
 
@@ -117,5 +121,7 @@ namespace EntityFactoryTests {
 		REQUIRE(render->color == "FFFFFF");
 		auto label = entity->get<LabelComponent>();
 		REQUIRE(label->message == "no message");
+		engine.addEntity(entity);
+		TEST_MEMORY_LEAK_END
 	}
 }

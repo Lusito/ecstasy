@@ -142,6 +142,7 @@ namespace FamilyTests {
 	}
 
 	NS_TEST_CASE("entityMatch") {
+		TEST_MEMORY_LEAK_START
 		auto &family = Family::all<ComponentA, ComponentB>().get();
 
 		Engine engine;
@@ -155,9 +156,11 @@ namespace FamilyTests {
 		entity->emplace<ComponentC>();
 
 		REQUIRE(family.matches(entity));
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("entityMismatch") {
+		TEST_MEMORY_LEAK_START
 		auto &family = Family::all<ComponentA, ComponentC>().get();
 
 		Engine engine;
@@ -171,9 +174,11 @@ namespace FamilyTests {
 		entity->remove<ComponentB>();
 
 		REQUIRE(!family.matches(entity));
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("entityMatchThenMismatch") {
+		TEST_MEMORY_LEAK_START
 		auto &family = Family::all<ComponentA, ComponentB>().get();
 
 		Engine engine;
@@ -187,9 +192,11 @@ namespace FamilyTests {
 		entity->remove<ComponentA>();
 
 		REQUIRE(!family.matches(entity));
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("entityMismatchThenMatch") {
+		TEST_MEMORY_LEAK_START
 		auto &family = Family::all<ComponentA, ComponentB>().get();
 
 		Engine engine;
@@ -203,17 +210,21 @@ namespace FamilyTests {
 		entity->emplace<ComponentB>();
 
 		REQUIRE(family.matches(entity));
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("testEmptyFamily") {
+		TEST_MEMORY_LEAK_START
 		auto &family = Family::all().get();
 		Engine engine;
 		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 		REQUIRE(family.matches(entity));
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("familyFiltering") {
+		TEST_MEMORY_LEAK_START
 		auto &family1 = Family::all<ComponentA, ComponentB>().one<ComponentC, ComponentD>()
 			.exclude<ComponentE, ComponentF>().get();
 
@@ -257,9 +268,11 @@ namespace FamilyTests {
 
 		REQUIRE(!family1.matches(entity));
 		REQUIRE(family2.matches(entity));
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("matchWithEngine") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		engine.emplaceSystem<TestSystemA>("A");
 		engine.emplaceSystem<TestSystemA>("B");
@@ -272,9 +285,11 @@ namespace FamilyTests {
 		auto &f = Family::all<ComponentB>().exclude<ComponentA>().get();
 
 		REQUIRE(!f.matches(e));
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("matchWithEngineInverse") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		engine.emplaceSystem<TestSystemA>("A");
@@ -288,9 +303,11 @@ namespace FamilyTests {
 		auto &f = Family::all<ComponentA>().exclude<ComponentB>().get();
 
 		REQUIRE(!f.matches(e));
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("matchWithoutSystems") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		auto e = engine.createEntity();
@@ -301,9 +318,11 @@ namespace FamilyTests {
 		auto &f = Family::all<ComponentB>().exclude<ComponentA>().get();
 
 		REQUIRE(!f.matches(e));
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("matchWithComplexBuilding") {
+		TEST_MEMORY_LEAK_START
 		auto &family = Family::all<ComponentB>().one<ComponentA>().exclude<ComponentC>().get();
 		Engine engine;
 		Entity* entity = engine.createEntity();
@@ -314,5 +333,6 @@ namespace FamilyTests {
 		REQUIRE(family.matches(entity));
 		entity->emplace<ComponentC>();
 		REQUIRE(!family.matches(entity));
+		TEST_MEMORY_LEAK_END
 	}
 }

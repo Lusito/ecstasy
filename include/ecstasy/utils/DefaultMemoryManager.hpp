@@ -22,43 +22,46 @@
 
 namespace ecstasy {
 	/**
-	 * A structure to hold memory for up to 64 allocations of a specified unit-size
-	 * 
-	 * @todo in debug build, mark bytes as clear (0xCC), allocated(0xAA), deallocated(0xDD)?
-	 * @todo Align data correctly
+	 * Unit size must be the memory size plus some metadata-bytes, adjusted to a multiple of the memory alignment
+	 *
+	 * @param size The memory size to adjust
+	 * @param align The memory alignment to adjust to
+	 * @return The adjusted value
 	 */
-	struct MemoryPage {
+	uint32_t getMemoryUnitSize(uint32_t size, uint32_t align);
+
+	/**
+	 * A structure to hold memory for up to 64 allocations of a specified unit-size
+	 *
+	 * @todo in debug build, mark bytes as clear (0xCC), allocated(0xAA), deallocated(0xDD)?
+	 */
+	class MemoryPage {
+	public:
 		/// Set to true when {@~MemoryPage()} detects a memory leak.
 		static bool memoryLeakDetected;
 
-		/// The unit size to allocate
+	private:
+		uint16_t listIndex;
 		uint32_t unitSize;
-
-		/// The number of free memory units.
 		uint8_t freeUnits = 64;
-
-		/// The original memory pointer to be deleted on destruction
 		char* memory;
-
-		/// memory + dataOffset
 		char* dataStart;
-
-		/// dataStart + unitSize*64
 		char* dataEnd;
-
-		/// Bitmap to show which memory unit are free.
 		uint64_t bitflags = 0xFFFFFFFFFFFFFFFF;
-
-		/// To correctly align memory, data must be offset. This stores how big the offset is.
 		uint64_t dataOffset = 0;
 
-		/// @param unitSize The unit size to allocate
-		MemoryPage(uint32_t unitSize);
+	public:
+		/**
+		 * @param listIndex The index of this page in MemoryPageManager
+		 * @param unitSize The unit size to allocate. Use getMemoryUnitSize()
+		 * @param align The memory alignment to adjust to
+		 */
+		MemoryPage(uint16_t listIndex, uint32_t unitSize, uint32_t align);
 		~MemoryPage();
 
 		/**
 		 * Allocate enough memory for the unit-size.
-		 * 
+		 *
 		 * @return A pointer to the allocated memory.
 		 * @throws std::bad_alloc when the allocation could not be made.
 		 */
@@ -66,7 +69,7 @@ namespace ecstasy {
 
 		/**
 		 * Check if the specified memory belongs to this page.
-		 * 
+		 *
 		 * @return @a true if memory belongs to this page
 		 * @param memory The memory to check.
 		 */
@@ -74,10 +77,28 @@ namespace ecstasy {
 
 		/**
 		 * Free previously allocated memory.
-		 * 
+		 *
 		 * @param memory The memory to be freed.
 		 */
 		void free(void* memory);
+
+		/// @return The index of this page
+		uint16_t getListIndex() const {
+			return listIndex;
+		}
+
+		/// @param newIndex The index of this page
+		void setListIndex(uint16_t newIndex);
+
+		/// @return The number of free memory units.
+		uint8_t getFreeUnits() const {
+			return freeUnits;
+		}
+
+		/// @return Bitmap to show which memory unit are free.
+		uint64_t getBitflags() const {
+			return bitflags;
+		}
 	};
 
 	/**
@@ -86,13 +107,19 @@ namespace ecstasy {
 	class MemoryPageManager {
 	private:
 		uint32_t unitSize;
+		uint32_t align;
 		uint32_t allocationCount = 0;
 		std::vector<std::unique_ptr<MemoryPage>> pages;
 		std::vector<MemoryPage*> freePages;
 
 	public:
-		/// @param unitSize The unit size to allocate
-		MemoryPageManager(uint32_t unitSize) : unitSize(unitSize) {}
+		/**
+		 * Default constructor
+		 *
+		 * @param unitSize The unit size to allocate. Use getMemoryUnitSize()
+		 * @param align The memory alignment to adjust to
+		 */
+		MemoryPageManager(uint32_t unitSize, uint32_t align) : unitSize(unitSize), align(align) {}
 		MemoryPageManager(const MemoryPageManager &) = delete;
 		~MemoryPageManager() {}
 
@@ -108,7 +135,7 @@ namespace ecstasy {
 
 		/**
 		 * Allocate enough memory for the unit-size.
-		 * 
+		 *
 		 * @return A pointer to the allocated memory.
 		 * @throws std::bad_alloc when the allocation could not be made.
 		 */
@@ -116,7 +143,7 @@ namespace ecstasy {
 
 		/**
 		 * Free previously allocated memory.
-		 * 
+		 *
 		 * @param memory The memory to be freed.
 		 */
 		void free(void* memory);
@@ -138,8 +165,8 @@ namespace ecstasy {
 		DefaultMemoryManager(const DefaultMemoryManager &) = delete;
 		~DefaultMemoryManager() {}
 
-		void* allocate(uint32_t size) override;
-		void free(uint32_t size, void* memory) override;
+		void* allocate(uint32_t size, uint32_t align) override;
+		void free(uint32_t size, uint32_t align, void* memory) override;
 		void reduceMemory() override;
 		uint32_t getAllocationCount() const override;
 
@@ -148,18 +175,20 @@ namespace ecstasy {
 
 		/**
 		 * Call MemoryPageManager::getAllocationCount() on the MemoryPageManager used for the specified size.
-		 * 
+		 *
 		 * @param size The size used to allocate memory.
+		 * @param align The align used to allocate memory.
 		 * @return The number of allocations currently in use for the specified size.
 		 */
-		uint32_t getAllocationCount(uint32_t size) const;
+		uint32_t getAllocationCount(uint32_t size, uint32_t align) const;
 
 		/**
 		 * Call MemoryPageManager::getPageCount() on the MemoryPageManager used for the specified size.
-		 * 
+		 *
 		 * @param size The size used to allocate memory.
+		 * @param align The align used to allocate memory.
 		 * @return The number of {@link MemoryPage}s currently in use for the specified size.
 		 */
-		uint32_t getPageCount(uint32_t size) const;
+		uint32_t getPageCount(uint32_t size, uint32_t align) const;
 	};
 }

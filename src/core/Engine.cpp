@@ -193,7 +193,7 @@ namespace ecstasy {
 		if (entity->getId() == 0) {
 			if (entity->engine == this) {
 				entity->~Entity();
-				memoryManager->free(sizeof(Entity), entity);
+				memoryManager->free(sizeof(Entity), alignof(Entity), entity);
 			}
 			return;
 		}
@@ -227,7 +227,7 @@ namespace ecstasy {
 		notifying = false;
 
 		entity->~Entity();
-		memoryManager->free(sizeof(Entity), entity);
+		memoryManager->free(sizeof(Entity), alignof(Entity), entity);
 	}
 
 	void Engine::addEntityInternal(Entity* entity) {
@@ -279,7 +279,7 @@ namespace ecstasy {
 	}
 
 	Entity* Engine::createEntity() {
-		auto memory = memoryManager->allocate(sizeof(Entity));
+		auto memory = memoryManager->allocate(sizeof(Entity), alignof(Entity));
 		auto entity = new(memory)Entity();
 		entity->engine = this;
 		entity->memoryManager = memoryManager.get();
@@ -293,7 +293,7 @@ namespace ecstasy {
 		auto entity = createEntity();
 		if(!entityFactory->assemble(entity, blueprintname)) {
 			entity->~Entity();
-			memoryManager->free(sizeof(Entity), entity);
+			memoryManager->free(sizeof(Entity), alignof(Entity), entity);
 			entity = nullptr;
 		}
 		return entity;

@@ -171,6 +171,7 @@ namespace EngineTests {
 	};
 
 	NS_TEST_CASE("addAndRemoveEntity") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		EntityListenerMock listenerA;
@@ -203,9 +204,11 @@ namespace EngineTests {
 
 		REQUIRE(2 == listenerA.removedCount);
 		REQUIRE(2 == listenerB.removedCount);
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("addAndRemoveSystem") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		MockLog logA;
 		MockLog logB;
@@ -228,9 +231,11 @@ namespace EngineTests {
 		REQUIRE(!engine.getSystem<EntitySystemMockB>());
 		REQUIRE(1 == logA.removedCalls);
 		REQUIRE(1 == logB.removedCalls);
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("getSystems") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		MockLog logA;
 		MockLog logB;
@@ -241,9 +246,11 @@ namespace EngineTests {
 		engine.emplaceSystem<EntitySystemMockB>(logB);
 
 		REQUIRE(2 == engine.getSystems().size());
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("systemUpdate") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		MockLog logA;
 		MockLog logB;
@@ -274,8 +281,11 @@ namespace EngineTests {
 			REQUIRE((i + 1 + numUpdates) == logA.updateCalls);
 			REQUIRE(numUpdates == logB.updateCalls);
 		}
+		TEST_MEMORY_LEAK_END
 	}
+
 	NS_TEST_CASE("systemUpdateOrder") {
+		TEST_MEMORY_LEAK_START
 		std::vector<int> updates;
 
 		Engine engine;
@@ -295,9 +305,11 @@ namespace EngineTests {
 			REQUIRE(value >= previous);
 			previous = value;
 		}
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("ignoreSystem") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		MockLog log;
 
@@ -310,9 +322,11 @@ namespace EngineTests {
 			engine.update(deltaTime);
 			REQUIRE((i / 2 + 1) == log.updateCalls);
 		}
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("entitiesForFamily") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		auto &family = Family::all<ComponentA, ComponentB>().get();
@@ -349,9 +363,11 @@ namespace EngineTests {
 		REQUIRE(contains(*familyEntities, entity3));
 		REQUIRE(contains(*familyEntities, entity4));
 		REQUIRE(!contains(*familyEntities, entity2));
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("entityForFamilyWithRemoval") {
+		TEST_MEMORY_LEAK_START
 		// Test for issue #13
 		Engine engine;
 
@@ -369,9 +385,11 @@ namespace EngineTests {
 
 		REQUIRE(entities->empty());
 		REQUIRE(!contains(*entities, entity));
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("entitiesForFamilyAfter") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		auto &family = Family::all<ComponentA, ComponentB>().get();
@@ -408,9 +426,11 @@ namespace EngineTests {
 		REQUIRE(contains(*familyEntities, entity3));
 		REQUIRE(contains(*familyEntities, entity4));
 		REQUIRE(!contains(*familyEntities, entity2));
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("entitiesForFamilyWithRemoval") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		auto &family = Family::all<ComponentA, ComponentB>().get();
@@ -454,9 +474,11 @@ namespace EngineTests {
 		REQUIRE(!contains(*familyEntities, entity1));
 		REQUIRE(!contains(*familyEntities, entity3));
 		REQUIRE(!contains(*familyEntities, entity2));
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("entitiesForFamilyWithRemovalAndFiltering") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		auto entitiesWithComponentAOnly = engine.getEntitiesFor(Family::all<ComponentA>()
@@ -482,9 +504,11 @@ namespace EngineTests {
 
 		REQUIRE(2 == entitiesWithComponentAOnly->size());
 		REQUIRE(entitiesWithComponentB->empty());
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("entitySystemRemovalWhileIterating") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		engine.emplaceSystem<CounterSystem>();
@@ -506,9 +530,11 @@ namespace EngineTests {
 		for (auto e : *entities) {
 			REQUIRE(1 == e->get<CounterComponent>()->counter);
 		}
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("familyListener") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		EntityListenerMock listenerA;
@@ -578,9 +604,11 @@ namespace EngineTests {
 
 		refBAdded.enable();
 		refBRemoved.enable();
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("createManyEntitiesNoStackOverflow") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		engine.emplaceSystem<CounterSystem>();
 
@@ -591,9 +619,11 @@ namespace EngineTests {
 		}
 
 		engine.update(0);
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("getEntityById") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		Entity* entity = engine.createEntity();
 
@@ -613,9 +643,11 @@ namespace EngineTests {
 		engine.removeEntity(entity);
 
 		REQUIRE(!engine.getEntity(entityId));
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("getEntities") {
+		TEST_MEMORY_LEAK_START
 		int numEntities = 10;
 
 		Engine engine;
@@ -638,17 +670,21 @@ namespace EngineTests {
 		engine.removeAllEntities();
 
 		REQUIRE(engineEntities->empty());
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("addEntityTwice") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
 
 		REQUIRE_THROWS_AS( engine.addEntity(entity), std::invalid_argument );
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("addTwoSystemsOfSameClass") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		MockLog log1;
 		MockLog log2;
@@ -663,9 +699,11 @@ namespace EngineTests {
 
 		REQUIRE(1 == engine.getSystems().size());
 		REQUIRE(system2 == engine.getSystem<EntitySystemMockA>());
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("entityRemovalListenerOrder") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		auto combinedSystem = engine.emplaceSystem<CombinedSystem>(&engine);
@@ -688,17 +726,21 @@ namespace EngineTests {
 			engine.update(deltaTime);
 
 		engine.removeAllEntities();
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("removeEntityTwice") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		engine.emplaceSystem<RemoveEntityTwiceSystem>();
 
 		for (int j = 0; j < 2; j++)
 			engine.update(0);
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("destroyEntity") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		auto entity = engine.createEntity();
 		engine.addEntity(entity);
@@ -707,9 +749,11 @@ namespace EngineTests {
 		REQUIRE(memoryManager->getAllocationCount() == 1);
 		entity->destroy();
 		REQUIRE(memoryManager->getAllocationCount() == 0);
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("removeEntities") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		int numEntities = 200;
@@ -730,5 +774,6 @@ namespace EngineTests {
 			engine.removeEntity(entity);
 		}
 		REQUIRE(memoryManager->getAllocationCount() == 0);
+		TEST_MEMORY_LEAK_END
 	}
 }

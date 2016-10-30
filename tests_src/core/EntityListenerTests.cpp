@@ -20,6 +20,7 @@ namespace EntityListenerTests {
 	struct PositionComponent : public Component<PositionComponent> {};
 
 	NS_TEST_CASE("Add EntityListener Family Remove") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		Entity* e = engine.createEntity();
@@ -32,9 +33,11 @@ namespace EntityListenerTests {
 		});
 
 		engine.removeEntity(e);
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("addEntityListenerFamilyAdd") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		Entity* e = engine.createEntity();
@@ -48,9 +51,11 @@ namespace EntityListenerTests {
 		engine.addEntity(e);
 		ref.disconnect();
 		engine.removeAllEntities();
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("addEntityListenerNoFamilyRemove") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		Entity* e = engine.createEntity();
@@ -65,9 +70,11 @@ namespace EntityListenerTests {
 
 		engine.removeEntity(e);
 		ref.disconnect();
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("addEntityListenerNoFamilyAdd") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		Entity* e = engine.createEntity();
@@ -81,6 +88,7 @@ namespace EntityListenerTests {
 		});
 
 		engine.addEntity(e);
+		TEST_MEMORY_LEAK_END
 	}
 
 	class EntityRemoverSystem : public EntitySystem<EntityRemoverSystem> {
@@ -95,6 +103,7 @@ namespace EntityListenerTests {
 	};
 
 	NS_TEST_CASE("Remove entity during entity removal") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		Entity* e1 = engine.createEntity();
@@ -109,5 +118,6 @@ namespace EntityListenerTests {
 				engine.removeEntity(e2);
 		});
 		engine.update(0.16f);
+		TEST_MEMORY_LEAK_END
 	}
 }

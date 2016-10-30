@@ -22,6 +22,7 @@ namespace EntityTests {
 	struct ComponentB : public Component<ComponentB> {};
 
 	NS_TEST_CASE("uniqueIndex") {
+		TEST_MEMORY_LEAK_START
 		int numEntities = 10000;
 		std::set<uint64_t> ids;
 		Engine engine;
@@ -31,9 +32,11 @@ namespace EntityTests {
 			engine.addEntity(entity);
 			REQUIRE(ids.insert(entity->getId()).second);
 		}
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("noComponents") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
@@ -44,9 +47,11 @@ namespace EntityTests {
 		REQUIRE(!entity->get<ComponentB>());
 		REQUIRE(!entity->has<ComponentA>());
 		REQUIRE(!entity->has<ComponentB>());
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("addAndRemoveComponent") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
@@ -79,9 +84,11 @@ namespace EntityTests {
 		REQUIRE(!entity->get<ComponentB>());
 		REQUIRE(!entity->has<ComponentA>());
 		REQUIRE(!entity->has<ComponentB>());
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("addAndRemoveAllComponents") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
@@ -115,9 +122,11 @@ namespace EntityTests {
 		REQUIRE(!entity->get<ComponentB>());
 		REQUIRE(!entity->has<ComponentA>());
 		REQUIRE(!entity->has<ComponentB>());
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("addSameComponent") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
@@ -129,9 +138,11 @@ namespace EntityTests {
 		REQUIRE(entity->has<ComponentA>());
 		REQUIRE(a1 != entity->get<ComponentA>());
 		REQUIRE(a2 == entity->get<ComponentA>());
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("componentListener") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
@@ -161,9 +172,11 @@ namespace EntityTests {
 		entity->remove<ComponentB>();
 
 		REQUIRE(2 == totalRemoves);
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("getComponentByClass") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		Entity* entity = engine.createEntity();
 		engine.addEntity(entity);
@@ -179,5 +192,6 @@ namespace EntityTests {
 
 		REQUIRE(retA == compA);
 		REQUIRE(retB == compB);
+		TEST_MEMORY_LEAK_END
 	}
 }

@@ -19,6 +19,7 @@
 #include <vector>
 #include <ecstasy/core/EntityOperations.hpp>
 #include <ecstasy/utils/MemoryManager.hpp>
+#include <ecstasy/utils/alignof.hpp>
 
 namespace ecstasy {
 	/**
@@ -64,20 +65,32 @@ namespace ecstasy {
 		void destroy();
 
 		/**
-		 * Emplace a Component, passing through Component constructor arguments.
+		 * Emplace a Component, passing through constructor arguments.
+		 * This is a shorthand for add(create<T>());
 		 *
 		 * @return The added component
 		 */
 		template <typename T, typename ... Args>
 		T* emplace(Args && ... args) {
-			auto memory = memoryManager->allocate(sizeof(T));
+			auto memory = memoryManager->allocate(sizeof(T), alignof(T));
 			return add(new(memory) T(std::forward<Args>(args) ...));
+		}
+
+		/**
+		 * Create a Component without adding it, passing through constructor arguments.
+		 *
+		 * @return The new component
+		 */
+		template <typename T, typename ... Args>
+		T* create(Args && ... args) {
+			auto memory = memoryManager->allocate(sizeof(T), alignof(T));
+			return new(memory) T(std::forward<Args>(args) ...);
 		}
 
 		/**
 		 * Add a component. This will be freed on removal. Prefer emplace() instead
 		 *
-		 * @warning The component must be created using the engines memory manager!
+		 * @warning The component must be created using the engines memory manager! (Preferably using create())
 		 * @param component the component to add
 		 * @return The added component
 		 */

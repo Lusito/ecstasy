@@ -37,6 +37,7 @@ namespace IntervalIteratingSystemTests {
 	};
 
 	NS_TEST_CASE("intervalIteratingSystem") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		auto entities = engine.getEntitiesFor(Family::all<IntervalComponentSpy>().get());
 
@@ -55,5 +56,6 @@ namespace IntervalIteratingSystemTests {
 				REQUIRE((i / 2) == e->get<IntervalComponentSpy>()->numUpdates);
 			}
 		}
+		TEST_MEMORY_LEAK_END
 	}
 }

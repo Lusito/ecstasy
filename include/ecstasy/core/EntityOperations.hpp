@@ -17,6 +17,7 @@
 #include <stdexcept>
 #include <ecstasy/core/Types.hpp>
 #include <ecstasy/utils/MemoryManager.hpp>
+#include <ecstasy/utils/alignof.hpp>
 
 namespace ecstasy {
 	class Entity;
@@ -62,7 +63,7 @@ namespace ecstasy {
 		explicit BaseOperationHandler(Engine& engine, MemoryManager* memoryManager) : engine(engine), memoryManager(memoryManager) {}
 
 		T *createOperation() {
-			auto memory = memoryManager->allocate(sizeof(T));
+			auto memory = memoryManager->allocate(sizeof(T), alignof(T));
 			return new(memory) T();
 		}
 
@@ -80,7 +81,7 @@ namespace ecstasy {
 
 				nextOperation = operation->nextOperation;
 				operation->~T();
-				memoryManager->free(sizeof(T), operation);
+				memoryManager->free(sizeof(T), alignof(T), operation);
 			}
 			nextOperation = nullptr;
 			lastOperation = nullptr;

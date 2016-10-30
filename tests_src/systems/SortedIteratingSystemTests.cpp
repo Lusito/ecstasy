@@ -113,6 +113,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 	};
 
 	NS_TEST_CASE("shouldIterateSortedEntitiesWithCorrectFamily") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		auto &family = Family::all<OrderComponent, ComponentB>().get();
@@ -137,9 +138,11 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		// When entity has ComponentB and ComponentC
 		e->remove<OrderComponent>();
 		engine.update(deltaTime);
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("entityRemovalWhileSortedIterating") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		auto entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
@@ -163,9 +166,11 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		for (auto e: *entities) {
 			REQUIRE(1 == e->get<SpyComponent>()->updates);
 		}
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("componentRemovalWhileSortedIterating") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		auto entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
@@ -189,6 +194,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		for (auto e: *entities) {
 			REQUIRE(1 == e->get<SpyComponent>()->updates);
 		}
+		TEST_MEMORY_LEAK_END
 	}
 
 	Entity* createOrderEntity(std::string name, int zLayer, Engine &engine) {
@@ -198,6 +204,7 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 	}
 
 	NS_TEST_CASE("entityOrder") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		auto &family = Family::all<OrderComponent>().get();
@@ -233,5 +240,6 @@ class IteratingRemovalSystem : public SortedIteratingSystem<IteratingRemovalSyst
 		system->expectedNames.push_back("B");
 		system->expectedNames.push_back("A");
 		engine.update(0);
+		TEST_MEMORY_LEAK_END
 	}
 }

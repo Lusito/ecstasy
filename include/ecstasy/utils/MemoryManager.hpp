@@ -25,20 +25,22 @@ namespace ecstasy {
 	public:
 		/**
 		 * Allocate the specified amount of memory.
-		 * 
+		 *
 		 * @param size The size of memory (in bytes) to allocate
+		 * @param align The align of the memory (in bytes)
 		 * @return A pointer to the allocated memory.
 		 * @throws std::bad_alloc when the allocation could not be made.
 		 */
-		virtual void* allocate(uint32_t size) = 0;
+		virtual void* allocate(uint32_t size, uint32_t align) = 0;
 
 		/**
 		 * Free previously allocated memory.
-		 * 
+		 *
 		 * @param size The <b>same size</b>, which was used to allocate() the memory.
+		 * @param align The align of the memory (in bytes)
 		 * @param memory The memory to be freed.
 		 */
-		virtual void free(uint32_t size, void* memory) = 0;
+		virtual void free(uint32_t size, uint32_t align, void* memory) = 0;
 
 		/// Try to reduce the memory footprint if possible.
 		virtual void reduceMemory() = 0;

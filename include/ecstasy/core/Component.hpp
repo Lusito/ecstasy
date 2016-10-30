@@ -15,6 +15,7 @@
  * limitations under the License.
  ******************************************************************************/
 #include <ecstasy/core/Types.hpp>
+#include <ecstasy/utils/alignof.hpp>
 
 namespace ecstasy {
 	/// Non-Template base-class for Component. Extend Component instead.
@@ -23,13 +24,15 @@ namespace ecstasy {
 		const ComponentType type;
 		/// sizeof(the topmost class)
 		const uint32_t memorySize;
+		/// alignof(the topmost class)
+		const uint32_t memoryAlign;
 		virtual ~ComponentBase() {}
 
 	private:
 		template<typename T> friend struct Component;
 		// Private Constructor so nobody derives from this
-		explicit ComponentBase(ComponentType type, uint32_t memorySize)
-			: type(type), memorySize(memorySize) {}
+		explicit ComponentBase(ComponentType type, uint32_t memorySize, uint32_t memoryAlign)
+			: type(type), memorySize(memorySize), memoryAlign(memoryAlign) {}
 	};
 
 	/**
@@ -40,7 +43,7 @@ namespace ecstasy {
 	 */
 	template<typename T>
 	struct Component : public ComponentBase {
-		Component() : ComponentBase(getComponentType<T>(), sizeof(T)) {}
+		Component() : ComponentBase(getComponentType<T>(), sizeof(T), alignof(T)) {}
 	};
 }
 

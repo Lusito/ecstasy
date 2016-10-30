@@ -17,6 +17,15 @@
 #include <algorithm>
 
 namespace ecstasy {
+	static const uint32_t MEMORY_META_SIZE = sizeof(uint16_t);
+
+	uint32_t getMemoryUnitSize(uint32_t size, uint32_t align) {
+		size += MEMORY_META_SIZE;
+		if (size % align == 0)
+			return size;
+		return (size / align) * align + align;
+	}
+
 	int getFirstSetBit(uint64_t bits) {
 		static const char multiplyDeBruijnBitPosition[64] = {
 			0, 1, 2, 56, 3, 32, 57, 46, 29, 4, 20, 33, 7, 58, 11, 47,
@@ -28,11 +37,12 @@ namespace ecstasy {
 	}
 
 	bool MemoryPage::memoryLeakDetected;
-	MemoryPage::MemoryPage(uint32_t unitSize)
-		: unitSize(unitSize) {
-		uint32_t memorySize = unitSize*64;
-		memory = new char[memorySize]; //fixme: some more for alignment
-		//Fixme: calculate dataOffset
+	MemoryPage::MemoryPage(uint16_t listIndex, uint32_t unitSize, uint32_t align)
+		: listIndex(listIndex), unitSize(unitSize) {
+		uint32_t memorySize = unitSize*64 + align;
+		memory = new char[memorySize];
+		auto rest = reinterpret_cast<uint64_t>(memory) % align;
+		dataOffset = (align - rest);
 		dataStart = memory + dataOffset;
 		dataEnd = dataStart + memorySize;
 	}
@@ -51,9 +61,12 @@ namespace ecstasy {
 		if(((bitflags >> index) & 1ull) == 0)
 			throw std::bad_alloc();
 
-		void* data = memory + dataOffset + index*unitSize;
+		char* data = memory + dataOffset + index*unitSize;
 		bitflags ^= 1ull << index;
 		freeUnits--;
+
+		uint16_t *metaData = reinterpret_cast<uint16_t *>(data + unitSize - MEMORY_META_SIZE);
+		*metaData = listIndex;
 
 		return data;
 	}
@@ -72,26 +85,43 @@ namespace ecstasy {
 		freeUnits++;
 	}
 
+	void MemoryPage::setListIndex(uint16_t newIndex) {
+		if(listIndex != newIndex) {
+			listIndex = newIndex;
+			if(freeUnits != 64) {
+				// Update metaData for all units
+				char *data = dataStart;
+				for(int i=0; i<64; i++) {
+					data += unitSize;
+					uint16_t *metaData = reinterpret_cast<uint16_t *>(data - MEMORY_META_SIZE);
+					*metaData = listIndex;
+				}
+			}
+		}
+	}
+
 	void* MemoryPageManager::allocate() {
 		if(freePages.empty()) {
-			pages.emplace_back(std::make_unique<MemoryPage>(unitSize));
+			pages.emplace_back(std::make_unique<MemoryPage>(static_cast<uint16_t>(pages.size()), unitSize, align));
 			freePages.push_back(pages.back().get());
 		}
 		auto page = freePages.back();
 		void *result = page->allocate();
 		allocationCount++;
-		if(!page->freeUnits)
+		if(!page->getFreeUnits())
 			freePages.pop_back();
 		return result;
 	}
 
 	void MemoryPageManager::free(void* memory) {
-		for(auto& page: pages) {
-			if(page->owns(memory)) {
-				page->free(memory);
+		uint16_t *metaData = reinterpret_cast<uint16_t *>(reinterpret_cast<char *>(memory) + unitSize - MEMORY_META_SIZE);
+		if(*metaData < pages.size()) {
+			auto owningPage = pages[*metaData].get();
+			if(owningPage->owns(memory)) {
+				owningPage->free(memory);
 				allocationCount--;
-				if(page->freeUnits == 1)
-					freePages.push_back(page.get());
+				if(owningPage->getFreeUnits() == 1)
+					freePages.push_back(owningPage);
 				return;
 			}
 		}
@@ -99,29 +129,35 @@ namespace ecstasy {
 	}
 
 	void MemoryPageManager::reduceMemory() {
+		uint16_t removed = 0;
 		for (auto it = pages.cbegin(); it != pages.cend();) {
-			if((*it)->freeUnits == 64) {
-				auto freeIt = std::find(freePages.begin(), freePages.end(), (*it).get());
+			auto page = it->get();
+			if(page->getFreeUnits() == 64) {
+				auto freeIt = std::find(freePages.begin(), freePages.end(), page);
 				if (freeIt != freePages.end())
 					freePages.erase(freeIt);
 				it = pages.erase(it);
+				removed++;
 			} else {
+				page->setListIndex(page->getListIndex() - removed);
 				++it;
 			}
 		}
 	}
 
-	void* DefaultMemoryManager::allocate(uint32_t size) {
+	void* DefaultMemoryManager::allocate(uint32_t size, uint32_t align) {
+		size = getMemoryUnitSize(size, align);
 		auto it = managers.find(size);
 		MemoryPageManager *manager;
 		if(it != managers.end())
 			manager = it->second.get();
 		else
-			manager = managers.emplace(size, std::make_unique<MemoryPageManager>(size)).first->second.get();
+			manager = managers.emplace(size, std::make_unique<MemoryPageManager>(size, align)).first->second.get();
 		return manager->allocate();
 	}
 
-	void DefaultMemoryManager::free(uint32_t size, void* memory) {
+	void DefaultMemoryManager::free(uint32_t size, uint32_t align, void* memory) {
+		size = getMemoryUnitSize(size, align);
 		auto it = managers.find(size);
 		if(it == managers.end())
 			throw std::invalid_argument("Trying to free memory which does not belong to this memory manager");
@@ -154,14 +190,16 @@ namespace ecstasy {
 		return managers.size();
 	}
 
-	uint32_t DefaultMemoryManager::getAllocationCount(uint32_t size) const {
+	uint32_t DefaultMemoryManager::getAllocationCount(uint32_t size, uint32_t align) const {
+		size = getMemoryUnitSize(size, align);
 		auto it = managers.find(size);
 		if(it == managers.end())
 			return 0;
 		return it->second.get()->getAllocationCount();
 	}
 
-	uint32_t DefaultMemoryManager::getPageCount(uint32_t size) const {
+	uint32_t DefaultMemoryManager::getPageCount(uint32_t size, uint32_t align) const {
+		size = getMemoryUnitSize(size, align);
 		auto it = managers.find(size);
 		if(it == managers.end())
 			return 0;

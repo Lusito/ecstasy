@@ -84,6 +84,7 @@ namespace IteratingSystemTests {
 	};
 
 	NS_TEST_CASE("shouldIterateEntitiesWithCorrectFamily") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 
 		auto &family = Family::all<ComponentA, ComponentB>().get();
@@ -117,9 +118,11 @@ namespace IteratingSystemTests {
 		engine.update(deltaTime);
 
 		REQUIRE(0 == system->numUpdates);
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("entityRemovalWhileIterating") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		auto entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
@@ -142,9 +145,11 @@ namespace IteratingSystemTests {
 		for (auto e : *entities) {
 			REQUIRE(1 == e->get<SpyComponent>()->updates);
 		}
+		TEST_MEMORY_LEAK_END
 	}
 
 	NS_TEST_CASE("componentRemovalWhileIterating") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		auto entities = engine.getEntitiesFor(Family::all<SpyComponent, IndexComponent>().get());
 
@@ -167,5 +172,6 @@ namespace IteratingSystemTests {
 		for (auto e : *entities) {
 			REQUIRE(1 == e->get<SpyComponent>()->updates);
 		}
+		TEST_MEMORY_LEAK_END
 	}
 }

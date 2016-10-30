@@ -33,6 +33,7 @@ namespace IntervalSystemTests {
 	};
 
 	NS_TEST_CASE("intervalSystem") {
+		TEST_MEMORY_LEAK_START
 		Engine engine;
 		auto intervalSystemSpy = engine.emplaceSystem<IntervalSystemSpy>();
 
@@ -40,5 +41,6 @@ namespace IntervalSystemTests {
 			engine.update(deltaTime);
 			REQUIRE((i / 2) == intervalSystemSpy->numUpdates);
 		}
+		TEST_MEMORY_LEAK_END
 	}
 }
