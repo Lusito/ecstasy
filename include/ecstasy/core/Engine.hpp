@@ -28,7 +28,7 @@
 namespace ecstasy {
 	class EntityFactory;
 	class EntitySystemBase;
-	class ComponentBase;
+	struct ComponentBase;
 	class Family;
 
 	/// Signal11::Signal for Component signals
